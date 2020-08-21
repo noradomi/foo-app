@@ -7,6 +7,7 @@ actor "User B"
 note over "User A": User A was handshaked and subscribed
 "User A" -> "App Server": Send a message to user B
 "App Server" --> "User B": Send message to topic <user_id B> \nwhich user B was subscribed
-"App Server" -> "MySql Server": Store this message
+"App Server" -> "Redis Server": Save to most recent chat message cache for each user.
+"App Server" -> "MySql Server": Store this message to database
 
 @enduml
