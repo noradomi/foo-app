@@ -60,48 +60,7 @@
 
 ### 7. Add friends
 
-- Type 1:
-
-```plantuml
-@startuml
-    hide footbox
-  
-    actor "User A"
-    "User A" -> "App Server" : Sent a POST request (with JWT + username) \nto add new friend
-    activate "App Server"
-    "App Server" -> "Redis Server": Check JWT BlackList
-    actor "User B"
-    "App Server" -> "MySql Server": Validate JWT then store request add friend to MySql
-    "App Server" -> "User B": notify
-    activate "User B"
-    "User B" --> "App Server": accept
-    deactivate "User B"
-    "App Server" -> "MySql Server": store to MySql
-    "App Server" --> "User A": notify
-    deactivate "App Server"
-@enduml
-```
-
-- Type 2:
-
-```plantuml
-@startuml
-hide footbox
-
-hide footbox
-
-actor "User A"
-
-"User A" -> "App Server": Sent a POST request (with JWT + username) \nto add a friend
-"App Server" -> "Redis Server": Check JWT BlackList
-"App Server" -> "App Server": Validate JWT
-"App Server" -> "Redis Server": Check username exist
-"Redis Server" -> "App Server": True
-"App Server" -> "MySql Server": Store in friend list
-"App Server" -> "User A": Return result to user A
-
-@enduml
-```
+![addfriend](img/seq-digarams/addfriend.png)
 
 ### 8. Remove friends
 
@@ -117,11 +76,12 @@ actor "User A"
 
 ## Redis Cache Data Specifications
 
-| Key                 |              Value             |        Type | Description |
-|---------------------|--------------------------------|-------------|----|
-| foochat:user:{user_name}    | user_id,user_full_name, user_hashed_pwd | Hash        | Store info of user |
-|foochat:blackblist           |jwt1,jwt2, ...                  |Set          | Store list invalid/expired JWT token |
-|foochat:user_status:{user_id}|status                          |String       | Store status of a user |
-|foochat:{user_id}:friends    |user_id1, user_id2,..           |Set          | Store list friends of a user |
-|foochat:user:online    |user_id1, user_id2,..           |Set          | Store list online users |
-|foochat:{user_id}:{conversation_id}:recentchat | msg_id1,msg_id2,... | Set | Store 10 messages of a conversations of a user |
+| Key|Value|Type|Description|
+|-|-|--|-|
+|foochat:user:{user_id}:info| user_name,user_hashed_pwd,user_fullname |Hash|Store infomations of user |
+|foochat:user:{user_name}:hashedpwd| user_id,user_hashed_pwd |Hash|Store hashed password of user |
+|foochat:blackblist|jwt1,jwt2, ...|Set| Store list invalid/expired JWT token |
+|foochat:user:{user_id}:status|status|String| Store status of a user |
+|foochat:user:{user_id}:friends|user_id1, user_id2,..|Set| Store list friends of a user |
+|foochat:user:online|user_id1, user_id2,..|Set| Store list online users|
+|foochat:users:{user_id}:{conversation_id}:recentchats | msg_id1,msg_id2,...| Set | Store 10 messages of a conversations of a user |

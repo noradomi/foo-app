@@ -1,0 +1,12 @@
+@startuml viewlistusers
+    hide footbox
+
+    actor "User"
+
+    "User" -> "App Server": Sent a GET with JWT request to get friend list
+    "App Server" -> "Redis Server": Check JWT BlackList
+    "App Server" -> "MySql Server": Validate JWT then get friend list
+
+    "App Server" -> "User": Return result to User
+
+@enduml
