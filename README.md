@@ -18,6 +18,7 @@
     - [8. Remove friends](#8-remove-friends)
     - [9. Notification](#9-notification)
   - [Database Diagram](#database-diagram)
+  - [Redis Cache Data Specifications](#redis-cache-data-specifications)
 
 ## Overview
 
@@ -149,6 +150,8 @@
 
 ### 7. Add friends
 
+- Type 1:
+
 ```plantuml
 @startuml
     hide footbox
@@ -169,6 +172,27 @@
 @enduml
 ```
 
+- Type 2:
+
+```plantuml
+@startuml
+hide footbox
+
+hide footbox
+
+actor "User A"
+
+"User A" -> "App Server": Sent a POST request (with JWT + username) \nto add a friend
+"App Server" -> "Redis Server": Check JWT BlackList
+"App Server" -> "App Server": Validate JWT
+"App Server" -> "Redis Server": Check username exist
+"Redis Server" -> "App Server": True
+"App Server" -> "MySql Server": Store in friend list
+"App Server" -> "User A": Return result to user A
+
+@enduml
+```
+
 ### 8. Remove friends
 
 ```plantuml
@@ -180,7 +204,7 @@ hide footbox
 actor "User A"
 
 "User A" -> "App Server": Sent a POST request (with JWT + username) \nto remove a friend
-"App Server" -> "MySql Server": Check JWT BlackList
+"App Server" -> "Redis Server": Check JWT BlackList
 "App Server" -> "MySql Server": Validate JWT then remove in friend list
 "App Server" -> "User A": Return result to user A
 
@@ -203,3 +227,12 @@ actor "User A"
 ## Database Diagram
 
 ![db-diagram](img/db.png)
+
+## Redis Cache Data Specifications
+
+| Key                 |              Value             |        Type |
+|---------------------|--------------------------------|-------------|
+| user:{user_name}    | user_id,user_full_name, user_hashed_pwd | Hash        |
+|blackblist           |jwt1,jwt2, ...                  |Set          |
+|user_status:{user_id}|status                          |String       |
+|{user_id}:friends    |user_id1, user_id2,..           |Set          |
