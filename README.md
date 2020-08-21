@@ -157,14 +157,13 @@
     "User A" -> "App Server" : Sent a POST request (with JWT + username) \nto add new friend
     activate "App Server"
     "App Server" -> "Redis Server": Check JWT BlackList
-    "App Server" -> "MySql Server": Validate JWT then notify to User B
     actor "User B"
-
+    "App Server" -> "MySql Server": Validate JWT then store request add friend to MySql
     "App Server" -> "User B": notify
     activate "User B"
     "User B" --> "App Server": accept
     deactivate "User B"
-    "App Server" -> "MySql Server": store to database
+    "App Server" -> "MySql Server": store to MySql
     "App Server" --> "User A": notify
     deactivate "App Server"
 @enduml
