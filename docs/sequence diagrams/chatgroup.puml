@@ -1,0 +1,13 @@
+@startuml chatsingle
+hide footbox
+
+actor "User A"
+actor "Other Users"
+
+note over "User A": User A was handshaked and subscribed
+"User A" -> "App Server": Send a message\n to other users in group chat
+"App Server" --> "Other Users": Send message to topics \nwhich other users was subscribed base on <user_id>
+"App Server" -> "Redis Server": Save to most recent chat message\n cache for each user in group.
+"App Server" -> "MySql Server": Store this message to database
+
+@enduml
