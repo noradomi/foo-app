@@ -23,20 +23,19 @@ public final class ApiServer {
 
     private WebHandler webHandler;
 
-//    private JsonObject config;
+    private JsonObject config;
 
     private static final Logger LOGGER = LogManager.getLogger(ApiServer.class);
 
     private static ApiServer apiServer;
 
-//    private ApiServer(JsonObject config) {
-//        this.config = config;
-//    }
+    private ApiServer(JsonObject config) {
+        this.config = config;
+    }
 
-    public static ApiServer getInstance(){
+    public static ApiServer getInstance(JsonObject config){
         if(apiServer == null){
-//            apiServer = new ApiServer(config);
-            apiServer = new ApiServer();
+            apiServer = new ApiServer(config);
         }
         return apiServer;
     }
@@ -93,7 +92,7 @@ public final class ApiServer {
                     LOGGER.error(exHandler.getCause());
                 })
                 .listen(
-                        ConfigUtils.getConfig("server").getInteger("port",8080),"localhost",
+                        config.getInteger("port",8080),"localhost",
                         ar -> {
                             if(ar.succeeded()){
                                 LOGGER.info("API Server start successfully !");

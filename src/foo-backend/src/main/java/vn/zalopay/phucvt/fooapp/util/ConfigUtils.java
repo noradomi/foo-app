@@ -13,8 +13,7 @@ import org.apache.logging.log4j.Logger;
 public class ConfigUtils {
     private static final Logger LOGGER = LogManager.getLogger(ConfigUtils.class);
 
-    public static JsonObject getConfig(String field) {
-        Vertx vertx = Vertx.vertx();
+    public static ConfigRetriever load(Vertx vertx) {
         ConfigStoreOptions fileStoreOptions = new ConfigStoreOptions()
                 .setType("file")
                 .setOptional(true)
@@ -33,27 +32,7 @@ public class ConfigUtils {
 
         ConfigRetriever configRetriever = ConfigRetriever.create(vertx, retrieverOptions);
 
-        JsonObject jsonObject = Future.future(configRetriever::getConfig).result();
-        return jsonObject.getJsonObject(field);
+        return configRetriever;
     }
 
-//    public static JsonObject getConfig(Vertx vertx, String field) {
-//        final JsonObject[] res = new JsonObject[1];
-//        load(vertx).getConfig((jsonResult) -> {
-//            return (JsonObject) jsonResult.result();
-//        });
-//
-////        {
-////            if (jsonResult.succeeded()) {
-////                LOGGER.info("Load configuration successfully");
-////                res[0] = jsonResult.result();
-////            } else {
-////                LOGGER.info("Error when load configuration", jsonResult.cause());
-////                vertx.close();
-////                res[0] = null;
-////            }
-////        });
-////        return res[0].getJsonObject(field);
-////    }
-//    }
 }

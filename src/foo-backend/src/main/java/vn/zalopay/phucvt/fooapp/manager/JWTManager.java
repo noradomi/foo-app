@@ -16,13 +16,11 @@ public class JWTManager {
     private JWTAuth authProvider;
     private JWTOptions jwtOptions;
 
-    private final String RESOURCE_PATH = "src/main/resources/";
-
     public JWTManager(Vertx vertx){
         authProvider = JWTAuth.create(vertx,new JWTAuthOptions()
                 .setKeyStore(new KeyStoreOptions().setType("pkcs12")
                 .setPassword("secret")
-                .setPath(RESOURCE_PATH + "keystore.jceks"))
+                .setPath(FooApp.RESOURCE_PATH + "keystore.jceks"))
         );
 
         jwtOptions = new JWTOptions()
