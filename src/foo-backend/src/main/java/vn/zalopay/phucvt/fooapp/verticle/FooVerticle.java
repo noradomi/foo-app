@@ -12,16 +12,16 @@ public class FooVerticle extends AbstractVerticle {
 
     private ApiServer apiServer;
 
-    private JsonObject config;
+//    private JsonObject config;
 
-    public FooVerticle(JsonObject config) {
-        this.config = config;
-    }
+//    public FooVerticle(JsonObject config) {
+//        this.config = config;
+//    }
 
     @Override
     public void start() throws Exception {
         LOGGER.info("{} verticle {} start",deploymentID(),Thread.currentThread().getName());
-        this.apiServer = ApiServer.getInstance(config);
+        this.apiServer = ApiServer.getInstance();
 
         apiServer.createHttpServer(vertx);
     }

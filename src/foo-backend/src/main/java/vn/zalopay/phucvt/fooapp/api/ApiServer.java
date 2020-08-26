@@ -12,6 +12,7 @@ import io.vertx.ext.web.handler.CorsHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vn.zalopay.phucvt.fooapp.handler.WebHandler;
+import vn.zalopay.phucvt.fooapp.util.ConfigUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,19 +23,20 @@ public final class ApiServer {
 
     private WebHandler webHandler;
 
-    private JsonObject config;
+//    private JsonObject config;
 
     private static final Logger LOGGER = LogManager.getLogger(ApiServer.class);
 
     private static ApiServer apiServer;
 
-    private ApiServer(JsonObject config) {
-        this.config = config;
-    }
+//    private ApiServer(JsonObject config) {
+//        this.config = config;
+//    }
 
-    public static ApiServer getInstance(JsonObject config){
+    public static ApiServer getInstance(){
         if(apiServer == null){
-            apiServer = new ApiServer(config);
+//            apiServer = new ApiServer(config);
+            apiServer = new ApiServer();
         }
         return apiServer;
     }
@@ -91,7 +93,7 @@ public final class ApiServer {
                     LOGGER.error(exHandler.getCause());
                 })
                 .listen(
-                        config.getInteger("port",8080),"localhost",
+                        ConfigUtils.getConfig("server").getInteger("port",8080),"localhost",
                         ar -> {
                             if(ar.succeeded()){
                                 LOGGER.info("API Server start successfully !");
