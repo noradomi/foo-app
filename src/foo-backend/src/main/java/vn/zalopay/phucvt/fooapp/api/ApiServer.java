@@ -40,6 +40,9 @@ public final class ApiServer {
         return apiServer;
     }
 
+    public void setWebHandler(WebHandler webHandler) {
+        this.webHandler = webHandler;
+    }
 
     public Future<Void> createHttpServer(Vertx vertx) {
         if (httpServer != null) Future.succeededFuture();
@@ -71,17 +74,13 @@ public final class ApiServer {
         allowedMethods.add(HttpMethod.PUT);
         allowedMethods.add(HttpMethod.DELETE);
 
-        router.route("/*").handler(CorsHandler.create("http://localhost:3000")
-        .allowedHeaders(allowedHeaders)
-        .allowedMethods(allowedMethods)
-        .allowCredentials(true))
-                .handler(BodyHandler.create());
+//        router.route("/*").handler(CorsHandler.create("http://localhost:3000")
+//        .allowedHeaders(allowedHeaders)
+//        .allowedMethods(allowedMethods)
+//        .allowCredentials(true))
+//                .handler(BodyHandler.create());
 
-        router.post("/signin").handler( routingContext -> {
-            HttpServerResponse httpServerResponse = routingContext.response();
-            httpServerResponse.putHeader("content-ytpe", "text/html")
-                    .end("<h1> Log In Successfully !</h1>");
-        });
+        router.post("/signin").handler(webHandler::signIn);
 
         Future future = Future.future();
 
@@ -96,8 +95,10 @@ public final class ApiServer {
                         ar -> {
                             if(ar.succeeded()){
                                 LOGGER.info("API Server start successfully !");
+                                future.isComplete();
                             } else{
                                 LOGGER.error("Error when start API Server. Cause by {}",ar.cause().getMessage());
+                                future.fail(ar.cause());
                             }
                         }
                 );

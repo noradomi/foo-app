@@ -6,6 +6,7 @@ import io.vertx.core.shareddata.SharedData;
 import io.vertx.ext.auth.JWTOptions;
 import io.vertx.ext.auth.KeyStoreOptions;
 import io.vertx.ext.auth.KeyStoreOptionsConverter;
+import io.vertx.ext.auth.PubSecKeyOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import lombok.Data;
@@ -18,9 +19,10 @@ public class JWTManager {
 
     public JWTManager(Vertx vertx){
         authProvider = JWTAuth.create(vertx,new JWTAuthOptions()
-                .setKeyStore(new KeyStoreOptions().setType("pkcs12")
-                .setPassword("secret")
-                .setPath(FooApp.RESOURCE_PATH + "keystore.jceks"))
+                .addPubSecKey(new PubSecKeyOptions()
+                        .setAlgorithm("HS256")
+                        .setPublicKey("dragon")
+                        .setSymmetric(true))
         );
 
         jwtOptions = new JWTOptions()
@@ -34,6 +36,4 @@ public class JWTManager {
         JsonObject userObj = new JsonObject().put("userId",userId );
         return authProvider.generateToken(userObj,jwtOptions);
     }
-
-
 }

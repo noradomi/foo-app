@@ -5,6 +5,9 @@ import io.vertx.core.json.JsonObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vn.zalopay.phucvt.fooapp.api.ApiServer;
+import vn.zalopay.phucvt.fooapp.handler.WebHandler;
+import vn.zalopay.phucvt.fooapp.manager.JWTManager;
+import vn.zalopay.phucvt.fooapp.service.WebService;
 
 public class FooVerticle extends AbstractVerticle {
 
@@ -22,6 +25,17 @@ public class FooVerticle extends AbstractVerticle {
     public void start() throws Exception {
         LOGGER.info("{} verticle {} start",deploymentID(),Thread.currentThread().getName());
         this.apiServer = ApiServer.getInstance(config);
+
+//        Inject dependencies
+        JWTManager jwtManager = new JWTManager(vertx);
+
+        WebService webService = new WebService();
+        webService.setJwtManager(jwtManager);
+
+        WebHandler webHandler = new WebHandler();
+        webHandler.setWebService(webService);
+
+        apiServer.setWebHandler(webHandler);
 
         apiServer.createHttpServer(vertx);
     }
