@@ -6,6 +6,7 @@ import io.vertx.ext.web.RoutingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vn.zalopay.phucvt.fooapp.service.WebService;
+import vn.zalopay.phucvt.fooapp.util.HttpStatus;
 
 public class WebHandler {
     private static final Logger LOGGER = LogManager.getLogger(WebHandler.class);
@@ -18,7 +19,7 @@ public class WebHandler {
 
         signInFuture.complete(jsonObject -> {
             routingContext.response()
-                    .setStatusCode(HttpStatus.)
+                    .setStatusCode(HttpStatus. )
         });
     }
 }

@@ -16,7 +16,7 @@ public enum HttpStatus {
     public int code(){
         return code;
     }
-    
+
     public String message(){
         return message;
     }
