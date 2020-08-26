@@ -19,7 +19,7 @@ public class RedisVerticle extends AbstractVerticle {
 
     @Override
     public void start() throws Exception {
-        LOGGER.info("Connection to Redis ser");
+        LOGGER.info("Connection to Redis server");
         String host = config.getString("host","localhost");
 //        Integer port = config.getInteger("port",6379);
 
@@ -36,6 +36,9 @@ public class RedisVerticle extends AbstractVerticle {
                                 System.out.println(res.result());
                             }
                         });
+                    }
+                    else{
+                        LOGGER.error("Error when connect Redis server. Cause by {}",onConnect.cause().getMessage());
                     }
                 });
     }

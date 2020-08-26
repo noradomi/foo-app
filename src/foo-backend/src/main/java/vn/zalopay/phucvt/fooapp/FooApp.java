@@ -34,8 +34,8 @@ public class FooApp {
     }
 
     private static void injectConfig(Vertx vertx,JsonObject configuration){
-//        vertx.deployVerticle(new DatabaseVerticle(configuration.getJsonObject("mysql")));
-//        vertx.deployVerticle(new RedisVerticle(configuration.getJsonObject("redis")));
+        vertx.deployVerticle(new DatabaseVerticle(configuration.getJsonObject("mysql")));
+        vertx.deployVerticle(new RedisVerticle(configuration.getJsonObject("redis")));
         vertx.deployVerticle(new FooVerticle(configuration.getJsonObject("server")));
     }
 }

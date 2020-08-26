@@ -44,7 +44,7 @@ public class DatabaseVerticle extends AbstractVerticle {
 
         client.getConnection(ar -> {
             if (ar.succeeded()) {
-                System.out.println("Connected");
+                LOGGER.info("Connect to MySql server successfully");
                 SqlConnection conn = ar.result();
                 conn
                         .query("SHOW DATABASES;")
