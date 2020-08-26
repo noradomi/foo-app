@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vn.zalopay.phucvt.fooapp.util.ConfigLoader;
 import vn.zalopay.phucvt.fooapp.verticle.DatabaseVerticle;
+import vn.zalopay.phucvt.fooapp.verticle.FooVerticle;
 import vn.zalopay.phucvt.fooapp.verticle.RedisVerticle;
 
 public class FooApp {
@@ -34,6 +35,7 @@ public class FooApp {
 
     private static void injectConfig(Vertx vertx,JsonObject configuration){
 //        vertx.deployVerticle(new DatabaseVerticle(configuration.getJsonObject("mysql")));
-        vertx.deployVerticle(new RedisVerticle(configuration.getJsonObject("redis")));
+//        vertx.deployVerticle(new RedisVerticle(configuration.getJsonObject("redis")));
+        vertx.deployVerticle(new FooVerticle(configuration.getJsonObject("server")));
     }
 }
