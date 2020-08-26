@@ -1,0 +1,12 @@
+mysql:
+  host: localhost
+  port: 3306
+  username: root
+  password: "1234"
+  database: fooapp
+  poolSize: 15
+redis:
+  host: localhost
+  port: 6379
+server:
+  port: 8080
