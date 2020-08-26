@@ -1,0 +1,19 @@
+@startuml viewlistusers
+    hide footbox
+
+    actor "User"
+
+    "User" -> "App Server": Sent a GET with JWT request to get friend list
+    "App Server" -> "Redis Server": Check JWT BlackList
+    "App Server" -> "Redis Server": Validate JWT then get friend list in cache
+    alt exist cache case
+    "Redis Server" -> "App Server": return friend list.
+    else cache miss case 
+    "Redis Server" --> "App Server": cache miss
+    "App Server" -> "MySql Server": load friend list from database
+    "MySql Server" --> "App Server": return friend list
+    "App Server" -> "Redis Server": store into cache (n most recent chat friend)
+    end
+    "App Server" -> "User": Return result to User
+
+@enduml

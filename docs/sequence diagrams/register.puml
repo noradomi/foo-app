@@ -1,0 +1,14 @@
+@startuml register
+    hide footbox
+
+    actor "User"
+
+    "User" -> "App Server": Send info to register
+    activate "App Server"
+    "App Server" -> "MySql Server": Store user with hashed password
+    "App Server" -> "Redis Server": Store user name and hashed password
+    "App Server" -> "App Server": Logging result
+    "App Server" --> "User": Return result to user
+    deactivate "App Server"
+
+@enduml
