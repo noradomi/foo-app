@@ -33,11 +33,16 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    HandlerFactory provideHandler(EchoHandler echoHandler, ExampleHandler exampleHandler, LoginHandler loginHandler) {
+    HandlerFactory provideHandler(
+            EchoHandler echoHandler,
+            ExampleHandler exampleHandler, 
+            LoginHandler loginHandler,
+            SignUpHandler signUpHandler) {
         return HandlerFactory.builder()
                 .echoHandler(echoHandler)
                 .exampleHandler(exampleHandler)
                 .loginHandler(loginHandler)
+                .signUpHandler(signUpHandler)
                 .build();
     }
 
@@ -81,6 +86,13 @@ public class ServiceModule {
     ExampleHandler provideExampleHandler(
             UserDA userDA, TransactionProvider transactionProvider, UserCache userCache) {
         return new ExampleHandler(userDA, userCache, transactionProvider);
+    }
+
+    @Provides
+    @Singleton
+    SignUpHandler provideSignUpHandler(
+            UserDA userDA, TransactionProvider transactionProvider, UserCache userCache) {
+        return new SignUpHandler(userCache,userDA, transactionProvider);
     }
 
     @Provides

@@ -11,6 +11,7 @@ public class HandlerFactory {
     private BaseHandler echoHandler;
     private BaseHandler exampleHandler;
     private BaseHandler loginHandler;
+    private BaseHandler signUpHandler;
 
     public void initialize(Router router) {
         ImmutableMap<String, BaseHandler> postHandler =
@@ -18,6 +19,7 @@ public class HandlerFactory {
                         .put(APIPath.ECHO, echoHandler)
                         .put(APIPath.EXAMPLE, exampleHandler)
                         .put(APIPath.LOGIN, loginHandler)
+                        .put(APIPath.SIGNUP, signUpHandler)
                         .build();
 
         postHandler
