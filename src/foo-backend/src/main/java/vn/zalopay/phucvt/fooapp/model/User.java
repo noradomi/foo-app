@@ -3,6 +3,8 @@ package vn.zalopay.phucvt.fooapp.model;
 import vn.zalopay.phucvt.fooapp.common.mapper.DBTable;
 import lombok.*;
 
+import java.util.UUID;
+
 @Builder
 @Setter
 @Getter
@@ -10,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 public class User {
     @DBTable(columnName = "user_id")
-    String userId;
+    UUID userId;
 
     @DBTable(columnName = "username")
     String username;
