@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class User {
     @DBTable(columnName = "user_id")
-    UUID userId;
+    String userId;
 
     @DBTable(columnName = "username")
     String username;

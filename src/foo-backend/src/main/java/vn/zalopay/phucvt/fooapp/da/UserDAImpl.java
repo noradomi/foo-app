@@ -1,11 +1,11 @@
 package vn.zalopay.phucvt.fooapp.da;
 
-import vn.zalopay.phucvt.fooapp.common.mapper.EntityMapper;
-import vn.zalopay.phucvt.fooapp.model.User;
-import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import io.vertx.core.Future;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vn.zalopay.phucvt.fooapp.common.mapper.EntityMapper;
+import vn.zalopay.phucvt.fooapp.model.User;
+import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -33,13 +33,13 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             Future<Void> future = Future.future();
             asyncHandler.run(
                     () -> {
-                        Object[] params = {2, user.getUsername(),"1234","whoami"};
+                        Object[] params = {user.getUserId(), user.getUsername(), user.getPassword(), user.getFullname()};
                         try {
                             executeWithParams(
                                     future, connection.unwrap(), INSERT_USER_STATEMENT, params, "insertUser");
                             LOGGER.info("insert user done");
                         } catch (SQLException e) {
-                            LOGGER.info("insert user fail caused by {}",e.getMessage());
+                            LOGGER.info("insert user fail caused by {}", e.getMessage());
                             future.fail(e);
                         }
                     });

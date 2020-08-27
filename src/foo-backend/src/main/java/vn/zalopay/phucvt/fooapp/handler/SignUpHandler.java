@@ -14,6 +14,7 @@ import vn.zalopay.phucvt.fooapp.entity.response.ExceptionResponse;
 import vn.zalopay.phucvt.fooapp.entity.response.SuccessResponse;
 import vn.zalopay.phucvt.fooapp.model.User;
 import vn.zalopay.phucvt.fooapp.utils.ErrorCode;
+import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
@@ -81,9 +82,13 @@ public class SignUpHandler extends BaseHandler {
             } else {
                 Tracker.TrackerBuilder tracker =
                         Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
-                Future<User> insertUserFuture = Future.future();
-                Transaction transaction = transactionProvider.newTransaction();
 
+//                Set unique Id for user from post data using UUID
+                user.setUserId(GenerationUtils.generateId());
+
+                Future<User> insertUserFuture = Future.future();
+
+                Transaction transaction = transactionProvider.newTransaction();
 
                 transaction
                         .begin()
@@ -106,7 +111,7 @@ public class SignUpHandler extends BaseHandler {
                         .build();
                 future.complete(successResponse);
             }
-        },Future.future().setHandler(handler -> {
+        }, Future.future().setHandler(handler -> {
             log.info("Sign up failed");
             future.fail(handler.cause());
         }));
