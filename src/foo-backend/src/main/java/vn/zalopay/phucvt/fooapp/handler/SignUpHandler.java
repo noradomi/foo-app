@@ -39,6 +39,8 @@ public class SignUpHandler extends BaseHandler {
 
         final User user = JsonProtoUtils.parseGson(baseRequest.getPostData(), User.class);
 
+        log.info("get user post data {}",user.getFullname());
+
 //        Validates post data
         if (StringUtils.isBlank(user.getUsername())) {
             ExceptionResponse response = ExceptionResponse
@@ -48,6 +50,7 @@ public class SignUpHandler extends BaseHandler {
                     .message("User name cannot be empty")
                     .build();
             future.complete(response);
+            return future;
         }
         if (StringUtils.isBlank(user.getPassword())) {
             ExceptionResponse response = ExceptionResponse
@@ -57,6 +60,7 @@ public class SignUpHandler extends BaseHandler {
                     .message("Password cannot be empty")
                     .build();
             future.complete(response);
+            return future;
         }
         if (StringUtils.isBlank(user.getFullname())) {
             ExceptionResponse response = ExceptionResponse
@@ -66,11 +70,16 @@ public class SignUpHandler extends BaseHandler {
                     .message("Full name cannot be empty")
                     .build();
             future.complete(response);
+            return future;
         }
+
+        log.info("Input data correct");
 
         Future<User> getUserAuth = userDA.selectUserByUserName(user.getUsername());
 
+        log.info("Start insert user");
         getUserAuth.compose(existedUserAuth -> {
+//            log.info("Block insert user");
             if (existedUserAuth != null) {
                 ExceptionResponse exceptionResponse = ExceptionResponse
                         .builder()
@@ -80,6 +89,7 @@ public class SignUpHandler extends BaseHandler {
                         .build();
                 future.complete(exceptionResponse);
             } else {
+                log.info("Block insert user");
                 Tracker.TrackerBuilder tracker =
                         Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
 
@@ -93,23 +103,34 @@ public class SignUpHandler extends BaseHandler {
                 transaction
                         .begin()
                         .compose(next -> transaction.execute(userDA.insert(user)))
-                        .compose(userCache::set)
                         .setHandler(
                                 rs -> {
                                     if (rs.succeeded()) {
                                         insertUserFuture.complete(rs.result());
+                                        log.info("insert success with {}",rs.result().getFullname());
                                     } else {
                                         insertUserFuture.complete(null);
+                                        log.info("insert failed with null");
                                     }
+                                    transaction.commit();
+                                    log.info("transaction commit");
                                     transaction.close();
                                     tracker.step("handle").code("SUCCESS").build().record();
                                 });
-                SuccessResponse successResponse = SuccessResponse
-                        .builder()
-                        .status(HttpResponseStatus.OK.code())
-                        .data(insertUserFuture.result())
-                        .build();
-                future.complete(successResponse);
+
+//                userDA.insert(user);
+//                log.info("result: {}",insertUserFuture.result().getFullname());
+                insertUserFuture.compose(u ->{
+                    SuccessResponse successResponse = SuccessResponse
+                            .builder()
+                            .status(HttpResponseStatus.OK.code())
+                            .data(u)
+                            .build();
+                    future.complete(successResponse);
+                },Future.future().setHandler(handler -> {
+                    future.fail(handler.cause());
+                }));
+
             }
         }, Future.future().setHandler(handler -> {
             log.info("Sign up failed");

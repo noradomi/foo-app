@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  database:
+    image: "mysql:8.0.21"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      -  database.sql:/docker-entrypoint-initdb.d/data.sql:ro
+  cache:
+    image: "redis"
+    ports:
+      - "6379:6379"

@@ -35,7 +35,7 @@ public class ServiceModule {
     @Singleton
     HandlerFactory provideHandler(
             EchoHandler echoHandler,
-            ExampleHandler exampleHandler, 
+            ExampleHandler exampleHandler,
             LoginHandler loginHandler,
             SignUpHandler signUpHandler) {
         return HandlerFactory.builder()

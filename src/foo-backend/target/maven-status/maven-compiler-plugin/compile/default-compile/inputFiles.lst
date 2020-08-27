@@ -9,6 +9,8 @@
 /home/phucvt/learning/foo-app/src/foo-backend/src/main/java/vn/zalopay/phucvt/fooapp/common/mapper/DBTable.java
 /home/phucvt/learning/foo-app/src/foo-backend/src/main/java/vn/zalopay/phucvt/fooapp/da/Transaction.java
 /home/phucvt/learning/foo-app/src/foo-backend/src/main/java/vn/zalopay/phucvt/fooapp/da/BaseTransactionDA.java
+/home/phucvt/learning/foo-app/src/foo-backend/src/main/java/vn/zalopay/phucvt/fooapp/utils/GenerationUtils.java
+/home/phucvt/learning/foo-app/src/foo-backend/src/main/java/vn/zalopay/phucvt/fooapp/handler/SignUpHandler.java
 /home/phucvt/learning/foo-app/src/foo-backend/src/main/java/vn/zalopay/phucvt/fooapp/da/UserDAImpl.java
 /home/phucvt/learning/foo-app/src/foo-backend/src/main/java/vn/zalopay/phucvt/fooapp/cache/CacheKey.java
 /home/phucvt/learning/foo-app/src/foo-backend/src/main/java/vn/zalopay/phucvt/fooapp/server/RouterFactory.java

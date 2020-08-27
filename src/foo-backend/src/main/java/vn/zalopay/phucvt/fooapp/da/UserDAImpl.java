@@ -33,6 +33,9 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             Future<Void> future = Future.future();
             asyncHandler.run(
                     () -> {
+                        if(user.getUserId() == null){
+                            LOGGER.info("Id user null");
+                        }
                         Object[] params = {user.getUserId(), user.getUsername(), user.getPassword(), user.getFullname()};
                         try {
                             executeWithParams(
