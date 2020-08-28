@@ -38,11 +38,11 @@ public class UserCacheImpl implements UserCache {
         asyncHandler.run(
                 () -> {
                     try {
-                        RMap<Object, Object> userMap =
+                        RMap<String, String> userMap =
                                 redisCache.getRedissonClient().getMap(CacheKey.getUserKey(userId));
                         User user = User.builder()
-                                .username(userMap.get("username").toString())
-                                .fullname(userMap.get("fullname").toString())
+                                .username(userMap.get("username"))
+                                .fullname(userMap.get("fullname"))
                                 .build();
                         log.info("get user with name: {}",user.getFullname());
                         future.complete(user);

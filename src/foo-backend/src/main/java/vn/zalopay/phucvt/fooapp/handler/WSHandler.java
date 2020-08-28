@@ -11,37 +11,37 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class WSHandler {
-  private Map<String, ServerWebSocket> clients = new ConcurrentHashMap<>();
+    private Map<String, ServerWebSocket> clients = new ConcurrentHashMap<>();
 
-  public void addClient(ServerWebSocket webSocket) {
-    String username = getUsername(webSocket.headers());
-    clients.put(username, webSocket);
-  }
-
-  private String getUsername(MultiMap headers) {
-    return headers.get("username");
-  }
-
-  public void removeClient(ServerWebSocket webSocket) {
-    String username = getUsername(webSocket.headers());
-    clients.remove(username);
-  }
-
-  public void handle(Buffer buffer) {
-    JsonObject json = new JsonObject(buffer.toString());
-    String type = json.getString("type");
-    switch (type) {
-      case "SEND":
-        handleSendMessage(buffer);
-      case "FETCH":
-      default:
+    public void addClient(ServerWebSocket webSocket) {
+        String username = getUsername(webSocket.headers());
+        clients.put(username, webSocket);
     }
-  }
 
-  private void handleSendMessage(Buffer buffer) {
-    MessageRequest messageRequest =
-        JsonProtoUtils.parseGson(buffer.toString(), MessageRequest.class);
-    ServerWebSocket serverWebSocket = clients.get(messageRequest.getReceiver());
-    serverWebSocket.write(buffer);
-  }
+    private String getUsername(MultiMap headers) {
+        return headers.get("username");
+    }
+
+    public void removeClient(ServerWebSocket webSocket) {
+        String username = getUsername(webSocket.headers());
+        clients.remove(username);
+    }
+
+    public void handle(Buffer buffer) {
+        JsonObject json = new JsonObject(buffer.toString());
+        String type = json.getString("type");
+        switch (type) {
+            case "SEND":
+                handleSendMessage(buffer);
+            case "FETCH":
+            default:
+        }
+    }
+
+    private void handleSendMessage(Buffer buffer) {
+        MessageRequest messageRequest =
+                JsonProtoUtils.parseGson(buffer.toString(), MessageRequest.class);
+        ServerWebSocket serverWebSocket = clients.get(messageRequest.getReceiver());
+        serverWebSocket.write(buffer);
+    }
 }

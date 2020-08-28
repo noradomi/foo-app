@@ -29,6 +29,7 @@ public abstract class BaseHandler {
             .requestPath(requestPath)
             .postData(rc.getBodyAsString())
             .params(request.params())
+            .headers(request.headers())
             .build();
 
     handle(baseRequest)

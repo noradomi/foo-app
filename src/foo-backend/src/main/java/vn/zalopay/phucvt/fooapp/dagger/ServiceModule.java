@@ -1,8 +1,6 @@
 package vn.zalopay.phucvt.fooapp.dagger;
 
-import vn.zalopay.phucvt.fooapp.cache.RedisCache;
-import vn.zalopay.phucvt.fooapp.cache.UserCache;
-import vn.zalopay.phucvt.fooapp.cache.UserCacheImpl;
+import vn.zalopay.phucvt.fooapp.cache.*;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.handler.*;
@@ -72,6 +70,12 @@ public class ServiceModule {
 
     @Provides
     @Singleton
+    BlackListCache provideBlackListCache(RedisCache redisCache, AsyncHandler asyncHandler) {
+        return BlackListCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
+    }
+
+    @Provides
+    @Singleton
     EchoHandler provideEchoHandler() {
         return new EchoHandler();
     }
@@ -107,8 +111,8 @@ public class ServiceModule {
     @Provides
     @Singleton
     SignOutHandler provideSignOutHanler(
-            UserCache userCache) {
-        return new SignOutHandler(userCache);
+            BlackListCache blackListCache) {
+        return new SignOutHandler(blackListCache);
     }
 
     @Singleton

@@ -3,7 +3,7 @@
 
     <Appenders>
         <Console name="CONSOLE" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d	%-5level	%logger %L	%msg%n"/>
+            <PatternLayout pattern="%d	%-5level [%t]	%logger %L	%msg%n"/>
         </Console>
 
         <!-- Generate rolling log for router with per hour interval policy -->
