@@ -29,6 +29,7 @@ public abstract class BaseHandler {
             .requestPath(requestPath)
             .postData(rc.getBodyAsString())
             .params(request.params())
+            .headers(request.headers())
             .build();
 
     handle(baseRequest)
@@ -36,7 +37,7 @@ public abstract class BaseHandler {
             rs -> {
               if (rs.succeeded()) {
                 response
-                    .setStatusCode(HttpResponseStatus.OK.code())
+                    .setStatusCode(rs.result().getStatus())
                     .putHeader("content-type", "application/json; charset=utf-8")
                     .end(JsonProtoUtils.printGson(rs.result()));
               } else {

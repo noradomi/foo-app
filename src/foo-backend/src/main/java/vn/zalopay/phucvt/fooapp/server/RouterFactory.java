@@ -24,10 +24,6 @@ public class RouterFactory {
 
         router.route().handler(BodyHandler.create());
         router.route("/api/protected/*").handler(JWTAuthHandler.create(authProvider));
-//        router.route("/login").handler(LoginHandler.builder().authProvider(authProvider).build()::handle);
-
-////    Feature 1: Sign in
-//        router.post(APIPath.LOGIN).handler(router)
 
         handlerFactory.initialize(router);
         return router;

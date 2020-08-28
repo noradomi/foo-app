@@ -1,8 +1,6 @@
 package vn.zalopay.phucvt.fooapp.dagger;
 
-import vn.zalopay.phucvt.fooapp.cache.RedisCache;
-import vn.zalopay.phucvt.fooapp.cache.UserCache;
-import vn.zalopay.phucvt.fooapp.cache.UserCacheImpl;
+import vn.zalopay.phucvt.fooapp.cache.*;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.handler.*;
@@ -33,11 +31,18 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    HandlerFactory provideHandler(EchoHandler echoHandler, ExampleHandler exampleHandler, LoginHandler loginHandler) {
+    HandlerFactory provideHandler(
+            EchoHandler echoHandler,
+            ExampleHandler exampleHandler,
+            LoginHandler loginHandler,
+            SignUpHandler signUpHandler,
+            SignOutHandler signOutHandler) {
         return HandlerFactory.builder()
                 .echoHandler(echoHandler)
                 .exampleHandler(exampleHandler)
                 .loginHandler(loginHandler)
+                .signUpHandler(signUpHandler)
+                .signOutHandler(signOutHandler)
                 .build();
     }
 
@@ -65,6 +70,12 @@ public class ServiceModule {
 
     @Provides
     @Singleton
+    BlackListCache provideBlackListCache(RedisCache redisCache, AsyncHandler asyncHandler) {
+        return BlackListCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
+    }
+
+    @Provides
+    @Singleton
     EchoHandler provideEchoHandler() {
         return new EchoHandler();
     }
@@ -85,9 +96,23 @@ public class ServiceModule {
 
     @Provides
     @Singleton
+    SignUpHandler provideSignUpHandler(
+            UserDA userDA, TransactionProvider transactionProvider, UserCache userCache) {
+        return new SignUpHandler(userCache,userDA, transactionProvider);
+    }
+
+    @Provides
+    @Singleton
     LoginHandler provideLoginHandler(
             UserDA userDA,UserCache userCache,JWTAuth authProvider ) {
         return new LoginHandler(userDA, userCache, authProvider);
+    }
+
+    @Provides
+    @Singleton
+    SignOutHandler provideSignOutHanler(
+            BlackListCache blackListCache) {
+        return new SignOutHandler(blackListCache);
     }
 
     @Singleton

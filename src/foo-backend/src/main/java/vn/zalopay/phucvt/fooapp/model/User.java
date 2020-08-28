@@ -3,6 +3,8 @@ package vn.zalopay.phucvt.fooapp.model;
 import vn.zalopay.phucvt.fooapp.common.mapper.DBTable;
 import lombok.*;
 
+import java.util.UUID;
+
 @Builder
 @Setter
 @Getter

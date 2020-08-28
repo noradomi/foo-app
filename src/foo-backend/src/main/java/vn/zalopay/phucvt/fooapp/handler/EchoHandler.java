@@ -21,6 +21,6 @@ public class EchoHandler extends BaseHandler {
         } catch (Exception e) {
             status = Status.INVALID_ARGUMENT;
         }
-        return Future.succeededFuture(response.status(status.ordinal()).build());
+        return Future.succeededFuture();
     }
 }

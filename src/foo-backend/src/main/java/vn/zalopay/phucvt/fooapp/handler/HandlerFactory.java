@@ -8,26 +8,30 @@ import lombok.Builder;
 
 @Builder
 public class HandlerFactory {
-    private BaseHandler echoHandler;
-    private BaseHandler exampleHandler;
-    private BaseHandler loginHandler;
+  private BaseHandler echoHandler;
+  private BaseHandler exampleHandler;
+  private BaseHandler loginHandler;
+  private BaseHandler signUpHandler;
+  private BaseHandler signOutHandler;
 
-    public void initialize(Router router) {
-        ImmutableMap<String, BaseHandler> postHandler =
-                ImmutableMap.<String, BaseHandler>builder()
-                        .put(APIPath.ECHO, echoHandler)
-                        .put(APIPath.EXAMPLE, exampleHandler)
-                        .put(APIPath.LOGIN, loginHandler)
-                        .build();
+  public void initialize(Router router) {
+    ImmutableMap<String, BaseHandler> postHandler =
+        ImmutableMap.<String, BaseHandler>builder()
+            .put(APIPath.ECHO, echoHandler)
+            .put(APIPath.EXAMPLE, exampleHandler)
+            .put(APIPath.LOGIN, loginHandler)
+            .put(APIPath.SIGNUP, signUpHandler)
+            .put(APIPath.SIGNOUT, signOutHandler)
+            .build();
 
-        postHandler
-                .entrySet()
-                .forEach(
-                        entry ->
-                                router
-                                        .route()
-                                        .method(HttpMethod.POST)
-                                        .path(entry.getKey())
-                                        .handler(entry.getValue()::handle));
-    }
+    postHandler
+        .entrySet()
+        .forEach(
+            entry ->
+                router
+                    .route()
+                    .method(HttpMethod.POST)
+                    .path(entry.getKey())
+                    .handler(entry.getValue()::handle));
+  }
 }
