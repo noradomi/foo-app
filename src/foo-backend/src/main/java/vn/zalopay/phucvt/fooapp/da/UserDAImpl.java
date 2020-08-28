@@ -92,6 +92,26 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
         return future;
     }
 
+    @Override
+    public Future<User> insertUser(User user) {
+        LOGGER.info("insert a user");
+        Future<User> future = Future.future();
+//        asyncHandler.run(
+//                () -> {
+//                    Object[] params = {user.getUserId(), user.getUsername(), user.getPassword(), user.getFullname()};
+//                    try {
+//                        executeWithParams(
+//                                future, connection.unwrap(), INSERT_USER_STATEMENT, params, "insertUser");
+//                        LOGGER.info("insert user done");
+//                    } catch (SQLException e) {
+//                        LOGGER.info("insert user fail caused by {}", e.getMessage());
+//                        future.fail(e);
+//                    }
+//                });
+//        LOGGER.info("end insert");
+        return future;
+    }
+
     private User mapRs2EntityUser(ResultSet resultSet) throws Exception {
         User user = null;
 

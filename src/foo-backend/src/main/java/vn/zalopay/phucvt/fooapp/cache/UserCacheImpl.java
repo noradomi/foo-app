@@ -20,6 +20,7 @@ public class UserCacheImpl implements UserCache {
             RMap<Object, Object> userMap =
                 redisCache.getRedissonClient().getMap(CacheKey.getUserKey(user.getUserId()));
             userMap.put("username", user.getUsername());
+            userMap.put("fullname", user.getFullname());
             future.complete(user);
           } catch (Exception e) {
             future.fail(e);

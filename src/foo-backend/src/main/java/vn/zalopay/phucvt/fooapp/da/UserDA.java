@@ -10,5 +10,5 @@ public interface UserDA {
 
   Future<User> selectUserByUserName(String username);
 
-
+  Future<User> insertUser(User user);
 }

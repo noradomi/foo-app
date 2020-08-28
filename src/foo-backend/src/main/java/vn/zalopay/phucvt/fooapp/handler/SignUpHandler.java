@@ -4,6 +4,7 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Future;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.mindrot.jbcrypt.BCrypt;
 import vn.zalopay.phucvt.fooapp.cache.UserCache;
 import vn.zalopay.phucvt.fooapp.da.Transaction;
 import vn.zalopay.phucvt.fooapp.da.TransactionProvider;
@@ -96,6 +97,11 @@ public class SignUpHandler extends BaseHandler {
 //                Set unique Id for user from post data using UUID
                 user.setUserId(GenerationUtils.generateId());
 
+//                Set hashed password
+                String hashedPassword = BCrypt.hashpw(user.getPassword(),BCrypt.gensalt(5));
+                log.info("hashed password: {}",hashedPassword);
+                user.setPassword(hashedPassword);
+
                 Future<User> insertUserFuture = Future.future();
 
                 Transaction transaction = transactionProvider.newTransaction();
@@ -103,6 +109,7 @@ public class SignUpHandler extends BaseHandler {
                 transaction
                         .begin()
                         .compose(next -> transaction.execute(userDA.insert(user)))
+                        .compose(userCache::set)
                         .setHandler(
                                 rs -> {
                                     if (rs.succeeded()) {
@@ -117,9 +124,6 @@ public class SignUpHandler extends BaseHandler {
                                     transaction.close();
                                     tracker.step("handle").code("SUCCESS").build().record();
                                 });
-
-//                userDA.insert(user);
-//                log.info("result: {}",insertUserFuture.result().getFullname());
                 insertUserFuture.compose(u ->{
                     SuccessResponse successResponse = SuccessResponse
                             .builder()
