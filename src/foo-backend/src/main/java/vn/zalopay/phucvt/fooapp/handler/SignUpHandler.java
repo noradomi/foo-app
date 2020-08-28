@@ -46,30 +46,30 @@ public class SignUpHandler extends BaseHandler {
         if (StringUtils.isBlank(user.getUsername())) {
             ExceptionResponse response = ExceptionResponse
                     .builder()
-                    .status(HttpResponseStatus.BAD_REQUEST.code())
                     .code(ErrorCode.REGISTER_USERNAME_EMPTY.code())
                     .message("User name cannot be empty")
                     .build();
+            response.setStatus(HttpResponseStatus.BAD_REQUEST.code());
             future.complete(response);
             return future;
         }
         if (StringUtils.isBlank(user.getPassword())) {
             ExceptionResponse response = ExceptionResponse
                     .builder()
-                    .status(HttpResponseStatus.BAD_REQUEST.code())
                     .code(ErrorCode.REGISTER_PASSWORD_EMPTY.code())
                     .message("Password cannot be empty")
                     .build();
+            response.setStatus(HttpResponseStatus.BAD_REQUEST.code());
             future.complete(response);
             return future;
         }
         if (StringUtils.isBlank(user.getFullname())) {
             ExceptionResponse response = ExceptionResponse
                     .builder()
-                    .status(HttpResponseStatus.BAD_REQUEST.code())
                     .code(ErrorCode.REGISTER_FULLNAME_EMPTY.code())
                     .message("Full name cannot be empty")
                     .build();
+            response.setStatus(HttpResponseStatus.BAD_REQUEST.code());
             future.complete(response);
             return future;
         }
@@ -84,15 +84,15 @@ public class SignUpHandler extends BaseHandler {
             if (existedUserAuth != null) {
                 ExceptionResponse exceptionResponse = ExceptionResponse
                         .builder()
-                        .status(HttpResponseStatus.BAD_REQUEST.code())
                         .code(ErrorCode.REGISTER_USERNAME_UNIQUED.code())
                         .message("User name existed")
                         .build();
+                exceptionResponse.setStatus(HttpResponseStatus.BAD_REQUEST.code());
                 future.complete(exceptionResponse);
             } else {
                 log.info("Block insert user");
-                Tracker.TrackerBuilder tracker =
-                        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
+//                Tracker.TrackerBuilder tracker =
+//                        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
 
 //                Set unique Id for user from post data using UUID
                 user.setUserId(GenerationUtils.generateId());
@@ -122,14 +122,14 @@ public class SignUpHandler extends BaseHandler {
                                     transaction.commit();
                                     log.info("transaction commit");
                                     transaction.close();
-                                    tracker.step("handle").code("SUCCESS").build().record();
+//                                    tracker.step("handle").code("SUCCESS").build().record();
                                 });
                 insertUserFuture.compose(u ->{
                     SuccessResponse successResponse = SuccessResponse
                             .builder()
-                            .status(HttpResponseStatus.OK.code())
                             .data(u)
                             .build();
+                    successResponse.setStatus(HttpResponseStatus.OK.code());
                     future.complete(successResponse);
                 },Future.future().setHandler(handler -> {
                     future.fail(handler.cause());

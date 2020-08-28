@@ -61,19 +61,19 @@ public class LoginHandler extends BaseHandler {
 
                 SuccessResponse successResponse = SuccessResponse
                         .builder()
-                        .status(HttpResponseStatus.OK.code())
                         .data(jwtResponse)
                         .build();
 
+                successResponse.setStatus(HttpResponseStatus.OK.code());
                 future.complete(successResponse);
 
             } else {
                 ExceptionResponse exceptionResponse = ExceptionResponse
                         .builder()
-                        .status(HttpResponseStatus.UNAUTHORIZED.code())
                         .code(ErrorCode.AUTHORIZED_FAILED.code())
                         .message("Invalid Username or Password")
                         .build();
+                exceptionResponse.setStatus(HttpResponseStatus.UNAUTHORIZED.code());
                 future.complete(exceptionResponse);
             }
         }, Future.future().setHandler(handler -> {

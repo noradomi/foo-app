@@ -36,7 +36,7 @@ public abstract class BaseHandler {
             rs -> {
               if (rs.succeeded()) {
                 response
-                    .setStatusCode(HttpResponseStatus.OK.code())
+                    .setStatusCode(rs.result().getStatus())
                     .putHeader("content-type", "application/json; charset=utf-8")
                     .end(JsonProtoUtils.printGson(rs.result()));
               } else {
