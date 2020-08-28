@@ -37,12 +37,14 @@ public class ServiceModule {
             EchoHandler echoHandler,
             ExampleHandler exampleHandler,
             LoginHandler loginHandler,
-            SignUpHandler signUpHandler) {
+            SignUpHandler signUpHandler,
+            SignOutHandler signOutHandler) {
         return HandlerFactory.builder()
                 .echoHandler(echoHandler)
                 .exampleHandler(exampleHandler)
                 .loginHandler(loginHandler)
                 .signUpHandler(signUpHandler)
+                .signOutHandler(signOutHandler)
                 .build();
     }
 
@@ -100,6 +102,13 @@ public class ServiceModule {
     LoginHandler provideLoginHandler(
             UserDA userDA,UserCache userCache,JWTAuth authProvider ) {
         return new LoginHandler(userDA, userCache, authProvider);
+    }
+
+    @Provides
+    @Singleton
+    SignOutHandler provideSignOutHanler(
+            UserCache userCache) {
+        return new SignOutHandler(userCache);
     }
 
     @Singleton

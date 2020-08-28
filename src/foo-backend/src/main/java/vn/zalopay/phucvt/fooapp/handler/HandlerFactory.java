@@ -12,6 +12,7 @@ public class HandlerFactory {
     private BaseHandler exampleHandler;
     private BaseHandler loginHandler;
     private BaseHandler signUpHandler;
+    private BaseHandler signOutHandler;
 
     public void initialize(Router router) {
         ImmutableMap<String, BaseHandler> postHandler =

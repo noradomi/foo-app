@@ -5,4 +5,6 @@ import io.vertx.core.Future;
 
 public interface UserCache {
   Future<User> set(User user);
+
+  Future<User> get (String userId);
 }
