@@ -7,6 +7,6 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UserListRespone {
+public class UserListResponse {
     List<UserListItem> items;
 }

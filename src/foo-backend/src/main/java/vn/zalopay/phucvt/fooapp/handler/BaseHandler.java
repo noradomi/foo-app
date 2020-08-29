@@ -1,5 +1,6 @@
 package vn.zalopay.phucvt.fooapp.handler;
 
+import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.entity.request.BaseRequest;
 import vn.zalopay.phucvt.fooapp.entity.response.BaseResponse;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
@@ -50,4 +51,13 @@ public abstract class BaseHandler {
   }
 
   public abstract Future<BaseResponse> handle(BaseRequest baseRequest);
+
+  public void handleException(Throwable throwable,HttpServerResponse response){
+      if()
+      if(throwable instanceof Exception){
+          Exception e = (Exception) throwable;
+          LOGGER.error(e);
+          response.setStatusCode(HttpResponseStatus.INTERNAL_SERVER_ERROR.code()).end();
+      }
+  }
 }
