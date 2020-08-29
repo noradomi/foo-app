@@ -7,6 +7,7 @@ import vn.zalopay.phucvt.fooapp.handler.*;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
+import vn.zalopay.phucvt.fooapp.utils.JWTUtils;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
 import dagger.Module;
 import dagger.Provides;
@@ -182,6 +183,12 @@ public class ServiceModule {
     @Singleton
     JWTAuth provideAuthProvider(Vertx vertx, JWTAuthOptions authConfig) {
         return JWTAuth.create(vertx, authConfig);
+    }
+
+    @Provides
+    @Singleton
+    JWTUtils provideJWTUtils(JWTAuth auth) {
+        return JWTUtils.builder().jwtAuth(auth).build();
     }
 
     @Provides

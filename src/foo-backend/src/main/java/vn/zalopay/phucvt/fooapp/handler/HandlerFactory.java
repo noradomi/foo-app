@@ -14,14 +14,14 @@ public class HandlerFactory {
   private BaseHandler signUpHandler;
   private BaseHandler signOutHandler;
   private AuthHandler authHandler;
-  private BaseHandler conversationListHandler;
+  private BaseHandler userListHanlder;
 
   public void initialize(Router router) {
 
     router.route("/api/protected/*").handler(authHandler::handle);
 
     ImmutableMap<String, BaseHandler> getHandler =
-        ImmutableMap.<String, BaseHandler>builder().put(APIPath.USERLIST, conversationListHandler).build();
+        ImmutableMap.<String, BaseHandler>builder().put(APIPath.USERLIST, userListHanlder).build();
 
     ImmutableMap<String, BaseHandler> postHandler =
         ImmutableMap.<String, BaseHandler>builder()
