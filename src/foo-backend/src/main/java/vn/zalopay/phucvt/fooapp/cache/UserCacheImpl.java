@@ -23,9 +23,10 @@ public class UserCacheImpl implements UserCache {
           try {
             RMap<Object, Object> userMap =
                 redisCache.getRedissonClient().getMap(CacheKey.getUserKey(user.getUserId()));
+            userMap.put("userId",user.getUserId());
             userMap.put("username", user.getUsername());
             userMap.put("fullname", user.getFullname());
-            userMap.put("online", user.isOnline());
+//            userMap.put("online", user.isOnline());
             userMap.expire(5, TimeUnit.MINUTES); // 5 minus
             future.complete(user);
           } catch (Exception e) {

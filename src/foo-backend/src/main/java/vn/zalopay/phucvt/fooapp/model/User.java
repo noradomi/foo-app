@@ -23,6 +23,6 @@ public class User {
     @DBTable(columnName = "fullname")
     String fullname;
 
-    @DBTable(columnName = "online")
-    boolean online;
+//    @DBTable(columnName = "online")
+//    boolean online;
 }
