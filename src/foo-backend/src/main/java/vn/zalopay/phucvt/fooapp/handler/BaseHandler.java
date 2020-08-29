@@ -23,7 +23,6 @@ public abstract class BaseHandler {
     HttpServerResponse response = rc.response();
     String requestPath = request.path();
 
-    LOGGER.info("call handle func in abstract class.");
     BaseRequest baseRequest =
         BaseRequest.builder()
             .requestPath(requestPath)
