@@ -16,9 +16,9 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
     private final DataSource dataSource;
     private final AsyncHandler asyncHandler;
     private static final String INSERT_USER_STATEMENT =
-            "INSERT INTO user (`user_id`, `username`, `password`,`fullname`) VALUES (?, ?,?,?)";
-    private static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE user_id = ?";
-    private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM user WHERE username = ?";
+            "INSERT INTO users (`id`, `username`, `password`,`fullname`) VALUES (?, ?,?,?)";
+    private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE user_id = ?";
+    private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username = ?";
 
     public UserDAImpl(DataSource dataSource, AsyncHandler asyncHandler) {
         super();

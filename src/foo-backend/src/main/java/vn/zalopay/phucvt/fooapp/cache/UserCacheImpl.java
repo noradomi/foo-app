@@ -7,6 +7,8 @@ import io.vertx.core.Future;
 import lombok.Builder;
 import org.redisson.api.RMap;
 
+import java.util.concurrent.TimeUnit;
+
 @Log4j2
 @Builder
 public class UserCacheImpl implements UserCache {
@@ -23,6 +25,8 @@ public class UserCacheImpl implements UserCache {
                 redisCache.getRedissonClient().getMap(CacheKey.getUserKey(user.getUserId()));
             userMap.put("username", user.getUsername());
             userMap.put("fullname", user.getFullname());
+            userMap.put("online", user.isOnline());
+            userMap.expire(5, TimeUnit.MINUTES); // 5 minus
             future.complete(user);
           } catch (Exception e) {
             future.fail(e);

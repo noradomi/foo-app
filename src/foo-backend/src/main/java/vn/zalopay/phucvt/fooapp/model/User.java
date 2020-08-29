@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @DBTable(columnName = "user_id")
+    @DBTable(columnName = "id")
     String userId;
 
     @DBTable(columnName = "username")
@@ -22,4 +22,7 @@ public class User {
 
     @DBTable(columnName = "fullname")
     String fullname;
+
+    @DBTable(columnName = "online")
+    boolean online;
 }
