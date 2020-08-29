@@ -7,8 +7,8 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConversationListItem {
+public class UserListItem {
     private String name;
     private String conversationId;
-    private String lastMessage;
+//    private String lastMessage;
 }
