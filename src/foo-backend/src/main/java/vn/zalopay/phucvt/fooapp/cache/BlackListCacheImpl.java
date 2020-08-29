@@ -47,7 +47,8 @@ public class BlackListCacheImpl implements BlackListCache {
                         RBucket<String> blacklist = redisCache
                                 .getRedissonClient()
                                 .getBucket(CacheKey.getBlacklistKey(token));
-                        future.complete(blacklist.isExists());
+                        log.info("get () : {}",blacklist.get());
+                        future.complete(blacklist.get() != null);
                     } catch (Exception e) {
                         future.fail(e);
                     }

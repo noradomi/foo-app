@@ -38,6 +38,7 @@ public class ServiceModule {
             LoginHandler loginHandler,
             SignUpHandler signUpHandler,
             SignOutHandler signOutHandler,
+            UserListHandler userListHandler,
             AuthHandler authHandler) {
         return HandlerFactory.builder()
                 .echoHandler(echoHandler)
@@ -45,6 +46,7 @@ public class ServiceModule {
                 .loginHandler(loginHandler)
                 .signUpHandler(signUpHandler)
                 .signOutHandler(signOutHandler)
+                .userListHanlder(userListHandler)
                 .authHandler(authHandler)
                 .build();
     }
@@ -130,6 +132,17 @@ public class ServiceModule {
                 .authProvider(authProvider)
                 .blackListCache(blackListCache)
                 .userCache(userCache)
+                .build();
+    }
+
+    @Provides
+    @Singleton
+    UserListHandler provideUserListHandler(
+            JWTUtils jwtUtils,UserDA userDA) {
+        return UserListHandler
+                .builder()
+                .jwtUtils(jwtUtils)
+                .userDA(userDA)
                 .build();
     }
 

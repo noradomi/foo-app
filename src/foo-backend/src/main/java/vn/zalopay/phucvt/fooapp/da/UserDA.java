@@ -13,4 +13,6 @@ public interface UserDA {
   Future<User> selectUserByUserName(String username);
 
   Future<List<User>> selectListUsersById(String userId);
+
+  Future<String> getSingleConversationId(String userId1, String userId2);
 }

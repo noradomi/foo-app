@@ -46,8 +46,9 @@ public class AuthHandler {
                 } else {
                   rc.next();
                 }
-                  return null;
-              });
+              }, Future.future().setHandler(handler -> {
+                      response.setStatusCode(401).end("Failed");
+                  }));
         });
   }
 }

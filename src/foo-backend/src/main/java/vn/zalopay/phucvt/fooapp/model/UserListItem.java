@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class UserListItem {
     private String username;
-//    private String conversationId;
+    private String conversationId;
     private String userId;
-//    private String lastMessage;
+    private String lastMessage;
 }
