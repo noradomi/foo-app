@@ -53,7 +53,7 @@ public class LoginHandler extends BaseHandler {
 
                 String token = authProvider.generateToken(
                         new JsonObject()
-                                .put("userId", user.getUserId()),
+                                .put("userId", userAuth.getUserId()),
                         new JWTOptions()
                                 .setExpiresInSeconds(174600));
 

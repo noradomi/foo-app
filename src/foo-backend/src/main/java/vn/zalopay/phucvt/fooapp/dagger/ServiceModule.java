@@ -36,13 +36,15 @@ public class ServiceModule {
             ExampleHandler exampleHandler,
             LoginHandler loginHandler,
             SignUpHandler signUpHandler,
-            SignOutHandler signOutHandler) {
+            SignOutHandler signOutHandler,
+            AuthHandler authHandler) {
         return HandlerFactory.builder()
                 .echoHandler(echoHandler)
                 .exampleHandler(exampleHandler)
                 .loginHandler(loginHandler)
                 .signUpHandler(signUpHandler)
                 .signOutHandler(signOutHandler)
+                .authHandler(authHandler)
                 .build();
     }
 
@@ -96,6 +98,16 @@ public class ServiceModule {
 
     @Provides
     @Singleton
+    AuthHandler provideAuthHandler(
+            JWTAuth authProvider,BlackListCache blackListCache) {
+        return AuthHandler.builder()
+                .authProvider(authProvider)
+                .blackListCache(blackListCache)
+                .build();
+    }
+
+    @Provides
+    @Singleton
     SignUpHandler provideSignUpHandler(
             UserDA userDA, TransactionProvider transactionProvider, UserCache userCache) {
         return new SignUpHandler(userCache,userDA, transactionProvider);
@@ -111,8 +123,13 @@ public class ServiceModule {
     @Provides
     @Singleton
     SignOutHandler provideSignOutHanler(
-            BlackListCache blackListCache) {
-        return new SignOutHandler(blackListCache);
+            BlackListCache blackListCache,UserCache userCache, JWTAuth authProvider) {
+        return SignOutHandler
+                .builder()
+                .authProvider(authProvider)
+                .blackListCache(blackListCache)
+                .userCache(userCache)
+                .build();
     }
 
     @Singleton
