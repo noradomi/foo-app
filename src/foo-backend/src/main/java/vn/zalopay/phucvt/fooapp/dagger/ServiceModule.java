@@ -76,6 +76,12 @@ public class ServiceModule {
 
   @Provides
   @Singleton
+  ChatCache provideChatCache(RedisCache redisCache, AsyncHandler asyncHandler) {
+    return ChatCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
+  }
+
+  @Provides
+  @Singleton
   BlackListCache provideBlackListCache(RedisCache redisCache, AsyncHandler asyncHandler) {
     return BlackListCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
   }
