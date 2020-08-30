@@ -148,8 +148,8 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  UserListHandler provideUserListHandler(JWTUtils jwtUtils, UserDA userDA) {
-    return UserListHandler.builder().jwtUtils(jwtUtils).userDA(userDA).build();
+  UserListHandler provideUserListHandler(JWTUtils jwtUtils, UserDA userDA,UserCache userCache) {
+    return UserListHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).build();
   }
 
   @Singleton

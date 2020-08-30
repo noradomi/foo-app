@@ -22,7 +22,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
       "INSERT INTO users (`id`, `username`, `password`,`fullname`) VALUES (?, ?,?,?)";
   private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
   private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username = ?";
-  private static final String SELECT_LIST_USERS_BY_ID = "SELECT * FROM users WHERE id <> ?";
+  private static final String SELECT_LIST_USERS = "SELECT * FROM users";
   private static final String GET_SINGLE_CONVERSATION_ID =
       "SELECT p1.conversation_id FROM PARTICIPANTS p1 WHERE p1.user_id = ? INTERSECT SELECT p2.conversation_id FROM PARTICIPANTS WHERE p2.user_id = ?";
 
@@ -99,15 +99,15 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   }
 
   @Override
-  public Future<List<User>> selectListUsersById(String id) {
+  public Future<List<User>> selectListUser() {
     Future<List<User>> future = Future.future();
     asyncHandler.run(
         () -> {
-          Object[] params = {id};
+          Object[] params = {};
           queryEntity(
               "queryListUser",
               future,
-              SELECT_LIST_USERS_BY_ID,
+              SELECT_LIST_USERS,
               params,
               this::mapRs2EntityListUser,
               dataSource::getConnection,

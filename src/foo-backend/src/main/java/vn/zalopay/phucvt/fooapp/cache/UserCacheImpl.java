@@ -3,6 +3,7 @@ package vn.zalopay.phucvt.fooapp.cache;
 import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
+import org.redisson.api.RList;
 import org.redisson.api.RMap;
 import org.redisson.api.RQueue;
 import vn.zalopay.phucvt.fooapp.model.User;
@@ -80,39 +81,48 @@ public class UserCacheImpl implements UserCache {
   }
 
     @Override
-    public Future<Void> setUserList(List<User> user) {
+    public Future<Void> setUserList(List<User> users) {
         Future future = Future.future();
-        asyncHandler.run(
-                () -> {
-                    try{
-                        RQueue<User> userRQueue = redisCache.getRedissonClient().getQueue(CacheKey.getUserListKey());
-                        userRQueue.clear();
-                        userRQueue.addAll(user);
-                        userRQueue.expire(5, TimeUnit.MINUTES);
-                    }
-                    catch (Exception e){
-                        future.fail(e);
-                    }
-                }
-        );
+    asyncHandler.run(
+        () -> {
+          try {
+            RQueue<User> userQueue =
+                redisCache.getRedissonClient().getQueue(CacheKey.getUserListKey());
+            userQueue.clear();
+            userQueue.addAll(users);
+            userQueue.expire(1, TimeUnit.MINUTES);
+          } catch (Exception e) {
+            future.fail(e);
+          }
+        });
         return future;
     }
 
     @Override
     public Future<List<User>> getUserList() {
-        Future<List<User>> future = Future.future();
+        Future future = Future.future();
+        log.info("get user cache list");
         asyncHandler.run(
                 () -> {
                     try{
                         RQueue<User> userRQueue = redisCache.getRedissonClient().getQueue(CacheKey.getUserListKey());
-                        if(!userRQueue.isExists()){
-                            future.failed();
+                        if(userRQueue.isEmpty()){
+                            log.info("Cache failed");
+                            future.fail("Failed");
                         }
                         else{
+                            log.info("cache exist");
+//                            User u = userRQueue.poll();
+//                            log.info("user poll {}",userRQueue.poll().getClass());
+//                            log.info("read all with {}",userRQueue.readAll());
+
                             future.complete(userRQueue.readAll());
+                            log.info("read done");
                         }
                     }
                     catch (Exception e){
+                        log.info("Cache failed exception with {}",e.getMessage() );
+
                         future.fail(e);
                     }
                 }

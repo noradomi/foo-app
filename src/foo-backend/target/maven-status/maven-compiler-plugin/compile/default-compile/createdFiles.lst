@@ -2,7 +2,6 @@ vn/zalopay/phucvt/fooapp/da/DataSourceProvider.class
 vn/zalopay/phucvt/fooapp/cache/BlackListCacheImpl.class
 vn/zalopay/phucvt/fooapp/dagger/DaggerServiceComponent.class
 vn/zalopay/phucvt/fooapp/da/Executable.class
-vn/zalopay/phucvt/fooapp/cache/UserListCache.class
 vn/zalopay/phucvt/fooapp/model/Participant.class
 vn/zalopay/phucvt/fooapp/handler/ExampleHandler.class
 vn/zalopay/phucvt/fooapp/handler/WSHandler.class
@@ -49,7 +48,6 @@ vn/zalopay/phucvt/fooapp/handler/UserListHandler.class
 vn/zalopay/phucvt/fooapp/cache/UserCacheImpl.class
 vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideUserListHandlerFactory.class
 vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideLoginHandlerFactory.class
-vn/zalopay/phucvt/fooapp/cache/UserListCacheImpl.class
 vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideExampleHandlerFactory.class
 vn/zalopay/phucvt/fooapp/handler/BaseHandler.class
 vn/zalopay/phucvt/fooapp/handler/HandlerFactory$HandlerFactoryBuilder.class
