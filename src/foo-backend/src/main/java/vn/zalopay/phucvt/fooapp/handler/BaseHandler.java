@@ -1,8 +1,10 @@
 package vn.zalopay.phucvt.fooapp.handler;
 
+import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.entity.request.BaseRequest;
 import vn.zalopay.phucvt.fooapp.entity.response.BaseResponse;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
+import vn.zalopay.phucvt.fooapp.utils.FooHttpStatusException;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Future;
@@ -23,7 +25,6 @@ public abstract class BaseHandler {
     HttpServerResponse response = rc.response();
     String requestPath = request.path();
 
-    LOGGER.info("call handle func in abstract class.");
     BaseRequest baseRequest =
         BaseRequest.builder()
             .requestPath(requestPath)
@@ -51,4 +52,15 @@ public abstract class BaseHandler {
   }
 
   public abstract Future<BaseResponse> handle(BaseRequest baseRequest);
+
+  public void handleException(Throwable throwable,HttpServerResponse response){
+      if(throwable instanceof FooHttpStatusException){
+
+      }
+      if(throwable instanceof Exception){
+          Exception e = (Exception) throwable;
+          LOGGER.error(e);
+          response.setStatusCode(HttpResponseStatus.INTERNAL_SERVER_ERROR.code()).end();
+      }
+  }
 }

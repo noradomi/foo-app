@@ -16,6 +16,6 @@ singleServerConfig:
   dnsMonitoringInterval: 5000
 threads: 16
 nettyThreads: 32
-codec: !<org.redisson.client.codec.StringCodec> {}
-#codec: !<org.redisson.codec.FstCodec> {}
+#codec: !<org.redisson.client.codec.StringCodec> {}
+codec: !<org.redisson.codec.JsonJacksonCodec> {}
 transportMode: "NIO"

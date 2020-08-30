@@ -47,9 +47,13 @@ public class LoginHandler extends BaseHandler {
         getUserAuth.compose(userAuth -> {
 //            if (userAuth != null && userAuth.getPassword().equals(user.getPassword())) {
             if (userAuth != null && userAuth.getUsername().equals(user.getUsername()) && BCrypt.checkpw(user.getPassword(),userAuth.getPassword())) {
+
+//                Login successfully -> Add to online user list cache
+                userCache.set(userAuth);
+
                 String token = authProvider.generateToken(
                         new JsonObject()
-                                .put("userId", user.getUserId()),
+                                .put("userId", userAuth.getUserId()),
                         new JWTOptions()
                                 .setExpiresInSeconds(174600));
 

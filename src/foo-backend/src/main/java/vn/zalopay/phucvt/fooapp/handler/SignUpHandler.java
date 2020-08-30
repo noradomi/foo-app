@@ -109,7 +109,7 @@ public class SignUpHandler extends BaseHandler {
                 transaction
                         .begin()
                         .compose(next -> transaction.execute(userDA.insert(user)))
-                        .compose(userCache::set)
+//                        .compose(userCache::set)
                         .setHandler(
                                 rs -> {
                                     if (rs.succeeded()) {

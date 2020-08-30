@@ -3,15 +3,15 @@ package vn.zalopay.phucvt.fooapp.model;
 import vn.zalopay.phucvt.fooapp.common.mapper.DBTable;
 import lombok.*;
 
-import java.util.UUID;
+import java.io.Serializable;
 
 @Builder
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    @DBTable(columnName = "user_id")
+public class User implements Serializable {
+    @DBTable(columnName = "id")
     String userId;
 
     @DBTable(columnName = "username")
@@ -22,4 +22,7 @@ public class User {
 
     @DBTable(columnName = "fullname")
     String fullname;
+
+//    @DBTable(columnName = "online")
+//    boolean online;
 }
