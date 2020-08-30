@@ -27,4 +27,17 @@ public class JWTUtils{
     log.info("token : {}",token);
     return userIdFuture;
   }
+
+  public Future<String> authenticate(String token){
+    Future<String> future = Future.future();
+    jwtAuth.authenticate(new JsonObject().put("jwt",token),event -> {
+      if(event.succeeded()){
+        String userId =event.result().principal().getString("userId");
+        future.complete(userId);
+      }else{
+        future.fail(event.cause());
+      }
+    });
+    return future;
+  }
 }
