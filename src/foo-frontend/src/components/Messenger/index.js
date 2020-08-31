@@ -1,6 +1,8 @@
 import React from 'react';
 import ConversationList from '../ConversationList';
 import MessageList from '../MessageList';
+// import Toolbar from '../Toolbar';
+// import ToolbarButton from '../ToolbarButton';
 import './Messenger.css';
 
 export default function Messenger(props) {
@@ -14,9 +16,9 @@ export default function Messenger(props) {
           rightItems={[
             <ToolbarButton key="add" icon="ion-ios-add-circle-outline" />
           ]}
-        /> */}
+        />
 
-        {/* <Toolbar
+        <Toolbar
           title="Conversation Title"
           rightItems={[
             <ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
