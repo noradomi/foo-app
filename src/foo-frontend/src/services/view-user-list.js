@@ -2,7 +2,6 @@ import { api } from './api';
 import { updateCurrSessionId,fetchUserList } from '../redux/fooAction';
 import store from '../redux/fooStore';
 
-
 export function getUserList() {
 	return new Promise((resolve, reject) => {
 		api
@@ -31,11 +30,11 @@ export function getUserList() {
                 store.dispatch(fetchUserList(result));
                 store.dispatch(updateCurrSessionId(result[0].userId));
 				
-				resolve(data);
+				resolve();
 			})
 			.catch((reason) => {
 				console.log(reason);
-				reject('Login failed');
+				reject('Fetch user list failed');
 			});
 	});
 }
