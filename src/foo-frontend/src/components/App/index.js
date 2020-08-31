@@ -3,6 +3,7 @@ import Messenger from '../Messenger';
 import {isAuthenticated} from '../../utils/utils';
 import store from '../../redux/fooStore';
 import LoginPage from '../LoginPage';
+import RegisterPage from '../RegisterPage';
 import {Provider} from 'react-redux';
 import 'antd/dist/antd.css';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
@@ -22,6 +23,7 @@ export default function App() {
           <Switch>
             {/* <Route path="/register" component={RegisterPage}/> */}
             <Route path="/login" component={LoginPage}/>
+            <Route path="/signup" component={RegisterPage}/>
             <Route path="/" component={AuthFragment}/>
           </Switch>
         </Router>

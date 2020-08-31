@@ -1,11 +1,7 @@
 import React,{useState} from 'react';
 import { Form, Input, Button, Row, Col, Card, Alert, Checkbox } from 'antd';
-import { isAuthenticated } from '../../utils/utils';
-import { Redirect } from 'react-router-dom';
-import { api } from '../../services/api';
 import { hanleLogin } from '../../services/login';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { setJwtToStorage, setUserIdToStorage } from '../../utils/utils';
 
 const FormItem = Form.Item;
 
