@@ -1,9 +1,4 @@
-/*
- * @Author: mikey.zhaopeng 
- * @Date: 2020-08-31 14:52:09 
- * @Last Modified by:   mikey.zhaopeng 
- * @Last Modified time: 2020-08-31 14:52:09 
- */
+
 import {getJwtFromStorage,getUserIdFromStorage} from "../utils/utils";
 
 
