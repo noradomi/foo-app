@@ -67,7 +67,7 @@ public class UserListHandler extends BaseHandler {
                               UserListItem item =
                                       UserListItem.builder()
                                               .userId(u.getUserId())
-                                              .username(u.getFullname())
+                                              .fullname(u.getFullname())
                                               .build();
                               userListResponse.getItems().add(item);
                           }
