@@ -12,6 +12,23 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.redisson:redisson:3.13.3" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.51.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.51.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.51.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.51.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver-dns:4.1.51.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-dns:4.1.51.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.51.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.projectreactor:reactor-core:3.3.4.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: io.reactivex.rxjava2:rxjava:2.2.19" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.marshalling:jboss-marshalling-river:2.0.9.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.marshalling:jboss-marshalling:2.0.9.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.1" level="project" />
+    <orderEntry type="library" name="Maven: net.bytebuddy:byte-buddy:1.10.7" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-web:3.7.0" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-web-common:3.7.0" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-auth-common:3.7.0" level="project" />

@@ -1,49 +1,82 @@
 package vn.zalopay.phucvt.fooapp.server;
 
-import vn.zalopay.phucvt.fooapp.handler.WSHandler;
-import io.vertx.core.MultiMap;
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.ServerWebSocket;
+import lombok.Builder;
+import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
+import vn.zalopay.phucvt.fooapp.handler.WSHandler;
+import vn.zalopay.phucvt.fooapp.utils.JWTUtils;
 
+@Builder
+@Log4j2
 public class WebSocketServer {
-    private final WSHandler wsHandler;
-    private final Vertx vertx;
-    private final int port;
-    private HttpServer listen;
+  private final WSHandler wsHandler;
+  private final Vertx vertx;
+  private final int port;
+  private HttpServer listen;
+  private final JWTUtils jwtUtils;
 
-    public WebSocketServer(WSHandler wsHandler, Vertx vertx, int port) {
-        this.wsHandler = wsHandler;
-        this.vertx = vertx;
-        this.port = port;
-    }
+  private Future<String> authenticated(ServerWebSocket ws) {
+    Future<String> future = Future.future();
 
-    private boolean authenticated(MultiMap headers) {
-        return true;
-    }
+    String query = ws.query();
+    if (!StringUtils.isBlank(query)) {
+      String token = query.substring(query.indexOf('=') + 1);
+      if (!StringUtils.isBlank(token)) {
+        jwtUtils.authenticate(token).setHandler(userIdRes ->{
+          if(userIdRes.succeeded())
+            future.complete(userIdRes.result());
+        });
+      } else future.fail("Token is null");
+    } else future.fail("Missing jwt param");
+    return future;
+  }
 
-    public void start() {
-        HttpServer listen =
-                vertx
-                        .createHttpServer()
-                        .websocketHandler(
-                                ws -> {
-                                    if (!authenticated(ws.headers())) {
-                                        ws.reject();
-                                    }
-                                    if (!ws.path().equals("/chat")) {
-                                        ws.reject();
-                                    } else {
+  public void start() {
+    log.info("Starting WebSocket server at port {}",port);
+    HttpServer listen =
+        vertx
+            .createHttpServer()
+            .websocketHandler(
+                ws -> {
+//                  log.info(ws.headers());
+//                  String query = ws.query();
+//                  log.info(query.substring(query.indexOf('=') + 1));
+                  authenticated(ws)
+//                          .compose(userId -> {
+//                            log.info("userId : {}",userId);
+//                          },Future.failedFuture("Failed"));
+                      .setHandler(
+                          userIdAsynRes -> {
+                            if (userIdAsynRes.succeeded()) {
+                              String userId = userIdAsynRes.result();
+                              log.info("userId : {}",userId);
+                              if (!ws.path().equals("/chat")) {
+                                log.info("Path failed");
+                                ws.reject();
+                              } else {
+                                log.info("Accept");
+                                ws.accept();
+                                log.info("Accep failed");
+                                wsHandler.addClient(ws, userId);
+                                ws.closeHandler(event -> wsHandler.removeClient(ws, userId));
 
-                                        wsHandler.addClient(ws);
-                                        ws.closeHandler(event -> wsHandler.removeClient(ws));
+                                log.info("done handshake");
+                                ws.handler(buffer -> wsHandler.handle(buffer, userId));
+                              }
+                            } else {
+                              log.info("Authentication faield");
+                              ws.reject();
+                            }
+                          });
+                })
+            .listen(port);
+  }
 
-                                        ws.handler(buffer -> wsHandler.handle(buffer));
-                                    }
-                                })
-                        .listen(port);
-    }
-
-    public void close() {
-        listen.close();
-    }
+  public void close() {
+    listen.close();
+  }
 }

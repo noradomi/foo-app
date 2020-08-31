@@ -23,6 +23,7 @@ import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import javax.inject.Singleton;
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Module
 @Builder
@@ -76,6 +77,12 @@ public class ServiceModule {
 
   @Provides
   @Singleton
+  ChatCache provideChatCache(RedisCache redisCache, AsyncHandler asyncHandler) {
+    return ChatCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
+  }
+
+  @Provides
+  @Singleton
   BlackListCache provideBlackListCache(RedisCache redisCache, AsyncHandler asyncHandler) {
     return BlackListCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
   }
@@ -91,6 +98,15 @@ public class ServiceModule {
   UserDA provideUserDA(DataSourceProvider dataSourceProvider, AsyncHandler asyncHandler) {
     return new UserDAImpl(
         dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()), asyncHandler);
+  }
+
+  @Provides
+  @Singleton
+  ChatDA provideChatDA(DataSourceProvider dataSourceProvider, AsyncHandler asyncHandler) {
+    return ChatDAImpl.builder()
+            .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
+            .asyncHandler(asyncHandler)
+            .build();
   }
 
   @Provides
@@ -148,7 +164,7 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  UserListHandler provideUserListHandler(JWTUtils jwtUtils, UserDA userDA,UserCache userCache) {
+  UserListHandler provideUserListHandler(JWTUtils jwtUtils, UserDA userDA, UserCache userCache) {
     return UserListHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).build();
   }
 
@@ -221,13 +237,19 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  WSHandler provideWSHandler() {
-    return new WSHandler();
+  WSHandler provideWSHandler(ChatDA chatDA, ChatCache chatCache) {
+    return WSHandler.builder().chatCache(chatCache).chatDA(chatDA)
+            .clients(new ConcurrentHashMap<>()).build();
   }
 
   @Provides
   @Singleton
-  WebSocketServer provideWebSocketServer(WSHandler wsHandler, Vertx vertx) {
-    return new WebSocketServer(wsHandler, vertx, serviceConfig.getWsPort());
+  WebSocketServer provideWebSocketServer(WSHandler wsHandler, Vertx vertx, JWTUtils jwtUtils) {
+    return WebSocketServer.builder()
+        .wsHandler(wsHandler)
+        .vertx(vertx)
+        .port(serviceConfig.getWsPort())
+        .jwtUtils(jwtUtils)
+        .build();
   }
 }

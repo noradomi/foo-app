@@ -112,10 +112,6 @@ public class UserCacheImpl implements UserCache {
                         }
                         else{
                             log.info("cache exist");
-//                            User u = userRQueue.poll();
-//                            log.info("user poll {}",userRQueue.poll().getClass());
-//                            log.info("read all with {}",userRQueue.readAll());
-
                             future.complete(userRQueue.readAll());
                             log.info("read done");
                         }
