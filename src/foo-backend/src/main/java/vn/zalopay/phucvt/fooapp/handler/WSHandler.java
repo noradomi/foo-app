@@ -5,6 +5,7 @@ import io.vertx.core.http.ServerWebSocket;
 import io.vertx.core.impl.ConcurrentHashSet;
 import io.vertx.core.json.JsonObject;
 import lombok.Builder;
+import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.cache.ChatCache;
 import vn.zalopay.phucvt.fooapp.da.ChatDA;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
@@ -16,6 +17,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Builder
+@Log4j2
 public class WSHandler {
   private Map<String, Set<ServerWebSocket>> clients;
   private final ChatDA chatDA;
@@ -40,22 +42,24 @@ public class WSHandler {
   }
 
   public void handle(Buffer buffer, String userId) {
-    JsonObject json = new JsonObject(buffer.toString());
-    String type = json.getString("type");
-    switch (type) {
-      case "SEND":
-        {
-          WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
-          message.builder()
-              .sender_id(userId) // receiver_id existed
-              .create_date(new Date())
-              .build();
-          handleSendMessage(message, userId);
-        }
-
-      case "FETCH":
-      default:
-    }
+    log.info("Hanlde websocket");
+//    JsonObject json = new JsonObject(buffer.toString());
+    log.info("Buffer: {}",buffer.toString());
+//    String type = json.getString("type");
+//    switch (type) {
+//      case "SEND":
+//        {
+//          WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
+//          message.builder()
+//              .sender_id(userId) // receiver_id existed
+//              .create_date(new Date())
+//              .build();
+//          handleSendMessage(message, userId);
+//        }
+//
+//      case "FETCH":
+//      default:
+//    }
   }
 
   private void handleSendMessage(WsMessage message, String userId) {

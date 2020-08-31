@@ -41,7 +41,7 @@ public class ChatCacheImpl implements ChatCache {
 
   @Override
   public Future<List<WsMessage>> getList(String firstUserId, String secondUserId) {
-    Future future = Future.future();
+    Future<List<WsMessage>> future = Future.future();
     log.info("get user cache list");
     asyncHandler.run(
         () -> {
