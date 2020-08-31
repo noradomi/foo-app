@@ -10,7 +10,7 @@ import {getUserList} from '../../services/view-user-list';
 import { connect } from 'react-redux';
 
 
-
+getUserList();
 function ConversationList(props) {
 	// const [ conversations, setConversations ] = useState([]);
 	// useEffect(() => {
@@ -33,8 +33,9 @@ function ConversationList(props) {
   const conversations = props.userList.map(res => {
     return {
       name: res.name,
-      text: 'Hello world! This is a long message that needs to be truncated.',
-      id: res.userId
+      text: 'Online',
+      id: res.userId,
+      avatar: res.avatar
     }
   })
 
@@ -57,12 +58,12 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    load(){
-      getUserList()
-    }
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     load(){
+//       getUserList()
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps,mapDispatchToProps)(ConversationList);
+export default connect(mapStateToProps,null)(ConversationList);

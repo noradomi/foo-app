@@ -14,8 +14,8 @@ export function getUserList() {
 				items.forEach((item) => {
 					var userItem = {
 						userId: item.userId,
-						name: item.name,
-						avatar: processUsernameForAvatar(item.name)
+						name: item.fullname,
+						avatar: processUsernameForAvatar(item.fullname)
 					};
 					result.push(userItem);
 				});

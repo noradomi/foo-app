@@ -26,14 +26,15 @@ export default function appReducer(state = initialState, action) {
 			break;
 		case 'USERLIST_FETCHED':
 			state = userListFetched(state, data);
-            break;
-        case 'CURRENT_SESSIONID':
-            return {
-                ...state,
-                currentSessionId: data
-            };
-            break;
-	}
+			break;
+		case 'CURRENT_SESSIONID':
+			return {
+				...state,
+				currentSessionId: data
+			};
+			break;
+    }
+    return state;
 }
 
 function loginSucceeded(state, data) {

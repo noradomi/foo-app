@@ -2,6 +2,7 @@ import React from 'react';
 import {Avatar} from 'antd';
 import Gravatar from 'react-gravatar'
 import Ravatar from 'react-avatar';
+import './CustomeAvatar.css'
 
 class CustomAvatar extends React.Component {
   render() {
