@@ -3,6 +3,7 @@ package vn.zalopay.phucvt.fooapp.cache;
 import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
+import org.redisson.api.RBucket;
 import org.redisson.api.RList;
 import org.redisson.api.RMap;
 import org.redisson.api.RQueue;
@@ -125,4 +126,58 @@ public class UserCacheImpl implements UserCache {
         );
         return future;
     }
+
+    @Override
+    public Future<Void> setOnlineUserStatus(String userId) {
+        Future<Void> future = Future.future();
+        asyncHandler.run(
+                () -> {
+                    try {
+                        RBucket<Integer> userStatus = redisCache
+                                .getRedissonClient()
+                                .getBucket(CacheKey.getUserStatusKey(userId));
+                        userStatus.set(1);
+                        future.complete();
+                    } catch (Exception e) {
+                        future.fail(e);
+                    }
+                });
+        return future;
+    }
+
+    @Override
+    public Future<Void> delOnlineUserStatus(String userId) {
+        Future<Void> future = Future.future();
+        asyncHandler.run(
+                () -> {
+                    try {
+                        RBucket<Integer> userStatus = redisCache
+                                .getRedissonClient()
+                                .getBucket(CacheKey.getUserStatusKey(userId));
+                        userStatus.delete();
+                        future.complete( );
+                    } catch (Exception e) {
+                        future.fail(e);
+                    }
+                });
+        return future;
+    }
+
+    @Override
+    public Future<Boolean> isOnlineStatus(String userId) {
+        Future<Boolean> future = Future.future();
+        asyncHandler.run(
+                () -> {
+                    try {
+                        RBucket<Integer> userStatus = redisCache
+                                .getRedissonClient()
+                                .getBucket(CacheKey.getUserStatusKey(userId));
+                        future.complete( userStatus.get() != null);
+                    } catch (Exception e) {
+                        future.fail(e);
+                    }
+                });
+        return future;
+    }
+
 }
