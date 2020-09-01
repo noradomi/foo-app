@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
@@ -7,21 +7,30 @@ import {Switch, Route} from 'react-router-dom';
 import moment from 'moment';
 import logout from "../../service/logout";
 import {connect} from 'react-redux';
+import {getMessageFromAPI} from '../../redux/vmr-action';
+import {getMessageList} from "../../service/message-list";
 
 import './MessageList.css';
 
 let MessageList = (props) => {
-  // MyId
-  let senderId = Number(localStorage.getItem("userId"));
+  // Get user id
+  let userId = Number(localStorage.getItem("userId"));
 
   // Check if userMap is loaded
   if (props.userMapHolder.userMap.size === 0 || props.chatMessagesHolder.chatMessages.size === 0) {
     return <div></div>;
   }
 
+  // Get receiver
   let receiverId = Number(props.match.params.receiverId);
   let receiver = props.userMapHolder.userMap.get(receiverId);
+
+  console.log('render-------------', receiverId);
+
+  // Get message list from redux
   let messageList = props.chatMessagesHolder.chatMessages.get(receiverId);
+
+  // Get websocket service
   let webSocket = props.webSocket;
 
   // Messages list
@@ -35,6 +44,15 @@ let MessageList = (props) => {
     };
   });
 
+  useEffect(() => {
+    if (messageList.length === 0) {
+      getMessageList(receiverId, messageList.length).then(data => {
+        props.updateMessageList(data, receiverId);
+      });
+    }
+  }, [receiverId]);
+
+
   // Display message
   const renderMessages = () => {
     let i = 0;
@@ -45,8 +63,7 @@ let MessageList = (props) => {
       let previous = messages[i - 1];
       let current = messages[i];
       let next = messages[i + 1];
-      console.log(current.author);
-      let isMine = current.isMine
+      let isMine = current.author === userId;
       let currentMoment = moment(current.timestamp);
       let prevBySameAuthor = false;
       let nextBySameAuthor = false;
@@ -104,6 +121,12 @@ let MessageList = (props) => {
     }
   }
 
+  let endOfMsgList = useRef(null);
+
+  useEffect(() => {
+    endOfMsgList.current.scrollIntoView({behavior: 'smooth'});
+  });
+
   return (
     <div className="message-list">
       <Toolbar
@@ -116,9 +139,12 @@ let MessageList = (props) => {
         ]}
       />
 
-      <div className="message-list-container">{renderMessages()}</div>
+      <div className="message-list-container">
+        {renderMessages()}
+        <div ref={endOfMsgList}/>
+      </div>
 
-      <Comopose rightItems={[
+      <Compose rightItems={[
         <ToolbarButton key="photo" icon="ion-ios-camera"/>,
         <ToolbarButton key="image" icon="ion-ios-image"/>,
         <ToolbarButton key="audio" icon="ion-ios-mic"/>,
@@ -131,6 +157,7 @@ let MessageList = (props) => {
   );
 }
 
+// Map from redux to props
 let mapStateToPropsMessageList = (state) => {
   return {
     userMapHolder: state.userMapHolder,
@@ -139,7 +166,15 @@ let mapStateToPropsMessageList = (state) => {
   }
 }
 
-MessageList = connect(mapStateToPropsMessageList, null)(MessageList);
+let mapDispatchToPropsMessageList = (dispatch) => {
+  return {
+    updateMessageList: (data, friendId) => {
+      dispatch(getMessageFromAPI(data, friendId))
+    }
+  }
+};
+
+MessageList = connect(mapStateToPropsMessageList, mapDispatchToPropsMessageList)(MessageList);
 
 export default function MessageListWrapper() {
   return (

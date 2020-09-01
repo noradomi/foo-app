@@ -7,7 +7,7 @@ export default function Compose(props) {
         <input
           type="text"
           className="compose-input"
-          placeholder="@name"
+          placeholder="  @name"
           style={{float: "left"}}
           onKeyUp={props.onKeyUp}
         />

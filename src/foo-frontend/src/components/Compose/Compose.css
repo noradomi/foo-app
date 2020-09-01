@@ -24,6 +24,7 @@
   height: 40px;
   /* width: 800px; */
   background: none;
+  background-color: rgb(250, 250, 252);
 }
 
 .compose-input::placeholder {

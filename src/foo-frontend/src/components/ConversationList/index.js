@@ -11,14 +11,15 @@ import { connect } from 'react-redux';
 import { hanldeLogout } from '../../services/logout';
 import { useHistory } from 'react-router-dom';
 
-getUserList();
+// getUserList();
 function ConversationList(props) {
 	
-	// useEffect(() => {
-	// 	getUserList()
-	// 	.then(() => console.log("Load user list dont"))
-	// 	.catch(() => console.log("Load user list failed"));
-	// })
+	// Init user list 
+	useEffect(() => {
+		getUserList()
+		.then(() => console.log("Load user list dont"))
+		.catch(() => console.log("Load user list failed"));
+	},[]);
 
 	let history = useHistory();
 	const conversations = props.userList.map((res) => {

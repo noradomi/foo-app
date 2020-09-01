@@ -48,3 +48,18 @@
   text-overflow: ellipsis;
   padding-bottom: 5px;
 }
+
+.status-point {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background-color: #ccc;
+  position: absolute;
+  top: 50px;
+  left: 65px;
+}
+
+.status-point.online {
+  background-color: #09CB00;
+}

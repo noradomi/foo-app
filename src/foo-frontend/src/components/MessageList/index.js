@@ -7,153 +7,33 @@ import moment from 'moment';
 import './MessageList.css';
 import {wsConnect} from '../../services/chat-single';
 import { connect } from 'react-redux';
+import {getUserIdFromStorage} from '../../utils/utils'
 
 const MY_USER_ID = 'apple';
 
-wsConnect();
+wsConnect(); // <<<
 function MessageList(props) {
-	const [ messages, setMessages ] = useState([]);
 
-	useEffect(() => {
-		getMessages();
-	}, []);
+  useEffect(() => {
 
-	const getMessages = () => {
-		var tempMessages = [
-			{
-				id: 1,
-				author: 'apple',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 2,
-				author: 'orange',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 3,
-				author: 'orange',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 4,
-				author: 'apple',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 5,
-				author: 'apple',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 6,
-				author: 'apple',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 7,
-				author: 'orange',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 8,
-				author: 'orange',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 9,
-				author: 'apple',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 10,
-				author: 'orange',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 11,
-				author: 'apple',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 12,
-				author: 'orange',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 13,
-				author: 'orange',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 14,
-				author: 'apple',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 15,
-				author: 'apple',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 16,
-				author: 'apple',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 17,
-				author: 'orange',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 18,
-				author: 'orange',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 19,
-				author: 'apple',
-				message:
-					'Hello world! This is a long message that will hopefully get wrapped by our message bubble component! We will see how well it works.',
-				timestamp: new Date().getTime()
-			},
-			{
-				id: 20,
-				author: 'orange',
-				message: 'It looks like it wraps exactly as it is supposed to. Lets see what a reply looks like!',
-				timestamp: new Date().getTime()
-			}
-		];
-		setMessages([ ...messages, ...tempMessages ]);
-	};
+  },[]);
 
+  let senderId = getUserIdFromStorage();
+  let receiverId = Number(props.match.params.receiverId); // >>>
+  let receiver = props.userMapHolder.userMap.get(receiverdId);
+
+  console.log(">>> Chatting with ",receiver.name);
+
+  let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId); //>>>
+
+  let ws = props.webSocket;
+
+  let messages = messagesState.map(msg => {
+    return {
+      id: 
+    }
+  })
+  
 	const renderMessages = () => {
 		let i = 0;
 		let messageCount = messages.length;
