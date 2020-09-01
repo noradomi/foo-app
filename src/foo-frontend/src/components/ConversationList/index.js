@@ -26,11 +26,13 @@ function ConversationList(props) {
 
 	let history = useHistory();
 	const conversations = props.userList.map((res) => {
+		console.log("Username: "+res.name+" - "+res.online);
 		return {
 			name: res.name,
 			text: 'Online',
 			id: res.userId,
-			avatar: res.avatar
+			avatar: res.avatar,
+			online: res.online
 		};
 	});
 

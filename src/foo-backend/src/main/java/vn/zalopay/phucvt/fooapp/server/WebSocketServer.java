@@ -7,6 +7,7 @@ import io.vertx.core.http.ServerWebSocket;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import vn.zalopay.phucvt.fooapp.cache.UserCache;
 import vn.zalopay.phucvt.fooapp.handler.WSHandler;
 import vn.zalopay.phucvt.fooapp.utils.JWTUtils;
 
@@ -18,6 +19,7 @@ public class WebSocketServer {
   private final int port;
   private HttpServer listen;
   private final JWTUtils jwtUtils;
+  private final UserCache userCache;
 
   private Future<String> authenticated(ServerWebSocket ws) {
     Future<String> future = Future.future();
@@ -26,43 +28,44 @@ public class WebSocketServer {
     if (!StringUtils.isBlank(query)) {
       String token = query.substring(query.indexOf('=') + 1);
       if (!StringUtils.isBlank(token)) {
-        jwtUtils.authenticate(token).setHandler(userIdRes ->{
-          if(userIdRes.succeeded())
-            future.complete(userIdRes.result());
-        });
+        jwtUtils
+            .authenticate(token)
+            .setHandler(
+                userIdRes -> {
+                  if (userIdRes.succeeded()) future.complete(userIdRes.result());
+                });
       } else future.fail("Token is null");
     } else future.fail("Missing jwt param");
     return future;
   }
 
   public void start() {
-    log.info("Starting WebSocket server at port {}",port);
+    log.info("Starting WebSocket server at port {}", port);
     HttpServer listen =
         vertx
             .createHttpServer()
             .websocketHandler(
                 ws -> {
-//                  log.info(ws.headers());
-//                  String query = ws.query();
-//                  log.info(query.substring(query.indexOf('=') + 1));
                   authenticated(ws)
-//                          .compose(userId -> {
-//                            log.info("userId : {}",userId);
-//                          },Future.failedFuture("Failed"));
                       .setHandler(
                           userIdAsynRes -> {
                             if (userIdAsynRes.succeeded()) {
                               String userId = userIdAsynRes.result();
-                              log.info("userId : {}",userId);
-//                              if (!ws.path().equals("/chat")) {
-//                                log.info("Path failed");
-//                                ws.reject();
-//                              } else {
+                              log.info("userId : {}", userId);
+                              ws.accept();
+                              log.info("Set user status is online in cache");
+                              //     Remove user from cache online status
+                              userCache.setOnlineUserStatus(userId);
 
-                                ws.accept();
-                                wsHandler.addClient(ws, userId);
-                                ws.closeHandler(event -> wsHandler.removeClient(ws, userId));
-                                ws.handler(buffer -> wsHandler.handle(buffer, userId));
+                              wsHandler.addClient(ws, userId);
+                              ws.closeHandler(
+                                  event -> {
+                                    log.info("Close ws connection");
+                                    //    Remove user from cache online status
+                                    userCache.delOnlineUserStatus(userId);
+                                    wsHandler.removeClient(ws, userId);
+                                  });
+                              ws.handler(buffer -> wsHandler.handle(buffer, userId));
 
                             } else {
                               log.info("Authentication faield");

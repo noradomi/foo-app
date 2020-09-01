@@ -15,7 +15,7 @@ function ConversationListItem(props) {
 
 	let selectedColor = {};
 
-	const { name, text, avatar, id } = props.data;
+	const { name, text, avatar, id , online} = props.data;
 
 	if (props.currentSessionId === id) {
 		selectedColor.backgroundColor = 'rgb(218, 233, 255)';
@@ -32,24 +32,16 @@ function ConversationListItem(props) {
 			<div className="conversation-avatar" style={{ width: 60 }}>
 				<CustomAvatar type="user-avatar" avatar={avatar} />
 			</div>
-			<div className="status-point online" />
+			{online ?
+                  <div className="status-point online"/>
+                  :
+                  <div className="status-point offline"/>
+                }
 			<div className="conversation-info" style={{ paddingLeft: '10px', overflow: 'hidden', paddingTop: 5 }}>
-				{/* <h1 className="conversation-title">{name}</h1>
-				<p className="conversation-snippet">{text}</p> */}
 				<div className="user-name">{name}</div>
 				<div className="history-message">{text}</div>
 			</div>
 		</div>
-	// 	<Menu.Item key={index}>
-	// 	<div style={{width: 60}}>
-	// 	  <CustomAvatar type="user-avatar" avatar={item.avatar}/>
-	// 	</div>
-	// 	<div className="status-point online"/>
-	// 	<div style={{overflow: 'hidden', paddingTop: 5}}>
-	// 	  <div className="user-name">{item.name}</div>
-	// 	  <div className="history-message">{item.status}</div>
-	// 	</div>
-	//   </Menu.Item>
 	);
 }
 

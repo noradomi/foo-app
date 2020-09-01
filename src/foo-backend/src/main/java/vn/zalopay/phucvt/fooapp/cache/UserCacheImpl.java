@@ -87,8 +87,8 @@ public class UserCacheImpl implements UserCache {
     asyncHandler.run(
         () -> {
           try {
-            RQueue<User> userQueue =
-                redisCache.getRedissonClient().getQueue(CacheKey.getUserListKey());
+            RList<User> userQueue =
+                redisCache.getRedissonClient().getList(CacheKey.getUserListKey());
             userQueue.clear();
             userQueue.addAll(users);
             userQueue.expire(1, TimeUnit.MINUTES);
@@ -106,10 +106,11 @@ public class UserCacheImpl implements UserCache {
         asyncHandler.run(
                 () -> {
                     try{
-                        RQueue<User> userRQueue = redisCache.getRedissonClient().getQueue(CacheKey.getUserListKey());
+                        RList<User> userRQueue = redisCache.getRedissonClient().getList(CacheKey.getUserListKey());
                         if(userRQueue.isEmpty()){
                             log.info("Cache failed");
                             future.fail("Failed");
+
                         }
                         else{
                             log.info("cache exist");

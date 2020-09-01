@@ -104,9 +104,9 @@ public class ServiceModule {
   @Singleton
   ChatDA provideChatDA(DataSourceProvider dataSourceProvider, AsyncHandler asyncHandler) {
     return ChatDAImpl.builder()
-            .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
-            .asyncHandler(asyncHandler)
-            .build();
+        .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
+        .asyncHandler(asyncHandler)
+        .build();
   }
 
   @Provides
@@ -238,18 +238,23 @@ public class ServiceModule {
   @Provides
   @Singleton
   WSHandler provideWSHandler(ChatDA chatDA, ChatCache chatCache) {
-    return WSHandler.builder().chatCache(chatCache).chatDA(chatDA)
-            .clients(new ConcurrentHashMap<>()).build();
+    return WSHandler.builder()
+        .chatCache(chatCache)
+        .chatDA(chatDA)
+        .clients(new ConcurrentHashMap<>())
+        .build();
   }
 
   @Provides
   @Singleton
-  WebSocketServer provideWebSocketServer(WSHandler wsHandler, Vertx vertx, JWTUtils jwtUtils) {
+  WebSocketServer provideWebSocketServer(
+      WSHandler wsHandler, Vertx vertx, JWTUtils jwtUtils, UserCache userCache) {
     return WebSocketServer.builder()
         .wsHandler(wsHandler)
         .vertx(vertx)
         .port(serviceConfig.getWsPort())
         .jwtUtils(jwtUtils)
+        .userCache(userCache)
         .build();
   }
 }

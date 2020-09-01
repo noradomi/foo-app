@@ -46,8 +46,9 @@ public class SignOutHandler extends BaseHandler{
                 if (ttl > 0){
                     blackListCache.set(token, ttl);
                 }
-//                Remove user from online users cache.
+//                Remove user from users cache. (info and online status)
                 userCache.del(userId);
+                userCache.delOnlineUserStatus(userId);
 
                 log.info("Sign out user {} with token {}",userId,token);
                 SuccessResponse successResponse = SuccessResponse.builder().build();

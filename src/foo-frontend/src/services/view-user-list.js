@@ -1,5 +1,5 @@
 import { api } from './api';
-import { updateCurrSessionId,fetchUserList } from '../redux/fooAction';
+import { updateCurrSessionId, fetchUserList } from '../redux/fooAction';
 import store from '../redux/fooStore';
 
 export function getUserList() {
@@ -7,29 +7,33 @@ export function getUserList() {
 		api
 			.authGet('/api/protected/userlist', null)
 			.then((response) => {
-				console.log('Get User list successfully');
+				
 				let items = response.data.data.items;
+				console.log('Get User list successfully with size: ',items.length);
 				let result = [];
 
 				items.forEach((item) => {
 					var userItem = {
 						userId: item.userId,
 						name: item.fullname,
-						avatar: processUsernameForAvatar(item.fullname)
+						avatar: processUsernameForAvatar(item.fullname),
+						online: item.online
 					};
 					result.push(userItem);
 				});
 
-				// Sap xep danh sach user theo tu tu dien theo ten.
-				result.sort(function(a, b) {
-					if (a.name < b.name) return -1;
-					if (a.name > b.name) return 1;
-					return 0;
-                });
+				if (result.length > 0) {
+					// Sap xep danh sach user theo tu tu dien theo ten.
+					result.sort(function(a, b) {
+						if (a.name < b.name) return -1;
+						if (a.name > b.name) return 1;
+						return 0;
+					});
 
-                store.dispatch(fetchUserList(result));
-                store.dispatch(updateCurrSessionId(result[0].userId));
-				
+					store.dispatch(fetchUserList(result));
+					store.dispatch(updateCurrSessionId(result[0].userId));
+				}
+
 				resolve();
 			})
 			.catch((reason) => {
