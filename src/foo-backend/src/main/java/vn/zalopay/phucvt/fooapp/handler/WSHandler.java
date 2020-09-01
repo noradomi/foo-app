@@ -50,14 +50,15 @@ public class WSHandler {
       case "SEND":
         {
           WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
-          log.info("Parse WsMessage successfully");
-          log.info("Received message: {}",userId);
+          log.info("Message: {}",message.getMsg());
+          log.info("ReceiverId: {}",message.getReceiver_id());
           message.builder()
               .sender_id(userId) // receiver_id existed
               .create_date(new Date())
               .build();
           handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
           handleSendMessage(message, message.getReceiver_id());
+          log.info(">> Send messages done");
         }
 
       case "FETCH":

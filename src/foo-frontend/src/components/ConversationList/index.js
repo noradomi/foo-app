@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ConversationSearch from '../ConversationSearch';
 import SignOutButton from '../SignOutButton';
 import ConversationListItem from '../ConversationListItem';

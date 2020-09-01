@@ -9,25 +9,32 @@ import './MessageList.css';
 import { connect } from 'react-redux';
 import {getUserIdFromStorage} from '../../utils/utils'
 
-const MY_USER_ID = 'apple';
-
 function MessageList(props) {
 
-  // useEffect(() => {
-
-  // },[]);
-
   let senderId = getUserIdFromStorage();
+
+  // Check if userMap is loaded
+  if (props.userMapHolder.userMap.size === 0 || props.chatMessagesHolder.chatMessages.size === 0) {
+    return <div></div>;
+  }
+  else{
+    console.log("Not catch with ",props.userMapHolder.userMap.size);
+  }
+
   let receiverId = props.match.params.receiverId; // >>>
   let receiver = props.userMapHolder.userMap.get(receiverId);
 
   console.log(">>> Chatting with ",receiverId);
 
-  let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId); //>>>
+  let messagesState = props.chatMessagesHolder.chatMessages.get(senderId); //>>>
+
+  console.log(typeof messagesState)
 
   let ws = props.webSocket;
 
-  let messages = messagesState.map(item => {
+  let messages = [];
+
+  messages = messagesState.map(item => {
     return {
       id: item.timestamp,
       message: item.message,
@@ -57,7 +64,7 @@ function MessageList(props) {
 			let previous = messages[i - 1];
 			let current = messages[i];
 			let next = messages[i + 1];
-			let isMine = current.author === MY_USER_ID;
+			let isMine = current.author === senderId;
 			let currentMoment = moment(current.timestamp);
 			let prevBySameAuthor = false;
 			let nextBySameAuthor = false;

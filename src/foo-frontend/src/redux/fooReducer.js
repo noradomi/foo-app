@@ -1,4 +1,5 @@
 import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 let initialState = {
 	user: {
@@ -20,9 +21,12 @@ let initialState = {
 };
 
 export default function appReducer(state = initialState, action) {
+
+	console.log("Size user map: "+state.userMapHolder.userMap.size);
 	let data = action.data;
 	switch (action.type) {
 		case 'LOGIN_SUCCEEDED':
+			console.log("Login action");	
 			state = loginSucceeded(state, data);
 			break;
 		case 'SIGNOUT':
@@ -35,14 +39,17 @@ export default function appReducer(state = initialState, action) {
 			};
 
 		case 'USERLIST_FETCHED':
+			console.log("userListFetched action");
 			state = userListFetched(state, data);
 			break;
 		case 'CURRENT_SESSIONID':
+			console.log("CURRENT_SESSIONID action");
 			return {
 				...state,
 				currentSessionId: data
 			};
 		case 'WS_CONNECTED':
+			console.log("WS_CONNECTED action");
 			state = handleWsConnected(state,data);
 			break;
 		default:
@@ -59,11 +66,13 @@ function loginSucceeded(state, data) {
 
 // >>>
 function userListFetched(state, userList) {
+	console.log("Size of userlist fetched: "+userList.size);
 	let userMap = new Map();
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	for (let user of userList) {
-	  userMap.set(user.id, user);
-	  if (!chatMessages.has(user.id)) {
+		console.log("Size of userlist fetched: "+user.userId);
+	  userMap.set(user.userId, user);
+	  if (!chatMessages.has(user.userId)) {
 		chatMessages.set(user.id, []);
 	  }
 	}
