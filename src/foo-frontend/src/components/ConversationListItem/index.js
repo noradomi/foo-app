@@ -2,16 +2,24 @@ import React, { useEffect } from 'react';
 import shave from 'shave';
 import CustomAvatar from '../CustomAvatar/index';
 import './ConversationListItem.css';
+import { useHistory } from 'react-router-dom';
 
 export default function ConversationListItem(props) {
 	useEffect(() => {
 		shave('.conversation-snippet', 20);
 	});
 
-	const { name, text, avatar } = props.data;
+	let history = useHistory();
+
+	const { name, text, avatar, id } = props.data;
+
+	let clickHandle = () => {
+		history.push('/t/' + id);
+		// props.setActive(id);
+	  }
 
 	return (
-		<div className="conversation-list-item">
+		<div className="conversation-list-item" onClick={clickHandle}>
 			{/* <img className="conversation-photo" src={photo} alt="conversation" /> */}
 			<div style={{ width: 60 }}>
 				<CustomAvatar type="user-avatar" avatar={avatar} />

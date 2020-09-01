@@ -1,38 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
+import {Switch, Route} from 'react-router-dom';
 import Message from '../Message';
 import moment from 'moment';
 import './MessageList.css';
-import {wsConnect} from '../../services/chat-single';
 import { connect } from 'react-redux';
 import {getUserIdFromStorage} from '../../utils/utils'
 
 const MY_USER_ID = 'apple';
 
-wsConnect(); // <<<
 function MessageList(props) {
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  },[]);
+  // },[]);
 
   let senderId = getUserIdFromStorage();
-  let receiverId = Number(props.match.params.receiverId); // >>>
-  let receiver = props.userMapHolder.userMap.get(receiverdId);
+  let receiverId = props.match.params.receiverId; // >>>
+  let receiver = props.userMapHolder.userMap.get(receiverId);
 
-  console.log(">>> Chatting with ",receiver.name);
+  console.log(">>> Chatting with ",receiverId);
 
   let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId); //>>>
 
   let ws = props.webSocket;
 
-  let messages = messagesState.map(msg => {
+  let messages = messagesState.map(item => {
     return {
-      id: 
-    }
-  })
+      id: item.timestamp,
+      message: item.message,
+      author: item.senderId,
+      timestamp: item.timestamp*1000,
+      isMine: item.isMine
+    };
+  });
+
+  // >>>
+  // useEffect(() => {
+  //   if (messageList.length === 0) {
+  //     getMessageList(receiverId, messageList.length).then(data => {
+  //       props.updateMessageList(data, receiverId);
+  //     });
+  //   }
+  // }, [receiverId]);
+
+
   
 	const renderMessages = () => {
 		let i = 0;
@@ -91,9 +105,19 @@ function MessageList(props) {
 		}
 
 		return tempMessages;
-	};
+  };
+  
+  // >>>
+  let endOfMsgList = useRef(null);
+  useEffect(() => {
+    endOfMsgList.current.scrollIntoView({behavior: 'smooth'});
+  });
+  // >>>
+
+
+
 	let onChangeText = (e) => {
-    if (e.keyCode == 13) // Enter
+    if (e.keyCode == 13) // Click ENTER
     {
       let msg = e.target.value;
       
@@ -116,7 +140,9 @@ function MessageList(props) {
 				]}
 			/>
 
-			<div className="message-list-container">{renderMessages()}</div>
+			<div className="message-list-container">{renderMessages()}
+      <div ref={endOfMsgList}/>
+      </div>
 
 			<Compose
 				rightItems={[
@@ -136,8 +162,22 @@ function MessageList(props) {
 
 let mapStateToProps = (state) => {
   return {
+    userMapHolder: state.userMapHolder,
+    chatMessagesHolder: state.chatMessagesHolder,
     webSocket: state.webSocket
   }
 }
 
-export default connect(mapStateToProps,null)(MessageList);
+MessageList = connect(mapStateToProps,null)(MessageList);
+
+// >>>
+export default function MessageListWrapper() {
+  return (
+    <Switch>
+      <Route path="/t/:receiverId" component={MessageList}/>
+      <Route exact path="/">
+        <div></div>
+      </Route>
+    </Switch>
+  );
+}

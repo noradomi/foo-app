@@ -10,16 +10,19 @@ import { getUserList } from '../../services/view-user-list';
 import { connect } from 'react-redux';
 import { hanldeLogout } from '../../services/logout';
 import { useHistory } from 'react-router-dom';
+import { wsConnect } from '../../services/chat-single';
 
 // getUserList();
 function ConversationList(props) {
-	
-	// Init user list 
+	// Init user list
 	useEffect(() => {
 		getUserList()
-		.then(() => console.log("Load user list dont"))
-		.catch(() => console.log("Load user list failed"));
-	},[]);
+			.then(() => {
+				console.log('Load user list dont');
+				wsConnect();
+			})
+			.catch(() => console.log('Load user list failed'));
+	}, []);
 
 	let history = useHistory();
 	const conversations = props.userList.map((res) => {
@@ -47,7 +50,7 @@ function ConversationList(props) {
 				]}
 			/>
 			<ConversationSearch />
-			{conversations.map((conversation) => <ConversationListItem key={conversation.name} data={conversation} />)}
+			{conversations.map((conversation) => <ConversationListItem key={conversation.id} data={conversation} />)}
 		</div>
 	);
 }

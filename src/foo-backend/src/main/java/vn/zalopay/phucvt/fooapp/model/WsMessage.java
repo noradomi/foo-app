@@ -4,13 +4,14 @@ import lombok.*;
 
 import java.util.Date;
 
-@Builder
+@Builder(toBuilder = true)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class WsMessage {
     private String id;
+    private String type;
     private String sender_id;
     private String receiver_id;
     private String msg;
