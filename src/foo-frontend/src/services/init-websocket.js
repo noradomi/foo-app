@@ -12,11 +12,11 @@ export function initialWebSocket() {
 		maxAttempts: 10,
 		onopen: (e) => {},
 		onmessage: (messageEvent) => {
-			let jsonMessage = JSON.parse(messageEvent.data);
-			if (jsonMessage.type === 'CHAT') {
-				console.log('Get chat');
+            
+            let jsonMessage = JSON.parse(messageEvent.data);
+			if (jsonMessage.type === 'SEND') {
 				store.dispatch(receiveMessage(jsonMessage));
-			} else if (jsonMessage.type === 'SEND_BACK') {
+			} else if (jsonMessage.type === 'FETCH') {
 				if (jsonMessage.receiverId === senderId) {
 					return;
 				}

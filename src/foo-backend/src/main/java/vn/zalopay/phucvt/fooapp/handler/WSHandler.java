@@ -11,6 +11,7 @@ import vn.zalopay.phucvt.fooapp.da.ChatDA;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class WSHandler {
   }
 
   public void handle(Buffer buffer, String userId) {
-    log.info("Hanlde websocket");
+    log.info("Hanlde websocket with userid: {}",userId);
     JsonObject json = new JsonObject(buffer.toString());
 //    log.info("Buffer: {}",buffer.toString());
     String type = json.getString("type");
@@ -51,14 +52,13 @@ public class WSHandler {
         {
           WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
           log.info("Message: {}",message.getMsg());
-          log.info("ReceiverId: {}",message.getReceiver_id());
-          message.builder()
-              .sender_id(userId) // receiver_id existed
-              .create_date(new Date())
-              .build();
+
+          message.setSender_id(userId); // receiver_id existed
+          message.setCreate_date(Instant.now().getEpochSecond());
+          log.info(">> Send messages done with senderId: {}",message.getSender_id());
           handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
           handleSendMessage(message, message.getReceiver_id());
-          log.info(">> Send messages done");
+          log.info(">> Send messages done with senderId: {}",message.getSender_id());
         }
 
       case "FETCH":
@@ -66,15 +66,14 @@ public class WSHandler {
     }
   }
 
-  private void handleSendMessage(WsMessage message, String userId) {
+  private void handleSendMessage(WsMessage message, String receiverId) {
 //      Store message to db and cache.
-    chatDA.insertMsg(message);
-    chatCache.set(message);
-    Set<ServerWebSocket> receiverCon = clients.get(userId);
+//    chatDA.insertMsg(message);
+//    chatCache.set(message);
+    Set<ServerWebSocket> receiverCon = clients.get(receiverId);
     receiverCon.forEach(
         conn -> {
           conn.writeTextMessage(JsonProtoUtils.printGson(message));
-
         });
   }
 }

@@ -58,13 +58,10 @@ public class WebSocketServer {
 //                                log.info("Path failed");
 //                                ws.reject();
 //                              } else {
-                                log.info("Accept");
+
                                 ws.accept();
-                                log.info("Accep failed");
                                 wsHandler.addClient(ws, userId);
                                 ws.closeHandler(event -> wsHandler.removeClient(ws, userId));
-
-                                log.info("done handshake");
                                 ws.handler(buffer -> wsHandler.handle(buffer, userId));
 
                             } else {

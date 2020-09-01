@@ -40,14 +40,14 @@ export function webSocketConnected(webSocket, send) {
   
   export function receiveMessage(message) {
 	return {
-	  type: 'CHAT_RECEIVE',
+	  type: 'FETCH_MESSAGE',
 	  data: message
 	}
   }
   
   export function sendbackMessage(message) {
 	return {
-	  type: 'CHAT_SENDBACK',
+	  type: 'SEND_MESSAGE',
 	  data: message
 	}
   }

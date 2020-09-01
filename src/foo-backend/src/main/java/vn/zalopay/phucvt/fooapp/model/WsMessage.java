@@ -2,6 +2,7 @@ package vn.zalopay.phucvt.fooapp.model;
 
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Builder(toBuilder = true)
@@ -15,5 +16,5 @@ public class WsMessage {
     private String sender_id;
     private String receiver_id;
     private String msg;
-    private Date create_date;
+    private long create_date;
 }

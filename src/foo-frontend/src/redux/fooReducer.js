@@ -21,12 +21,10 @@ let initialState = {
 };
 
 export default function appReducer(state = initialState, action) {
-
-	console.log("Size user map: "+state.userMapHolder.userMap.size);
 	let data = action.data;
 	switch (action.type) {
 		case 'LOGIN_SUCCEEDED':
-			console.log("Login action");	
+			console.log('Login action');
 			state = loginSucceeded(state, data);
 			break;
 		case 'SIGNOUT':
@@ -39,18 +37,24 @@ export default function appReducer(state = initialState, action) {
 			};
 
 		case 'USERLIST_FETCHED':
-			console.log("userListFetched action");
+			console.log('userListFetched action');
 			state = userListFetched(state, data);
 			break;
 		case 'CURRENT_SESSIONID':
-			console.log("CURRENT_SESSIONID action");
+			console.log('CURRENT_SESSIONID action');
 			return {
 				...state,
 				currentSessionId: data
 			};
+		case 'SEND_MESSAGE':
+			state = sendMessage(state, data);
+			break;
+		case 'FETCH_MESSAGE':
+			state = receiveMessage(state, data);
+			break;
 		case 'WS_CONNECTED':
-			console.log("WS_CONNECTED action");
-			state = handleWsConnected(state,data);
+			console.log('WS_CONNECTED action');
+			state = handleWsConnected(state, data);
 			break;
 		default:
 			break;
@@ -66,55 +70,53 @@ function loginSucceeded(state, data) {
 
 // >>>
 function userListFetched(state, userList) {
-	console.log("Size of userlist fetched: "+userList.size);
+	// console.log('Size of userlist fetched: ' + userList.size);
 	let userMap = new Map();
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	for (let user of userList) {
-		console.log("Size of userlist fetched: "+user.userId);
-	  userMap.set(user.userId, user);
-	  if (!chatMessages.has(user.userId)) {
-		chatMessages.set(user.id, []);
-	  }
+		// console.log('Size of userlist fetched: ' + user.userId);
+		userMap.set(user.userId, user);
+		if (!chatMessages.has(user.userId)) {
+			chatMessages.set(user.userId, []);
+		}
 	}
 	return Object.assign({}, state, {
-	  userList,
-	  userMapHolder: {
-		userMap
-	  },
-	  chatMessagesHolder: {
-		chatMessages
-	  }
+		userList,
+		userMapHolder: {
+			userMap
+		},
+		chatMessagesHolder: {
+			chatMessages
+		}
 	});
 }
 
-// >>> 
-function receiveMessage(state,data){
+// >>>
+function receiveMessage(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	let listMessage = chatMessages.get(data.sender_id);
 	listMessage.push(data); // <<<
-	return Object.assign({},state, {
-		chatMessagesHolder: {chatMessages}
+	return Object.assign({}, state, {
+		chatMessagesHolder: { chatMessages }
 	});
 }
 
-// >>> 
-function sendMessage(state,data){
+// >>>
+function sendMessage(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
-	let listMessage = chatMessages.get(data.sender_id);
+	let listMessage = chatMessages.get(data.receiver_id);
 	listMessage.push(data); // <<<
-	return Object.assign({},state, {
-		chatMessagesHolder: {chatMessages}
+	return Object.assign({}, state, {
+		chatMessagesHolder: { chatMessages }
 	});
 }
 
 function handleWsConnected(state, data) {
-	console.log('ws connect', data);
 	let newState = Object.assign({}, state, {
-	  webSocket: {
-		webSocket: data.webSocket,
-		send: data.send
-	  }
+		webSocket: {
+			webSocket: data.webSocket,
+			send: data.send
+		}
 	});
-	console.log(newState);
 	return newState;
-  }
+}

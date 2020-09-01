@@ -17,18 +17,14 @@ function MessageList(props) {
   if (props.userMapHolder.userMap.size === 0 || props.chatMessagesHolder.chatMessages.size === 0) {
     return <div></div>;
   }
-  else{
-    console.log("Not catch with ",props.userMapHolder.userMap.size);
-  }
 
   let receiverId = props.match.params.receiverId; // >>>
   let receiver = props.userMapHolder.userMap.get(receiverId);
 
-  console.log(">>> Chatting with ",receiverId);
 
-  let messagesState = props.chatMessagesHolder.chatMessages.get(senderId); //>>>
+  let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId); //>>>
 
-  console.log(typeof messagesState)
+  
 
   let ws = props.webSocket;
 
@@ -36,13 +32,14 @@ function MessageList(props) {
 
   messages = messagesState.map(item => {
     return {
-      id: item.timestamp,
-      message: item.message,
-      author: item.senderId,
-      timestamp: item.timestamp*1000,
-      isMine: item.isMine
+      id: item.create_date,
+      message: item.msg,
+      author: item.sender_id,
+      timestamp: item.create_date*1000,
+      // isMine: item.isMine
     };
   });
+
 
   // >>>
   // useEffect(() => {
@@ -128,42 +125,39 @@ function MessageList(props) {
     {
       let msg = e.target.value;
       
-      props.webSocket.send(123,msg);
+      props.webSocket.send(receiverId,msg);
 
-      console.log("Sent to server : "+msg);
 			e.target.value = '';
 		}
 	};
 
 	return (
-		<div className="message-list">
-			<Toolbar
-				
-				title="Conversation Title"
-				rightItems={[
-					<ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
-					<ToolbarButton key="video" icon="ion-ios-videocam" />,
-					<ToolbarButton key="phone" icon="ion-ios-call" />
-				]}
-			/>
+    <div className="message-list">
+    <Toolbar
+      title={receiver.name}
+      rightItems={[
+       
+        <ToolbarButton key="info" icon="ion-ios-information-circle-outline"/>,
+        <ToolbarButton key="video" icon="ion-ios-videocam"/>,
+        <ToolbarButton key="phone" icon="ion-ios-call"/>,
+      ]}
+    />
 
-			<div className="message-list-container">{renderMessages()}
+    <div className="message-list-container">
+      {renderMessages()}
       <div ref={endOfMsgList}/>
-      </div>
+    </div>
 
-			<Compose
-				rightItems={[
-					// <ToolbarButton key="photo" icon="ion-ios-camera" />,
-					<ToolbarButton key="image" icon="ion-ios-image" />,
-					// <ToolbarButton key="audio" icon="ion-ios-mic" />,
-					// <ToolbarButton key="money" icon="ion-ios-card" />,
-
-					<ToolbarButton key="emoji" icon="ion-ios-happy" />,
-					<ToolbarButton key="games" icon="ion-ios-send" />
-				]}
-				onKeyUp={onChangeText}
-			/>
-		</div>
+    <Compose rightItems={[
+      <ToolbarButton key="photo" icon="ion-ios-camera"/>,
+      <ToolbarButton key="image" icon="ion-ios-image"/>,
+      <ToolbarButton key="audio" icon="ion-ios-mic"/>,
+      <ToolbarButton key="money" icon="ion-ios-card"/>,
+      <ToolbarButton key="games" icon="ion-logo-game-controller-b"/>,
+      <ToolbarButton key="emoji" icon="ion-ios-happy"/>
+    ]}
+             onKeyUp={onChangeText}/>
+  </div>
 	);
 }
 
