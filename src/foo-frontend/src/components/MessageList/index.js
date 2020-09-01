@@ -6,10 +6,12 @@ import Message from '../Message';
 import moment from 'moment';
 import './MessageList.css';
 import {wsConnect} from '../../services/chat-single';
+import { connect } from 'react-redux';
 
 const MY_USER_ID = 'apple';
 
-export default function MessageList(props) {
+wsConnect();
+function MessageList(props) {
 	const [ messages, setMessages ] = useState([]);
 
 	useEffect(() => {
@@ -215,7 +217,7 @@ export default function MessageList(props) {
     {
       let msg = e.target.value;
       
-      wsConnect(msg);
+      props.webSocket.send(123,msg);
 
       console.log("Sent to server : "+msg);
 			e.target.value = '';
@@ -251,3 +253,11 @@ export default function MessageList(props) {
 		</div>
 	);
 }
+
+let mapStateToProps = (state) => {
+  return {
+    webSocket: state.webSocket
+  }
+}
+
+export default connect(mapStateToProps,null)(MessageList);

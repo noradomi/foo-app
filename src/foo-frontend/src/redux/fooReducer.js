@@ -42,9 +42,9 @@ export default function appReducer(state = initialState, action) {
 				...state,
 				currentSessionId: data
 			};
-		// case 'WS_CONNECTED':
-		// 	state = handleWebSocket(state,data);
-		// 	break;
+		case 'WS_CONNECTED':
+			state = handleWsConnected(state,data);
+			break;
 		default:
 			break;
 	}
@@ -57,8 +57,45 @@ function loginSucceeded(state, data) {
 	});
 }
 
+// >>>
 function userListFetched(state, userList) {
-	return Object.assign({}, state, { userList });
+	let userMap = new Map();
+	let chatMessages = state.chatMessagesHolder.chatMessages;
+	for (let user of userList) {
+	  userMap.set(user.id, user);
+	  if (!chatMessages.has(user.id)) {
+		chatMessages.set(user.id, []);
+	  }
+	}
+	return Object.assign({}, state, {
+	  userList,
+	  userMapHolder: {
+		userMap
+	  },
+	  chatMessagesHolder: {
+		chatMessages
+	  }
+	});
+}
+
+// >>> 
+function receiveMessage(state,data){
+	let chatMessages = state.chatMessagesHolder.chatMessages;
+	let listMessage = chatMessages.get(data.sender_id);
+	listMessage.push(data); // <<<
+	return Object.assign({},state, {
+		chatMessagesHolder: {chatMessages}
+	});
+}
+
+// >>> 
+function sendMessage(state,data){
+	let chatMessages = state.chatMessagesHolder.chatMessages;
+	let listMessage = chatMessages.get(data.sender_id);
+	listMessage.push(data); // <<<
+	return Object.assign({},state, {
+		chatMessagesHolder: {chatMessages}
+	});
 }
 
 function handleWsConnected(state, data) {

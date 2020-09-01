@@ -51,7 +51,7 @@ public class WSHandler {
         {
           WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
           log.info("Parse WsMessage successfully");
-          log.info("Received message: {}",message.getMsg());
+          log.info("Received message: {}",userId);
 //          message.builder()
 //              .sender_id(userId) // receiver_id existed
 //              .create_date(new Date())

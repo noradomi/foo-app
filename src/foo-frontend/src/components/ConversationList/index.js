@@ -13,6 +13,13 @@ import { useHistory } from 'react-router-dom';
 
 getUserList();
 function ConversationList(props) {
+	
+	// useEffect(() => {
+	// 	getUserList()
+	// 	.then(() => console.log("Load user list dont"))
+	// 	.catch(() => console.log("Load user list failed"));
+	// })
+
 	let history = useHistory();
 	const conversations = props.userList.map((res) => {
 		return {
@@ -52,7 +59,7 @@ function mapStateToProps(state) {
 
 // function mapDispatchToProps(dispatch) {
 //   return {
-//     load(){
+//     loadUserList(){
 // 		getUserList();
 // 	}
 //   }

@@ -1,6 +1,6 @@
 import { ws_host } from './api';
-// import store from '../redux/vmr-store';
-// import { webSocketConnected, receiveMessage, sendbackMessage } from '../redux/vmr-action';
+import store from '../redux/fooStore';
+import { webSocketConnected, login} from '../redux/fooAction';
 import { getUserIdFromStorage, getJwtFromStorage } from '../utils/utils';
 
 let ws = null;
@@ -12,10 +12,12 @@ export function wsConnect(msg) {
 	// Return websocket promise
 	if (ws === null) {
 		let token = getJwtFromStorage();
-		let webSocket = new WebSocket(ws_host +"/chat"+`?token=${token}`);
+		let webSocket = new WebSocket(ws_host +"chat"+`?token=${token}`);
 
 		// When connect successful
 		webSocket.onopen = (event) => {
+            console.log("Created new web socket connection");
+
 			ws = webSocket;
 
 			// Function to send chat message
@@ -31,8 +33,8 @@ export function wsConnect(msg) {
 			// Test message
 			send(senderId, msg);
 
-			// // Notify to redux
-			// store.dispatch(webSocketConnected(webSocket, send));
+			// Notify to redux
+			store.dispatch(webSocketConnected(webSocket, send));
 
 			// // Handle chat message
 			// webSocket.onmessage = (messageEvent) => {
