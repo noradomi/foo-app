@@ -43,23 +43,25 @@ public class WSHandler {
 
   public void handle(Buffer buffer, String userId) {
     log.info("Hanlde websocket");
-//    JsonObject json = new JsonObject(buffer.toString());
-    log.info("Buffer: {}",buffer.toString());
-//    String type = json.getString("type");
-//    switch (type) {
-//      case "SEND":
-//        {
-//          WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
+    JsonObject json = new JsonObject(buffer.toString());
+//    log.info("Buffer: {}",buffer.toString());
+    String type = json.getString("type");
+    switch (type) {
+      case "SEND":
+        {
+          WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
+          log.info("Parse WsMessage successfully");
+          log.info("Received message: {}",message.getMsg());
 //          message.builder()
 //              .sender_id(userId) // receiver_id existed
 //              .create_date(new Date())
 //              .build();
 //          handleSendMessage(message, userId);
-//        }
-//
-//      case "FETCH":
-//      default:
-//    }
+        }
+
+      case "FETCH":
+      default:
+    }
   }
 
   private void handleSendMessage(WsMessage message, String userId) {

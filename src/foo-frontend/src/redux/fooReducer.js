@@ -6,7 +6,17 @@ let initialState = {
 		userId: getUserIdFromStorage()
 	},
 	userList: [],
-	currentSessionId: null
+	currentSessionId: null,
+	userMapHolder: {
+		userMap: new Map()
+	},
+	webSocket: {
+		webSocket: null,
+		send: null
+	},
+	chatMessagesHolder: {
+		chatMessages: new Map()
+	}
 };
 
 export default function appReducer(state = initialState, action) {
@@ -23,7 +33,7 @@ export default function appReducer(state = initialState, action) {
 					userId: null
 				}
 			};
-			break;
+
 		case 'USERLIST_FETCHED':
 			state = userListFetched(state, data);
 			break;
@@ -32,9 +42,13 @@ export default function appReducer(state = initialState, action) {
 				...state,
 				currentSessionId: data
 			};
+		// case 'WS_CONNECTED':
+		// 	state = handleWebSocket(state,data);
+		// 	break;
+		default:
 			break;
-    }
-    return state;
+	}
+	return state;
 }
 
 function loginSucceeded(state, data) {
@@ -46,3 +60,15 @@ function loginSucceeded(state, data) {
 function userListFetched(state, userList) {
 	return Object.assign({}, state, { userList });
 }
+
+function handleWsConnected(state, data) {
+	console.log('ws connect', data);
+	let newState = Object.assign({}, state, {
+	  webSocket: {
+		webSocket: data.webSocket,
+		send: data.send
+	  }
+	});
+	console.log(newState);
+	return newState;
+  }

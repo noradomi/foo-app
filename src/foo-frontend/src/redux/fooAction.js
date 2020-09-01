@@ -27,3 +27,27 @@ export function updateCurrSessionId(userId){
 		data: userId
 	}
 }
+
+export function webSocketConnected(webSocket, send) {
+	return {
+	  type: 'WS_CONNECTED',
+	  data: {
+		webSocket,
+		send
+	  }
+	}
+  }
+  
+  export function receiveMessage(message) {
+	return {
+	  type: 'CHAT_RECEIVE',
+	  data: message
+	}
+  }
+  
+  export function sendbackMessage(message) {
+	return {
+	  type: 'CHAT_SENDBACK',
+	  data: message
+	}
+  }

@@ -54,10 +54,10 @@ public class WebSocketServer {
                             if (userIdAsynRes.succeeded()) {
                               String userId = userIdAsynRes.result();
                               log.info("userId : {}",userId);
-                              if (!ws.path().equals("/chat")) {
-                                log.info("Path failed");
-                                ws.reject();
-                              } else {
+//                              if (!ws.path().equals("/chat")) {
+//                                log.info("Path failed");
+//                                ws.reject();
+//                              } else {
                                 log.info("Accept");
                                 ws.accept();
                                 log.info("Accep failed");
@@ -66,7 +66,7 @@ public class WebSocketServer {
 
                                 log.info("done handshake");
                                 ws.handler(buffer -> wsHandler.handle(buffer, userId));
-                              }
+
                             } else {
                               log.info("Authentication faield");
                               ws.reject();
