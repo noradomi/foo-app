@@ -50,7 +50,8 @@ function ConversationList(props) {
 				]}
 			/>
 			<ConversationSearch />
-			{conversations.map((conversation) => <ConversationListItem key={conversation.id} data={conversation} />)}
+			{conversations.length > 0 ? conversations.map((conversation) => <ConversationListItem key={conversation.id} data={conversation} />) : ''}
+			
 		</div>
 	);
 }
