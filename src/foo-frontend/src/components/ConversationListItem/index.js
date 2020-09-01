@@ -29,7 +29,7 @@ function ConversationListItem(props) {
 	return (
 		<div className="conversation-list-item" onClick={clickHandle} style={selectedColor}>
 			{/* <img className="conversation-photo" src={photo} alt="conversation" /> */}
-			<div style={{ width: 60 }}>
+			<div className="conversation-avatar" style={{ width: 60 }}>
 				<CustomAvatar type="user-avatar" avatar={avatar} />
 			</div>
 			<div className="status-point online" />
