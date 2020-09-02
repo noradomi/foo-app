@@ -14,7 +14,6 @@ import vn.zalopay.phucvt.fooapp.cache.BlackListCache;
 
 /*
 * A middleware for authenticating all requests to path /api/protected/* include:
-    - Authenticate JWT token
     - Check token exist in blacklist cache.
 */
 

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ChatDA {
     Executable<WsMessage> insertMsg(WsMessage msg);
-//    Future<List<WsMessage>> getRecentMsgs(String firstUserId, String secondUserId);
+    Future<List<WsMessage>> getMessageList(String firstUserId, String secondUserId, int offset);
 }

@@ -18,6 +18,7 @@ public class BlackListCacheImpl implements BlackListCache {
 
     @Override
     public Future<String> set(String token,Long ttl) {
+        log.info("> Add a JWT token to black list");
 //        Set JWT token log out with ttl in cache is token's ttl
         Future<String> future = Future.future();
         asyncHandler.run(
@@ -28,7 +29,6 @@ public class BlackListCacheImpl implements BlackListCache {
                                 .getBucket(CacheKey.getBlacklistKey(token));
                         blacklist.set("1");
                         blacklist.expire(ttl, TimeUnit.MILLISECONDS);
-                        log.info("done add token");
                         future.complete(token);
 
                     } catch (Exception e) {
@@ -40,6 +40,7 @@ public class BlackListCacheImpl implements BlackListCache {
 
     @Override
     public Future<Boolean> constains(String token) {
+        log.info("> Check a JWT token still valid");
         Future<Boolean> future = Future.future();
         asyncHandler.run(
                 () -> {
@@ -47,7 +48,6 @@ public class BlackListCacheImpl implements BlackListCache {
                         RBucket<String> blacklist = redisCache
                                 .getRedissonClient()
                                 .getBucket(CacheKey.getBlacklistKey(token));
-                        log.info("get () : {}",blacklist.get());
                         future.complete(blacklist.get() != null);
                     } catch (Exception e) {
                         future.fail(e);

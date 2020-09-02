@@ -8,28 +8,28 @@ import vn.zalopay.phucvt.fooapp.config.APIPath;
 
 @Builder
 public class HandlerFactory {
-  private BaseHandler echoHandler;
-  private BaseHandler exampleHandler;
   private BaseHandler loginHandler;
   private BaseHandler signUpHandler;
   private BaseHandler signOutHandler;
   private AuthHandler authHandler;
   private BaseHandler userListHanlder;
   private BaseHandler participantHandler;
+  private BaseHandler messageListHandler;
 
   public void initialize(Router router) {
 
     router.route("/api/protected/*").handler(authHandler::handle);
 
+    router.route("/api/protected/messages/:friendId/:offset").method(HttpMethod.GET).handler(messageListHandler::handle);
+
     ImmutableMap<String, BaseHandler> getHandler =
         ImmutableMap.<String, BaseHandler>builder()
                 .put(APIPath.USERLIST, userListHanlder)
+//                .put(APIPath.MESSAGELIST, messageListHandler)
                 .put(APIPath.CONVERSATIONID, participantHandler).build();
 
     ImmutableMap<String, BaseHandler> postHandler =
         ImmutableMap.<String, BaseHandler>builder()
-            .put(APIPath.ECHO, echoHandler)
-            .put(APIPath.EXAMPLE, exampleHandler)
             .put(APIPath.LOGIN, loginHandler)
             .put(APIPath.SIGNUP, signUpHandler)
             .put(APIPath.SIGNOUT, signOutHandler)

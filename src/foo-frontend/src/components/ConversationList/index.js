@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ConversationSearch from '../ConversationSearch';
 import SignOutButton from '../SignOutButton';
 import ConversationListItem from '../ConversationListItem';
@@ -6,64 +6,77 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import axios from 'axios';
 import './ConversationList.css';
-import {getUserList} from '../../services/view-user-list';
+import { getUserList } from '../../services/view-user-list';
 import { connect } from 'react-redux';
+import { hanldeLogout } from '../../services/logout';
+import { useHistory } from 'react-router-dom';
+import { wsConnect } from '../../services/chat-single';
 
-
-getUserList();
+// getUserList();
 function ConversationList(props) {
-	// const [ conversations, setConversations ] = useState([]);
-	// useEffect(() => {
-	// 	getConversations();
-	// }, []);
+	// Init user list
+	useEffect(() => {
+		getUserList()
+			.then(() => {
+				console.log('Load user list dont');
+				wsConnect();
+			})
+			.catch(() => console.log('Load user list failed'));
+	}, []);
 
-	// const getConversations = () => {
-	// 	axios.get('https://randomuser.me/api/?results=20').then((response) => {
-	// 		let newConversations = response.data.results.map((result) => {
-	// 			return {
-	// 				photo: result.picture.large,
-	// 				name: `${result.name.first} ${result.name.last}`,
-	// 				text: 'Hello world! This is a long message that needs to be truncated.'
-	// 			};
-	// 		});
-	// 		setConversations([ ...conversations, ...newConversations ]);
-	// 	});
-  // };
-  
-  const conversations = props.userList.map(res => {
-    return {
-      name: res.name,
-      text: 'Online',
-      id: res.userId,
-      avatar: res.avatar
-    }
-  })
+	let history = useHistory();
+	const conversations = props.userList.map((res) => {
+		console.log('Username: ' + res.name + ' - ' + res.online);
+		return {
+			name: res.name,
+			text: 'Online',
+			id: res.userId,
+			avatar: res.avatar,
+			online: res.online
+		};
+	});
 
 	return (
 		<div className="conversation-list">
 			<Toolbar
 				title="Messenger"
 				leftItems={[ <ToolbarButton key="cog" icon="ion-ios-cog" /> ]}
-				rightItems={[ <SignOutButton key="add" icon="ion-ios-add-circle-outline" /> ]}
+				rightItems={[
+					<SignOutButton
+						key="add"
+						icon="ion-ios-log-out"
+						onClick={() => {
+							hanldeLogout().then(() => history.push('/login'));
+						}}
+					/>
+				]}
 			/>
-			<ConversationSearch />
-			{conversations.map((conversation) => <ConversationListItem key={conversation.name} data={conversation} />)}
+			<div className="conversation-list-scroll">
+				<ConversationSearch />
+				{conversations.length > 0 ? (
+					conversations.map((conversation) => (
+						<ConversationListItem key={conversation.id} data={conversation} />
+					))
+				) : (
+					''
+				)}
+			</div>
 		</div>
 	);
 }
 
 function mapStateToProps(state) {
-  return {
-    userList: state.userList
-  }
+	return {
+		userList: state.userList
+	};
 }
 
 // function mapDispatchToProps(dispatch) {
 //   return {
-//     load(){
-//       getUserList()
-//     }
+//     loadUserList(){
+// 		getUserList();
+// 	}
 //   }
 // }
 
-export default connect(mapStateToProps,null)(ConversationList);
+export default connect(mapStateToProps, null)(ConversationList);

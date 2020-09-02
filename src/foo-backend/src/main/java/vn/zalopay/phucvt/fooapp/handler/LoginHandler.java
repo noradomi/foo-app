@@ -45,7 +45,7 @@ public class LoginHandler extends BaseHandler {
         Future<BaseResponse> future = Future.future();
 
         getUserAuth.compose(userAuth -> {
-//            if (userAuth != null && userAuth.getPassword().equals(user.getPassword())) {
+
             if (userAuth != null && userAuth.getUsername().equals(user.getUsername()) && BCrypt.checkpw(user.getPassword(),userAuth.getPassword())) {
 
 //                Login successfully -> Add to online user list cache
@@ -71,6 +71,8 @@ public class LoginHandler extends BaseHandler {
                 successResponse.setStatus(HttpResponseStatus.OK.code());
                 future.complete(successResponse);
 
+                LOGGER.info("Sign in: SUCCEEDED by user: {}",userAuth.getFullname());
+
             } else {
                 ExceptionResponse exceptionResponse = ExceptionResponse
                         .builder()
@@ -81,7 +83,7 @@ public class LoginHandler extends BaseHandler {
                 future.complete(exceptionResponse);
             }
         }, Future.future().setHandler(handler -> {
-            LOGGER.info("Signin failed with username " + user.getUsername());
+            LOGGER.info("Sign in: GET USER AUTH FAILED");
             future.fail(handler.cause());
         }));
 

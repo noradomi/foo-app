@@ -34,7 +34,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
 
   @Override
   public Executable<User> insert(User user) {
-    LOGGER.info("insert user");
+    LOGGER.info("> Insert user");
     return connection -> {
       Future<Void> future = Future.future();
       asyncHandler.run(
@@ -80,7 +80,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
 
   @Override
   public Future<User> selectUserByUserName(String username) {
-    LOGGER.info("select user by user name");
+    LOGGER.info("> Select user by user name");
     Future<User> future = Future.future();
     asyncHandler.run(
         () -> {

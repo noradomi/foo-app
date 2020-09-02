@@ -33,21 +33,19 @@ public class ServiceModule {
   @Provides
   @Singleton
   HandlerFactory provideHandler(
-      EchoHandler echoHandler,
-      ExampleHandler exampleHandler,
       LoginHandler loginHandler,
       SignUpHandler signUpHandler,
       SignOutHandler signOutHandler,
       UserListHandler userListHandler,
+      MessageListHandler messageListHandler,
       ParticipantHandler participantHandler,
       AuthHandler authHandler) {
     return HandlerFactory.builder()
-        .echoHandler(echoHandler)
-        .exampleHandler(exampleHandler)
         .loginHandler(loginHandler)
         .signUpHandler(signUpHandler)
         .signOutHandler(signOutHandler)
         .userListHanlder(userListHandler)
+        .messageListHandler(messageListHandler)
         .participantHandler(participantHandler)
         .authHandler(authHandler)
         .build();
@@ -87,11 +85,6 @@ public class ServiceModule {
     return BlackListCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
   }
 
-  @Provides
-  @Singleton
-  EchoHandler provideEchoHandler() {
-    return new EchoHandler();
-  }
 
   @Provides
   @Singleton
@@ -104,9 +97,9 @@ public class ServiceModule {
   @Singleton
   ChatDA provideChatDA(DataSourceProvider dataSourceProvider, AsyncHandler asyncHandler) {
     return ChatDAImpl.builder()
-            .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
-            .asyncHandler(asyncHandler)
-            .build();
+        .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
+        .asyncHandler(asyncHandler)
+        .build();
   }
 
   @Provides
@@ -118,13 +111,7 @@ public class ServiceModule {
         .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
         .build();
   }
-
-  @Provides
-  @Singleton
-  ExampleHandler provideExampleHandler(
-      UserDA userDA, TransactionProvider transactionProvider, UserCache userCache) {
-    return new ExampleHandler(userDA, userCache, transactionProvider);
-  }
+  
 
   @Provides
   @Singleton
@@ -166,6 +153,12 @@ public class ServiceModule {
   @Singleton
   UserListHandler provideUserListHandler(JWTUtils jwtUtils, UserDA userDA, UserCache userCache) {
     return UserListHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).build();
+  }
+
+  @Provides
+  @Singleton
+  MessageListHandler provideMessageListHandler(JWTUtils jwtUtils, ChatDA chatDA, ChatCache chatCache) {
+    return MessageListHandler.builder().jwtUtils(jwtUtils).chatCache(chatCache).chatDA(chatDA).build();
   }
 
   @Singleton
@@ -237,19 +230,26 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  WSHandler provideWSHandler(ChatDA chatDA, ChatCache chatCache) {
-    return WSHandler.builder().chatCache(chatCache).chatDA(chatDA)
-            .clients(new ConcurrentHashMap<>()).build();
+  WSHandler provideWSHandler(
+      ChatDA chatDA, ChatCache chatCache, TransactionProvider transactionProvider) {
+    return WSHandler.builder()
+        .chatCache(chatCache)
+        .chatDA(chatDA)
+        .clients(new ConcurrentHashMap<>())
+        .transactionProvider(transactionProvider)
+        .build();
   }
 
   @Provides
   @Singleton
-  WebSocketServer provideWebSocketServer(WSHandler wsHandler, Vertx vertx, JWTUtils jwtUtils) {
+  WebSocketServer provideWebSocketServer(
+      WSHandler wsHandler, Vertx vertx, JWTUtils jwtUtils, UserCache userCache) {
     return WebSocketServer.builder()
         .wsHandler(wsHandler)
         .vertx(vertx)
         .port(serviceConfig.getWsPort())
         .jwtUtils(jwtUtils)
+        .userCache(userCache)
         .build();
   }
 }

@@ -27,3 +27,35 @@ export function updateCurrSessionId(userId){
 		data: userId
 	}
 }
+
+export function webSocketConnected(webSocket, send) {
+	return {
+	  type: 'WS_CONNECTED',
+	  data: {
+		webSocket,
+		send
+	  }
+	}
+  }
+  
+  export function receiveMessage(message) {
+	return {
+	  type: 'FETCH_MESSAGE',
+	  data: message
+	}
+  }
+  
+  export function sendbackMessage(message) {
+	return {
+	  type: 'SEND_MESSAGE',
+	  data: message
+	}
+  }
+
+  export function fetchMessageList(data,friendId) {
+	data.friendId = friendId;
+	return {
+	  type: 'FETCH_MESSAGE_LIST',
+	  data: data
+	}
+  }

@@ -11,5 +11,6 @@ public class UserListItem {
     private String fullname;
 //    private String conversationId;
     private String userId;
+    private boolean online;
 //    private String lastMessage;
 }

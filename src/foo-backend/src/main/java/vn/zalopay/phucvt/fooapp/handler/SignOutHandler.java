@@ -1,6 +1,5 @@
 package vn.zalopay.phucvt.fooapp.handler;
 
-import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonObject;
@@ -17,7 +16,6 @@ import vn.zalopay.phucvt.fooapp.entity.response.SuccessResponse;
 import java.util.Date;
 
 
-
 @Builder
 @Log4j2
 public class SignOutHandler extends BaseHandler{
@@ -31,7 +29,6 @@ public class SignOutHandler extends BaseHandler{
     @Override
     public Future<BaseResponse> handle(BaseRequest baseRequest) {
         Future<BaseResponse> future = Future.future();
-        log.info("sign out");
         String token = baseRequest.getHeaders().get(HttpHeaders.AUTHORIZATION).substring("Bearer ".length()).trim();
 
         authProvider.authenticate(new JsonObject().put("jwt",token),event ->{
@@ -42,14 +39,15 @@ public class SignOutHandler extends BaseHandler{
 //                Set ttl of token in blacklist cache equals expire time of JWT token.
                 long expireTimeInMilliseconds = event.result().principal().getLong("exp") * 1000;
                 long ttl = expireTimeInMilliseconds - new Date().getTime();
-                log.info("ttl : {}",ttl);
+
                 if (ttl > 0){
                     blackListCache.set(token, ttl);
                 }
-//                Remove user from online users cache.
+//                Remove user from users cache. (info and online status)
                 userCache.del(userId);
+                userCache.delOnlineUserStatus(userId);
 
-                log.info("Sign out user {} with token {}",userId,token);
+                log.info("Sign out: SUCCEEDED for userId {}",userId);
                 SuccessResponse successResponse = SuccessResponse.builder().build();
                 successResponse.setStatus(200);
                 future.complete(successResponse);

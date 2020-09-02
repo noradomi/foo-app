@@ -1,6 +1,7 @@
 package vn.zalopay.phucvt.fooapp.handler;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
+import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
@@ -14,6 +15,7 @@ import vn.zalopay.phucvt.fooapp.model.UserListItem;
 import vn.zalopay.phucvt.fooapp.model.UserListResponse;
 import vn.zalopay.phucvt.fooapp.utils.JWTUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -26,28 +28,22 @@ public class UserListHandler extends BaseHandler {
 
   @Override
   public Future<BaseResponse> handle(BaseRequest baseRequest) {
-
+    log.info("Fetch user list");
     Future<BaseResponse> future = Future.future();
 
     Future<String> userIdFuture = jwtUtils.getUserIdFromToken(baseRequest);
 
-//    userIdFuture.compose(id ->{
-//        log.info(id);
-//    },Future.future().setHandler(handler -> future.fail(handler.cause())));
-
-    log.info("user list handler");
     userIdFuture.compose(
         id -> {
-          log.info("userId {}",id);
           Future<List<User>> usersFuture = userCache.getUserList();
           usersFuture.setHandler(
               res -> {
                 Future<List<User>> allUsersFuture = Future.future();
                 if (res.succeeded()) {
-                  log.info("Cache hit with size {}",res.result().get(0).getUsername());
+                  log.info("Load user list: CACHE HIT");
                   allUsersFuture.complete(res.result());
                 } else {
-                  log.info("Cache miss");
+                    log.info("Load user list: CACHE MISS");
                   userDA
                       .selectListUser()
                       .setHandler(
@@ -60,24 +56,38 @@ public class UserListHandler extends BaseHandler {
                 }
                 allUsersFuture.compose(
                     users -> {
+                      List<Future> getStatusUserFutures = new ArrayList<>();
                       UserListResponse userListResponse = new UserListResponse();
-                      log.info("got data with {}", users.size());
-                      for (User u : users) {
-                          if(!u.getUserId().equals(id)){
-                              UserListItem item =
-                                      UserListItem.builder()
-                                              .userId(u.getUserId())
-                                              .fullname(u.getFullname())
-                                              .build();
-                              userListResponse.getItems().add(item);
-                          }
 
+                      for (User u : users) {
+                        if (!u.getUserId().equals(id)) {
+                          UserListItem item =
+                              UserListItem.builder()
+                                  .userId(u.getUserId())
+                                  .fullname(u.getFullname())
+                                  .build();
+                          userListResponse.getItems().add(item);
+                          getStatusUserFutures.add(userCache.isOnlineStatus(u.getUserId()));
+                        }
                       }
-                      log.info("build done");
-                      SuccessResponse successResponse =
-                          SuccessResponse.builder().data(userListResponse).build();
-                      successResponse.setStatus(HttpResponseStatus.OK.code());
-                      future.complete(successResponse);
+
+                      CompositeFuture cp = CompositeFuture.all(getStatusUserFutures);
+                      cp.setHandler(
+                          ar -> {
+                            if (ar.succeeded()) {
+                              for (int index = 0; index < getStatusUserFutures.size(); ++index) {
+                                userListResponse
+                                    .getItems()
+                                    .get(index)
+                                    .setOnline(cp.resultAt(index));
+                              }
+
+                              SuccessResponse successResponse =
+                                  SuccessResponse.builder().data(userListResponse).build();
+                              successResponse.setStatus(HttpResponseStatus.OK.code());
+                              future.complete(successResponse);
+                            }
+                          });
                     },
                     Future.future()
                         .setHandler(
@@ -89,46 +99,9 @@ public class UserListHandler extends BaseHandler {
         Future.future()
             .setHandler(
                 handler -> {
-                    log.info("Hanlder failed");
+                  log.error("Load user list: RETRIEVE USER ID FAILED");
                   future.fail(handler.cause());
                 }));
-
-    //    userIdFuture.compose(
-    //        id -> {
-    //          userDA
-    //              .selectListUsersById(id)
-    //              .compose(
-    //                  users -> {
-    //                    UserListResponse userListResponse = new UserListResponse();
-    //                    log.info("got data with {}", users.size());
-    //                    for (User u : users) {
-    //                      UserListItem item =
-    //                          UserListItem.builder()
-    //                              .userId(u.getUserId())
-    //                              .username(u.getFullname())
-    //                              .build();
-    //                      userListResponse.getItems().add(item);
-    //                    }
-    //                    log.info("build done");
-    //                    SuccessResponse successResponse =
-    //                        SuccessResponse.builder().data(userListResponse).build();
-    //                    successResponse.setStatus(200);
-    //                    future.complete(successResponse);
-    //                  },
-    //                  Future.future()
-    //                      .setHandler(
-    //                          handler -> {
-    //                            future.fail(handler.cause());
-    //                          }));
-    //        },
-    //        Future.future()
-    //            .setHandler(
-    //                handler -> {
-    //                  future.fail(handler.cause());
-    //                }));
-    //
-    //    return future;
-    //  }
     return future;
   }
 }

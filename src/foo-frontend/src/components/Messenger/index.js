@@ -8,6 +8,7 @@ import './Messenger.css';
 export default function Messenger(props) {
     return (
       <div className="messenger">
+       
         {/* <Toolbar
           title="Messenger"
           leftItems={[

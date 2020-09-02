@@ -15,4 +15,8 @@ public interface UserCache {
   Future<Void> setUserList(List<User> user);
 
   Future<List<User>> getUserList();
+
+  Future<Void> setOnlineUserStatus(String userId);
+  Future<Void> delOnlineUserStatus(String userId);
+  Future<Boolean> isOnlineStatus(String userId);
 }
