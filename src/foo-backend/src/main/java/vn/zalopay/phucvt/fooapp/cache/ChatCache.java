@@ -6,7 +6,7 @@ import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import java.util.List;
 
 public interface ChatCache {
-    Future<Void> set(WsMessage msg);
+    Future<WsMessage> set(WsMessage msg);
 
     Future<List<WsMessage>> getList(String firstUserId, String secondUserId);
 }

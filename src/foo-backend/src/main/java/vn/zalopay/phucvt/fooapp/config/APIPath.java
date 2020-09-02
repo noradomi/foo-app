@@ -9,5 +9,6 @@ public class APIPath {
   public static final String SIGNUP = PUBLIC_API + "signup";
   public static final String SIGNOUT = PROTECTED + "signout";
   public static final String USERLIST = PROTECTED + "userlist";
+  public static final String MESSAGELIST = PROTECTED + "message/:friendId/:offset";
   public static final String CONVERSATIONID = PROTECTED + "conversationid";
 }

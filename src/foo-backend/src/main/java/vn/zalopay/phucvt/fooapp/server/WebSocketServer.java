@@ -21,6 +21,7 @@ public class WebSocketServer {
   private final JWTUtils jwtUtils;
   private final UserCache userCache;
 
+
   private Future<String> authenticated(ServerWebSocket ws) {
     Future<String> future = Future.future();
 

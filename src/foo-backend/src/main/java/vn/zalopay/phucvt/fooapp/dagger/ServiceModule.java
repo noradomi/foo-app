@@ -39,6 +39,7 @@ public class ServiceModule {
       SignUpHandler signUpHandler,
       SignOutHandler signOutHandler,
       UserListHandler userListHandler,
+      MessageListHandler messageListHandler,
       ParticipantHandler participantHandler,
       AuthHandler authHandler) {
     return HandlerFactory.builder()
@@ -48,6 +49,7 @@ public class ServiceModule {
         .signUpHandler(signUpHandler)
         .signOutHandler(signOutHandler)
         .userListHanlder(userListHandler)
+        .messageListHandler(messageListHandler)
         .participantHandler(participantHandler)
         .authHandler(authHandler)
         .build();
@@ -168,6 +170,12 @@ public class ServiceModule {
     return UserListHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).build();
   }
 
+  @Provides
+  @Singleton
+  MessageListHandler provideMessageListHandler(JWTUtils jwtUtils, ChatDA chatDA, ChatCache chatCache) {
+    return MessageListHandler.builder().jwtUtils(jwtUtils).chatCache(chatCache).chatDA(chatDA).build();
+  }
+
   @Singleton
   @Provides
   DataSourceProvider provideDataSourceProvider(Vertx vertx) {
@@ -237,11 +245,13 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  WSHandler provideWSHandler(ChatDA chatDA, ChatCache chatCache) {
+  WSHandler provideWSHandler(
+      ChatDA chatDA, ChatCache chatCache, TransactionProvider transactionProvider) {
     return WSHandler.builder()
         .chatCache(chatCache)
         .chatDA(chatDA)
         .clients(new ConcurrentHashMap<>())
+        .transactionProvider(transactionProvider)
         .build();
   }
 

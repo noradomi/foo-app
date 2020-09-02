@@ -71,7 +71,7 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
                             dataSource::getConnection,
                             false);
                 });
-
+        log.info("ChatDAImpl: Get message done");
         return future;
     }
 
