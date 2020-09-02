@@ -24,7 +24,6 @@ public class JWTUtils{
     jwtAuth.authenticate(new JsonObject().put("jwt", token), event -> {
       userIdFuture.complete(event.result().principal().getString("userId"));
     });
-    log.info("token : {}",token);
     return userIdFuture;
   }
 

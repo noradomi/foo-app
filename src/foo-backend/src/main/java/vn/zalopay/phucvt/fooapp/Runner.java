@@ -7,7 +7,7 @@ import vn.zalopay.phucvt.fooapp.dagger.ServiceComponent;
 import vn.zalopay.phucvt.fooapp.dagger.ServiceModule;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
-import vn.zalopay.phucvt.fooapp.utils.Tracker;
+//import vn.zalopay.phucvt.fooapp.utils.Tracker;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.VertxOptions;
@@ -17,12 +17,11 @@ public class Runner {
 
     public static void main(String[] args) {
         try {
-            System.out.println("Hello noradomi");
+            System.out.println("NORADOMI CHAT");
             ServiceConfig serviceConfig =
                     FileConfigLoader.loadFromEnv("conf/development.yaml", ServiceConfig.class);
-            System.out.println(serviceConfig.getMySQLConfig().getUrl());
 
-            Tracker.initialize("example");
+//            Tracker.initialize("example");
 
             ServiceModule module = ServiceModule.builder().serviceConfig(serviceConfig).build();
             ServiceComponent component = DaggerServiceComponent.builder().serviceModule(module).build();

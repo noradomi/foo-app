@@ -8,8 +8,6 @@ import vn.zalopay.phucvt.fooapp.config.APIPath;
 
 @Builder
 public class HandlerFactory {
-  private BaseHandler echoHandler;
-  private BaseHandler exampleHandler;
   private BaseHandler loginHandler;
   private BaseHandler signUpHandler;
   private BaseHandler signOutHandler;
@@ -32,8 +30,6 @@ public class HandlerFactory {
 
     ImmutableMap<String, BaseHandler> postHandler =
         ImmutableMap.<String, BaseHandler>builder()
-            .put(APIPath.ECHO, echoHandler)
-            .put(APIPath.EXAMPLE, exampleHandler)
             .put(APIPath.LOGIN, loginHandler)
             .put(APIPath.SIGNUP, signUpHandler)
             .put(APIPath.SIGNOUT, signOutHandler)

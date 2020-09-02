@@ -26,7 +26,7 @@ function ConversationList(props) {
 
 	let history = useHistory();
 	const conversations = props.userList.map((res) => {
-		console.log("Username: "+res.name+" - "+res.online);
+		console.log('Username: ' + res.name + ' - ' + res.online);
 		return {
 			name: res.name,
 			text: 'Online',
@@ -51,9 +51,16 @@ function ConversationList(props) {
 					/>
 				]}
 			/>
-			<ConversationSearch />
-			{conversations.length > 0 ? conversations.map((conversation) => <ConversationListItem key={conversation.id} data={conversation} />) : ''}
-			
+			<div className="conversation-list-scroll">
+				<ConversationSearch />
+				{conversations.length > 0 ? (
+					conversations.map((conversation) => (
+						<ConversationListItem key={conversation.id} data={conversation} />
+					))
+				) : (
+					''
+				)}
+			</div>
 		</div>
 	);
 }

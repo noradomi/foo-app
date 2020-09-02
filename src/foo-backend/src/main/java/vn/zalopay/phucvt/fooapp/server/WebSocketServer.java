@@ -41,7 +41,7 @@ public class WebSocketServer {
   }
 
   public void start() {
-    log.info("Starting WebSocket server at port {}", port);
+      log.info("Web Socket server start successfully !, port {}", port);
     HttpServer listen =
         vertx
             .createHttpServer()
@@ -52,16 +52,17 @@ public class WebSocketServer {
                           userIdAsynRes -> {
                             if (userIdAsynRes.succeeded()) {
                               String userId = userIdAsynRes.result();
-                              log.info("userId : {}", userId);
                               ws.accept();
-                              log.info("Set user status is online in cache");
+
+                              log.info("Connected with a user: {}",userId);
                               //     Remove user from cache online status
                               userCache.setOnlineUserStatus(userId);
 
                               wsHandler.addClient(ws, userId);
+
                               ws.closeHandler(
                                   event -> {
-                                    log.info("Close ws connection");
+                                    log.info("Web Socket : Close connections with userId:{}",userId);
                                     //    Remove user from cache online status
                                     userCache.delOnlineUserStatus(userId);
                                     wsHandler.removeClient(ws, userId);
@@ -69,7 +70,7 @@ public class WebSocketServer {
                               ws.handler(buffer -> wsHandler.handle(buffer, userId));
 
                             } else {
-                              log.info("Authentication faield");
+                              log.error("Web Socket: Authenticate JWT failed !");
                               ws.reject();
                             }
                           });

@@ -2,3 +2,8 @@
   display: flex;
   flex-direction: column;
 }
+
+.conversation-list-scroll {
+  height: calc(100vh - 65px);
+  overflow-y: auto;
+}

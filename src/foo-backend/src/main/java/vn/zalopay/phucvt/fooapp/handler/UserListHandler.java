@@ -28,24 +28,22 @@ public class UserListHandler extends BaseHandler {
 
   @Override
   public Future<BaseResponse> handle(BaseRequest baseRequest) {
-
+    log.info("Fetch user list");
     Future<BaseResponse> future = Future.future();
 
     Future<String> userIdFuture = jwtUtils.getUserIdFromToken(baseRequest);
 
-    log.info("user list handler");
     userIdFuture.compose(
         id -> {
-          log.info("userId {}", id);
           Future<List<User>> usersFuture = userCache.getUserList();
           usersFuture.setHandler(
               res -> {
                 Future<List<User>> allUsersFuture = Future.future();
                 if (res.succeeded()) {
-                  log.info("Cache hit with size {}", res.result().get(0).getUsername());
+                  log.info("Load user list: CACHE HIT");
                   allUsersFuture.complete(res.result());
                 } else {
-                  log.info("Cache miss");
+                    log.info("Load user list: CACHE MISS");
                   userDA
                       .selectListUser()
                       .setHandler(
@@ -60,7 +58,7 @@ public class UserListHandler extends BaseHandler {
                     users -> {
                       List<Future> getStatusUserFutures = new ArrayList<>();
                       UserListResponse userListResponse = new UserListResponse();
-                      log.info("got data with {}", users.size());
+
                       for (User u : users) {
                         if (!u.getUserId().equals(id)) {
                           UserListItem item =
@@ -83,8 +81,7 @@ public class UserListHandler extends BaseHandler {
                                     .get(index)
                                     .setOnline(cp.resultAt(index));
                               }
-                              log.info(
-                                  "data done with size : {}", userListResponse.getItems().size());
+
                               SuccessResponse successResponse =
                                   SuccessResponse.builder().data(userListResponse).build();
                               successResponse.setStatus(HttpResponseStatus.OK.code());
@@ -102,7 +99,7 @@ public class UserListHandler extends BaseHandler {
         Future.future()
             .setHandler(
                 handler -> {
-                  log.info("Hanlder failed");
+                  log.error("Load user list: RETRIEVE USER ID FAILED");
                   future.fail(handler.cause());
                 }));
     return future;

@@ -51,3 +51,11 @@ export function webSocketConnected(webSocket, send) {
 	  data: message
 	}
   }
+
+  export function fetchMessageList(data,friendId) {
+	data.friendId = friendId;
+	return {
+	  type: 'FETCH_MESSAGE_LIST',
+	  data: data
+	}
+  }

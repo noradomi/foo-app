@@ -55,7 +55,6 @@ public class TransactionImpl implements Transaction {
   }
 
   public Future<Void> commit() {
-    log.info("Execute transaction commit");
     if (connection == null) {
       return Future.failedFuture(new SQLException("Transaction NOT start yet"));
     }

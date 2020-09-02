@@ -101,21 +101,16 @@ public class UserCacheImpl implements UserCache {
 
     @Override
     public Future<List<User>> getUserList() {
-        Future future = Future.future();
-        log.info("get user cache list");
+        Future<List<User>> future = Future.future();
         asyncHandler.run(
                 () -> {
                     try{
                         RList<User> userRQueue = redisCache.getRedissonClient().getList(CacheKey.getUserListKey());
                         if(userRQueue.isEmpty()){
-                            log.info("Cache failed");
                             future.fail("Failed");
-
                         }
                         else{
-                            log.info("cache exist");
                             future.complete(userRQueue.readAll());
-                            log.info("read done");
                         }
                     }
                     catch (Exception e){

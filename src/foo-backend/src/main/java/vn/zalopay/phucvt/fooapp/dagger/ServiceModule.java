@@ -33,8 +33,6 @@ public class ServiceModule {
   @Provides
   @Singleton
   HandlerFactory provideHandler(
-      EchoHandler echoHandler,
-      ExampleHandler exampleHandler,
       LoginHandler loginHandler,
       SignUpHandler signUpHandler,
       SignOutHandler signOutHandler,
@@ -43,8 +41,6 @@ public class ServiceModule {
       ParticipantHandler participantHandler,
       AuthHandler authHandler) {
     return HandlerFactory.builder()
-        .echoHandler(echoHandler)
-        .exampleHandler(exampleHandler)
         .loginHandler(loginHandler)
         .signUpHandler(signUpHandler)
         .signOutHandler(signOutHandler)
@@ -89,11 +85,6 @@ public class ServiceModule {
     return BlackListCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
   }
 
-  @Provides
-  @Singleton
-  EchoHandler provideEchoHandler() {
-    return new EchoHandler();
-  }
 
   @Provides
   @Singleton
@@ -120,13 +111,7 @@ public class ServiceModule {
         .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
         .build();
   }
-
-  @Provides
-  @Singleton
-  ExampleHandler provideExampleHandler(
-      UserDA userDA, TransactionProvider transactionProvider, UserCache userCache) {
-    return new ExampleHandler(userDA, userCache, transactionProvider);
-  }
+  
 
   @Provides
   @Singleton

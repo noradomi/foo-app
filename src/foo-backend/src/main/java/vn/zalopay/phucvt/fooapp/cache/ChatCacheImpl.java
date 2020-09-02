@@ -20,21 +20,21 @@ public class ChatCacheImpl implements ChatCache {
 
   @Override
   public Future<WsMessage> set(WsMessage msg) {
+    log.info("> Insert message to cache");
     Future<WsMessage> future = Future.future();
     asyncHandler.run(
         () -> {
           try {
-            RQueue<WsMessage> messages =
+            RList<WsMessage> messages =
                 redisCache
                     .getRedissonClient()
-                    .getQueue(CacheKey.getMessageKey(msg.getSender_id(), msg.getReceiver_id()));
+                    .getList(CacheKey.getMessageKey(msg.getSender_id(), msg.getReceiver_id()));
             messages.add(msg);
             if (messages.size() > 20) { // Only store 100 recent messages.
               messages.remove(0);
             }
             messages.expire(10, TimeUnit.MINUTES);
             future.complete(msg);
-            log.info("Insert message to cache");
           } catch (Exception e) {
             future.fail(e);
           }
@@ -46,21 +46,19 @@ public class ChatCacheImpl implements ChatCache {
   @Override
   public Future<List<WsMessage>> getList(String firstUserId, String secondUserId) {
     Future<List<WsMessage>> future = Future.future();
-    log.info("get user cache list");
+    log.info("> Get user list from cache");
     asyncHandler.run(
         () -> {
           try {
-            RQueue<WsMessage> messages =
+            RList<WsMessage> messages =
                 redisCache
                     .getRedissonClient()
-                    .getQueue(CacheKey.getMessageKey(firstUserId, secondUserId));
+                    .getList(CacheKey.getMessageKey(firstUserId, secondUserId));
             if (messages.isEmpty()) {
-              log.info("Cache failed");
+
               future.fail("Failed");
             } else {
-              log.info("cache exist");
               future.complete(messages.readAll());
-              log.info("read done");
             }
           } catch (Exception e) {
             log.info("Cache failed exception with {}", e.getMessage());

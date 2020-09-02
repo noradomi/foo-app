@@ -29,7 +29,7 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
 
   @Override
   public Executable<WsMessage> insertMsg(WsMessage msg) {
-      log.info("insert message");
+      log.info("> Insert message to DB");
       return connection -> {
           Future<Void> future = Future.future();
           asyncHandler.run(
@@ -57,7 +57,7 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
 
     @Override
     public Future<List<WsMessage>> getMessageList(String firstUserId, String secondUserId, int offset) {
-        log.info("get message list");
+        log.info("> Get message list from DB");
         Future<List<WsMessage>> future = Future.future();
         asyncHandler.run(
                 () -> {
@@ -71,7 +71,6 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
                             dataSource::getConnection,
                             false);
                 });
-        log.info("ChatDAImpl: Get message done");
         return future;
     }
 

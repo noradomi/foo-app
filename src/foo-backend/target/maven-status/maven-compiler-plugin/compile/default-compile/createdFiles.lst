@@ -4,7 +4,6 @@ vn/zalopay/phucvt/fooapp/dagger/DaggerServiceComponent.class
 vn/zalopay/phucvt/fooapp/cache/ChatCacheImpl.class
 vn/zalopay/phucvt/fooapp/da/Executable.class
 vn/zalopay/phucvt/fooapp/model/Participant.class
-vn/zalopay/phucvt/fooapp/handler/ExampleHandler.class
 vn/zalopay/phucvt/fooapp/handler/WSHandler.class
 vn/zalopay/phucvt/fooapp/entity/response/JwtResponse.class
 vn/zalopay/phucvt/fooapp/model/User.class
@@ -17,7 +16,6 @@ vn/zalopay/phucvt/fooapp/config/MySQLConfig.class
 vn/zalopay/phucvt/fooapp/entity/response/SuccessResponse.class
 vn/zalopay/phucvt/fooapp/cache/ChatCacheImpl$ChatCacheImplBuilder.class
 vn/zalopay/phucvt/fooapp/handler/WSHandler$WSHandlerBuilder.class
-vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideEchoHandlerFactory.class
 vn/zalopay/phucvt/fooapp/constant/Status.class
 vn/zalopay/phucvt/fooapp/Runner.class
 vn/zalopay/phucvt/fooapp/utils/FooHttpStatusException$FooHttpStatusExceptionBuilder.class
@@ -55,7 +53,6 @@ vn/zalopay/phucvt/fooapp/cache/UserCacheImpl.class
 vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideUserListHandlerFactory.class
 vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideLoginHandlerFactory.class
 vn/zalopay/phucvt/fooapp/model/WsMessage.class
-vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideExampleHandlerFactory.class
 vn/zalopay/phucvt/fooapp/handler/BaseHandler.class
 vn/zalopay/phucvt/fooapp/handler/HandlerFactory$HandlerFactoryBuilder.class
 vn/zalopay/phucvt/fooapp/utils/JWTUtils.class
@@ -112,7 +109,6 @@ vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideSignOutHanlerFactory.class
 vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideJWTUtilsFactory.class
 vn/zalopay/phucvt/fooapp/cache/UserCacheImpl$UserCacheImplBuilder.class
 vn/zalopay/phucvt/fooapp/model/Participant$ParticipantBuilder.class
-vn/zalopay/phucvt/fooapp/handler/EchoHandler.class
 vn/zalopay/phucvt/fooapp/dagger/ServiceModule_ProvideAuthHandlerFactory.class
 vn/zalopay/phucvt/fooapp/cache/ChatCache.class
 vn/zalopay/phucvt/fooapp/da/ChatDAImpl.class

@@ -23,7 +23,7 @@ function ConversationListItem(props) {
 
 	let clickHandle = () => {
 		history.push('/t/' + id);
-		props.setActiveItem(id);
+		// props.setActiveItem(id);
 	};
 
 	return (

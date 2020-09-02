@@ -40,8 +40,6 @@ public class SignUpHandler extends BaseHandler {
 
         final User user = JsonProtoUtils.parseGson(baseRequest.getPostData(), User.class);
 
-        log.info("get user post data {}",user.getFullname());
-
 //        Validates post data
         if (StringUtils.isBlank(user.getUsername())) {
             ExceptionResponse response = ExceptionResponse
@@ -74,13 +72,9 @@ public class SignUpHandler extends BaseHandler {
             return future;
         }
 
-        log.info("Input data correct");
-
         Future<User> getUserAuth = userDA.selectUserByUserName(user.getUsername());
 
-        log.info("Start insert user");
         getUserAuth.compose(existedUserAuth -> {
-//            log.info("Block insert user");
             if (existedUserAuth != null) {
                 ExceptionResponse exceptionResponse = ExceptionResponse
                         .builder()
@@ -90,7 +84,6 @@ public class SignUpHandler extends BaseHandler {
                 exceptionResponse.setStatus(HttpResponseStatus.BAD_REQUEST.code());
                 future.complete(exceptionResponse);
             } else {
-                log.info("Block insert user");
 //                Tracker.TrackerBuilder tracker =
 //                        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
 
@@ -99,7 +92,7 @@ public class SignUpHandler extends BaseHandler {
 
 //                Set hashed password
                 String hashedPassword = BCrypt.hashpw(user.getPassword(),BCrypt.gensalt(5));
-                log.info("hashed password: {}",hashedPassword);
+
                 user.setPassword(hashedPassword);
 
                 Future<User> insertUserFuture = Future.future();
@@ -114,13 +107,10 @@ public class SignUpHandler extends BaseHandler {
                                 rs -> {
                                     if (rs.succeeded()) {
                                         insertUserFuture.complete(rs.result());
-                                        log.info("insert success with {}",rs.result().getFullname());
                                     } else {
                                         insertUserFuture.complete(null);
-                                        log.info("insert failed with null");
                                     }
                                     transaction.commit();
-                                    log.info("transaction commit");
                                     transaction.close();
 //                                    tracker.step("handle").code("SUCCESS").build().record();
                                 });
@@ -131,13 +121,14 @@ public class SignUpHandler extends BaseHandler {
                             .build();
                     successResponse.setStatus(HttpResponseStatus.OK.code());
                     future.complete(successResponse);
+                    log.info("Sign up: SUCCEEDED for username: {}",u.getFullname());
                 },Future.future().setHandler(handler -> {
                     future.fail(handler.cause());
                 }));
 
             }
         }, Future.future().setHandler(handler -> {
-            log.info("Sign up failed");
+            log.error("Sign up: GET USER AUTH FAILED");
             future.fail(handler.cause());
         }));
         return future;

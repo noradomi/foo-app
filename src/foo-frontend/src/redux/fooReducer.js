@@ -17,7 +17,8 @@ let initialState = {
 	},
 	chatMessagesHolder: {
 		chatMessages: new Map()
-	}
+	},
+	scrollFlag: true
 };
 
 export default function appReducer(state = initialState, action) {
@@ -53,8 +54,10 @@ export default function appReducer(state = initialState, action) {
 			state = receiveMessage(state, data);
 			break;
 		case 'WS_CONNECTED':
-			console.log('WS_CONNECTED action');
 			state = handleWsConnected(state, data);
+			break;
+		case 'FETCH_MESSAGE_LIST':
+			state = fetchMessageList(state, data);
 			break;
 		default:
 			break;
@@ -65,6 +68,30 @@ export default function appReducer(state = initialState, action) {
 function loginSucceeded(state, data) {
 	return Object.assign({}, state, {
 		user: { jwt: data.jwt, userId: data.userId }
+	});
+}
+
+function signOut(state) {
+	if (state.webSocket.webSocket !== null) {
+		state.webSocket.webSocket.close();
+	}
+	return Object.assign({}, state, {
+		user: {
+			jwt: null,
+			userId: null
+		},
+		userList: [],	
+		userMapHolder: {
+			userMap: new Map()
+		},
+		currentSessionId: null,
+		webSocket: {
+			webSocket: null,
+			send: null
+		},
+		chatMessagesHolder: {
+			chatMessages: new Map()
+		}
 	});
 }
 
@@ -97,7 +124,8 @@ function receiveMessage(state, data) {
 	let listMessage = chatMessages.get(data.sender_id);
 	listMessage.push(data); // <<<
 	return Object.assign({}, state, {
-		chatMessagesHolder: { chatMessages }
+		chatMessagesHolder: { chatMessages },
+		scrollFlag: !state.scrollFlag
 	});
 }
 
@@ -107,7 +135,8 @@ function sendMessage(state, data) {
 	let listMessage = chatMessages.get(data.receiver_id);
 	listMessage.push(data); // <<<
 	return Object.assign({}, state, {
-		chatMessagesHolder: { chatMessages }
+		chatMessagesHolder: { chatMessages },
+		scrollFlag: !state.scrollFlag
 	});
 }
 
@@ -119,4 +148,15 @@ function handleWsConnected(state, data) {
 		}
 	});
 	return newState;
+}
+
+function fetchMessageList(state, data) {
+	let chatMessages = state.chatMessagesHolder.chatMessages;
+	let listMessage = chatMessages.get(data.friendId);
+	chatMessages.set(data.friendId, [ ...data.items, ...listMessage ]);
+	return Object.assign({}, state, {
+		chatMessagesHolder: {
+			chatMessages
+		}
+	});
 }

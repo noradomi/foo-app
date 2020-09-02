@@ -46,7 +46,6 @@ public class WSHandler {
   }
 
   public void handle(Buffer buffer, String userId) {
-    log.info("Hanlde websocket with userid: {}", userId);
     JsonObject json = new JsonObject(buffer.toString());
     //    log.info("Buffer: {}",buffer.toString());
     String type = json.getString("type");
@@ -54,7 +53,6 @@ public class WSHandler {
       case "SEND":
         {
           WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
-          log.info("Message: {}", message.getMsg());
 
           message.setSender_id(userId); // receiver_id existed
           message.setCreate_date(Instant.now().getEpochSecond());
@@ -80,7 +78,7 @@ public class WSHandler {
                   });
           future.compose(
               e -> {
-                log.info(">> Send messages done with senderId: {}", message.getSender_id());
+//                Send back message to both sender and receiver
                 handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
                 handleSendMessage(message, message.getReceiver_id());
               },
