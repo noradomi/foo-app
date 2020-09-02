@@ -33,10 +33,6 @@ public class UserListHandler extends BaseHandler {
 
     Future<String> userIdFuture = jwtUtils.getUserIdFromToken(baseRequest);
 
-    //    userIdFuture.compose(id ->{
-    //        log.info(id);
-    //    },Future.future().setHandler(handler -> future.fail(handler.cause())));
-
     log.info("user list handler");
     userIdFuture.compose(
         id -> {
@@ -109,43 +105,6 @@ public class UserListHandler extends BaseHandler {
                   log.info("Hanlder failed");
                   future.fail(handler.cause());
                 }));
-
-    //    userIdFuture.compose(
-    //        id -> {
-    //          userDA
-    //              .selectListUsersById(id)
-    //              .compose(
-    //                  users -> {
-    //                    UserListResponse userListResponse = new UserListResponse();
-    //                    log.info("got data with {}", users.size());
-    //                    for (User u : users) {
-    //                      UserListItem item =
-    //                          UserListItem.builder()
-    //                              .userId(u.getUserId())
-    //                              .username(u.getFullname())
-    //                              .build();
-    //                      userListResponse.getItems().add(item);
-    //                    }
-    //                    log.info("build done");
-    //                    SuccessResponse successResponse =
-    //                        SuccessResponse.builder().data(userListResponse).build();
-    //                    successResponse.setStatus(200);
-    //                    future.complete(successResponse);
-    //                  },
-    //                  Future.future()
-    //                      .setHandler(
-    //                          handler -> {
-    //                            future.fail(handler.cause());
-    //                          }));
-    //        },
-    //        Future.future()
-    //            .setHandler(
-    //                handler -> {
-    //                  future.fail(handler.cause());
-    //                }));
-    //
-    //    return future;
-    //  }
     return future;
   }
 }
