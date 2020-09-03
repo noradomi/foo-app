@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/foo-backend.iml" filepath="$PROJECT_DIR$/foo-backend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/jav-pet.iml" filepath="$PROJECT_DIR$/jav-pet.iml" />
-    </modules>
-  </component>
-</project>
