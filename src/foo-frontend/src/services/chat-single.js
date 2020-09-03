@@ -29,6 +29,7 @@ export function getMessageList(friendId,offset){
         api
         .authGet(`/api/protected/messages/${friendId}/${offset}`)
         .then((response) => {
+            console.log("Get message list");
             let data = response.data.data;
             console.log(data.items);
             resolve(data);

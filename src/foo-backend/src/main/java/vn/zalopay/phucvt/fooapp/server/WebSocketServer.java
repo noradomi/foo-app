@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import vn.zalopay.phucvt.fooapp.cache.UserCache;
 import vn.zalopay.phucvt.fooapp.handler.WSHandler;
+import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.JWTUtils;
 
 @Builder
@@ -20,7 +21,6 @@ public class WebSocketServer {
   private HttpServer listen;
   private final JWTUtils jwtUtils;
   private final UserCache userCache;
-
 
   private Future<String> authenticated(ServerWebSocket ws) {
     Future<String> future = Future.future();
@@ -41,7 +41,7 @@ public class WebSocketServer {
   }
 
   public void start() {
-      log.info("Web Socket server start successfully !, port {}", port);
+    log.info("Web Socket server start successfully !, port {}", port);
     HttpServer listen =
         vertx
             .createHttpServer()
@@ -54,18 +54,24 @@ public class WebSocketServer {
                               String userId = userIdAsynRes.result();
                               ws.accept();
 
-                              log.info("Connected with a user: {}",userId);
+                              log.info("Connected with a user: {}", userId);
                               //     Remove user from cache online status
                               userCache.setOnlineUserStatus(userId);
 
                               wsHandler.addClient(ws, userId);
 
+                              //    Notify to others client to update user
+                              // list.
+                              wsHandler.notifyStatusUserChange(WsMessage.builder().type("ONLINE").sender_id(userId).build());
+
                               ws.closeHandler(
                                   event -> {
-                                    log.info("Web Socket : Close connections with userId:{}",userId);
+                                    log.info(
+                                        "Web Socket : Close connections with userId:{}", userId);
                                     //    Remove user from cache online status
                                     userCache.delOnlineUserStatus(userId);
                                     wsHandler.removeClient(ws, userId);
+                                    wsHandler.notifyStatusUserChange(WsMessage.builder().type("OFFLINE").sender_id(userId).build());
                                   });
                               ws.handler(buffer -> wsHandler.handle(buffer, userId));
 

@@ -19,7 +19,7 @@ public class RedisCache {
 //    Config config = Config.fromYAML(new File(System.getProperty("redis.conf")));
     ClassLoader classLoader = FileConfigLoader.class.getClassLoader();
 
-    File file = new File(classLoader.getResource("conf/redis.yaml").getFile());
+    File file = new File(classLoader.getResource("redis.yaml").getFile());
     Config config = Config.fromYAML(file);
     RedisCache redisCache = new RedisCache();
     redisCache.redissonClient = Redisson.create(config);

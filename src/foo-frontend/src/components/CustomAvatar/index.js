@@ -11,7 +11,7 @@ class CustomAvatar extends React.Component {
     switch (this.props.type) {
       case 'main-avatar':
         return (
-          <Gravatar email={this.props.avatar +"@gmail.com"} className={customClassName}   default="identicon"/>
+          <Gravatar email={this.props.avatar} className={customClassName}   default="identicon"/>
         );
       case 'new-avatar':
         return (
@@ -28,7 +28,6 @@ class CustomAvatar extends React.Component {
       case 'user-avatar':
         return (
           <Ravatar name={this.props.avatar} className={customClassName}  size="60"/>
-          /*<Gravatar email={this.props.username + '@vng.com.vn'} className={customClassName} default="identicon"/>*/
         );
       case 'group-avatar':
         return (

@@ -8,6 +8,7 @@ import org.redisson.api.RQueue;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +32,11 @@ public class ChatCacheImpl implements ChatCache {
                     .getList(CacheKey.getMessageKey(msg.getSender_id(), msg.getReceiver_id()));
             messages.add(msg);
             if (messages.size() > 20) { // Only store 100 recent messages.
-              messages.remove(0);
+                List<WsMessage> msgList = messages.readAll();
+                msgList.sort(Comparator.comparing(WsMessage::getCreate_date));
+                msgList.remove(0);
+                messages.clear();
+                messages.addAll(msgList);
             }
             messages.expire(10, TimeUnit.MINUTES);
             future.complete(msg);
@@ -54,6 +59,8 @@ public class ChatCacheImpl implements ChatCache {
                 redisCache
                     .getRedissonClient()
                     .getList(CacheKey.getMessageKey(firstUserId, secondUserId));
+//            RQueue<String> a = redisCache.getRedissonClient().getQueue("a");
+//            a.
             if (messages.isEmpty()) {
 
               future.fail("Failed");

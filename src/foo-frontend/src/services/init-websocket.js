@@ -2,7 +2,7 @@ import Sockette from 'sockette';
 import { ws_host } from './api';
 import { getJwtFromStorage ,getUserIdFromStorage} from '../utils/utils';
 import store from '../redux/fooStore';
-import { receiveMessage, sendbackMessage} from '../redux/fooAction';
+import { receiveMessage, sendbackMessage, changeUserStatus} from '../redux/fooAction';
 
 export function initialWebSocket() {
     const jwt = getJwtFromStorage();
@@ -13,14 +13,44 @@ export function initialWebSocket() {
 		onopen: (e) => {},
 		onmessage: (messageEvent) => {
             
-            let jsonMessage = JSON.parse(messageEvent.data);
-			if (jsonMessage.type === 'SEND') {
-				store.dispatch(receiveMessage(jsonMessage));
-			} else if (jsonMessage.type === 'FETCH') {
-				if (jsonMessage.receiverId === senderId) {
-					return;
-				}
-				store.dispatch(sendbackMessage(jsonMessage));
+			let jsonMessage = JSON.parse(messageEvent.data);
+
+			console.log(jsonMessage.type);
+			console.log(senderId);
+			console.log(jsonMessage.sender_id);
+			switch (jsonMessage.type) {
+				case 'ONLINE':
+					{
+						if(senderId !== jsonMessage.sender_id)
+						{
+							console.log("Online user");
+							store.dispatch(changeUserStatus(jsonMessage.sender_id,true));
+						}
+						break;
+					}
+					case 'OFFLINE':
+					{
+						if(senderId !== jsonMessage.sender_id)
+						{
+							console.log("Offline user");
+							store.dispatch(changeUserStatus(jsonMessage.sender_id,false));
+						}
+						break;
+					}
+					
+				case 'SEND':
+					store.dispatch(receiveMessage(jsonMessage));
+					break;
+				case 'FETCH':
+					{
+						if (jsonMessage.receiverId !== senderId) {
+							store.dispatch(sendbackMessage(jsonMessage));
+						}
+						break;
+						
+					}
+				default:
+					break;
 			}
 		},
 		onreconnect: (e) => console.log('Reconnecting...', e),
