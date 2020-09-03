@@ -1,27 +1,20 @@
-# Foo-App
+# Foo App
 
-- [Foo-App](#foo-app)
-  - [Overview](#overview)
-  - [Architecture model](#architecture-model)
-  - [Features](#features)
-  - [How to run](#how-to-run)
-  - [Demo](#demo)
-  - [Technical stack](#technical-stack)
-  - [References](#references)
+---------------
 
-## Overview
+## 1. Tổng quan
 
-## Architecture model
+**Foo App** là một project thuộc chương trình training ZaloPay Fresher 2020.
 
-## Features
+## 2. Mô hình kiến trúc
 
-## How to run
+## 3. Tính năng
 
-## Demo
+## 4. Hướng dẫn chạy
 
-## Technical stack
+## 5. Demo
 
-## References
+## 6. References
 
 - [Sequence diagrams](docs/sequence-diagrams.md)
 

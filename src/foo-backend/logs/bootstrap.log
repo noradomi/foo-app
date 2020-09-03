@@ -1,0 +1,91 @@
+2020-09-03 02:38:18,521 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
+2020-09-03 02:38:18,820 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
+2020-09-03 02:38:19,335 INFO  org.redisson.Version Redisson 3.13.3
+2020-09-03 02:38:19,432 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
+2020-09-03 02:38:19,480 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
+2020-09-03 02:38:19,546 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
+2020-09-03 02:38:19,571 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
+2020-09-03 02:38:19,587 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
+2020-09-03 02:38:19,602 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
+2020-09-03 02:38:19,605 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-4 - Starting...
+2020-09-03 02:38:19,622 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-4 - Start completed.
+2020-09-03 02:38:19,680 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-03 02:38:19,682 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-03 02:38:19,682 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-03 02:38:19,683 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-03 02:38:19,683 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-03 02:38:19,683 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-03 02:38:19,683 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-03 02:38:19,686 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-03 02:38:19,686 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-03 02:38:19,686 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-03 02:38:19,686 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-03 02:38:19,686 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-03 02:38:19,687 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-03 02:38:19,687 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-03 02:38:19,687 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-03 02:38:19,688 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-03 09:08:29,832 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
+2020-09-03 09:08:33,936 ERROR com.zaxxer.hikari.pool.HikariPool HikariPool-1 - Exception during pool initialization.
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81) [HikariCP-3.3.1.jar:?]
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:93) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:60) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:16) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:132) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:32) [classes/:?]
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:91) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.8.0_265]
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350) ~[?:1.8.0_265]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206) ~[?:1.8.0_265]
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188) ~[?:1.8.0_265]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[?:1.8.0_265]
+	at java.net.Socket.connect(Socket.java:607) ~[?:1.8.0_265]
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:155) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:65) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more

@@ -22,9 +22,11 @@ function ConversationListItem(props) {
 	  }
 
 	let clickHandle = () => {
-		history.push('/t/' + id);
-		// props.setActiveItem(id);
+		console.log("Change curr session Id")
+		props.setActiveItem(id);
 	};
+
+	let status = props.userMapHolder.userMap.get(id).online;
 
 	return (
 		<div className="conversation-list-item" onClick={clickHandle} style={selectedColor}>
@@ -32,14 +34,16 @@ function ConversationListItem(props) {
 			<div className="conversation-avatar" style={{ width: 60 }}>
 				<CustomAvatar type="user-avatar" avatar={avatar} />
 			</div>
-			{online ?
+			{status ?
                   <div className="status-point online"/>
                   :
                   <div className="status-point offline"/>
                 }
 			<div className="conversation-info" style={{ paddingLeft: '10px', overflow: 'hidden', paddingTop: 5 }}>
 				<div className="user-name">{name}</div>
-				<div className="history-message">{text}</div>
+				<div className="history-message">{status ?
+                  "Online":"Offline"
+                }</div>
 			</div>
 		</div>
 	);
@@ -47,7 +51,8 @@ function ConversationListItem(props) {
 
 function mapStateToProps(state) {
 	return {
-		currentSessionId: state.currentSessionId
+		currentSessionId: state.currentSessionId,
+		userMapHolder: state.userMapHolder
 	};
 }
 

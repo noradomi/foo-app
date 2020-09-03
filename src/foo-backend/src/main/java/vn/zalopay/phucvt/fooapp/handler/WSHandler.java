@@ -78,7 +78,7 @@ public class WSHandler {
                   });
           future.compose(
               e -> {
-//                Send back message to both sender and receiver
+                //                Send back message to both sender and receiver
                 handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
                 handleSendMessage(message, message.getReceiver_id());
               },
@@ -100,5 +100,15 @@ public class WSHandler {
         conn -> {
           conn.writeTextMessage(JsonProtoUtils.printGson(message));
         });
+  }
+
+  public void notifyStatusUserChange(WsMessage notifyMessage) {
+    log.info("Notification : ONLINE - OFFLINE OF USER !!!");
+    for (Set<ServerWebSocket> client : clients.values()) {
+      client.forEach(
+          conn -> {
+            conn.writeTextMessage(JsonProtoUtils.printGson(notifyMessage));
+          });
+    }
   }
 }

@@ -1,5 +1,4 @@
 import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 let initialState = {
 	user: {
@@ -7,6 +6,7 @@ let initialState = {
 		userId: getUserIdFromStorage()
 	},
 	userList: [],
+	currSelectedUser: null,
 	currentSessionId: null,
 	userMapHolder: {
 		userMap: new Map()
@@ -18,7 +18,8 @@ let initialState = {
 	chatMessagesHolder: {
 		chatMessages: new Map()
 	},
-	scrollFlag: true
+	scrollFlag: true,
+	notifyFlag: false
 };
 
 export default function appReducer(state = initialState, action) {
@@ -59,6 +60,9 @@ export default function appReducer(state = initialState, action) {
 		case 'FETCH_MESSAGE_LIST':
 			state = fetchMessageList(state, data);
 			break;
+		case 'ONLINE_OFFLINE':
+			state = handleUserStatus(state,data);
+			break;
 		default:
 			break;
 	}
@@ -80,7 +84,7 @@ function signOut(state) {
 			jwt: null,
 			userId: null
 		},
-		userList: [],	
+		userList: [],
 		userMapHolder: {
 			userMap: new Map()
 		},
@@ -159,4 +163,20 @@ function fetchMessageList(state, data) {
 			chatMessages
 		}
 	});
+}
+
+function handleUserStatus(state,data) {
+	let userMap = state.userMapHolder.userMap;
+	if (userMap === null) {
+		return state;
+	  }
+	let user = userMap.get(data.userId);
+	user.online = data.status;
+	userMap.set(data.userId,user);
+	console.log("Size of  user map: ",userMap.size);	
+	return Object.assign({}, state, {
+		userMapHolder: {
+		  userMap
+		}
+	  });
 }

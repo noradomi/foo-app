@@ -19,7 +19,7 @@ public class Runner {
         try {
             System.out.println("NORADOMI CHAT");
             ServiceConfig serviceConfig =
-                    FileConfigLoader.loadFromEnv("conf/development.yaml", ServiceConfig.class);
+                    FileConfigLoader.loadFromEnv("development.yaml", ServiceConfig.class);
 
 //            Tracker.initialize("example");
 

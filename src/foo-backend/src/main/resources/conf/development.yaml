@@ -1,9 +1,0 @@
-port: 8055
-wsPort: 9009
-vertxConfig:
-  prometheusPort: 8054
-mySQLConfig:
-  url: "jdbc:mysql://localhost:3306/fooapp?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC"
-  driver: "com.mysql.cj.jdbc.Driver"
-  username: "root"
-  password: "1234"

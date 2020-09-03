@@ -12,14 +12,19 @@ import { fetchMessageList, updateCurrSessionId } from '../../redux/fooAction';
 import { getMessageList } from '../../services/chat-single';
 
 function MessageList(props) {
+
+  console.log("Load message list");
+
 	let senderId = getUserIdFromStorage();
 
 	// Check if userMap is loaded
-	if (props.userMapHolder.userMap.size === 0 || props.chatMessagesHolder.chatMessages.size === 0) {
+	if (props.userMapHolder.userMap.size === 0 || props.chatMessagesHolder.chatMessages.size === 0 || props.currentSessionId === null) {
 		return <div />;
 	}
 
-	let receiverId = props.match.params.receiverId; // >>>
+  // let receiverId = props.match.params.receiverId; // >>>
+  let receiverId = props.currentSessionId;
+  console.log(receiverId);
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 
 	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId); //>>>
@@ -194,22 +199,24 @@ let mapDispatchToProps = (dispatch) => {
 		updateMsgListOnStore: (data, friendId) => {
 			dispatch(fetchMessageList(data, friendId));
 		},
-		updateConversationId: (id) => {
-			dispatch(updateCurrSessionId(id));
-		}
+		// updateCurrSessionId: (id) => {
+		// 	dispatch(updateCurrSessionId(id));
+		// }
 	};
 };
 
 MessageList = connect(mapStateToProps, mapDispatchToProps)(MessageList);
 
+export default MessageList;
+
 // >>>
-export default function MessageListWrapper() {
-	return (
-		<Switch>
-			<Route path="/t/:receiverId" component={MessageList} />
-			<Route exact path="/">
-				<div />
-			</Route>
-		</Switch>
-	);
-}
+// export default function MessageListWrapper() {
+// 	return (
+// 		<Switch>
+// 			<Route path="/t/:receiverId" component={MessageList} />
+// 			<Route exact path="/">
+// 				<div />
+// 			</Route>
+// 		</Switch>
+// 	);
+// }

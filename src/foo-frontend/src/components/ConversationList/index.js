@@ -14,11 +14,12 @@ import { wsConnect } from '../../services/chat-single';
 
 // getUserList();
 function ConversationList(props) {
+
 	// Init user list
 	useEffect(() => {
 		getUserList()
 			.then(() => {
-				console.log('Load user list dont');
+				console.log('Load user list done');
 				wsConnect();
 			})
 			.catch(() => console.log('Load user list failed'));
@@ -67,7 +68,8 @@ function ConversationList(props) {
 
 function mapStateToProps(state) {
 	return {
-		userList: state.userList
+		userList: state.userList,
+	
 	};
 }
 
