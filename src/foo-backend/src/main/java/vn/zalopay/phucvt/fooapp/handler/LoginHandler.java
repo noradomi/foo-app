@@ -1,5 +1,6 @@
 package vn.zalopay.phucvt.fooapp.handler;
 
+import org.mindrot.jbcrypt.BCrypt;
 import vn.zalopay.phucvt.fooapp.cache.UserCache;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.entity.request.BaseRequest;
@@ -44,10 +45,15 @@ public class LoginHandler extends BaseHandler {
         Future<BaseResponse> future = Future.future();
 
         getUserAuth.compose(userAuth -> {
-            if (userAuth != null && userAuth.getPassword().equals(user.getPassword())) {
+
+            if (userAuth != null && userAuth.getUsername().equals(user.getUsername()) && BCrypt.checkpw(user.getPassword(),userAuth.getPassword())) {
+
+//                Login successfully -> Add to online user list cache
+                userCache.set(userAuth);
+
                 String token = authProvider.generateToken(
                         new JsonObject()
-                                .put("userId", user.getUserId()),
+                                .put("userId", userAuth.getUserId()),
                         new JWTOptions()
                                 .setExpiresInSeconds(174600));
 
@@ -59,23 +65,25 @@ public class LoginHandler extends BaseHandler {
 
                 SuccessResponse successResponse = SuccessResponse
                         .builder()
-                        .status(HttpResponseStatus.OK.code())
                         .data(jwtResponse)
                         .build();
 
+                successResponse.setStatus(HttpResponseStatus.OK.code());
                 future.complete(successResponse);
+
+                LOGGER.info("Sign in: SUCCEEDED by user: {}",userAuth.getFullname());
 
             } else {
                 ExceptionResponse exceptionResponse = ExceptionResponse
                         .builder()
-                        .status(HttpResponseStatus.UNAUTHORIZED.code())
                         .code(ErrorCode.AUTHORIZED_FAILED.code())
                         .message("Invalid Username or Password")
                         .build();
+                exceptionResponse.setStatus(HttpResponseStatus.UNAUTHORIZED.code());
                 future.complete(exceptionResponse);
             }
         }, Future.future().setHandler(handler -> {
-            LOGGER.info("Signin failed with username " + user.getUsername());
+            LOGGER.info("Sign in: GET USER AUTH FAILED");
             future.fail(handler.cause());
         }));
 

@@ -1,14 +1,14 @@
 # Sequence Diagrams
 
-## 1. Login
+## 1. Sign in
 
-![login](../imgs/seq-digarams/login.png)
+![signin](../imgs/seq-digarams/login.png)
 
-## 2. Logout
+## 2. Sign out
 
 ![logout](../imgs/seq-digarams/logout.png)
 
-## 3. Register
+## 3. Sign up
 
 ![register](../imgs/seq-digarams/register.png)
 

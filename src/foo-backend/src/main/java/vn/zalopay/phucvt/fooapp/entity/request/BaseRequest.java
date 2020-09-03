@@ -8,6 +8,7 @@ import lombok.Getter;
 @Builder
 public class BaseRequest {
   private MultiMap params;
+  private MultiMap headers;
   private String userIP;
   private String requestPath;
   private String postData;

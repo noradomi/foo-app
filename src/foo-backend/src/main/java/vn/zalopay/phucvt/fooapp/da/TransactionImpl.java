@@ -1,5 +1,6 @@
 package vn.zalopay.phucvt.fooapp.da;
 
+import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 // TransactionImpl interface help you controllable what's function belong to transaction
 //
 
+@Log4j2
 public class TransactionImpl implements Transaction {
   private static final String SYSTEM_METRIC_NAME = "DB";
   // For blocking operation

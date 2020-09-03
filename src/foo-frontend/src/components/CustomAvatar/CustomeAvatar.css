@@ -1,0 +1,7 @@
+.custom-avatar {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    background-color: #dddddd;
+    border-radius: 50%;
+}

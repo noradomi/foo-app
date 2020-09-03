@@ -20,19 +20,15 @@ public class FileConfigLoader {
      * @throws FileNotFoundException in case file not exist
      */
     public static <T> T load(String fileName, Class<T> tClass) throws FileNotFoundException {
-        ClassLoader classLoader = FileConfigLoader.class.getClassLoader();
-
-        File file = new File(classLoader.getResource(fileName).getFile());
-
-        InputStream input = new FileInputStream(file);
+        InputStream input = new FileInputStream(new File(fileName));
 
         Yaml yaml = new Yaml(new Constructor(tClass));
         return yaml.load(input);
     }
 
     public static <T> T loadFromEnv(String name, Class<T> tClass) throws FileNotFoundException {
-//        String fileName = System.getProperty(name);
+        String fileName = System.getProperty(name);
 
-        return load(name, tClass);
+        return load(fileName, tClass);
     }
 }

@@ -25,7 +25,7 @@
         <protobufjavaformat.version>1.4</protobufjavaformat.version>
         <dagger.version>2.23.2</dagger.version>
         <vertx.version>3.7.0</vertx.version>
-        <redisson.version>3.11.6</redisson.version>
+        <redisson.version>3.13.3</redisson.version>
 
         <hikariCP.version>3.3.1</hikariCP.version>
         <mysql.version>8.0.21</mysql.version>
@@ -185,10 +185,17 @@
             <version>${mysql.version}</version>
         </dependency>
 
+        <!--Brcypt-->
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
         </dependency>
     </dependencies>
     <build>
@@ -213,6 +220,39 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>vn.zalopay.phucvt.fooapp.Runner</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/services/io.vertx.config.spi.ConfigProcessor</resource>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <resources>

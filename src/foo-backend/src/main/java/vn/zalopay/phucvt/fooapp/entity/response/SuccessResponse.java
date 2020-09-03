@@ -3,8 +3,7 @@ package vn.zalopay.phucvt.fooapp.entity.response;
 import lombok.Builder;
 
 @Builder
-public class SuccessResponse implements BaseResponse{
-    int status;
+public class SuccessResponse extends BaseResponse{
 //    String message;
     Object data;
 }
