@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Form, Input, Button, Row, Col, Card, Alert} from "antd";
 import {handleRegister} from "../../services/register";
 import {useHistory} from 'react-router-dom';
+import bg from './backgroung.jpg';
 
 const layout = {
 	labelCol: { span: 10 },
@@ -14,7 +15,7 @@ const tailLayout = {
 
 const rowStyle = {
 	minHeight: '100vh',
-	// backgroundImage: `url(${bg})`,
+	backgroundImage: `url(${bg})`,
 	backgroundSize: 'cover'
 };
 
@@ -118,7 +119,7 @@ function RegisterPage() {
 							>
 								Register
 							</Button>
-                            Or <a href="">Login now!</a>
+                            Or <a href="/login">Login now!</a>
 						</Form.Item>
 					</Form>
 					<Row>

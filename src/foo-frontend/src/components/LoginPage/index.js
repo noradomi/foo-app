@@ -2,12 +2,13 @@ import React,{useState} from 'react';
 import { Form, Input, Button, Row, Col, Card, Alert, Checkbox } from 'antd';
 import { hanleLogin } from '../../services/login';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import bg from './backgroung.jpg'
 
 const FormItem = Form.Item;
 
 const rowStyle = {
     minHeight: "100vh",
-    // backgroundImage: `url(${bg})`,
+    backgroundImage: `url(${bg})`,
     backgroundSize: 'cover'
   }
   
@@ -97,7 +98,7 @@ export default function LoginPage(props) {
 							<Button type="primary" htmlType="submit" style={{ width: '100%' }}>
 								Log in
 							</Button>
-							Or <a href="">Register now!</a>
+							Or <a href="/signup">Register now!</a>
 						</Form.Item>
 					</Form>
 					{msg}

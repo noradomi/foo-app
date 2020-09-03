@@ -18,8 +18,8 @@ public class Runner {
     public static void main(String[] args) {
         try {
             System.out.println("NORADOMI CHAT");
-            ServiceConfig serviceConfig =
-                    FileConfigLoader.loadFromEnv("development.yaml", ServiceConfig.class);
+//            ServiceConfig serviceConfig = FileConfigLoader.loadFromEnv("development.yaml", ServiceConfig.class);
+            ServiceConfig serviceConfig = FileConfigLoader.loadFromEnv("service.conf", ServiceConfig.class);
 
 //            Tracker.initialize("example");
 
@@ -53,6 +53,7 @@ public class Runner {
                             new DeploymentOptions().setInstances(8));
         }
         catch (Exception e) {
+            e.printStackTrace();
             System.exit(1);
         }
 

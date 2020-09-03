@@ -16,11 +16,12 @@ public class RedisCache {
   private RedissonClient redissonClient;
 
   public static RedisCache newInstance() throws IOException {
-//    Config config = Config.fromYAML(new File(System.getProperty("redis.conf")));
-    ClassLoader classLoader = FileConfigLoader.class.getClassLoader();
+    Config config = Config.fromYAML(new File(System.getProperty("redis.conf")));
 
-    File file = new File(classLoader.getResource("redis.yaml").getFile());
-    Config config = Config.fromYAML(file);
+//    ClassLoader classLoader = FileConfigLoader.class.getClassLoader();
+//    File file = new File(classLoader.getResource("redis.yaml").getFile());
+//    Config config = Config.fromYAML(file);
+
     RedisCache redisCache = new RedisCache();
     redisCache.redissonClient = Redisson.create(config);
     return redisCache;
