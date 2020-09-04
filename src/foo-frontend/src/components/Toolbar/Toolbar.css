@@ -4,7 +4,7 @@
 
   background-color: white;
   font-weight: 500;
-  border-bottom: 1px solid #eeeef1;
+  border-bottom: 1px solid #eeeef1 !important;
 
   position: sticky;
   top: 0px;

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
+import SignOutButton from '../SignOutButton';
 import { Switch, Route } from 'react-router-dom';
 import Message from '../Message';
 import moment from 'moment';
@@ -10,6 +11,8 @@ import { connect } from 'react-redux';
 import { getUserIdFromStorage } from '../../utils/utils';
 import { fetchMessageList, updateCurrSessionId } from '../../redux/fooAction';
 import { getMessageList } from '../../services/chat-single';
+import { hanldeLogout } from '../../services/logout';
+import { useHistory } from 'react-router-dom';
 
 function MessageList(props) {
 
@@ -21,7 +24,9 @@ function MessageList(props) {
 	if (props.userMapHolder.userMap.size === 0 || props.chatMessagesHolder.chatMessages.size === 0 || props.currentSessionId === null) {
 		return <div />;
 	}
-
+	
+	let history = useHistory();
+	
   // let receiverId = props.match.params.receiverId; // >>>
   let receiverId = props.currentSessionId;
   console.log(receiverId);
@@ -158,7 +163,13 @@ function MessageList(props) {
 			<Toolbar
 				title={receiver.name}
 				rightItems={[
-					<ToolbarButton key="info" icon="ion-ios-information-circle-outline" />,
+					<SignOutButton
+						key="add"
+						icon="ion-ios-log-out"
+						onClick={() => {
+							hanldeLogout().then(() => history.push('/login'));
+						}}
+					/>,
 					<ToolbarButton key="video" icon="ion-ios-videocam" />,
 					<ToolbarButton key="phone" icon="ion-ios-call" />
 				]}
@@ -171,12 +182,12 @@ function MessageList(props) {
 
 			<Compose
 				rightItems={[
-					<ToolbarButton key="photo" icon="ion-ios-camera" />,
+					<ToolbarButton key="photo" icon="ion-ios-happy" />,
 					<ToolbarButton key="image" icon="ion-ios-image" />,
-					<ToolbarButton key="audio" icon="ion-ios-mic" />,
-					<ToolbarButton key="money" icon="ion-ios-card" />,
-					<ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
-					<ToolbarButton key="emoji" icon="ion-ios-happy" />
+					<ToolbarButton key="audio" icon="ion-ios-paper-plane" />,
+					// <ToolbarButton key="money" icon="ion-ios-card" />,
+					// <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
+					// <ToolbarButton key="emoji" icon="ion-ios-happy" />
 				]}
 				onKeyUp={onChangeText}
 			/>
@@ -199,9 +210,6 @@ let mapDispatchToProps = (dispatch) => {
 		updateMsgListOnStore: (data, friendId) => {
 			dispatch(fetchMessageList(data, friendId));
 		},
-		// updateCurrSessionId: (id) => {
-		// 	dispatch(updateCurrSessionId(id));
-		// }
 	};
 };
 
@@ -209,14 +217,3 @@ MessageList = connect(mapStateToProps, mapDispatchToProps)(MessageList);
 
 export default MessageList;
 
-// >>>
-// export default function MessageListWrapper() {
-// 	return (
-// 		<Switch>
-// 			<Route path="/t/:receiverId" component={MessageList} />
-// 			<Route exact path="/">
-// 				<div />
-// 			</Route>
-// 		</Switch>
-// 	);
-// }
