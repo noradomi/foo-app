@@ -8,7 +8,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./data.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./data.sql:/docker-entrypoint-initdb.d/data.sql:ro
   cache:
     image: "redis"
     ports:

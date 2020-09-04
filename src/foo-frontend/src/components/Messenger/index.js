@@ -32,7 +32,7 @@ export default function Messenger(props) {
           <ConversationList />
         </div>
 
-        <div className="scrollable content">
+        <div className=" content">
           <MessageList />
         </div>
       </div>

@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { Form, Input, Button, Row, Col, Card, Alert, Checkbox } from 'antd';
 import { hanleLogin } from '../../services/login';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import bg from './backgroung.jpg'
+import bg from './backgroung.jpg';
 
 const FormItem = Form.Item;
 

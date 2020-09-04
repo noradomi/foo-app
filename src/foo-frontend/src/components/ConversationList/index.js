@@ -8,8 +8,7 @@ import axios from 'axios';
 import './ConversationList.css';
 import { getUserList } from '../../services/view-user-list';
 import { connect } from 'react-redux';
-import { hanldeLogout } from '../../services/logout';
-import { useHistory } from 'react-router-dom';
+
 import { wsConnect } from '../../services/chat-single';
 
 // getUserList();
@@ -25,7 +24,7 @@ function ConversationList(props) {
 			.catch(() => console.log('Load user list failed'));
 	}, []);
 
-	let history = useHistory();
+	
 	const conversations = props.userList.map((res) => {
 		console.log('Username: ' + res.name + ' - ' + res.online);
 		return {
@@ -43,13 +42,7 @@ function ConversationList(props) {
 				title="Messenger"
 				leftItems={[ <ToolbarButton key="cog" icon="ion-ios-cog" /> ]}
 				rightItems={[
-					<SignOutButton
-						key="add"
-						icon="ion-ios-log-out"
-						onClick={() => {
-							hanldeLogout().then(() => history.push('/login'));
-						}}
-					/>
+					<ToolbarButton key="cog" icon="ion-ios-notifications-outline" />
 				]}
 			/>
 			<div className="conversation-list-scroll">
