@@ -1,18 +1,14 @@
 package vn.zalopay.phucvt.fooapp.server;
 
-import lombok.extern.log4j.Log4j2;
-import vn.zalopay.phucvt.fooapp.handler.HandlerFactory;
-import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.Router;
 import lombok.Builder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.lang.invoke.MethodHandles;
+import lombok.extern.log4j.Log4j2;
+import vn.zalopay.phucvt.fooapp.handler.HandlerFactory;
+import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
 @Log4j2
 public class RestfulAPI {

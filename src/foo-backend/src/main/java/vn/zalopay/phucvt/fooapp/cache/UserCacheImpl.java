@@ -91,11 +91,31 @@ public class UserCacheImpl implements UserCache {
                 redisCache.getRedissonClient().getList(CacheKey.getUserListKey());
             userQueue.clear();
             userQueue.addAll(users);
-            userQueue.expire(1, TimeUnit.MINUTES);
+            userQueue.expire(10, TimeUnit.MINUTES);
           } catch (Exception e) {
             future.fail(e);
           }
         });
+        return future;
+    }
+
+    @Override
+    public Future<User> addUserList(User user) {
+        Future<User> future = Future.future();
+        asyncHandler.run(
+                () -> {
+                    try {
+                        RList<User> userQueue =
+                                redisCache.getRedissonClient().getList(CacheKey.getUserListKey());
+                        if(userQueue.size() !=0){
+                            userQueue.add(user);
+                            userQueue.expire(10, TimeUnit.MINUTES);
+                        }
+                        future.complete(user);
+                    } catch (Exception e) {
+                        future.fail(e);
+                    }
+                });
         return future;
     }
 
