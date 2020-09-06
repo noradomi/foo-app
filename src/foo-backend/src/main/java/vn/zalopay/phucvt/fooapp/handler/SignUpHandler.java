@@ -19,6 +19,7 @@ import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 public class SignUpHandler extends BaseHandler {
   private final UserCache userCache;
   private final UserDA userDA;
+  private final WSHandler wsHandler;
 
   @Override
   public Future<BaseResponse> handle(BaseRequest baseRequest) {

@@ -44,9 +44,8 @@ public class WebSocketServer {
 
                               log.trace("ws connected with user: {}", userId);
                               wsHandler.addClient(ws, userId);
-                              wsHandler.notifyStatusUserChange(
-                                  WsMessage.builder().type("ONLINE").senderId(userId).build());
-
+                                wsHandler.notifyStatusUserChange(
+                                        WsMessage.builder().type("ONLINE").senderId(userId).build());
                               ws.closeHandler(
                                   event -> {
                                     handleCloseConnection(ws, userId);
@@ -60,8 +59,8 @@ public class WebSocketServer {
             .listen(port);
   }
 
-  private void handleCloseConnection(ServerWebSocket ws, String userId) {
-    log.info("Web Socket : Close connections with userId:{}", userId);
+  public void handleCloseConnection(ServerWebSocket ws, String userId) {
+    log.info("ws : close connection with userId={}", userId);
     wsHandler.removeClient(ws, userId);
     wsHandler.notifyStatusUserChange(WsMessage.builder().type("OFFLINE").senderId(userId).build());
   }

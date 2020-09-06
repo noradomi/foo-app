@@ -11,7 +11,6 @@ export function hanleLogin(username, password) {
 				password
 			})
 			.then((response) => {
-				console.log('Login successfully');
 				let data = response.data.data;
 				store.dispatch(login(data.jwtToken, data.userId));
 				setJwtToStorage(data.token);
@@ -19,7 +18,6 @@ export function hanleLogin(username, password) {
 				resolve(data);
 			})
 			.catch((reason) => {
-				console.log(reason);
 				reject('Login failed');
 			});
 	});

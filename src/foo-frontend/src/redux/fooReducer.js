@@ -29,15 +29,10 @@ export default function appReducer(state = initialState, action) {
 			console.log('Login action');
 			state = loginSucceeded(state, data);
 			break;
-		case 'SIGNOUT':
-			return {
-				...state,
-				user: {
-					jwt: null,
-					userId: null
-				}
-			};
-
+		case 'LOGOUT':
+			console.log('sign out action');
+			state = signOut(state);
+			break;
 		case 'USERLIST_FETCHED':
 			console.log('userListFetched action');
 			state = userListFetched(state, data);
@@ -77,8 +72,10 @@ function loginSucceeded(state, data) {
 
 function signOut(state) {
 	if (state.webSocket.webSocket !== null) {
+		console.log("Close socket log out");
 		state.webSocket.webSocket.close();
 	}
+	console.log("web socket null");
 	return Object.assign({}, state, {
 		user: {
 			jwt: null,
@@ -99,13 +96,10 @@ function signOut(state) {
 	});
 }
 
-// >>>
 function userListFetched(state, userList) {
-	// console.log('Size of userlist fetched: ' + userList.size);
 	let userMap = new Map();
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	for (let user of userList) {
-		// console.log('Size of userlist fetched: ' + user.userId);
 		userMap.set(user.userId, user);
 		if (!chatMessages.has(user.userId)) {
 			chatMessages.set(user.userId, []);
@@ -122,22 +116,22 @@ function userListFetched(state, userList) {
 	});
 }
 
-// >>>
+
 function receiveMessage(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
-	let listMessage = chatMessages.get(data.sender_id);
-	listMessage.push(data); // <<<
+	let listMessage = chatMessages.get(data.senderId);
+	listMessage.push(data); 
 	return Object.assign({}, state, {
 		chatMessagesHolder: { chatMessages },
 		scrollFlag: !state.scrollFlag
 	});
 }
 
-// >>>
+
 function sendMessage(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
-	let listMessage = chatMessages.get(data.receiver_id);
-	listMessage.push(data); // <<<
+	let listMessage = chatMessages.get(data.receiverId);
+	listMessage.push(data); 
 	return Object.assign({}, state, {
 		chatMessagesHolder: { chatMessages },
 		scrollFlag: !state.scrollFlag
@@ -170,7 +164,9 @@ function handleUserStatus(state,data) {
 	if (userMap === null) {
 		return state;
 	  }
+	  console.log(data.userId);
 	let user = userMap.get(data.userId);
+	if(user === undefined) return state;
 	user.online = data.status;
 	userMap.set(data.userId,user);
 	console.log("Size of  user map: ",userMap.size);	

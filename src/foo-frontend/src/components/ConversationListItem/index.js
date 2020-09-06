@@ -3,7 +3,6 @@ import shave from 'shave';
 import CustomAvatar from '../CustomAvatar/index';
 import { updateCurrSessionId } from '../../redux/fooAction';
 import './ConversationListItem.css';
-import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 function ConversationListItem(props) {
@@ -11,11 +10,9 @@ function ConversationListItem(props) {
 		shave('.conversation-snippet', 20);
 	});
 
-	let history = useHistory();
-
 	let selectedColor = {};
 
-	const { name, text, avatar, id , online} = props.data;
+	const { name, avatar, id} = props.data;
 
 	if (props.currentSessionId === id) {
 		selectedColor.backgroundColor = 'rgb(218, 233, 255)';
@@ -30,7 +27,6 @@ function ConversationListItem(props) {
 
 	return (
 		<div className="conversation-list-item" onClick={clickHandle} style={selectedColor}>
-			{/* <img className="conversation-photo" src={photo} alt="conversation" /> */}
 			<div className="conversation-avatar" style={{ width: 60 }}>
 				<CustomAvatar type="user-avatar" avatar={avatar} />
 			</div>
