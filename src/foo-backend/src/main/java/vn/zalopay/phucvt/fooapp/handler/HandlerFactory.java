@@ -13,26 +13,23 @@ public class HandlerFactory {
   private BaseHandler signOutHandler;
   private AuthHandler authHandler;
   private BaseHandler userListHanlder;
-  private BaseHandler participantHandler;
   private BaseHandler messageListHandler;
 
   public void initialize(Router router) {
-
     router.route("/api/protected/*").handler(authHandler::handle);
-
-    router.route("/api/protected/messages/:friendId/:offset").method(HttpMethod.GET).handler(messageListHandler::handle);
+    router
+        .route("/api/protected/messages/:friendId/:offset")
+        .method(HttpMethod.GET)
+        .handler(messageListHandler::handle);
 
     ImmutableMap<String, BaseHandler> getHandler =
-        ImmutableMap.<String, BaseHandler>builder()
-                .put(APIPath.USERLIST, userListHanlder)
-//                .put(APIPath.MESSAGELIST, messageListHandler)
-                .put(APIPath.CONVERSATIONID, participantHandler).build();
+        ImmutableMap.<String, BaseHandler>builder().put(APIPath.USER_LIST, userListHanlder).build();
 
     ImmutableMap<String, BaseHandler> postHandler =
         ImmutableMap.<String, BaseHandler>builder()
             .put(APIPath.LOGIN, loginHandler)
             .put(APIPath.SIGNUP, signUpHandler)
-            .put(APIPath.SIGNOUT, signOutHandler)
+            .put(APIPath.LOGOUT, signOutHandler)
             .build();
 
     getHandler

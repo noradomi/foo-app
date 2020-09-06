@@ -1,94 +1,70 @@
 package vn.zalopay.phucvt.fooapp.handler;
 
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.vertx.core.Future;
+import lombok.Builder;
+import lombok.extern.log4j.Log4j2;
 import org.mindrot.jbcrypt.BCrypt;
 import vn.zalopay.phucvt.fooapp.cache.UserCache;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.entity.request.BaseRequest;
 import vn.zalopay.phucvt.fooapp.entity.response.BaseResponse;
-import vn.zalopay.phucvt.fooapp.entity.response.ExceptionResponse;
-import vn.zalopay.phucvt.fooapp.entity.response.JwtResponse;
-import vn.zalopay.phucvt.fooapp.entity.response.SuccessResponse;
+import vn.zalopay.phucvt.fooapp.entity.response.data.LoginDataResponse;
 import vn.zalopay.phucvt.fooapp.model.User;
-import vn.zalopay.phucvt.fooapp.utils.ErrorCode;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
-import io.netty.handler.codec.http.HttpResponseStatus;
-import io.vertx.core.Future;
-import io.vertx.core.json.JsonObject;
-import io.vertx.ext.auth.jwt.JWTAuth;
-import io.vertx.ext.jwt.JWTOptions;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
 
+@Builder
+@Log4j2
 public class LoginHandler extends BaseHandler {
+  private final JwtUtils jwtUtils;
+  private final UserCache userCache;
+  private final UserDA userDA;
 
-    private static final Logger LOGGER = LogManager.getLogger(LoginHandler.class);
+  @Override
+  public Future<BaseResponse> handle(BaseRequest baseRequest) {
+    final User user = JsonProtoUtils.parseGson(baseRequest.getPostData(), User.class);
+    Future<User> userAuthFuture = userDA.selectUserByUserName(user.getUsername());
+    Future<BaseResponse> future = Future.future();
+    userAuthFuture.setHandler(
+        event -> {
+          if (event.succeeded()) {
+            User userAuth = event.result();
+            handleLogin(user, future, userAuth);
+          } else {
+            log.error("login failed by user={}, cause={}", user.getUsername(), event.cause());
+            BaseResponse baseResponse =
+                BaseResponse.builder()
+                    .statusCode(HttpResponseStatus.UNAUTHORIZED.code())
+                    .message("Username not existed")
+                    .build();
+            future.complete(baseResponse);
+          }
+        });
+    return future;
+  }
 
-    private JWTAuth authProvider;
-
-    private final UserCache userCache;
-
-    private final UserDA userDA;
-
-    public LoginHandler(UserDA userDA, UserCache userCache, JWTAuth authProvider) {
-        this.authProvider = authProvider;
-        this.userCache = userCache;
-        this.userDA = userDA;
+  private void handleLogin(User user, Future<BaseResponse> future, User userAuth) {
+    if (BCrypt.checkpw(user.getPassword(), userAuth.getPassword())) {
+      String token = jwtUtils.generateToken(userAuth.getUserId());
+      LoginDataResponse loginDR =
+          LoginDataResponse.builder().token(token).userId(userAuth.getUserId()).build();
+      BaseResponse baseResponse =
+          BaseResponse.builder()
+              .statusCode(HttpResponseStatus.OK.code())
+              .message("Login successfully")
+              .data(loginDR)
+              .build();
+      future.complete(baseResponse);
+      log.info("login successfully by user={}",userAuth.getUsername());
+    } else {
+      BaseResponse baseResponse =
+          BaseResponse.builder()
+              .statusCode(HttpResponseStatus.UNAUTHORIZED.code())
+              .message("Invalid password")
+              .build();
+      future.complete(baseResponse);
+      log.info("login failed by user={},cause=invalid.password",userAuth.getUsername());
     }
-
-    @Override
-    public Future<BaseResponse> handle(BaseRequest baseRequest) {
-
-        final User user = JsonProtoUtils.parseGson(baseRequest.getPostData(), User.class);
-
-        Future<User> getUserAuth = userDA.selectUserByUserName(user.getUsername());
-
-        Future<BaseResponse> future = Future.future();
-
-        getUserAuth.compose(userAuth -> {
-
-            if (userAuth != null && userAuth.getUsername().equals(user.getUsername()) && BCrypt.checkpw(user.getPassword(),userAuth.getPassword())) {
-
-//                Login successfully -> Add to online user list cache
-                userCache.set(userAuth);
-
-                String token = authProvider.generateToken(
-                        new JsonObject()
-                                .put("userId", userAuth.getUserId()),
-                        new JWTOptions()
-                                .setExpiresInSeconds(174600));
-
-                JwtResponse jwtResponse = JwtResponse
-                        .builder()
-                        .token(token)
-                        .userId(userAuth.getUserId())
-                        .build();
-
-                SuccessResponse successResponse = SuccessResponse
-                        .builder()
-                        .data(jwtResponse)
-                        .build();
-
-                successResponse.setStatus(HttpResponseStatus.OK.code());
-                future.complete(successResponse);
-
-                LOGGER.info("Sign in: SUCCEEDED by user: {}",userAuth.getFullname());
-
-            } else {
-                ExceptionResponse exceptionResponse = ExceptionResponse
-                        .builder()
-                        .code(ErrorCode.AUTHORIZED_FAILED.code())
-                        .message("Invalid Username or Password")
-                        .build();
-                exceptionResponse.setStatus(HttpResponseStatus.UNAUTHORIZED.code());
-                future.complete(exceptionResponse);
-            }
-        }, Future.future().setHandler(handler -> {
-            LOGGER.info("Sign in: GET USER AUTH FAILED");
-            future.fail(handler.cause());
-        }));
-
-        return future;
-
-    }
-
+  }
 }

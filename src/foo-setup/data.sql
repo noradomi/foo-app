@@ -7,7 +7,7 @@ CREATE TABLE `users` (
   `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fullname` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   -- INDEX (`username`),
   UNIQUE KEY `username` (`username`)
@@ -17,7 +17,7 @@ CREATE TABLE `messages` (
   `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sender_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `receiver_id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `create_date` bigint NOT NULL,
+  `create_time` bigint NOT NULL,
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `conversation` (`sender_id`,`receiver_id`)

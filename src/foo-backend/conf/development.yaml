@@ -7,3 +7,9 @@ mySQLConfig:
   driver: "com.mysql.cj.jdbc.Driver"
   username: "root"
   password: "1234"
+cacheConfig:
+  maxMessagesSize: 20
+  expireMessages: 10
+  expireUserList: 10
+jwtConfig:
+  expireToken: 174600

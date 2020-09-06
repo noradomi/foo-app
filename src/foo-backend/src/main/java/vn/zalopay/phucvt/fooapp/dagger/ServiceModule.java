@@ -12,13 +12,14 @@ import io.vertx.micrometer.MicrometerMetricsOptions;
 import io.vertx.micrometer.VertxPrometheusOptions;
 import lombok.Builder;
 import vn.zalopay.phucvt.fooapp.cache.*;
+import vn.zalopay.phucvt.fooapp.config.JwtConfig;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.handler.*;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
-import vn.zalopay.phucvt.fooapp.utils.JWTUtils;
+import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import javax.inject.Singleton;
@@ -35,18 +36,16 @@ public class ServiceModule {
   HandlerFactory provideHandler(
       LoginHandler loginHandler,
       SignUpHandler signUpHandler,
-      SignOutHandler signOutHandler,
+      LogOutHandler logOutHandler,
       UserListHandler userListHandler,
       MessageListHandler messageListHandler,
-      ParticipantHandler participantHandler,
       AuthHandler authHandler) {
     return HandlerFactory.builder()
         .loginHandler(loginHandler)
         .signUpHandler(signUpHandler)
-        .signOutHandler(signOutHandler)
+        .signOutHandler(logOutHandler)
         .userListHanlder(userListHandler)
         .messageListHandler(messageListHandler)
-        .participantHandler(participantHandler)
         .authHandler(authHandler)
         .build();
   }
@@ -70,13 +69,21 @@ public class ServiceModule {
   @Provides
   @Singleton
   UserCache provideUserCache(RedisCache redisCache, AsyncHandler asyncHandler) {
-    return UserCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
+    return UserCacheImpl.builder()
+        .redisCache(redisCache)
+        .asyncHandler(asyncHandler)
+        .cacheConfig(serviceConfig.getCacheConfig())
+        .build();
   }
 
   @Provides
   @Singleton
   ChatCache provideChatCache(RedisCache redisCache, AsyncHandler asyncHandler) {
-    return ChatCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
+    return ChatCacheImpl.builder()
+        .redisCache(redisCache)
+        .asyncHandler(asyncHandler)
+        .cacheConfig(serviceConfig.getCacheConfig())
+        .build();
   }
 
   @Provides
@@ -84,7 +91,6 @@ public class ServiceModule {
   BlackListCache provideBlackListCache(RedisCache redisCache, AsyncHandler asyncHandler) {
     return BlackListCacheImpl.builder().redisCache(redisCache).asyncHandler(asyncHandler).build();
   }
-
 
   @Provides
   @Singleton
@@ -104,40 +110,28 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  ParticipantDA provideParticipantDA(
-      DataSourceProvider dataSourceProvider, AsyncHandler asyncHandler) {
-    return ParticipantDAImpl.builder()
-        .asyncHandler(asyncHandler)
-        .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
-        .build();
-  }
-  
-
-  @Provides
-  @Singleton
-  AuthHandler provideAuthHandler(JWTAuth authProvider, BlackListCache blackListCache) {
-    return AuthHandler.builder().authProvider(authProvider).blackListCache(blackListCache).build();
+  AuthHandler provideAuthHandler(JwtUtils jwtUtils, BlackListCache blackListCache) {
+    return AuthHandler.builder().jwtUtils(jwtUtils).blackListCache(blackListCache).build();
   }
 
   @Provides
   @Singleton
   SignUpHandler provideSignUpHandler(
-      UserDA userDA, TransactionProvider transactionProvider, UserCache userCache) {
-    return new SignUpHandler(userCache, userDA, transactionProvider);
+      UserDA userDA, UserCache userCache) {
+    return SignUpHandler.builder().userCache(userCache).userDA(userDA).build();
   }
 
   @Provides
   @Singleton
-  LoginHandler provideLoginHandler(UserDA userDA, UserCache userCache, JWTAuth authProvider) {
-    return new LoginHandler(userDA, userCache, authProvider);
+  LoginHandler provideLoginHandler(UserDA userDA, UserCache userCache, JwtUtils jwtUtils) {
+    return LoginHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).build();
   }
 
   @Provides
   @Singleton
-  SignOutHandler provideSignOutHanler(
-      BlackListCache blackListCache, UserCache userCache, JWTAuth authProvider) {
-    return SignOutHandler.builder()
-        .authProvider(authProvider)
+  LogOutHandler provideLogOutHanler(
+      BlackListCache blackListCache, UserCache userCache) {
+    return LogOutHandler.builder()
         .blackListCache(blackListCache)
         .userCache(userCache)
         .build();
@@ -145,20 +139,19 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  ParticipantHandler provideParticipantHandler(JWTUtils jwtUtils, ParticipantDA participantDA) {
-    return ParticipantHandler.builder().jwtUtils(jwtUtils).participantDA(participantDA).build();
+  UserListHandler provideUserListHandler(JwtUtils jwtUtils, UserDA userDA, UserCache userCache,WSHandler wsHandler) {
+    return UserListHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).wsHandler(wsHandler).build();
   }
 
   @Provides
   @Singleton
-  UserListHandler provideUserListHandler(JWTUtils jwtUtils, UserDA userDA, UserCache userCache) {
-    return UserListHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).build();
-  }
-
-  @Provides
-  @Singleton
-  MessageListHandler provideMessageListHandler(JWTUtils jwtUtils, ChatDA chatDA, ChatCache chatCache) {
-    return MessageListHandler.builder().jwtUtils(jwtUtils).chatCache(chatCache).chatDA(chatDA).build();
+  MessageListHandler provideMessageListHandler(
+      JwtUtils jwtUtils, ChatDA chatDA, ChatCache chatCache) {
+    return MessageListHandler.builder()
+        .jwtUtils(jwtUtils)
+        .chatCache(chatCache)
+        .chatDA(chatDA)
+        .build();
   }
 
   @Singleton
@@ -213,8 +206,8 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  JWTUtils provideJWTUtils(JWTAuth auth) {
-    return JWTUtils.builder().jwtAuth(auth).build();
+  JwtUtils provideJWTUtils(JWTAuth auth) {
+    return JwtUtils.builder().jwtAuth(auth).jwtConfig(serviceConfig.getJwtConfig()).build();
   }
 
   @Provides
@@ -231,19 +224,18 @@ public class ServiceModule {
   @Provides
   @Singleton
   WSHandler provideWSHandler(
-      ChatDA chatDA, ChatCache chatCache, TransactionProvider transactionProvider) {
+      ChatDA chatDA, ChatCache chatCache) {
     return WSHandler.builder()
         .chatCache(chatCache)
         .chatDA(chatDA)
         .clients(new ConcurrentHashMap<>())
-        .transactionProvider(transactionProvider)
         .build();
   }
 
   @Provides
   @Singleton
   WebSocketServer provideWebSocketServer(
-      WSHandler wsHandler, Vertx vertx, JWTUtils jwtUtils, UserCache userCache) {
+      WSHandler wsHandler, Vertx vertx, JwtUtils jwtUtils, UserCache userCache) {
     return WebSocketServer.builder()
         .wsHandler(wsHandler)
         .vertx(vertx)
