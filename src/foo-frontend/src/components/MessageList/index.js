@@ -25,8 +25,7 @@ function MessageList(props) {
 		return <div />;
 	}
 
-	let history = useHistory();
-git 
+	let history = useHistory(); 
 	let receiverId = props.currentSessionId;
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 

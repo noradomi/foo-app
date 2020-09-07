@@ -94,6 +94,4 @@ npm start
 
 - [Redis cache specifications](docs/cache-specifications.md)
 
-- [API Specifications](https://app.swaggerhub.com/apis/NoRaDoMi/Foo_Chat_Application/1.0.0)
-
-- [Web-socket specifications](docs/websocket-specification.md)
+- [API & Web-socket Specifications](https://app.swaggerhub.com/apis/NoRaDoMi/Foo_Chat_Application/1.0.0)

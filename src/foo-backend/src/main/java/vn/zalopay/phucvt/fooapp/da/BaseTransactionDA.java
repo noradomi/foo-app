@@ -52,7 +52,9 @@ public class BaseTransactionDA extends BaseDA {
         result.complete();
       }
     } finally {
-      closeResource(LOGGER, preparedStatement);
+//      closeResource(LOGGER, preparedStatement);
+      LOGGER.info("close connection with method={}",method);
+      closeResource(LOGGER, preparedStatement,connection);
     }
   }
 

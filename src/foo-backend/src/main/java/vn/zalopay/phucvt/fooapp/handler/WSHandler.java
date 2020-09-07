@@ -1,10 +1,8 @@
 package vn.zalopay.phucvt.fooapp.handler;
 
-import io.vertx.core.Future;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.ServerWebSocket;
 import io.vertx.core.impl.ConcurrentHashSet;
-import io.vertx.core.json.JsonObject;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.cache.ChatCache;
