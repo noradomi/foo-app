@@ -5,9 +5,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-/**
- * Created by thuyenpt Date: 2019-11-13
- */
+/** Created by thuyenpt Date: 2019-11-13 */
 @Getter
 @Setter
 public class MySQLConfig implements Serializable {

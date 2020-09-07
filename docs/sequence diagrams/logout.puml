@@ -1,13 +1,8 @@
 @startuml logout
     hide footbox
-
     actor "User"
-
-    "User" -> "App Server": User send JWT to logout
-    activate "App Server"
-    "App Server" -> "Redis Server": Add JWT to token Blacklist
-    "App Server" -> "App Server": Logging result
-    "App Server" --> "User": Return result to user
-    deactivate "App Server"
-
+    "User" -> "Server": logout
+    "Server" -> "Redis": add token to black list
+    "Redis" --> "Server": ok
+    "Server" --> "User": logout succeeded
 @enduml

@@ -6,5 +6,5 @@ import lombok.Setter;
 @Setter
 @Getter
 public class VertxConfig {
-    int prometheusPort = 8099;
+  int prometheusPort = 8099;
 }

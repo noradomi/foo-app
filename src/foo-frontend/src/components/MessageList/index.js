@@ -3,47 +3,42 @@ import Compose from '../Compose';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import SignOutButton from '../SignOutButton';
-import { Switch, Route } from 'react-router-dom';
 import Message from '../Message';
 import moment from 'moment';
 import './MessageList.css';
 import { connect } from 'react-redux';
 import { getUserIdFromStorage } from '../../utils/utils';
-import { fetchMessageList, updateCurrSessionId } from '../../redux/fooAction';
+import { fetchMessageList } from '../../redux/fooAction';
 import { getMessageList } from '../../services/chat-single';
 import { hanldeLogout } from '../../services/logout';
 import { useHistory } from 'react-router-dom';
 
 function MessageList(props) {
-
-  console.log("Load message list");
-
 	let senderId = getUserIdFromStorage();
 
 	// Check if userMap is loaded
-	if (props.userMapHolder.userMap.size === 0 || props.chatMessagesHolder.chatMessages.size === 0 || props.currentSessionId === null) {
+	if (
+		props.userMapHolder.userMap.size === 0 ||
+		props.chatMessagesHolder.chatMessages.size === 0 ||
+		props.currentSessionId === null
+	) {
 		return <div />;
 	}
-	
-	let history = useHistory();
-	
-  // let receiverId = props.match.params.receiverId; // >>>
-  let receiverId = props.currentSessionId;
-  console.log(receiverId);
+
+	let history = useHistory(); 
+	let receiverId = props.currentSessionId;
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 
-	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId); //>>>
-
-	let ws = props.webSocket;
+	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId);
 
 	let messages = [];
 
 	messages = messagesState.map((item) => {
 		return {
-			id: item.create_date,
-			message: item.msg,
-			author: item.sender_id,
-			timestamp: item.create_date * 1000
+			id: item.createTime,
+			message: item.message,
+			author: item.senderId,
+			timestamp: item.createTime	 * 1000
 		};
 	});
 
@@ -132,7 +127,6 @@ function MessageList(props) {
 
 	// Load more message
 	let msgScrollHandle = (event) => {
-    console.log("Scroll handle");
 		let msgList = event.target;
 		let offset = msgList.scrollTop;
 		if (offset === 0) {
@@ -145,10 +139,8 @@ function MessageList(props) {
 		}
 	};
 
-	// >>>
-
 	let onChangeText = (e) => {
-		if (e.keyCode == 13 && e.target.value !== '') {
+		if (e.keyCode === 13 && e.target.value !== '') {
 			// Click ENTER
 			let msg = e.target.value;
 
@@ -184,10 +176,7 @@ function MessageList(props) {
 				rightItems={[
 					<ToolbarButton key="photo" icon="ion-ios-happy" />,
 					<ToolbarButton key="image" icon="ion-ios-image" />,
-					<ToolbarButton key="audio" icon="ion-ios-paper-plane" />,
-					// <ToolbarButton key="money" icon="ion-ios-card" />,
-					// <ToolbarButton key="games" icon="ion-logo-game-controller-b" />,
-					// <ToolbarButton key="emoji" icon="ion-ios-happy" />
+					<ToolbarButton key="audio" icon="ion-ios-paper-plane" />
 				]}
 				onKeyUp={onChangeText}
 			/>
@@ -209,11 +198,8 @@ let mapDispatchToProps = (dispatch) => {
 	return {
 		updateMsgListOnStore: (data, friendId) => {
 			dispatch(fetchMessageList(data, friendId));
-		},
+		}
 	};
 };
 
-MessageList = connect(mapStateToProps, mapDispatchToProps)(MessageList);
-
-export default MessageList;
-
+export default connect(mapStateToProps, mapDispatchToProps)(MessageList);

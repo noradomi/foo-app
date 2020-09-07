@@ -1,54 +1,41 @@
 import Sockette from 'sockette';
 import { ws_host } from './api';
-import { getJwtFromStorage ,getUserIdFromStorage} from '../utils/utils';
+import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
 import store from '../redux/fooStore';
-import { receiveMessage, sendbackMessage, changeUserStatus} from '../redux/fooAction';
+import { receiveMessage, sendbackMessage, changeUserStatus } from '../redux/fooAction';
 
 export function initialWebSocket() {
-    const jwt = getJwtFromStorage();
-    const senderId = getUserIdFromStorage();
+	const jwt = getJwtFromStorage();
+	const senderId = getUserIdFromStorage();
 	const webSocket = new Sockette(ws_host + '/chat' + '?jwt=' + jwt, {
 		timeout: 5e3,
 		maxAttempts: 10,
 		onopen: (e) => {},
 		onmessage: (messageEvent) => {
-            
 			let jsonMessage = JSON.parse(messageEvent.data);
-
-			console.log(jsonMessage.type);
-			console.log(senderId);
-			console.log(jsonMessage.sender_id);
 			switch (jsonMessage.type) {
-				case 'ONLINE':
-					{
-						if(senderId !== jsonMessage.sender_id)
-						{
-							console.log("Online user");
-							store.dispatch(changeUserStatus(jsonMessage.sender_id,true));
-						}
-						break;
+				case 'ONLINE': {
+					if (senderId !== jsonMessage.senderid) {
+						store.dispatch(changeUserStatus(jsonMessage.senderId, true));
 					}
-					case 'OFFLINE':
-					{
-						if(senderId !== jsonMessage.sender_id)
-						{
-							console.log("Offline user");
-							store.dispatch(changeUserStatus(jsonMessage.sender_id,false));
-						}
-						break;
+					break;
+				}
+				case 'OFFLINE': {
+					if (senderId !== jsonMessage.senderId) {
+						store.dispatch(changeUserStatus(jsonMessage.senderId, false));
 					}
-					
+					break;
+				}
+
 				case 'SEND':
 					store.dispatch(receiveMessage(jsonMessage));
 					break;
-				case 'FETCH':
-					{
-						if (jsonMessage.receiverId !== senderId) {
-							store.dispatch(sendbackMessage(jsonMessage));
-						}
-						break;
-						
+				case 'FETCH': {
+					if (jsonMessage.receiverId !== senderId) {
+						store.dispatch(sendbackMessage(jsonMessage));
 					}
+					break;
+				}
 				default:
 					break;
 			}

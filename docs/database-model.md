@@ -1,4 +1,4 @@
-# Database Model 
+# Database Model
 
 ## 1. Bảng thiết kế cho toàn bộ các chức năng
 

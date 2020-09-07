@@ -24,7 +24,6 @@ public class DataSourceProviderImpl implements DataSourceProvider {
 
   @Override
   public DataSource getDataSource(MySQLConfig config) {
-//    System.out.println("Connect database ...");
     HikariConfig hikariConfig = new HikariConfig();
     hikariConfig.setDriverClassName(config.getDriver());
     hikariConfig.setJdbcUrl(config.getUrl());
@@ -38,7 +37,7 @@ public class DataSourceProviderImpl implements DataSourceProvider {
     hikariConfig.addDataSourceProperty(
         "prepStmtCacheSqlLimit", "" + config.getPrepStmtCacheSqlLimit());
     hikariConfig.addDataSourceProperty("maxLifetime", "" + config.getMaxLifetimeMillis());
-    hikariConfig.setMetricRegistry(Tracker.getMeterRegistry());
+//    hikariConfig.setMetricRegistry(Tracker.getMeterRegistry());
     return new HikariDataSource(hikariConfig);
   }
 }

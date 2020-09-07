@@ -1,11 +1,11 @@
 package vn.zalopay.phucvt.fooapp.da;
 
-import lombok.extern.log4j.Log4j2;
-import vn.zalopay.phucvt.fooapp.utils.Tracker;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
+import lombok.extern.log4j.Log4j2;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,7 +27,7 @@ public class TransactionImpl implements Transaction {
   }
 
   public Future<Void> begin() {
-    Future future = Future.future();
+    Future<Void> future = Future.future();
     Tracker.TrackerBuilder tracker = getTracker();
     dataSource.getConnection(
         rs -> {

@@ -1,37 +1,28 @@
 # Sequence Diagrams
 
+- [Sequence Diagrams](#sequence-diagrams)
+  - [1. Sign in](#1-sign-in)
+  - [2. Log out](#2-log-out)
+  - [3. Sign up](#3-sign-up)
+  - [4. View list users](#4-view-list-users)
+  - [5. Chat single](#5-chat-single)
+
 ## 1. Sign in
 
-![signin](../imgs/seq-digarams/login.png)
+![signin](../imgs/sequence-diagrams/login/login.png)
 
-## 2. Sign out
+## 2. Log out
 
-![logout](../imgs/seq-digarams/logout.png)
+![logout](../imgs/sequence-diagrams/logout/logout.png)
 
 ## 3. Sign up
 
-![register](../imgs/seq-digarams/register.png)
+![register](../imgs/sequence-diagrams/register/register.png)
 
-## 4. View list users/friend
+## 4. View list users
 
-![viewlistusers](../imgs/seq-digarams/viewlistusers.png)
+![viewlistusers](../imgs/sequence-diagrams/viewlistusers/viewlistusers.png)
 
 ## 5. Chat single
 
-![chatsingle](../imgs/seq-digarams/chatsingle.png)
-
-## 6. Chat group
-
-![chatgroup](../imgs/seq-digarams/chatgroup.png)
-
-## 7. Add friends
-
-![addfriend](../imgs/seq-digarams/addfriend.png)
-
-## 8. Remove friends
-
-![removefriend](../imgs/seq-digarams/removeafriend.png)
-
-## 9. Notification
-
-![notification](../imgs/seq-digarams/notification.png)
+![chatsingle](../imgs/sequence-diagrams/chatsingle/chatsingle.png)
