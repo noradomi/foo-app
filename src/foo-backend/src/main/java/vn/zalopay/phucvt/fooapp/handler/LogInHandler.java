@@ -17,7 +17,7 @@ import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
 
 @Builder
 @Log4j2
-public class LoginHandler extends BaseHandler {
+public class LogInHandler extends BaseHandler {
   private final JwtUtils jwtUtils;
   private final UserCache userCache;
   private final UserDA userDA;

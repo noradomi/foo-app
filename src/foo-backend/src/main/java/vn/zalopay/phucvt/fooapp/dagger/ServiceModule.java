@@ -33,7 +33,7 @@ public class ServiceModule {
   @Provides
   @Singleton
   HandlerFactory provideHandler(
-      LoginHandler loginHandler,
+      LogInHandler loginHandler,
       SignUpHandler signUpHandler,
       LogOutHandler logOutHandler,
       UserListHandler userListHandler,
@@ -122,8 +122,8 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  LoginHandler provideLoginHandler(UserDA userDA, UserCache userCache, JwtUtils jwtUtils) {
-    return LoginHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).build();
+  LogInHandler provideLoginHandler(UserDA userDA, UserCache userCache, JwtUtils jwtUtils) {
+    return LogInHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).build();
   }
 
   @Provides
