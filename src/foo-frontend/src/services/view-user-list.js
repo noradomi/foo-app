@@ -5,18 +5,15 @@ import store from '../redux/fooStore';
 export function getUserList() {
 	return new Promise((resolve, reject) => {
 		api
-			.authGet('/api/protected/userlist', null)
+			.authGet('/api/protected/users', null)
 			.then((response) => {
-				
 				let items = response.data.data.items;
-				console.log('Get User list successfully with size: ',items.length);
 				let result = [];
-
 				items.forEach((item) => {
 					var userItem = {
 						userId: item.userId,
-						name: item.fullname,
-						avatar: processUsernameForAvatar(item.fullname),
+						name: item.name,
+						avatar: processUsernameForAvatar(item.name),
 						online: item.online
 					};
 					result.push(userItem);

@@ -1,7 +1,7 @@
 package vn.zalopay.phucvt.fooapp.model;
 
-import vn.zalopay.phucvt.fooapp.common.mapper.DBTable;
 import lombok.*;
+import vn.zalopay.phucvt.fooapp.common.mapper.DBTable;
 
 import java.io.Serializable;
 
@@ -11,18 +11,17 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements Serializable {
-    @DBTable(columnName = "id")
-    String userId;
+  @DBTable(columnName = "id")
+  String userId;
 
-    @DBTable(columnName = "username")
-    String username;
+  @DBTable(columnName = "username")
+  String username;
 
-    @DBTable(columnName = "password")
-    String password;
+  @DBTable(columnName = "password")
+  String password;
 
-    @DBTable(columnName = "fullname")
-    String fullname;
+  @DBTable(columnName = "name")
+  String name;
 
-//    @DBTable(columnName = "online")
-//    boolean online;
+  boolean online = false;
 }

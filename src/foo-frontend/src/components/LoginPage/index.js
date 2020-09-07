@@ -4,8 +4,6 @@ import { hanleLogin } from '../../services/login';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import bg from './backgroung.jpg';
 
-const FormItem = Form.Item;
-
 const rowStyle = {
     minHeight: "100vh",
     backgroundImage: `url(${bg})`,
@@ -27,13 +25,8 @@ export default function LoginPage(props) {
 	let [ error, setError ] = useState(false);
 
 	let handleSubmit = (e) => {
-		// e.preventDefault();
 		hanleLogin(e.username, e.password)
 			.then(() => {
-                // Login success, route to chat page.
-                console.log(
-                    "Redirect to chat page"
-                );
 				props.history.push('/');
 			})
 			.catch(() => {form.resetFields();

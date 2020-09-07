@@ -4,9 +4,10 @@ import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.common.mapper.EntityMapper;
-import vn.zalopay.phucvt.fooapp.model.User;
+import vn.zalopay.phucvt.fooapp.config.ChatConfig;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
+import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -19,71 +20,76 @@ import java.util.List;
 public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;
+  private final ChatConfig chatConfig;
 
   private static final String INSERT_MESSAGE_STATEMENT =
-      "INSERT INTO messages (`id`, `sender_id`, `receiver_id`,`message`,`create_date`) VALUES (?,?,?,?,?)";
+      "INSERT INTO messages (`id`, `sender`, `receiver`,`message`,`create_time`) VALUES (?,?,?,?,?)";
 
-    private static final String GET_MESSAGE_LIST_STATEMENT =
-            "SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR ( receiver_id = ? AND sender_id = ?)" +
-                    "ORDER BY create_date DESC LIMIT ?, 20";
+  private static final String GET_MESSAGE_LIST_STATEMENT =
+      "SELECT * FROM messages WHERE (sender = ? AND receiver = ?) OR ( receiver = ? AND sender = ?)"
+          + "ORDER BY create_time DESC LIMIT ?, ?";
 
   @Override
-  public Executable<WsMessage> insertMsg(WsMessage msg) {
-      log.info("> Insert message to DB");
-      return connection -> {
-          Future<Void> future = Future.future();
-          asyncHandler.run(
-                  () -> {
-                      Object[] params = {
-                              msg.getId(),
-                              msg.getSender_id(),
-                              msg.getReceiver_id(),
-                              msg.getMsg(),
-                              msg.getCreate_date()
-                      };
-                      try {
-                          executeWithParams(
-                                  future, connection.unwrap(), INSERT_MESSAGE_STATEMENT, params, "insertMessage");
-                          log.info("insert message done");
-                      } catch (SQLException e) {
-                          log.info("insert user fail caused by {}", e.getMessage());
-                          future.fail(e);
-                      }
-                  });
-
-          return Future.succeededFuture(msg);
-      };
+  public Future<Void> insert(WsMessage message) {
+    Future<Void> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          Object[] params = {
+            message.getId(),
+            message.getSenderId(),
+            message.getReceiverId(),
+            message.getMessage(),
+            message.getCreateTime()
+          };
+          try {
+            executeWithParams(
+                future,
+                dataSource.getConnection(),
+                INSERT_MESSAGE_STATEMENT,
+                params,
+                "insertMessage");
+          } catch (SQLException e) {
+            log.error("insert message to db failed caused by {}", ExceptionUtil.getDetail(e));
+            future.fail(e);
+          }
+        });
+    return future;
   }
 
-    @Override
-    public Future<List<WsMessage>> getMessageList(String firstUserId, String secondUserId, int offset) {
-        log.info("> Get message list from DB");
-        Future<List<WsMessage>> future = Future.future();
-        asyncHandler.run(
-                () -> {
-                    Object[] params = {firstUserId,secondUserId,firstUserId,secondUserId,offset};
-                    queryEntity(
-                            "queryListMessage",
-                            future,
-                            GET_MESSAGE_LIST_STATEMENT,
-                            params,
-                            this::mapRs2EntityListMessage,
-                            dataSource::getConnection,
-                            false);
-                });
-        return future;
+  @Override
+  public Future<List<WsMessage>> getMessageList(
+      String firstUserId, String secondUserId, int offset) {
+    Future<List<WsMessage>> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          Object[] params = {
+            firstUserId,
+            secondUserId,
+            firstUserId,
+            secondUserId,
+            offset,
+            chatConfig.getNumberOfMessagesRetrieve()
+          };
+          queryEntity(
+              "queryListMessage",
+              future,
+              GET_MESSAGE_LIST_STATEMENT,
+              params,
+              this::mapRs2EntityListMessage,
+              dataSource::getConnection,
+              false);
+        });
+    return future;
+  }
+
+  private List<WsMessage> mapRs2EntityListMessage(ResultSet resultSet) throws Exception {
+    WsMessage wsMessage = null;
+    List<WsMessage> messageList = new ArrayList<>();
+    while (resultSet.next()) {
+      wsMessage = new WsMessage();
+      EntityMapper.getInstance().loadResultSetIntoObject(resultSet, wsMessage);
+      messageList.add(wsMessage);
     }
-
-    private List<WsMessage> mapRs2EntityListMessage(ResultSet resultSet) throws Exception {
-        WsMessage wsMessage = null;
-        List<WsMessage> messageList = new ArrayList<>();
-        while (resultSet.next()) {
-            wsMessage = new WsMessage();
-            EntityMapper.getInstance().loadResultSetIntoObject(resultSet, wsMessage);
-            messageList.add(wsMessage);
-        }
-
-        return messageList;
-    }
-
+    return messageList;
+  }
 }

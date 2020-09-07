@@ -1,15 +1,16 @@
 package vn.zalopay.phucvt.fooapp.entity.response;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-public abstract class BaseResponse {
-    protected int status;
+@Builder
+@Getter
+@Setter
+public class BaseResponse {
+  private transient int statusCode; // remove in response
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+  private String message;
 
-    public int getStatus() {
-        return status;
-    }
+  private Object data;
 }

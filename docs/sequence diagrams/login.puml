@@ -1,18 +1,19 @@
 @startuml login
 hide footbox
 actor User
-"User" -> "App Server": login with username and password
-activate "App Server"
-"App Server" -> "MySql Server": Validate user with hash password
-activate "MySql Server"
-"MySql Server" --> "App Server": OK
-deactivate "MySql Server"
-"App Server" --> "App Server": Create JWT
-"App Server" -> "Redis Server": Store userId in cache
-activate "Redis Server"
-"Redis Server" --> "App Server": OK
-deactivate "Redis Server"
-"App Server" --> "User": Return JWT to User
-deactivate "App Server"
-"User" -> "App Server": Attach JWT when making request
+"User" -> "Server": login {username,password}
+"Server" -> "MySQL": check user is exist
+alt (do not exist)
+"MySQL" --> "Server": do not find user with username
+"Server" --> "User": user do not exist
+else (username exist)
+"MySQL" --> "Server": get user with username
+"Server" -> "Server": validate password of user
+alt (validate failed)
+"Server" --> "User": password is invalid
+else (correct password)
+"Server" -> "Server": create jwt token
+"Server" -> "User": login succeeded with token and info user
+end
+end
 @enduml

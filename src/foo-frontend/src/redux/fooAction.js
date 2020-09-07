@@ -1,4 +1,3 @@
-import { func } from "prop-types";
 
 export function login(jwt, userId) {
 	return {
@@ -11,7 +10,7 @@ export function login(jwt, userId) {
 }
 export function logout() {
 	return {
-		type: 'SIGNOUT'
+		type: 'LOGOUT'
 	};
 }
 export function fetchUserList(userList){
