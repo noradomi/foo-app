@@ -13,7 +13,6 @@ import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
-
 @Log4j2
 public class Runner {
 

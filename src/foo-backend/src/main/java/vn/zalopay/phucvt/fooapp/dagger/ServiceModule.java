@@ -12,7 +12,6 @@ import io.vertx.micrometer.MicrometerMetricsOptions;
 import io.vertx.micrometer.VertxPrometheusOptions;
 import lombok.Builder;
 import vn.zalopay.phucvt.fooapp.cache.*;
-import vn.zalopay.phucvt.fooapp.config.JwtConfig;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.handler.*;
@@ -105,6 +104,7 @@ public class ServiceModule {
     return ChatDAImpl.builder()
         .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
         .asyncHandler(asyncHandler)
+        .chatConfig(serviceConfig.getChatConfig())
         .build();
   }
 
@@ -116,8 +116,7 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  SignUpHandler provideSignUpHandler(
-      UserDA userDA, UserCache userCache) {
+  SignUpHandler provideSignUpHandler(UserDA userDA, UserCache userCache) {
     return SignUpHandler.builder().userCache(userCache).userDA(userDA).build();
   }
 
@@ -129,18 +128,20 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  LogOutHandler provideLogOutHanler(
-      BlackListCache blackListCache, UserCache userCache) {
-    return LogOutHandler.builder()
-        .blackListCache(blackListCache)
-        .userCache(userCache)
-        .build();
+  LogOutHandler provideLogOutHanler(BlackListCache blackListCache, UserCache userCache) {
+    return LogOutHandler.builder().blackListCache(blackListCache).userCache(userCache).build();
   }
 
   @Provides
   @Singleton
-  UserListHandler provideUserListHandler(JwtUtils jwtUtils, UserDA userDA, UserCache userCache,WSHandler wsHandler) {
-    return UserListHandler.builder().jwtUtils(jwtUtils).userDA(userDA).userCache(userCache).wsHandler(wsHandler).build();
+  UserListHandler provideUserListHandler(
+      JwtUtils jwtUtils, UserDA userDA, UserCache userCache, WSHandler wsHandler) {
+    return UserListHandler.builder()
+        .jwtUtils(jwtUtils)
+        .userDA(userDA)
+        .userCache(userCache)
+        .wsHandler(wsHandler)
+        .build();
   }
 
   @Provides
@@ -223,8 +224,7 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  WSHandler provideWSHandler(
-      ChatDA chatDA, ChatCache chatCache) {
+  WSHandler provideWSHandler(ChatDA chatDA, ChatCache chatCache) {
     return WSHandler.builder()
         .chatCache(chatCache)
         .chatDA(chatDA)

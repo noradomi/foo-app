@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface UserCache {
   Future<List<User>> setUserList(List<User> user);
+
   Future<User> addToUserList(User user);
+
   Future<List<User>> getUserList();
 }

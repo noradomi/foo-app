@@ -7,5 +7,5 @@ import java.util.List;
 
 @Builder
 public class UsersDataResponse {
-    private List<User> items;
+  private List<User> items;
 }

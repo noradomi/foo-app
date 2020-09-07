@@ -40,7 +40,7 @@ public class RestfulAPI {
                     .setLogActivity(true))
             .requestHandler(router)
             .exceptionHandler(
-                e -> log.error("Handle request exception {}", ExceptionUtil.getDetail(e)))
+                e -> log.error("handle request exception {}", ExceptionUtil.getDetail(e)))
             .listen(
                 port,
                 ar -> {

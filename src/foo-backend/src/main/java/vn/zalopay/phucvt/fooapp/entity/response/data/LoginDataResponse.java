@@ -4,6 +4,6 @@ import lombok.Builder;
 
 @Builder
 public class LoginDataResponse {
-    String token;
-    String userId;
+  String token;
+  String userId;
 }

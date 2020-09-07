@@ -4,7 +4,6 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
-import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.User;
 import io.vertx.ext.web.RoutingContext;
@@ -62,7 +61,7 @@ public abstract class BaseHandler {
                     .putHeader("content-type", "application/json; charset=utf-8")
                     .end(JsonProtoUtils.printGson(baseResponse));
               } else {
-                log.info(
+                log.error(
                     "Handle request={} failed, exception={}",
                     requestPath,
                     ExceptionUtil.getDetail(rs.cause()));

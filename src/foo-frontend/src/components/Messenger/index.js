@@ -12,7 +12,7 @@ export default function Messenger(props) {
           <ConversationList />
         </div>
 
-        <div className="content">
+        <div className="scrollbar content">
           <MessageList />
         </div>
       </div>

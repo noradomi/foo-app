@@ -1,14 +1,24 @@
 @startuml register
     hide footbox
-
     actor "User"
-
-    "User" -> "App Server": Send info to register
-    activate "App Server"
-    "App Server" -> "MySql Server": Store user with hashed password
-    "App Server" -> "Redis Server": Store user name and hashed password
-    "App Server" -> "App Server": Logging result
-    "App Server" --> "User": Return result to user
-    deactivate "App Server"
+    "User" -> "Server": register {username,password,name}
+    "Server" -> "Server": validate input data
+    alt (invalid)
+    "Server" --> "User": input data is invalid
+    else (valid)
+    "Server" -> "MySQL": check username exist
+    "MySQL" --> "Server": result check
+    alt (username exist)
+    "Server" --> "User": register failed
+    else (username not exist)
+    "Server" -> "Server": generate userId
+    "Server" -> "MySQL": insert to db with info user
+    "MySQL" --> "Server": insert done
+    "Server" -> "Redis": update cache
+    "Redis" --> "Server": update done
+    "Server"--> "User": register succeeded
+    end
+   end
+    
 
 @enduml

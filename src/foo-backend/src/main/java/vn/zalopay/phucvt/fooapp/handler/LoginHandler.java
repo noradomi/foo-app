@@ -11,6 +11,7 @@ import vn.zalopay.phucvt.fooapp.entity.request.BaseRequest;
 import vn.zalopay.phucvt.fooapp.entity.response.BaseResponse;
 import vn.zalopay.phucvt.fooapp.entity.response.data.LoginDataResponse;
 import vn.zalopay.phucvt.fooapp.model.User;
+import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
 
@@ -26,21 +27,26 @@ public class LoginHandler extends BaseHandler {
     final User user = JsonProtoUtils.parseGson(baseRequest.getPostData(), User.class);
     Future<User> userAuthFuture = userDA.selectUserByUserName(user.getUsername());
     Future<BaseResponse> future = Future.future();
-    userAuthFuture.setHandler(
-        event -> {
-          if (event.succeeded()) {
-            User userAuth = event.result();
+    userAuthFuture.compose(
+        userAuth -> {
+          if (userAuth != null) {
             handleLogin(user, future, userAuth);
           } else {
-            log.error("login failed by user={}, cause={}", user.getUsername(), event.cause());
             BaseResponse baseResponse =
                 BaseResponse.builder()
                     .statusCode(HttpResponseStatus.UNAUTHORIZED.code())
-                    .message("Username not existed")
+                    .message("Invalid username")
                     .build();
             future.complete(baseResponse);
+            log.info("login failed by user={},cause=invalid.username", user.getUsername());
           }
-        });
+        },
+        Future.future()
+            .setHandler(
+                handler -> {
+                  log.error("login failed, cause={}", ExceptionUtil.getDetail(handler.cause()));
+                  future.fail(handler.cause());
+                }));
     return future;
   }
 
@@ -56,7 +62,7 @@ public class LoginHandler extends BaseHandler {
               .data(loginDR)
               .build();
       future.complete(baseResponse);
-      log.info("login successfully by user={}",userAuth.getUsername());
+      log.info("login successfully by user={}", userAuth.getUsername());
     } else {
       BaseResponse baseResponse =
           BaseResponse.builder()
@@ -64,7 +70,7 @@ public class LoginHandler extends BaseHandler {
               .message("Invalid password")
               .build();
       future.complete(baseResponse);
-      log.info("login failed by user={},cause=invalid.password",userAuth.getUsername());
+      log.info("login failed by user={},cause=invalid.password", userAuth.getUsername());
     }
   }
 }

@@ -26,19 +26,15 @@ export default function appReducer(state = initialState, action) {
 	let data = action.data;
 	switch (action.type) {
 		case 'LOGIN_SUCCEEDED':
-			console.log('Login action');
 			state = loginSucceeded(state, data);
 			break;
 		case 'LOGOUT':
-			console.log('sign out action');
 			state = signOut(state);
 			break;
 		case 'USERLIST_FETCHED':
-			console.log('userListFetched action');
 			state = userListFetched(state, data);
 			break;
 		case 'CURRENT_SESSIONID':
-			console.log('CURRENT_SESSIONID action');
 			return {
 				...state,
 				currentSessionId: data
@@ -72,10 +68,8 @@ function loginSucceeded(state, data) {
 
 function signOut(state) {
 	if (state.webSocket.webSocket !== null) {
-		console.log("Close socket log out");
 		state.webSocket.webSocket.close();
 	}
-	console.log("web socket null");
 	return Object.assign({}, state, {
 		user: {
 			jwt: null,
@@ -164,12 +158,11 @@ function handleUserStatus(state,data) {
 	if (userMap === null) {
 		return state;
 	  }
-	  console.log(data.userId);
+
 	let user = userMap.get(data.userId);
 	if(user === undefined) return state;
 	user.online = data.status;
 	userMap.set(data.userId,user);
-	console.log("Size of  user map: ",userMap.size);	
 	return Object.assign({}, state, {
 		userMapHolder: {
 		  userMap

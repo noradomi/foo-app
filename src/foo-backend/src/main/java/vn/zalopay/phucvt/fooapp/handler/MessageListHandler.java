@@ -10,6 +10,7 @@ import vn.zalopay.phucvt.fooapp.entity.request.BaseRequest;
 import vn.zalopay.phucvt.fooapp.entity.response.BaseResponse;
 import vn.zalopay.phucvt.fooapp.entity.response.data.MessagesDataResponse;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
+import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
 
 import java.util.Collections;
@@ -36,33 +37,20 @@ public class MessageListHandler extends BaseHandler {
           .setHandler(
               listAsyncResult -> {
                 if (listAsyncResult.succeeded()) {
-                  log.info("get messages list: cache hit, {}-{}-{}", userId, friendId, offset);
+                  log.debug("get messages list: cache hit, {}-{}-{}", userId, friendId, offset);
                   List<WsMessage> messageList = listAsyncResult.result();
                   handleResponse(future, offset, messageList);
                 } else {
-                  log.info("get messages list: cache miss, {}-{}-{}", userId, friendId, offset);
+                  log.debug("get messages list: cache miss, {}-{}-{}", userId, friendId, offset);
                   getMessageListFromDB(future, userId, friendId, offset, true);
                 }
               });
     } else {
-      log.info("get more messages from db, {}-{}-{}", userId, friendId, offset);
+      log.debug("get more messages from db, {}-{}-{}", userId, friendId, offset);
       getMessageListFromDB(future, userId, friendId, offset, false);
     }
     return future;
   }
-
-  private void handleResponse(
-      Future<BaseResponse> future, int offset, List<WsMessage> messageList) {
-    MessagesDataResponse data =
-        MessagesDataResponse.builder()
-            .items(messageList)
-            .currentOffset(offset + messageList.size())
-            .build();
-    BaseResponse response =
-        BaseResponse.builder().statusCode(HttpResponseStatus.OK.code()).data(data).build();
-    future.complete(response);
-  }
-
   //  Handle get message list from DB when cache miss or get older messages.
   public void getMessageListFromDB(
       Future<BaseResponse> future, String userId, String friendId, int offset, boolean flag) {
@@ -79,9 +67,23 @@ public class MessageListHandler extends BaseHandler {
                 }
                 handleResponse(future, offset, messageList);
               } else {
-                log.error("get messages from db failed", event.cause());
+                log.error(
+                    "get messages from db failed, cause={}",
+                    ExceptionUtil.getDetail(event.cause()));
                 future.fail(event.cause());
               }
             });
+  }
+
+  private void handleResponse(
+      Future<BaseResponse> future, int offset, List<WsMessage> messageList) {
+    MessagesDataResponse data =
+        MessagesDataResponse.builder()
+            .items(messageList)
+            .currentOffset(offset + messageList.size())
+            .build();
+    BaseResponse response =
+        BaseResponse.builder().statusCode(HttpResponseStatus.OK.code()).data(data).build();
+    future.complete(response);
   }
 }

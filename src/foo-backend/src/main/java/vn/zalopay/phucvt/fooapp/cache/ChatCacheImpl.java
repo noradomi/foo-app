@@ -45,30 +45,30 @@ public class ChatCacheImpl implements ChatCache {
     return future;
   }
 
-    @Override
-    public Future<List<WsMessage>> addMessageList(List<WsMessage> messageList,String firstUserId, String secondUserId) {
-        Future<List<WsMessage>> future = Future.future();
-        asyncHandler.run(
-                () -> {
-                    try {
-                        RList<WsMessage> messageRList =
-                                redisCache
-                                        .getRedissonClient()
-                                        .getList(
-                                                CacheKey.getMessageKey(firstUserId, secondUserId));
-                        messageRList.addAll(messageList);
-                        messageRList.expire(cacheConfig.getExpireMessages(), TimeUnit.MINUTES);
-                        future.complete(messageList);
-                    } catch (Exception e) {
-                        log.error("add message list to cache failed cause={}", ExceptionUtil.getDetail(e));
-                        future.fail(e);
-                    }
-                });
+  @Override
+  public Future<List<WsMessage>> addMessageList(
+      List<WsMessage> messageList, String firstUserId, String secondUserId) {
+    Future<List<WsMessage>> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          try {
+            RList<WsMessage> messageRList =
+                redisCache
+                    .getRedissonClient()
+                    .getList(CacheKey.getMessageKey(firstUserId, secondUserId));
+            messageRList.addAll(messageList);
+            messageRList.expire(cacheConfig.getExpireMessages(), TimeUnit.MINUTES);
+            future.complete(messageList);
+          } catch (Exception e) {
+            log.error("add message list to cache failed cause={}", ExceptionUtil.getDetail(e));
+            future.fail(e);
+          }
+        });
 
-        return future;
-    }
+    return future;
+  }
 
-    @Override
+  @Override
   public Future<List<WsMessage>> getMessageList(String firstUserId, String secondUserId) {
     Future<List<WsMessage>> future = Future.future();
     asyncHandler.run(

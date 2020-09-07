@@ -3,7 +3,7 @@ wsPort: 9009
 vertxConfig:
   prometheusPort: 8054
 mySQLConfig:
-  url: "jdbc:mysql://localhost:3306/fooapp?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC"
+  url: "jdbc:mysql://localhost:3306/fooapp?allowPublicKeyRetrieval=true&autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC"
   driver: "com.mysql.cj.jdbc.Driver"
   username: "root"
   password: "1234"
@@ -13,3 +13,5 @@ cacheConfig:
   expireUserList: 10
 jwtConfig:
   expireToken: 174600
+chatConfig:
+  numberOfMessagesRetrieve: 20

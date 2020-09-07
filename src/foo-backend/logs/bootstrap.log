@@ -1,821 +1,790 @@
-2020-09-06 16:49:59,114 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 16:49:59,275 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 16:49:59,623 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 16:49:59,714 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 16:49:59,724 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 16:49:59,777 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 16:49:59,783 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 16:49:59,788 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 16:49:59,798 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 16:49:59,842 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:49:59,843 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:49:59,843 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:49:59,843 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:49:59,843 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:49:59,844 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:49:59,844 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:49:59,845 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:49:59,847 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:49:59,847 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:49:59,847 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:49:59,847 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:49:59,847 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:49:59,847 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:49:59,847 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:49:59,847 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:50:06,153 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 16:50:06,215 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 16:50:06,233 WARN  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA Failed execute cause= message: Failed to encode as JSON: No serializer found for class vn.zalopay.phucvt.fooapp.entity.response.data.UsersDataResponse and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: vn.zalopay.phucvt.fooapp.entity.response.BaseResponse["data"])
-, stackTrace: io.vertx.core.json.EncodeException: Failed to encode as JSON: No serializer found for class vn.zalopay.phucvt.fooapp.entity.response.data.UsersDataResponse and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: vn.zalopay.phucvt.fooapp.entity.response.BaseResponse["data"])
-	at io.vertx.core.json.Json.encodeToBuffer(Json.java:93)
-	at vn.zalopay.phucvt.fooapp.handler.BaseHandler.lambda$handle$0(BaseHandler.java:63)
-	at io.vertx.core.impl.FutureImpl.tryComplete(FutureImpl.java:125)
-	at io.vertx.core.impl.FutureImpl.complete(FutureImpl.java:86)
-	at vn.zalopay.phucvt.fooapp.handler.UserListHandler.lambda$getUserListFromDB$4(UserListHandler.java:90)
-	at io.vertx.core.impl.FutureImpl.tryComplete(FutureImpl.java:125)
-	at io.vertx.core.impl.FutureImpl.complete(FutureImpl.java:86)
-	at vn.zalopay.phucvt.fooapp.da.BaseTransactionDA.queryEntity(BaseTransactionDA.java:163)
-	at vn.zalopay.phucvt.fooapp.da.UserDAImpl.lambda$selectListUser$3(UserDAImpl.java:96)
-	at vn.zalopay.phucvt.fooapp.utils.AsyncHandler.lambda$run$0(AsyncHandler.java:21)
-	at io.vertx.core.impl.ContextImpl.lambda$executeBlocking$2(ContextImpl.java:272)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:748)
+2020-09-07 11:06:07,894 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 11:06:07,894 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 11:06:07,894 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 11:06:07,894 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 11:06:07,894 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 11:06:07,894 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 11:06:07,894 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 11:06:07,894 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 11:06:07,902 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 11:06:07,902 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 11:06:07,902 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 11:06:07,902 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 11:06:07,902 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 11:06:07,902 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 11:06:07,902 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 11:06:07,902 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 11:07:04,414 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-09-07 11:07:04,626 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-09-07 11:07:04,631 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=ddd
+2020-09-07 11:07:04,764 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-07 11:07:04,776 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=24
+2020-09-07 11:07:04,777 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-07 11:07:04,779 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-07 11:07:04,891 DEBUG vn.zalopay.phucvt.fooapp.server.WebSocketServer s authenticate token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxM2ZiZjkyOC01ZGY4LTRiOTktOWQ4YS04OThmOWJlMjljMmMiLCJpYXQiOjE1OTk0NTE2MjQsImV4cCI6MTU5OTYyNjIyNH0.P5niXUx7H2Tmk8El46fm0A3IrfRYR6TYxeXS1w1wIv4
+2020-09-07 11:07:04,911 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 13fbf928-5df8-4b99-9d8a-898f9be29c2c
+2020-09-07 11:07:04,957 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
+2020-09-07 11:07:04,962 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 13fbf928-5df8-4b99-9d8a-898f9be29c2c-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
+2020-09-07 11:07:04,975 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
+2020-09-07 11:11:16,172 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=13fbf928-5df8-4b99-9d8a-898f9be29c2c
+2020-09-07 11:11:17,107 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-07 11:11:17,126 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=24
+2020-09-07 11:11:17,126 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-07 11:11:17,127 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-07 11:11:17,234 DEBUG vn.zalopay.phucvt.fooapp.server.WebSocketServer s authenticate token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxM2ZiZjkyOC01ZGY4LTRiOTktOWQ4YS04OThmOWJlMjljMmMiLCJpYXQiOjE1OTk0NTE2MjQsImV4cCI6MTU5OTYyNjIyNH0.P5niXUx7H2Tmk8El46fm0A3IrfRYR6TYxeXS1w1wIv4
+2020-09-07 11:11:17,236 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 13fbf928-5df8-4b99-9d8a-898f9be29c2c
+2020-09-07 11:11:17,265 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
+2020-09-07 11:11:17,269 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 13fbf928-5df8-4b99-9d8a-898f9be29c2c-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
+2020-09-07 11:11:17,275 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
+2020-09-07 11:11:24,964 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=13fbf928-5df8-4b99-9d8a-898f9be29c2c
+2020-09-07 11:11:25,369 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-07 11:11:25,378 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=24
+2020-09-07 11:11:25,378 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-07 11:11:25,379 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-07 11:11:25,471 DEBUG vn.zalopay.phucvt.fooapp.server.WebSocketServer s authenticate token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxM2ZiZjkyOC01ZGY4LTRiOTktOWQ4YS04OThmOWJlMjljMmMiLCJpYXQiOjE1OTk0NTE2MjQsImV4cCI6MTU5OTYyNjIyNH0.P5niXUx7H2Tmk8El46fm0A3IrfRYR6TYxeXS1w1wIv4
+2020-09-07 11:11:25,473 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 13fbf928-5df8-4b99-9d8a-898f9be29c2c
+2020-09-07 11:11:25,498 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
+2020-09-07 11:11:25,504 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 13fbf928-5df8-4b99-9d8a-898f9be29c2c-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
+2020-09-07 11:11:25,507 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
+2020-09-07 11:11:34,000 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
+2020-09-07 11:11:34,003 DEBUG vn.zalopay.phucvt.fooapp.handler.LogOutHandler 1599626224000
+2020-09-07 11:11:34,004 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
+2020-09-07 11:11:34,014 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=13fbf928-5df8-4b99-9d8a-898f9be29c2c
+2020-09-07 11:11:39,701 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-09-07 11:11:39,708 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-09-07 11:11:39,709 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=aaa
+2020-09-07 11:11:39,789 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-07 11:11:39,796 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=24
+2020-09-07 11:11:39,796 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-07 11:11:39,797 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-07 11:11:39,879 DEBUG vn.zalopay.phucvt.fooapp.server.WebSocketServer s authenticate token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxYzJjYmU2Zi03NjA2LTQ4NTktODA2Mi1jMzcyYmEwZWZhNjQiLCJpYXQiOjE1OTk0NTE4OTksImV4cCI6MTU5OTYyNjQ5OX0.jb2VU8_zyDYfOgtFpXCoSncg7vDZwtRumd5xFjF7a_w
+2020-09-07 11:11:39,881 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 1c2cbe6f-7606-4859-8062-c372ba0efa64
+2020-09-07 11:11:39,904 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
+2020-09-07 11:11:39,906 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 1c2cbe6f-7606-4859-8062-c372ba0efa64-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
+2020-09-07 11:11:39,908 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
+2020-09-07 11:11:47,720 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-07 11:11:47,724 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=24
+2020-09-07 11:11:47,725 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[1c2cbe6f-7606-4859-8062-c372ba0efa64]
+2020-09-07 11:11:47,725 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-07 11:11:47,835 DEBUG vn.zalopay.phucvt.fooapp.server.WebSocketServer s authenticate token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxM2ZiZjkyOC01ZGY4LTRiOTktOWQ4YS04OThmOWJlMjljMmMiLCJpYXQiOjE1OTk0NDkzOTUsImV4cCI6MTU5OTYyMzk5NX0.in-07F9n-7MdAaCxCC4-r89iLT2pG8KfUgPWsME7-Do
+2020-09-07 11:11:47,838 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 13fbf928-5df8-4b99-9d8a-898f9be29c2c
+2020-09-07 11:11:47,863 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
+2020-09-07 11:11:47,865 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 13fbf928-5df8-4b99-9d8a-898f9be29c2c-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
+2020-09-07 11:11:47,867 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
+2020-09-07 11:11:55,319 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/13fbf928-5df8-4b99-9d8a-898f9be29c2c/0
+2020-09-07 11:11:55,321 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 1c2cbe6f-7606-4859-8062-c372ba0efa64-13fbf928-5df8-4b99-9d8a-898f9be29c2c-0
+2020-09-07 11:11:55,323 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/13fbf928-5df8-4b99-9d8a-898f9be29c2c/0 with status=200
+2020-09-07 11:11:59,007 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-09-07 11:12:03,792 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-09-07 11:13:17,864 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-09-07 11:13:17,870 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-09-07 11:13:17,871 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=bbb
+2020-09-07 11:13:17,956 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-07 11:13:17,960 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=24
+2020-09-07 11:13:17,960 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[13fbf928-5df8-4b99-9d8a-898f9be29c2c, 1c2cbe6f-7606-4859-8062-c372ba0efa64]
+2020-09-07 11:13:17,960 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-07 11:13:18,045 DEBUG vn.zalopay.phucvt.fooapp.server.WebSocketServer s authenticate token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIzNWJhOTI5Ni0xZDA2LTQxODctOTViZi1jMzFiOGY1MTY1MmIiLCJpYXQiOjE1OTk0NTE5OTcsImV4cCI6MTU5OTYyNjU5N30.lDcteQWuRj_1xkYrwP5KNwUxeLXR75dV2m6D8hAC8FU
+2020-09-07 11:13:18,047 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 35ba9296-1d06-4187-95bf-c31b8f51652b
+2020-09-07 11:13:18,117 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
+2020-09-07 11:13:18,119 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 35ba9296-1d06-4187-95bf-c31b8f51652b-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
+2020-09-07 11:13:18,181 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
+2020-09-07 11:13:36,369 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/35ba9296-1d06-4187-95bf-c31b8f51652b/0
+2020-09-07 11:13:36,370 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 1c2cbe6f-7606-4859-8062-c372ba0efa64-35ba9296-1d06-4187-95bf-c31b8f51652b-0
+2020-09-07 11:13:36,379 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/35ba9296-1d06-4187-95bf-c31b8f51652b/0 with status=200
+2020-09-07 11:13:41,014 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/13fbf928-5df8-4b99-9d8a-898f9be29c2c/0
+2020-09-07 11:13:41,015 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 35ba9296-1d06-4187-95bf-c31b8f51652b-13fbf928-5df8-4b99-9d8a-898f9be29c2c-0
+2020-09-07 11:13:41,017 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/13fbf928-5df8-4b99-9d8a-898f9be29c2c/0 with status=200
+2020-09-07 11:13:42,652 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/1c2cbe6f-7606-4859-8062-c372ba0efa64/0
+2020-09-07 11:13:42,656 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache hit, 35ba9296-1d06-4187-95bf-c31b8f51652b-1c2cbe6f-7606-4859-8062-c372ba0efa64-0
+2020-09-07 11:13:42,657 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/1c2cbe6f-7606-4859-8062-c372ba0efa64/0 with status=200
+2020-09-07 11:13:43,720 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/1c2cbe6f-7606-4859-8062-c372ba0efa64/20
+2020-09-07 11:13:43,720 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, 35ba9296-1d06-4187-95bf-c31b8f51652b-1c2cbe6f-7606-4859-8062-c372ba0efa64-20
+2020-09-07 11:13:43,730 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/1c2cbe6f-7606-4859-8062-c372ba0efa64/20 with status=200
+2020-09-07 11:13:45,017 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/1c2cbe6f-7606-4859-8062-c372ba0efa64/33
+2020-09-07 11:13:45,018 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, 35ba9296-1d06-4187-95bf-c31b8f51652b-1c2cbe6f-7606-4859-8062-c372ba0efa64-33
+2020-09-07 11:13:45,019 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/1c2cbe6f-7606-4859-8062-c372ba0efa64/33 with status=200
+2020-09-07 11:13:46,305 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/35ba9296-1d06-4187-95bf-c31b8f51652b/20
+2020-09-07 11:13:46,305 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, 1c2cbe6f-7606-4859-8062-c372ba0efa64-35ba9296-1d06-4187-95bf-c31b8f51652b-20
+2020-09-07 11:13:46,320 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/35ba9296-1d06-4187-95bf-c31b8f51652b/20 with status=200
+2020-09-07 11:13:47,486 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/35ba9296-1d06-4187-95bf-c31b8f51652b/33
+2020-09-07 11:13:47,486 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, 1c2cbe6f-7606-4859-8062-c372ba0efa64-35ba9296-1d06-4187-95bf-c31b8f51652b-33
+2020-09-07 11:13:47,494 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/35ba9296-1d06-4187-95bf-c31b8f51652b/33 with status=200
+2020-09-07 13:16:33,285 ERROR com.zaxxer.hikari.pool.HikariPool HikariPool-1 - Exception during pool initialization.
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81) [HikariCP-3.3.1.jar:?]
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30) [classes/:?]
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
 
-2020-09-06 16:50:06,239 ERROR vn.zalopay.phucvt.fooapp.utils.AsyncHandler Failed executeBlocking cause= message: Result is already complete: succeeded
-, stackTrace: java.lang.IllegalStateException: Result is already complete: succeeded
-	at io.vertx.core.impl.FutureImpl.fail(FutureImpl.java:101)
-	at vn.zalopay.phucvt.fooapp.da.BaseTransactionDA.queryEntity(BaseTransactionDA.java:166)
-	at vn.zalopay.phucvt.fooapp.da.UserDAImpl.lambda$selectListUser$3(UserDAImpl.java:96)
-	at vn.zalopay.phucvt.fooapp.utils.AsyncHandler.lambda$run$0(AsyncHandler.java:21)
-	at io.vertx.core.impl.ContextImpl.lambda$executeBlocking$2(ContextImpl.java:272)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:748)
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:91) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.net.PlainSocketImpl.socketConnect(Native Method) ~[?:1.8.0_265]
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350) ~[?:1.8.0_265]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206) ~[?:1.8.0_265]
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188) ~[?:1.8.0_265]
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392) ~[?:1.8.0_265]
+	at java.net.Socket.connect(Socket.java:607) ~[?:1.8.0_265]
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:155) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:65) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+2020-09-07 13:16:33,302 ERROR vn.zalopay.phucvt.fooapp.Runner start Runner failed cause= message: Failed to initialize pool: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+, stackTrace: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:597)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120)
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30)
+Caused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+	... 19 more
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
 
-2020-09-06 16:58:49,764 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 16:58:49,921 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 16:58:50,245 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 16:58:50,343 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 16:58:50,354 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 16:58:50,392 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 16:58:50,398 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 16:58:50,405 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 16:58:50,410 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 16:58:50,452 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:58:50,454 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:58:50,454 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:58:50,454 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:58:50,455 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:58:50,455 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:58:50,455 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:58:50,456 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:58:50,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:58:50,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:58:50,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:58:50,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:58:50,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:58:50,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:58:50,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:58:50,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:22,563 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 16:59:22,705 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 16:59:23,022 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 16:59:23,102 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 16:59:23,114 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 16:59:23,170 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 16:59:23,176 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 16:59:23,181 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 16:59:23,187 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 16:59:23,228 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:59:23,230 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:59:23,230 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:59:23,230 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:59:23,230 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:59:23,230 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:59:23,231 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:59:23,231 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 16:59:23,233 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:23,233 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:23,233 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:23,233 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:23,233 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:23,233 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:23,233 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:23,233 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 16:59:28,768 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 16:59:28,898 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=13
-2020-09-06 16:59:28,909 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 17:00:45,959 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 17:00:46,107 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 17:00:46,428 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 17:00:46,515 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 17:00:46,530 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 17:00:46,576 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 17:00:46,585 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 17:00:46,591 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 17:00:46,596 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 17:00:46,636 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:00:46,638 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:00:46,638 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:00:46,638 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:00:46,638 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:00:46,638 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:00:46,638 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:00:46,639 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:00:46,640 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:00:46,640 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:00:46,640 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:00:46,640 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:00:46,641 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:00:46,641 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:00:46,640 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:00:46,641 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:00:51,009 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 17:00:51,064 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 17:01:13,511 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0
-2020-09-06 17:01:13,515 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 569ddfff-c62a-4cfa-9eed-90c9cc862b8b-8b69b0ad-22ab-4182-9549-81ecc18c6b2a-0
-2020-09-06 17:01:13,528 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0 with status=200
-2020-09-06 17:04:51,611 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 17:04:51,760 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 17:04:52,071 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 17:04:52,157 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 17:04:52,166 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 17:04:52,216 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 17:04:52,221 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 17:04:52,228 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 17:04:52,235 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 17:04:52,277 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:04:52,279 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:04:52,279 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:04:52,279 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:04:52,279 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:04:52,279 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:04:52,279 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:04:52,279 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:04:52,282 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:04:52,282 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:04:52,282 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:04:52,282 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:04:52,282 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:04:52,282 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:04:52,282 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:04:52,282 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:04:55,357 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0
-2020-09-06 17:04:55,363 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 569ddfff-c62a-4cfa-9eed-90c9cc862b8b-8b69b0ad-22ab-4182-9549-81ecc18c6b2a-0
-2020-09-06 17:04:55,409 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0 with status=200
-2020-09-06 17:05:23,429 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 17:05:23,570 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 17:05:23,867 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 17:05:23,944 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 17:05:23,955 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 17:05:24,007 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 17:05:24,013 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 17:05:24,019 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 17:05:24,024 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 17:05:24,069 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:05:24,071 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:05:24,071 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:05:24,071 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:05:24,072 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:05:24,072 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:05:24,072 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:05:24,073 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:05:24,075 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:05:24,075 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:05:24,075 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:05:24,075 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:05:24,075 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:05:24,075 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:05:24,075 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:05:24,076 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:05:28,542 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0
-2020-09-06 17:05:28,549 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 569ddfff-c62a-4cfa-9eed-90c9cc862b8b-8b69b0ad-22ab-4182-9549-81ecc18c6b2a-0
-2020-09-06 17:05:28,611 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0 with status=200
-2020-09-06 17:06:19,734 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 17:06:19,878 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 17:06:20,192 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 17:06:20,265 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 17:06:20,282 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 17:06:20,320 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 17:06:20,325 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 17:06:20,332 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 17:06:20,342 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 17:06:20,381 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:20,383 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:20,383 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:20,383 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:20,383 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:20,383 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:20,383 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:20,384 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:20,385 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:20,385 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:20,386 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:20,385 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:20,386 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:20,385 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:20,386 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:20,386 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:24,545 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0
-2020-09-06 17:06:24,552 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 569ddfff-c62a-4cfa-9eed-90c9cc862b8b-8b69b0ad-22ab-4182-9549-81ecc18c6b2a-0
-2020-09-06 17:06:24,631 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0 with status=200
-2020-09-06 17:06:49,399 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 17:06:49,542 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 17:06:49,847 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 17:06:49,916 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 17:06:49,929 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 17:06:49,975 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 17:06:49,985 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 17:06:49,991 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 17:06:49,997 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 17:06:50,043 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:50,045 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:50,045 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:50,045 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:50,045 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:50,046 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:50,046 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:50,047 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:06:50,050 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:50,050 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:50,050 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:50,050 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:50,050 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:50,050 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:50,050 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:50,050 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:06:53,882 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 17:06:53,904 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=13
-2020-09-06 17:06:53,906 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 17:06:58,037 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0
-2020-09-06 17:06:58,041 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 569ddfff-c62a-4cfa-9eed-90c9cc862b8b-8b69b0ad-22ab-4182-9549-81ecc18c6b2a-0
-2020-09-06 17:06:58,087 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0 with status=200
-2020-09-06 17:13:06,679 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 17:13:06,829 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 17:13:07,141 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 17:13:07,211 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 17:13:07,223 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 17:13:07,262 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 17:13:07,270 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 17:13:07,278 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Starting...
-2020-09-06 17:13:07,287 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-3 - Start completed.
-2020-09-06 17:13:07,330 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:13:07,332 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:13:07,332 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:13:07,332 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:13:07,332 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:13:07,333 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:13:07,332 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:13:07,333 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:13:07,336 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:13:07,335 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:13:07,336 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:13:07,336 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:13:07,335 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:13:07,335 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:13:07,335 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:13:07,336 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:13:15,528 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0
-2020-09-06 17:13:15,536 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 569ddfff-c62a-4cfa-9eed-90c9cc862b8b-8b69b0ad-22ab-4182-9549-81ecc18c6b2a-0
-2020-09-06 17:13:15,583 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0 with status=200
-2020-09-06 17:13:18,919 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 17:13:18,937 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 17:13:27,230 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0
-2020-09-06 17:13:27,234 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 569ddfff-c62a-4cfa-9eed-90c9cc862b8b-8b69b0ad-22ab-4182-9549-81ecc18c6b2a-0
-2020-09-06 17:13:27,239 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0 with status=200
-2020-09-06 17:13:53,940 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 17:13:53,963 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 17:13:53,965 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=lam
-2020-09-06 17:14:16,440 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 17:14:16,441 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 17:18:28,156 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 17:18:28,338 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 17:18:28,696 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 17:18:28,779 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 17:18:28,806 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 17:18:28,857 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 17:18:28,863 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 17:18:28,908 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:18:28,909 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:18:28,909 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:18:28,909 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:18:28,909 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:18:28,909 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:18:28,912 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:18:28,912 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:18:28,912 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:18:28,912 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:18:28,912 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:18:28,914 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:18:28,914 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:18:28,914 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 17:18:28,915 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:18:28,915 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 17:18:43,046 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 17:18:43,209 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 17:18:43,215 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=sasuke
-2020-09-06 17:19:02,993 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 17:19:02,994 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 17:19:26,393 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/signup
-2020-09-06 17:19:26,435 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 17:19:26,453 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/signup with status=0
-2020-09-06 17:20:28,954 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 17:20:28,960 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 17:20:28,962 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=hanh
-2020-09-06 17:20:38,720 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 17:20:38,747 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=14
-2020-09-06 17:20:38,750 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 17:21:10,264 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0
-2020-09-06 17:21:10,270 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 9897d186-143f-4790-897b-c6da578abe68-8b69b0ad-22ab-4182-9549-81ecc18c6b2a-0
-2020-09-06 17:21:10,283 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/8b69b0ad-22ab-4182-9549-81ecc18c6b2a/0 with status=200
-2020-09-06 19:35:08,107 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 19:35:08,848 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 19:35:09,988 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 19:35:10,147 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 19:35:10,194 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 19:35:10,374 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 19:35:10,466 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 19:35:10,713 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:35:10,716 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:35:10,718 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:35:10,718 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:35:10,718 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:35:10,718 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:35:10,718 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:35:10,719 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:35:10,726 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:35:10,726 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:35:10,726 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:35:10,726 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:35:10,727 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:35:10,727 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:35:10,727 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:35:10,730 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:36:30,700 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/signup
-2020-09-06 19:36:30,975 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 19:36:31,019 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/signup with status=200
-2020-09-06 19:36:46,466 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 19:36:46,502 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 19:36:46,503 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=taismile
-2020-09-06 19:38:03,345 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:38:03,438 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:40:28,995 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:40:29,016 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=15
-2020-09-06 19:40:29,017 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:40:29,280 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:40:29,287 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, a42ba875-17f2-4357-a558-b8150a4621ef-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:40:29,393 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 19:47:41,198 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:a42ba875-17f2-4357-a558-b8150a4621ef
-2020-09-06 19:47:44,050 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:47:44,055 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=15
-2020-09-06 19:47:44,056 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:47:44,200 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:47:44,204 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, a42ba875-17f2-4357-a558-b8150a4621ef-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:47:44,235 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 19:48:25,277 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:a42ba875-17f2-4357-a558-b8150a4621ef
-2020-09-06 19:48:26,338 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:48:26,352 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:48:26,514 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:48:26,516 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, a42ba875-17f2-4357-a558-b8150a4621ef-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:48:26,519 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 19:49:56,039 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 19:49:56,267 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 19:49:56,772 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 19:49:56,902 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 19:49:56,942 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 19:49:57,008 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 19:49:57,018 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 19:49:57,078 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:49:57,079 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:49:57,079 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:49:57,079 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:49:57,080 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:49:57,081 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:49:57,081 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:49:57,081 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 19:49:57,083 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:49:57,083 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:49:57,083 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:49:57,083 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:49:57,083 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:49:57,083 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:49:57,083 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:49:57,083 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 19:50:02,876 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:a42ba875-17f2-4357-a558-b8150a4621ef
-2020-09-06 19:50:04,761 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:50:04,807 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=15
-2020-09-06 19:50:04,810 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:50:05,207 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:50:05,213 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, a42ba875-17f2-4357-a558-b8150a4621ef-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:50:05,288 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 19:50:13,997 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 19:50:13,998 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 19:50:16,264 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:a42ba875-17f2-4357-a558-b8150a4621ef
-2020-09-06 19:50:29,917 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/signup
-2020-09-06 19:50:29,959 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 19:50:29,976 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/signup with status=200
-2020-09-06 19:50:32,380 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 19:50:32,401 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 19:50:32,402 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=vantu
-2020-09-06 19:50:32,463 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:50:32,469 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=16
-2020-09-06 19:50:32,469 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:50:32,544 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:50:32,547 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:50:32,556 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 19:51:18,558 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 19:51:19,416 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:51:19,422 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=16
-2020-09-06 19:51:19,423 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:51:19,603 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:51:19,606 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:51:19,610 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 19:51:56,610 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 19:51:57,512 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:51:57,520 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=16
-2020-09-06 19:51:57,520 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:51:57,679 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:51:57,682 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:51:57,697 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 19:52:28,506 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 19:52:29,282 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:52:29,289 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=16
-2020-09-06 19:52:29,290 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:52:29,427 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:52:29,431 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:52:29,434 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 19:53:06,774 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/signup
-2020-09-06 19:53:06,850 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 19:53:06,857 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/signup with status=200
-2020-09-06 19:53:09,817 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 19:53:09,829 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 19:53:09,830 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=huytran
-2020-09-06 19:53:09,919 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 19:53:09,925 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=17
-2020-09-06 19:53:09,925 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 19:53:10,037 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 19:53:10,040 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5784c5b3-dfe5-49c9-956c-8032fb4b50ff-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 19:53:10,045 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:27:56,595 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5784c5b3-dfe5-49c9-956c-8032fb4b50ff
-2020-09-06 20:27:56,597 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:27:57,678 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:27:57,741 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:27:57,852 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:27:57,856 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5784c5b3-dfe5-49c9-956c-8032fb4b50ff-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:27:57,922 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:27:57,967 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:27:57,979 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=17
-2020-09-06 20:27:57,979 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:27:58,160 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:27:58,164 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:27:58,170 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:32:44,602 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:32:44,602 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5784c5b3-dfe5-49c9-956c-8032fb4b50ff
-2020-09-06 20:32:47,814 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:32:47,819 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=17
-2020-09-06 20:32:47,820 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:32:47,824 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:32:47,828 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=17
-2020-09-06 20:32:47,828 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:32:48,443 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:32:48,456 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:32:48,489 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:32:48,503 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:32:48,516 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5784c5b3-dfe5-49c9-956c-8032fb4b50ff-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:32:48,522 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:32:57,249 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5784c5b3-dfe5-49c9-956c-8032fb4b50ff
-2020-09-06 20:32:58,743 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:32:58,753 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=17
-2020-09-06 20:32:58,753 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:32:58,863 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:32:58,866 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5784c5b3-dfe5-49c9-956c-8032fb4b50ff-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:32:58,870 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:33:05,691 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 20:33:05,691 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 20:33:08,046 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5784c5b3-dfe5-49c9-956c-8032fb4b50ff
-2020-09-06 20:33:21,355 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/signup
-2020-09-06 20:33:21,395 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 20:33:21,400 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/signup with status=200
-2020-09-06 20:33:24,046 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 20:33:24,063 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 20:33:24,063 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=ducanh
-2020-09-06 20:33:24,135 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:33:24,138 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=18
-2020-09-06 20:33:24,138 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:33:24,220 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:33:24,222 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:33:24,225 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:34:28,067 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/5563a7b3-268c-4b4a-b3e8-028dba7f1b50/0
-2020-09-06 20:34:28,069 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-5563a7b3-268c-4b4a-b3e8-028dba7f1b50-0
-2020-09-06 20:34:28,072 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/5563a7b3-268c-4b4a-b3e8-028dba7f1b50/0 with status=200
-2020-09-06 20:36:34,368 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:36:34,382 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:36:37,266 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:36:37,271 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=18
-2020-09-06 20:36:37,271 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:36:37,274 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:36:37,278 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=18
-2020-09-06 20:36:37,278 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:36:38,112 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:36:38,114 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:36:38,368 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:36:38,578 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:36:38,586 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:36:38,592 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:36:46,229 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:36:46,981 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:36:46,985 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=18
-2020-09-06 20:36:46,986 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:36:47,116 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:36:47,118 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:36:47,121 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:37:26,407 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/signup
-2020-09-06 20:37:26,438 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 20:37:26,443 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/signup with status=200
-2020-09-06 20:37:29,200 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 20:37:29,237 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 20:37:29,237 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=hungtrinh
-2020-09-06 20:37:29,300 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:37:29,310 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:37:29,310 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:37:29,421 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:37:29,423 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:37:29,425 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:37:55,052 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:37:55,108 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:37:55,142 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:37:56,468 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:37:56,490 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:37:56,491 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:37:56,772 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:37:56,776 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:37:56,776 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:37:56,779 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:37:56,782 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:37:56,782 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:37:56,899 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:37:56,901 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:37:56,935 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:37:57,069 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:37:57,073 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:37:57,076 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:37:57,091 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:37:57,095 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:37:57,098 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:38:01,337 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:38:01,749 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:38:01,751 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:38:01,752 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:38:01,860 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:38:01,862 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:38:01,866 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:38:05,345 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:38:05,745 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:38:05,748 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:38:05,748 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:38:05,898 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:38:05,900 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:38:05,902 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:39:26,930 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 20:39:26,931 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 20:39:28,843 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:39:29,259 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:39:29,263 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:39:29,264 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:39:29,407 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:39:29,409 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:39:29,412 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:39:36,846 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket : Close connections with userId:acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:39:38,124 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:39:38,127 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:39:38,128 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:39:38,258 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:39:38,260 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:39:38,264 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:46:22,388 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Starting...
-2020-09-06 20:46:22,633 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-1 - Start completed.
-2020-09-06 20:46:23,101 INFO  org.redisson.Version Redisson 3.13.3
-2020-09-06 20:46:23,278 INFO  org.redisson.connection.pool.MasterPubSubConnectionPool 1 connections initialized for /127.0.0.1:6379
-2020-09-06 20:46:23,334 INFO  org.redisson.connection.pool.MasterConnectionPool 24 connections initialized for /127.0.0.1:6379
-2020-09-06 20:46:23,414 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Starting...
-2020-09-06 20:46:23,436 INFO  com.zaxxer.hikari.HikariDataSource HikariPool-2 - Start completed.
-2020-09-06 20:46:23,512 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 20:46:23,512 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 20:46:23,513 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 20:46:23,513 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 20:46:23,512 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 20:46:23,512 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 20:46:23,514 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 20:46:23,515 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
-2020-09-06 20:46:23,519 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 20:46:23,519 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 20:46:23,519 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 20:46:23,519 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 20:46:23,519 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 20:46:23,519 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 20:46:23,519 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 20:46:23,519 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
-2020-09-06 20:46:44,187 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:46:44,187 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:46:44,187 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:46:55,485 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:46:56,071 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:46:56,076 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:46:56,105 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:46:56,117 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:46:56,117 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:46:56,325 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:46:56,418 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:46:57,160 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:46:57,175 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:46:57,179 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:46:57,183 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:47:17,762 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:47:17,805 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:47:20,702 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:47:20,718 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:47:20,719 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:47:20,734 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:47:20,754 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:47:20,755 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:47:22,242 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:47:22,254 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:47:22,290 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:47:22,305 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:47:22,308 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 5563a7b3-268c-4b4a-b3e8-028dba7f1b50-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:47:22,310 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:47:22,911 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=5563a7b3-268c-4b4a-b3e8-028dba7f1b50
-2020-09-06 20:47:28,860 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:47:49,717 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 20:47:49,761 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 20:47:49,763 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=hungtrinh
-2020-09-06 20:47:49,841 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:47:49,848 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:47:49,966 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:47:49,968 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:47:49,971 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:48:09,639 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 20:48:09,645 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 20:48:09,647 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=ducanh
-2020-09-06 20:48:09,742 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:48:09,746 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:48:09,747 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:48:09,861 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:48:09,862 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:48:09,864 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:48:16,891 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 20:48:16,892 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 20:49:29,910 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:49:29,943 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:49:30,965 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:49:30,975 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:49:30,975 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:49:31,150 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:49:31,155 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:49:31,165 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:49:41,010 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 20:49:41,018 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 20:49:41,019 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=ducanh
-2020-09-06 20:49:41,160 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:49:41,166 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:49:41,166 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:49:41,273 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:49:41,276 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:49:41,278 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:49:47,077 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/acea7bac-d29c-4905-84c4-99cc6b828e93/0
-2020-09-06 20:49:47,078 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-acea7bac-d29c-4905-84c4-99cc6b828e93-0
-2020-09-06 20:49:47,080 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/acea7bac-d29c-4905-84c4-99cc6b828e93/0 with status=200
-2020-09-06 20:49:50,438 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 20:50:54,537 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:50:54,549 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:50:57,498 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:50:57,503 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:50:57,503 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:50:57,507 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:50:57,510 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:50:57,510 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:50:58,024 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:50:58,026 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:50:58,085 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:50:58,089 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:50:58,090 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:50:58,093 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:51:02,803 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:51:03,660 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:51:03,663 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:51:03,682 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:51:03,888 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:51:03,890 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:51:03,891 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:51:05,719 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/acea7bac-d29c-4905-84c4-99cc6b828e93/0
-2020-09-06 20:51:05,726 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache hit, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-acea7bac-d29c-4905-84c4-99cc6b828e93-0
-2020-09-06 20:51:05,726 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/acea7bac-d29c-4905-84c4-99cc6b828e93/0 with status=200
-2020-09-06 20:51:08,375 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 20:55:52,840 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:55:52,840 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:55:55,305 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:55:55,310 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:55:55,310 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:55:55,316 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:55:55,319 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:55:55,319 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:55:55,643 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:55:55,645 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:55:55,669 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:55:55,672 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:55:55,673 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:55:55,676 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:56:01,367 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:56:01,754 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:56:01,758 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:56:01,758 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:56:01,875 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:56:01,877 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:56:01,883 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:56:03,268 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:56:03,656 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:56:03,662 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:56:03,662 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:56:03,769 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:56:03,772 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:56:03,774 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:56:05,818 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/acea7bac-d29c-4905-84c4-99cc6b828e93/0
-2020-09-06 20:56:05,821 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache hit, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-acea7bac-d29c-4905-84c4-99cc6b828e93-0
-2020-09-06 20:56:05,821 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/acea7bac-d29c-4905-84c4-99cc6b828e93/0 with status=200
-2020-09-06 20:56:08,881 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3bed53fa-adc1-42fa-b857-7dedd5a39d75/0
-2020-09-06 20:56:08,886 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache hit, acea7bac-d29c-4905-84c4-99cc6b828e93-3bed53fa-adc1-42fa-b857-7dedd5a39d75-0
-2020-09-06 20:56:08,886 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3bed53fa-adc1-42fa-b857-7dedd5a39d75/0 with status=200
-2020-09-06 20:56:15,249 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 20:56:18,604 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
-2020-09-06 20:56:29,548 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 20:56:29,548 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 20:56:54,906 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:56:54,950 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:56:55,988 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:56:55,992 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:56:55,992 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:56:56,125 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:56:56,126 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:56:56,160 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:56:57,942 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 20:56:57,953 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 20:56:57,953 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=ducanh
-2020-09-06 20:56:58,064 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:56:58,075 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:56:58,075 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:56:58,209 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:56:58,210 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:56:58,213 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:57:10,391 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 20:57:10,391 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 20:57:47,208 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:57:47,240 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:57:47,926 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:57:47,930 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:57:47,930 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:57:48,120 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:57:48,121 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:57:48,124 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:57:50,253 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 20:57:50,259 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 20:57:50,259 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=ducanh
-2020-09-06 20:57:50,394 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:57:50,397 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:57:50,569 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:57:50,570 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:57:50,572 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:57:52,543 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 20:57:52,544 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 20:59:18,000 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:59:18,039 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 20:59:19,042 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:59:19,045 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:59:19,045 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:59:19,182 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:59:19,183 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:59:19,185 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:59:23,283 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=acea7bac-d29c-4905-84c4-99cc6b828e93
-2020-09-06 20:59:23,699 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:59:23,702 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:59:23,703 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:59:23,809 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:59:23,810 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, acea7bac-d29c-4905-84c4-99cc6b828e93-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:59:23,813 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:59:31,493 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 20:59:31,497 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 20:59:31,498 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=ducanh
-2020-09-06 20:59:31,585 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
-2020-09-06 20:59:31,587 INFO  vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=19
-2020-09-06 20:59:31,587 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
-2020-09-06 20:59:31,680 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0
-2020-09-06 20:59:31,681 INFO  vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3bed53fa-adc1-42fa-b857-7dedd5a39d75-3dc6fc40-2987-49c0-84eb-0c4c743bc569-0
-2020-09-06 20:59:31,683 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3dc6fc40-2987-49c0-84eb-0c4c743bc569/0 with status=200
-2020-09-06 20:59:34,969 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/logout
-2020-09-06 20:59:34,969 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/logout with status=200
-2020-09-06 20:59:35,026 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3bed53fa-adc1-42fa-b857-7dedd5a39d75
-2020-09-06 21:17:00,110 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
-2020-09-06 21:17:00,263 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
-2020-09-06 21:17:00,266 INFO  vn.zalopay.phucvt.fooapp.handler.LoginHandler login successfully by user=hanh
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:91)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:144)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850)
+	... 28 more
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:607)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:155)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:65)
+	... 30 more
+
+2020-09-07 13:17:37,236 ERROR com.zaxxer.hikari.pool.HikariPool HikariPool-1 - Exception during pool initialization.
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81) [HikariCP-3.3.1.jar:?]
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30) [classes/:?]
+Caused by: com.mysql.cj.exceptions.CJException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:124) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:85) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:128) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+2020-09-07 13:17:37,247 ERROR vn.zalopay.phucvt.fooapp.Runner start Runner failed cause= message: Failed to initialize pool: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+, stackTrace: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:597)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120)
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30)
+Caused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+	... 19 more
+Caused by: com.mysql.cj.exceptions.CJException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:124)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:151)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850)
+	... 28 more
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:85)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:128)
+	... 34 more
+
+2020-09-07 13:18:24,010 ERROR com.zaxxer.hikari.pool.HikariPool HikariPool-1 - Exception during pool initialization.
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81) [HikariCP-3.3.1.jar:?]
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30) [classes/:?]
+Caused by: com.mysql.cj.exceptions.CJException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:124) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:85) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:128) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+2020-09-07 13:18:24,021 ERROR vn.zalopay.phucvt.fooapp.Runner start Runner failed cause= message: Failed to initialize pool: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+, stackTrace: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:597)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120)
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30)
+Caused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+	... 19 more
+Caused by: com.mysql.cj.exceptions.CJException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:124)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:151)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850)
+	... 28 more
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:85)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:128)
+	... 34 more
+
+2020-09-07 13:23:51,342 ERROR com.zaxxer.hikari.pool.HikariPool HikariPool-1 - Exception during pool initialization.
+java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81) [HikariCP-3.3.1.jar:?]
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30) [classes/:?]
+Caused by: com.mysql.cj.exceptions.CJException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:124) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:151) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:85) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:128) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 28 more
+2020-09-07 13:23:51,353 ERROR vn.zalopay.phucvt.fooapp.Runner start Runner failed cause= message: Failed to initialize pool: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+, stackTrace: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:597)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120)
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30)
+Caused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:906)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:831)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:456)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:246)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:197)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+	... 19 more
+Caused by: com.mysql.cj.exceptions.CJException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:124)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:151)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:49)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.proceedHandshakeWithPluggableAuthentication(NativeAuthenticationProvider.java:438)
+	at com.mysql.cj.protocol.a.NativeAuthenticationProvider.connect(NativeAuthenticationProvider.java:171)
+	at com.mysql.cj.protocol.a.NativeProtocol.connect(NativeProtocol.java:1342)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:157)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:850)
+	... 28 more
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Public Key Retrieval is not allowed
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:85)
+	at com.mysql.cj.protocol.a.authentication.CachingSha2PasswordPlugin.nextAuthenticationStep(CachingSha2PasswordPlugin.java:128)
+	... 34 more
+
+2020-09-07 13:28:20,729 ERROR com.zaxxer.hikari.pool.HikariPool HikariPool-1 - Exception during pool initialization.
+java.sql.SQLNonTransientConnectionException: Cannot load connection class because of underlying exception: com.mysql.cj.exceptions.WrongArgumentException: Malformed database URL, failed to parse the main URL sections.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:79) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:131) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:220) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201) ~[HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) [HikariCP-3.3.1.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81) [HikariCP-3.3.1.jar:?]
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12) [classes/:?]
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47) [dagger-2.23.2.jar:?]
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120) [classes/:?]
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30) [classes/:?]
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Cannot load connection class because of underlying exception: com.mysql.cj.exceptions.WrongArgumentException: Malformed database URL, failed to parse the main URL sections.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 25 more
+Caused by: com.mysql.cj.exceptions.WrongArgumentException: Malformed database URL, failed to parse the main URL sections.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:1.8.0_265]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[?:1.8.0_265]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:1.8.0_265]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[?:1.8.0_265]
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.conf.ConnectionUrlParser.parseConnectionString(ConnectionUrlParser.java:162) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.conf.ConnectionUrlParser.<init>(ConnectionUrlParser.java:136) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.conf.ConnectionUrlParser.parseConnectionString(ConnectionUrlParser.java:118) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.conf.ConnectionUrl.getConnectionUrlInstance(ConnectionUrl.java:279) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:194) ~[mysql-connector-java-8.0.21.jar:8.0.21]
+	... 24 more
+2020-09-07 13:28:20,737 ERROR vn.zalopay.phucvt.fooapp.Runner start Runner failed cause= message: Failed to initialize pool: Cannot load connection class because of underlying exception: com.mysql.cj.exceptions.WrongArgumentException: Malformed database URL, failed to parse the main URL sections.
+, stackTrace: com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: Cannot load connection class because of underlying exception: com.mysql.cj.exceptions.WrongArgumentException: Malformed database URL, failed to parse the main URL sections.
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:597)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:81)
+	at vn.zalopay.phucvt.fooapp.da.DataSourceProviderImpl.getDataSource(DataSourceProviderImpl.java:42)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule.provideUserDA(ServiceModule.java:98)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.provideUserDA(ServiceModule_ProvideUserDAFactory.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:36)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideUserDAFactory.get(ServiceModule_ProvideUserDAFactory.java:11)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideLoginHandlerFactory.get(ServiceModule_ProvideLoginHandlerFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:55)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideHandlerFactory.get(ServiceModule_ProvideHandlerFactory.java:15)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:40)
+	at vn.zalopay.phucvt.fooapp.dagger.ServiceModule_ProvideRestfulAPIFactory.get(ServiceModule_ProvideRestfulAPIFactory.java:12)
+	at dagger.internal.DoubleCheck.get(DoubleCheck.java:47)
+	at vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent.getRestfulAPI(DaggerServiceComponent.java:120)
+	at vn.zalopay.phucvt.fooapp.Runner.main(Runner.java:30)
+Caused by: java.sql.SQLNonTransientConnectionException: Cannot load connection class because of underlying exception: com.mysql.cj.exceptions.WrongArgumentException: Malformed database URL, failed to parse the main URL sections.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:79)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:131)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:220)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:353)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:473)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:562)
+	... 19 more
+Caused by: com.mysql.cj.exceptions.UnableToConnectException: Cannot load connection class because of underlying exception: com.mysql.cj.exceptions.WrongArgumentException: Malformed database URL, failed to parse the main URL sections.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	... 25 more
+Caused by: com.mysql.cj.exceptions.WrongArgumentException: Malformed database URL, failed to parse the main URL sections.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.conf.ConnectionUrlParser.parseConnectionString(ConnectionUrlParser.java:162)
+	at com.mysql.cj.conf.ConnectionUrlParser.<init>(ConnectionUrlParser.java:136)
+	at com.mysql.cj.conf.ConnectionUrlParser.parseConnectionString(ConnectionUrlParser.java:118)
+	at com.mysql.cj.conf.ConnectionUrl.getConnectionUrlInstance(ConnectionUrl.java:279)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:194)
+	... 24 more
+
+2020-09-07 13:28:50,503 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:28:50,503 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:28:50,503 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:28:50,503 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:28:50,503 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:28:50,503 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:28:50,503 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:28:50,505 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:28:50,510 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:28:50,510 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:28:50,510 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:28:50,510 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:28:50,510 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:28:50,510 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:28:50,511 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:28:50,510 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:29:30,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:29:30,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:29:30,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:29:30,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:29:30,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:29:30,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:29:30,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:29:30,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-07 13:29:30,095 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:29:30,095 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:29:30,095 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:29:30,095 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:29:30,095 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:29:30,095 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:29:30,095 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-07 13:29:30,095 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055

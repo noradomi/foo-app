@@ -7,6 +7,7 @@ import io.vertx.ext.web.RoutingContext;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.cache.BlackListCache;
+import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
 
 @Builder
@@ -32,7 +33,9 @@ public class AuthHandler {
               routingContext.next();
             }
           } else {
-            log.error("error when check token blacklist", resAsync.cause());
+            log.error(
+                "error when check token blacklist, cause={}",
+                ExceptionUtil.getDetail(resAsync.cause()));
             routingContext.next();
           }
         });

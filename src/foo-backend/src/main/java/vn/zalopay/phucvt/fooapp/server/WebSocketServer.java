@@ -24,7 +24,6 @@ public class WebSocketServer {
   private Future<String> authenticated(ServerWebSocket ws) {
     String query = ws.query();
     String token = ws.query().substring(query.indexOf('=') + 1);
-    log.trace("s authenticate token={}", token);
     return jwtUtils.authenticate(token);
   }
 
@@ -41,11 +40,10 @@ public class WebSocketServer {
                             if (userIdAsyncRes.succeeded()) {
                               String userId = userIdAsyncRes.result();
                               ws.accept();
-
-                              log.trace("ws connected with user: {}", userId);
+                              log.info("ws connected with user: {}", userId);
                               wsHandler.addClient(ws, userId);
-                                wsHandler.notifyStatusUserChange(
-                                        WsMessage.builder().type("ONLINE").senderId(userId).build());
+                              wsHandler.notifyStatusUserChange(
+                                  WsMessage.builder().type("ONLINE").senderId(userId).build());
                               ws.closeHandler(
                                   event -> {
                                     handleCloseConnection(ws, userId);

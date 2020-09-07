@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 @Log4j2
 @Builder
 public class BlackListCacheImpl implements BlackListCache {
-
   private final RedisCache redisCache;
   private final AsyncHandler asyncHandler;
 
@@ -28,7 +27,7 @@ public class BlackListCacheImpl implements BlackListCache {
             blacklist.expire(timeToLive, TimeUnit.MILLISECONDS);
             future.complete(token);
           } catch (Exception e) {
-            log.error("set a token to blacklist failed cause={}", ExceptionUtil.getDetail(e));
+            log.error("set a token to blacklist failed, cause={}", ExceptionUtil.getDetail(e));
             future.fail(e);
           }
         });
@@ -45,7 +44,7 @@ public class BlackListCacheImpl implements BlackListCache {
                 redisCache.getRedissonClient().getBucket(CacheKey.getBlacklistKey(token));
             future.complete(blacklist.get() != null);
           } catch (Exception e) {
-            log.error("check token blacklist failed cause={}", ExceptionUtil.getDetail(e));
+            log.error("check token blacklist failed, cause={}", ExceptionUtil.getDetail(e));
             future.fail(e);
           }
         });

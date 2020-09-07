@@ -2,8 +2,6 @@ package vn.zalopay.phucvt.fooapp.da;
 
 import io.vertx.core.Future;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import vn.zalopay.phucvt.fooapp.common.mapper.EntityMapper;
 import vn.zalopay.phucvt.fooapp.model.User;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
@@ -34,7 +32,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
 
   @Override
   public Future<Void> insert(User user) {
-      Future<Void> future = Future.future();
+    Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
           Object[] params = {
@@ -44,11 +42,14 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             executeWithParams(
                 future, dataSource.getConnection(), INSERT_USER_STATEMENT, params, "insertUser");
           } catch (SQLException e) {
-            log.error("insert user to db fail caused={}", ExceptionUtil.getDetail(e));
+            log.error(
+                "insert user={} to db fail caused={}",
+                user.getUsername(),
+                ExceptionUtil.getDetail(e));
             future.fail(e);
           }
         });
-      return future;
+    return future;
   }
 
   @Override

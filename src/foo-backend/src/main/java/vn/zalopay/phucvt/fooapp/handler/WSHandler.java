@@ -16,12 +16,11 @@ import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Builder
 @Log4j2
 public class WSHandler {
-  private Map<String, Set<ServerWebSocket>> clients = new ConcurrentHashMap<>();
+  private Map<String, Set<ServerWebSocket>> clients;
   private final ChatDA chatDA;
   private final ChatCache chatCache;
 
@@ -44,40 +43,44 @@ public class WSHandler {
   }
 
   public void handle(Buffer buffer, String userId) {
-    JsonObject json = new JsonObject(buffer.toString());
-    String type = json.getString("type");
     WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
-
     message.setSenderId(userId);
     message.setCreateTime(Instant.now().getEpochSecond());
     message.setId(GenerationUtils.generateId());
-
-    Future<WsMessage> future = Future.future();
-    //     Store message to db and cache.
     chatDA
         .insert(message)
         .setHandler(
             event -> {
               if (event.succeeded()) {
-                chatCache
-                    .addToList(message)
-                    .setHandler(
-                        asyncResult -> {
-                          if (asyncResult.succeeded()) {
-                            handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
-                            handleSendMessage(message, message.getReceiverId());
-                          }
-                        });
+                handleSucceedInsertDB(userId, message);
+              } else {
+                log.warn("add message to db failed", event.cause());
+              }
+            });
+  }
+
+  private void handleSucceedInsertDB(String userId, WsMessage message) {
+    chatCache
+        .addToList(message)
+        .setHandler(
+            asyncResult -> {
+              if (asyncResult.succeeded()) {
+                handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
+                handleSendMessage(message, message.getReceiverId());
+              } else {
+                log.warn("add message to cache failed", asyncResult.cause());
               }
             });
   }
 
   private void handleSendMessage(WsMessage message, String receiverId) {
-    Set<ServerWebSocket> receiverCon = clients.get(receiverId);
-    receiverCon.forEach(
-        conn -> {
-          conn.writeTextMessage(JsonProtoUtils.printGson(message));
-        });
+    if (clients.containsKey(receiverId)) {
+      Set<ServerWebSocket> receiverCon = clients.get(receiverId);
+      receiverCon.forEach(
+          conn -> {
+            conn.writeTextMessage(JsonProtoUtils.printGson(message));
+          });
+    }
   }
 
   public void notifyStatusUserChange(WsMessage notifyMessage) {

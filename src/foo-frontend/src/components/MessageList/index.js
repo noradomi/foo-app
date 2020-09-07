@@ -26,9 +26,8 @@ function MessageList(props) {
 	}
 
 	let history = useHistory();
-
+git 
 	let receiverId = props.currentSessionId;
-	console.log(receiverId);
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 
 	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId);

@@ -28,7 +28,6 @@ public class UserListHandler extends BaseHandler {
   public Future<BaseResponse> handle(BaseRequest baseRequest) {
     Future<BaseResponse> future = Future.future();
     String userId = baseRequest.getPrincipal().getString("userId");
-
     userCache
         .getUserList()
         .setHandler(
@@ -51,7 +50,7 @@ public class UserListHandler extends BaseHandler {
       Future<BaseResponse> future, List<User> userList, String userId) {
     userList =
         userList.stream().filter(u -> !u.getUserId().equals(userId)).collect(Collectors.toList());
-    log.info("cache hit, user list size={}", userList.size());
+    log.debug("cache hit, user list size={}", userList.size());
     setOnlineStatus(userList);
     UsersDataResponse usersDR = UsersDataResponse.builder().items(userList).build();
     BaseResponse baseResponse =
@@ -61,7 +60,7 @@ public class UserListHandler extends BaseHandler {
 
   private void setOnlineStatus(List<User> userList) {
     Set<String> onlineUserIds = wsHandler.getOnlineUserIds();
-    log.debug("get onlien user ids, set={}", onlineUserIds);
+    log.debug("get online user ids, set={}", onlineUserIds);
     if (onlineUserIds != null) {
       userList.forEach(user -> user.setOnline(onlineUserIds.contains(user.getUserId())));
     }
@@ -78,9 +77,8 @@ public class UserListHandler extends BaseHandler {
                     listAsyncResult.result().stream()
                         .filter(u -> !u.getUserId().equals(userId))
                         .collect(Collectors.toList());
-                log.trace("cache miss, get user list from db, size={}", userList.size());
-
-                //                setOnlineStatus(userList);
+                log.debug("cache miss, get user list from db, size={}", userList.size());
+                setOnlineStatus(userList);
                 UsersDataResponse usersDR = UsersDataResponse.builder().items(userList).build();
                 BaseResponse baseResponse =
                     BaseResponse.builder()

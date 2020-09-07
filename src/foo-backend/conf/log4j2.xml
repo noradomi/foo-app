@@ -22,9 +22,12 @@
     </Appenders>
 
     <Loggers>
-        <Root level="info">
+        <Root level="warn">
             <AppenderRef ref="ProcessorRollingFile"/>
-            <AppenderRef ref="CONSOLE"/>
+            <!--            <AppenderRef ref="CONSOLE"/>-->
         </Root>
+        <Logger name="vn.zalopay.phucvt.fooapp" level="all">
+            <AppenderRef ref="CONSOLE"/>
+        </Logger>
     </Loggers>
 </Configuration>

@@ -9,7 +9,6 @@ import vn.zalopay.phucvt.fooapp.cache.BlackListCache;
 import vn.zalopay.phucvt.fooapp.cache.UserCache;
 import vn.zalopay.phucvt.fooapp.entity.request.BaseRequest;
 import vn.zalopay.phucvt.fooapp.entity.response.BaseResponse;
-import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
 
 import java.util.Date;
 
@@ -22,7 +21,6 @@ public class LogOutHandler extends BaseHandler {
   @Override
   public Future<BaseResponse> handle(BaseRequest baseRequest) {
     Future<BaseResponse> future = Future.future();
-
     String token =
         baseRequest.getHeaders().get(HttpHeaders.AUTHORIZATION).substring(7); // "Bearer "
     long expireTimeInMilliseconds = baseRequest.getPrincipal().getLong("exp") * 1000;
@@ -31,7 +29,6 @@ public class LogOutHandler extends BaseHandler {
     if (timeToLive > 0) {
       blackListCache.set(token, timeToLive);
     }
-
     BaseResponse baseResponse =
         BaseResponse.builder()
             .statusCode(HttpResponseStatus.OK.code())

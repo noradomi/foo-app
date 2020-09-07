@@ -10,6 +10,7 @@ public class ServiceConfig {
   private MySQLConfig mySQLConfig;
   private CacheConfig cacheConfig;
   private JwtConfig jwtConfig;
+  private ChatConfig chatConfig;
   int port;
   int wsPort;
 }

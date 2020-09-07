@@ -19,7 +19,6 @@ function ConversationListItem(props) {
 	  }
 
 	let clickHandle = () => {
-		console.log("Change curr session Id")
 		props.setActiveItem(id);
 	};
 

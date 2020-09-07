@@ -4,6 +4,7 @@ import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.common.mapper.EntityMapper;
+import vn.zalopay.phucvt.fooapp.config.ChatConfig;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
@@ -19,13 +20,14 @@ import java.util.List;
 public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;
+  private final ChatConfig chatConfig;
 
   private static final String INSERT_MESSAGE_STATEMENT =
       "INSERT INTO messages (`id`, `sender`, `receiver`,`message`,`create_time`) VALUES (?,?,?,?,?)";
 
   private static final String GET_MESSAGE_LIST_STATEMENT =
       "SELECT * FROM messages WHERE (sender = ? AND receiver = ?) OR ( receiver = ? AND sender = ?)"
-          + "ORDER BY create_time DESC LIMIT ?, 20";
+          + "ORDER BY create_time DESC LIMIT ?, ?";
 
   @Override
   public Future<Void> insert(WsMessage message) {
@@ -60,7 +62,14 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
     Future<List<WsMessage>> future = Future.future();
     asyncHandler.run(
         () -> {
-          Object[] params = {firstUserId, secondUserId, firstUserId, secondUserId, offset};
+          Object[] params = {
+            firstUserId,
+            secondUserId,
+            firstUserId,
+            secondUserId,
+            offset,
+            chatConfig.getNumberOfMessagesRetrieve()
+          };
           queryEntity(
               "queryListMessage",
               future,
