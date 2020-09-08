@@ -4,6 +4,7 @@ import {isAuthenticated} from '../../utils/utils';
 import store from '../../redux/fooStore';
 import LoginPage from '../LoginPage';
 import RegisterPage from '../RegisterPage';
+import Portal from '../Portal/index'
 import {Provider} from 'react-redux';
 import 'antd/dist/antd.css';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
@@ -21,9 +22,9 @@ export default function App() {
       <div className="App">
         <Router>
           <Switch>
-            {/* <Route path="/register" component={RegisterPage}/> */}
-            <Route path="/login" component={LoginPage}/>
-            <Route path="/signup" component={RegisterPage}/>
+            {/* <Route path="/login" component={LoginPage}/>
+            <Route path="/signup" component={RegisterPage}/> */}
+            <Route path="/login" component={Portal}/>
             <Route path="/" component={AuthFragment}/>
           </Switch>
         </Router>

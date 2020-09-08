@@ -5,9 +5,6 @@
 - [Foo App](#foo-app)
   - [1. Tổng quan](#1-tổng-quan)
   - [2. Hướng dẫn chạy](#2-hướng-dẫn-chạy)
-    - [2.1 MySQL và Redis](#21-mysql-và-redis)
-    - [2.2 Back-end](#22-back-end)
-    - [2.3 Front-end](#23-front-end)
   - [3. Demo](#3-demo)
     - [3.1 Đăng nhập](#31-đăng-nhập)
     - [3.2 Đăng kí](#32-đăng-kí)
@@ -33,40 +30,15 @@ Các công nghệ sử dụng:
 
 ## 2. Hướng dẫn chạy
 
-### 2.1 MySQL và Redis
-
-- Trong thư mục `foo-setup`, chạy các lệnh để chạy MySql server và Redis server và khởi tạo dữ liệu:
+- Mọi quá trình để build và thực thi project đã được viết trong filedocker-compose.yml. Tại thư mục `src` của project, chỉ cần chạy lệnh :
 
 ```bash
-docker-comple up -d
+docker-compose up --build
 ```
 
-### 2.2 Back-end
+- Quá trình chạy lần đầu có thể sẽ tốn nhiều thời gian cho việc build service backend.
 
-- Trong thư mục `foo-backend`:
-
-- **Build**: chạy lệnh sau:
-
-```bash
-mvn clean install
-```
-
-- **Run**: chạy lệnh sau:
-
-```bash
-java -Dservice.conf=./conf/development.yaml -Dlog4j2.configurationFile=./conf/log4j2.xml -Dredis.conf=./conf/redis.yaml -cp target/foo-backend-1.0-SNAPSHOT.jar vn.zalopay.phucvt.fooapp.Runner
-```
-
-### 2.3 Front-end
-
-- Trong thư mục foo-frontend, chạy các lệnh sau:
-
-```bash
-npm insatll --silent // cài đặt các dependencies
-npm start
-```
-
-Ứng dụng client sẽ chạy trên port `3000`. Test trên trình duyệt tại `localhost:3000`.
+- Ứng dụng client sẽ chạy trên port `3000`. Test trên trình duyệt tại `localhost:3000`.
 
 ## 3. Demo
 
