@@ -1,20 +1,20 @@
 FROM maven:3.6.3-openjdk-8-slim
 
 RUN mkdir /usr/src/app
+
+ADD /foo-backend/pom.xml /usr/src/app/
 WORKDIR /usr/src/app
+RUN mvn dependency:go-offline
 
-# ADD pom.xml /usr/src/app/
-# RUN mvn dependency:go-offline
+ADD /foo-backend/ /usr/src/app
 
-# ADD . /usr/src/app
-
-# RUN mvn clean
-ADD foo-run/foo-backend/foo-backend-1.0-SNAPSHOT.jar /usr/src/app
-ADD foo-run/foo-backend/conf /usr/src/app/conf
-# RUN mvn package
+RUN mvn clean
+# ADD foo-run/foo-backend/foo-backend-1.0-SNAPSHOT.jar /usr/src/app
+ADD foo-run/foo-backend/conf /usr/src/app/target/conf
+RUN mvn package
 
 
-# WORKDIR /usr/src/app/target
+WORKDIR /usr/src/app/target
 
 EXPOSE 8055
 EXPOSE 9009

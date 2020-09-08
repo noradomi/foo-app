@@ -21,7 +21,7 @@ function ConversationList(props) {
 	const conversations = props.userList.map((res) => {
 		return {
 			name: res.name,
-			text: `@${res.username}`,
+			text: res.userId,
 			id: res.userId,
 			avatar: res.avatar,
 			online: res.online
@@ -37,9 +37,9 @@ function ConversationList(props) {
 					<ToolbarButton key="cog" icon="ion-ios-notifications-outline" />
 				]}
 			/>
-			<ConversationSearch />
+			
 			<div className="conversation-list-scroll">
-				
+			<ConversationSearch />
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => (
 						<ConversationListItem key={conversation.id} data={conversation} />
