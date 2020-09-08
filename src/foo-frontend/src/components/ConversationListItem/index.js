@@ -12,11 +12,11 @@ function ConversationListItem(props) {
 
 	let selectedColor = {};
 
-	const { name, avatar, id} = props.data;
+	const { name, avatar, id, text } = props.data;
 
 	if (props.currentSessionId === id) {
 		selectedColor.backgroundColor = 'rgb(218, 233, 255)';
-	  }
+	}
 
 	let clickHandle = () => {
 		props.setActiveItem(id);
@@ -29,16 +29,10 @@ function ConversationListItem(props) {
 			<div className="conversation-avatar" style={{ width: 60 }}>
 				<CustomAvatar type="user-avatar" avatar={avatar} />
 			</div>
-			{status ?
-                  <div className="status-point online"/>
-                  :
-                  <div className="status-point offline"/>
-                }
+			{status ? <div className="status-point online" /> : <div className="status-point offline" />}
 			<div className="conversation-info" style={{ paddingLeft: '10px', overflow: 'hidden', paddingTop: 5 }}>
 				<div className="user-name">{name}</div>
-				<div className="history-message">{status ?
-                  "Online":"Offline"
-                }</div>
+				<div className="history-message">{text}</div>
 			</div>
 		</div>
 	);

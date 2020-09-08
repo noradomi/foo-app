@@ -7,12 +7,12 @@ import './Messenger.css';
 
 export default function Messenger(props) {
     return (
-      <div className="messenger">
+      <div className="scrollable messenger">
         <div className="sidebar">
           <ConversationList />
         </div>
 
-        <div className="scrollbar content">
+        <div className="scrollable content">
           <MessageList />
         </div>
       </div>
