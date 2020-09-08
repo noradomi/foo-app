@@ -21,7 +21,7 @@ function ConversationList(props) {
 	const conversations = props.userList.map((res) => {
 		return {
 			name: res.name,
-			text: res.userId,
+			text: `@${res.name}`,
 			id: res.userId,
 			avatar: res.avatar,
 			online: res.online

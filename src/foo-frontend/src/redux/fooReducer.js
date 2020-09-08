@@ -1,6 +1,7 @@
 import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
 
 let initialState = {
+	activeTabKey: "1",
 	user: {
 		jwt: getJwtFromStorage(),
 		userId: getUserIdFromStorage()
