@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class EchoRequest {
-    String message;
+  String message;
 }

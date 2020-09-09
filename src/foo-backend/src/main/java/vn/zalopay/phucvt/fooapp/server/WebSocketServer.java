@@ -17,9 +17,9 @@ public class WebSocketServer {
   private final WSHandler wsHandler;
   private final Vertx vertx;
   private final int port;
-  private HttpServer listen;
   private final JwtUtils jwtUtils;
   private final UserCache userCache;
+  private HttpServer listen;
 
   private Future<String> authenticated(ServerWebSocket ws) {
     String query = ws.query();

@@ -1,61 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { handleRegister } from '../../services/register';
-import { useHistory } from 'react-router-dom';
-import { Button, Form, Input, Tooltip,Alert } from 'antd';
-import { UserOutlined, LockOutlined,QuestionCircleOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Alert } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './RegisterForm.css';
 
 export default function RegisterForm(props) {
 	const FormItem = Form.Item;
 	let [ form ] = Form.useForm();
-	let history = useHistory();
+	let [message, setMessage] = useState(false);
 
 	let handleSubmit = (data) => {
+		console.log(data.username + " "+data.fullname);
 		handleRegister(data.username, data.fullname, data.password)
 			.then((value) => {
-				// history.push('/login');
-				alert = <Alert
-				message="Very long warning text warning text text text text text text text"
-				banner
-				closable
-			  />
+				setMessage(true);
 			})
 			.catch((error) => {
 				form.resetFields();
 			});
 	};
 
+	let cleanMessage = (event) => {
+		setMessage(false);
+	};
+
+	let alert = null;
+	if(message){
+		alert = <Alert message="Register successfully" banner closable showIcon/>
+	}
+
 	return (
-		<Form onFinish={handleSubmit} className="login-form" form={form}>
-			<Form.Item
-				name="fullname"
-				label={
-					<span>
-						Nickname&nbsp;
-						<Tooltip title="Your fullname">
-							<QuestionCircleOutlined />
-						</Tooltip>
-					</span>
-				}
-				rules={[
-					{
-						required: true,
-						message: 'Please input your fullname!',
-						whitespace: true
-					}
-				]}
-			>
-				<Input
-					prefix={
-						<UserOutlined
-							style={{
-								color: 'rgba(0,0,0,.25)'
-							}}
-						/>
-					}
-					placeholder="Fullname"
-				/>
-			</Form.Item>
+		<Form onFinish={handleSubmit} className="login-form" form={form} onFieldsChange={cleanMessage}>
 			<Form.Item
 				name="username"
 				rules={[
@@ -75,6 +50,27 @@ export default function RegisterForm(props) {
 						/>
 					}
 					placeholder="Username"
+				/>
+			</Form.Item>
+			<Form.Item
+				name="fullname"
+				rules={[
+					{
+						required: true,
+						message: 'Please input your fullname!',
+						whitespace: true
+					}
+				]}
+			>
+				<Input
+					prefix={
+						<UserOutlined
+							style={{
+								color: 'rgba(0,0,0,.25)'
+							}}
+						/>
+					}
+					placeholder="Fullname"
 				/>
 			</Form.Item>
 			<Form.Item

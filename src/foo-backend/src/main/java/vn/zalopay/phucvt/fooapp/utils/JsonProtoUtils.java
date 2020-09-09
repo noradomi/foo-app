@@ -25,7 +25,7 @@ public class JsonProtoUtils {
           .preservingProtoFieldNames();
   private static final Gson GSON =
       new GsonBuilder()
-          .excludeFieldsWithModifiers(Modifier.STATIC,Modifier.TRANSIENT)
+          .excludeFieldsWithModifiers(Modifier.STATIC, Modifier.TRANSIENT)
           .disableHtmlEscaping()
           .create();
 

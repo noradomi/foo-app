@@ -1,6 +1,5 @@
 package vn.zalopay.phucvt.fooapp.da;
 
-
 import io.vertx.core.Future;
 import io.vertx.ext.sql.SQLConnection;
 

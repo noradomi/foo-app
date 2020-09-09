@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class JwtConfig {
-    int expireToken = 174600; // seconds
+  int expireToken = 174600; // seconds
 }

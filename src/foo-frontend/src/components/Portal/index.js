@@ -14,7 +14,7 @@ export default function Portal(props) {
 	}
 	return (
 		<div id="portal-container">
-			<div className="logo" ><img src="logo.gif"/></div>
+			<div className="logo" ><img src="logo.gif" alt="logo"/></div>
 			<div id="authen-panel">
 				<Tabs>
 					<TabPane tab="Login" key="1">

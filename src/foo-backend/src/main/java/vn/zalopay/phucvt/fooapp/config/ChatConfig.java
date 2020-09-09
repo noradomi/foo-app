@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChatConfig {
-    int numberOfMessagesRetrieve = 20;
+  int numberOfMessagesRetrieve = 20;
 }

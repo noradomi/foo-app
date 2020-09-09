@@ -18,16 +18,17 @@ import java.util.List;
 @Builder
 @Log4j2
 public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
+  private static final String INSERT_MESSAGE_STATEMENT =
+      "INSERT INTO messages (`id`, `sender`, `receiver`,`message`,`create_time`) VALUES (?,?,?,?,?)";
+  private static final String GET_MESSAGE_LIST_STATEMENT =
+      "SELECT * FROM "
+          + "(SELECT * FROM messages WHERE (sender = ? AND receiver = ?) "
+          + "UNION "
+          + "SELECT * FROM messages WHERE (sender = ? AND receiver = ?)) as msgs "
+          + "ORDER BY create_time DESC LIMIT ?, ?";
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;
   private final ChatConfig chatConfig;
-
-  private static final String INSERT_MESSAGE_STATEMENT =
-      "INSERT INTO messages (`id`, `sender`, `receiver`,`message`,`create_time`) VALUES (?,?,?,?,?)";
-
-  private static final String GET_MESSAGE_LIST_STATEMENT =
-      "SELECT * FROM messages WHERE (sender = ? AND receiver = ?) OR ( receiver = ? AND sender = ?)"
-          + "ORDER BY create_time DESC LIMIT ?, ?";
 
   @Override
   public Future<Void> insert(WsMessage message) {
@@ -65,8 +66,8 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
           Object[] params = {
             firstUserId,
             secondUserId,
-            firstUserId,
             secondUserId,
+            firstUserId,
             offset,
             chatConfig.getNumberOfMessagesRetrieve()
           };
