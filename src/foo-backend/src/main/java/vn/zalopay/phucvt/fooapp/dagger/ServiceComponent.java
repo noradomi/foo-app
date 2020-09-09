@@ -1,9 +1,9 @@
 package vn.zalopay.phucvt.fooapp.dagger;
 
-import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
-import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
 import dagger.Component;
 import io.vertx.core.Vertx;
+import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
+import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
 
 import javax.inject.Singleton;
 
@@ -15,5 +15,4 @@ public interface ServiceComponent {
   WebSocketServer getWebSocketServer();
 
   Vertx getVertx();
-
 }

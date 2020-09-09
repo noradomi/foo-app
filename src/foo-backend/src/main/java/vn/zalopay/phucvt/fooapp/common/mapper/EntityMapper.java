@@ -1,9 +1,9 @@
 package vn.zalopay.phucvt.fooapp.common.mapper;
 
-import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 import com.google.common.collect.ImmutableMap;
 import com.google.protobuf.GeneratedMessageV3;
 import com.google.protobuf.Message;
+import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -15,8 +15,6 @@ import java.util.Map;
 
 /** Created by thinhda. Date: 2019-11-07 */
 public class EntityMapper {
-  private static EntityMapper instance = new EntityMapper();
-
   private static final Map<Class, Class> primitive2Object =
       ImmutableMap.<Class, Class>builder()
           .put(int.class, Integer.class)
@@ -29,6 +27,7 @@ public class EntityMapper {
           .put(short.class, Short.class)
           .put(String.class, String.class)
           .build();
+  private static EntityMapper instance = new EntityMapper();
 
   private EntityMapper() {}
 

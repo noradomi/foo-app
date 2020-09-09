@@ -1,8 +1,8 @@
 package vn.zalopay.phucvt.fooapp.da;
 
-import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import io.vertx.core.Future;
 import org.apache.logging.log4j.Logger;
+import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
 public interface Transaction {
   Future<Void> begin();

@@ -15,14 +15,13 @@ import java.util.List;
 
 @Log4j2
 public class UserDAImpl extends BaseTransactionDA implements UserDA {
-  private final DataSource dataSource;
-  private final AsyncHandler asyncHandler;
-
   private static final String INSERT_USER_STATEMENT =
       "INSERT INTO users (`id`, `username`, `password`,`name`) VALUES (?, ?,?,?)";
   private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
   private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username = ?";
   private static final String SELECT_USER_LIST = "SELECT * FROM users";
+  private final DataSource dataSource;
+  private final AsyncHandler asyncHandler;
 
   public UserDAImpl(DataSource dataSource, AsyncHandler asyncHandler) {
     super();

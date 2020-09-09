@@ -15,18 +15,21 @@ public class Tracker {
   private static final MeterRegistry METER_REGISTRY =
       new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
   private static final Map<String, Timer> METRICS = new ConcurrentHashMap<>();
-
-  public static void initialize(String applicationName) {
-    METER_REGISTRY.config().commonTags("application", applicationName);
-  }
-
   private long startTime = 0;
   private String metricName;
   @Builder.Default private String step = "";
   @Builder.Default private String code = "";
 
+  public static void initialize(String applicationName) {
+    METER_REGISTRY.config().commonTags("application", applicationName);
+  }
+
   public static MeterRegistry getMeterRegistry() {
     return METER_REGISTRY;
+  }
+
+  private static String getKey(String method, String step, String code) {
+    return method + "|" + step + "|" + code;
   }
 
   public void record() {
@@ -40,9 +43,5 @@ public class Tracker {
                     .publishPercentileHistogram()
                     .register(METER_REGISTRY))
         .record(System.currentTimeMillis() - startTime, TimeUnit.MILLISECONDS);
-  }
-
-  private static String getKey(String method, String step, String code) {
-    return method + "|" + step + "|" + code;
   }
 }

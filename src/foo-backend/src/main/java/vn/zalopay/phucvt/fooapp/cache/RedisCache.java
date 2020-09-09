@@ -10,9 +10,9 @@ import java.io.IOException;
 
 @Getter
 public class RedisCache {
-  private RedisCache() {}
-
   private RedissonClient redissonClient;
+
+  private RedisCache() {}
 
   public static RedisCache newInstance() throws IOException {
     Config config = Config.fromYAML(new File(System.getProperty("redis.conf")));

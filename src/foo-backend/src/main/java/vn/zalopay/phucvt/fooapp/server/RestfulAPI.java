@@ -15,9 +15,9 @@ import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 public class RestfulAPI {
   private final Vertx vertx;
   private final int port;
-  private HttpServer httpServer;
   private final JWTAuth authProvider;
   private final HandlerFactory handlerFactory;
+  private HttpServer httpServer;
 
   @Builder
   public RestfulAPI(Vertx vertx, int port, JWTAuth authProvider, HandlerFactory handlerFactory) {

@@ -1,11 +1,10 @@
 package vn.zalopay.phucvt.fooapp.da;
 
-import vn.zalopay.phucvt.fooapp.config.MySQLConfig;
-import vn.zalopay.phucvt.fooapp.utils.Tracker;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.vertx.core.Vertx;
 import io.vertx.ext.jdbc.JDBCClient;
+import vn.zalopay.phucvt.fooapp.config.MySQLConfig;
 
 import javax.sql.DataSource;
 
@@ -37,7 +36,7 @@ public class DataSourceProviderImpl implements DataSourceProvider {
     hikariConfig.addDataSourceProperty(
         "prepStmtCacheSqlLimit", "" + config.getPrepStmtCacheSqlLimit());
     hikariConfig.addDataSourceProperty("maxLifetime", "" + config.getMaxLifetimeMillis());
-//    hikariConfig.setMetricRegistry(Tracker.getMeterRegistry());
+    //    hikariConfig.setMetricRegistry(Tracker.getMeterRegistry());
     return new HikariDataSource(hikariConfig);
   }
 }

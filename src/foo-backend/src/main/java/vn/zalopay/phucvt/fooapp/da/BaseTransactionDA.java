@@ -14,11 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class BaseTransactionDA extends BaseDA {
-  private static final Logger LOGGER =
-      LogManager.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
   protected static final Object[] EMPTY_PARAMS = {};
   protected static final SQLException EXCEPTION_CONNECTION_NULL =
       new SQLException("provide connection is NULL");
+  private static final Logger LOGGER =
+      LogManager.getLogger(MethodHandles.lookup().lookupClass().getCanonicalName());
 
   public BaseTransactionDA() {
     super();
@@ -52,7 +52,6 @@ public class BaseTransactionDA extends BaseDA {
         result.complete();
       }
     } finally {
-      //      closeResource(LOGGER, preparedStatement);
       LOGGER.info("close connection with method={}", method);
       closeResource(LOGGER, preparedStatement, connection);
     }

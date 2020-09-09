@@ -18,9 +18,9 @@ import java.util.Set;
 @Builder
 @Log4j2
 public class WSHandler {
-  private Map<String, Set<ServerWebSocket>> clients;
   private final ChatDA chatDA;
   private final ChatCache chatCache;
+  private Map<String, Set<ServerWebSocket>> clients;
 
   public void addClient(ServerWebSocket webSocket, String userId) {
     if (clients.containsKey(userId)) {
