@@ -2,8 +2,6 @@ import React from 'react';
 import Messenger from '../Messenger';
 import {isAuthenticated} from '../../utils/utils';
 import store from '../../redux/fooStore';
-import LoginPage from '../LoginPage';
-import RegisterPage from '../RegisterPage';
 import Portal from '../Portal/index'
 import {Provider} from 'react-redux';
 import 'antd/dist/antd.css';

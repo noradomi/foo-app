@@ -1,38 +1,43 @@
 import React, { useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Alert } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { withRouter } from 'react-router-dom';
 import { hanleLogin } from '../../services/login';
-import './LoginForm.css'
+import { useHistory } from 'react-router-dom';
+import './LoginForm.css';
 
 export default function LoginForm(props) {
 	const FormItem = Form.Item;
-	// Set state
-	const [ serverValidation, setServerValidation ] = useState({
-		visible: false,
-		validateStatus: 'error',
-		errorMsg: 'Invalid username or password!'
-	});
+	let [ form ] = Form.useForm();
+	let history = useHistory();
 
-	let handleSubmit = (e) => {
-		props.form.validateFields((err, data) => {
-			if (!err) {
-				hanleLogin(data.username, data.password)
-					.then(() => {
-						props.history.push('/');
-					})
-					.catch(() => {
-						props.form.resetFields();
-						// setError(true);
-					});
-			}
-		});
+	let [ message, setMessage ] = useState(false);
+
+	let handleSubmit = (data) => {
+		hanleLogin(data.username, data.password)
+			.then(() => {
+				history.push('/');
+			})
+			.catch(() => {
+				setMessage(true);
+				// form.resetFields();
+			});
 	};
 
-	// const { getFieldDecorator } = props.form;
+	let cleanMessage = (event) => {
+		setMessage(false);
+	};
+
+	let alert = null;
+	if (message) {
+		alert = (
+			<FormItem>
+				<Alert message="Invalid username or password" type="error" showIcon />
+			</FormItem>
+		);
+	}
 
 	return (
-		<Form onSubmit={handleSubmit} className="login-form">
+		<Form onFinish={handleSubmit} className="login-form" onFieldsChange={cleanMessage} form={form}>
 			<FormItem name="username" rules={[ { required: true, message: 'Please input your username!' } ]}>
 				<Input prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
 			</FormItem>
@@ -44,9 +49,9 @@ export default function LoginForm(props) {
 					placeholder="Password"
 				/>
 			</FormItem>
-			{serverValidation.visible ? (
-				<FormItem validateStatus={serverValidation.validateStatus} help={serverValidation.errorMsg} />
-			) : null}
+
+			{alert}
+
 			<FormItem>
 				<Button type="primary" htmlType="submit" className="login-form-button">
 					Log in
@@ -55,5 +60,3 @@ export default function LoginForm(props) {
 		</Form>
 	);
 }
-
-// export const LoginForm = withRouter(Form.create()(NormalLoginForm));
