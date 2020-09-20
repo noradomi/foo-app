@@ -10,12 +10,15 @@ function ConversationListItem(props) {
 		shave('.conversation-snippet', 20);
 	});
 
-	let selectedColor = {};
+	let selectedItemStyle = {};
 
 	const { name, avatar, id, text } = props.data;
 
 	if (props.currentSessionId === id) {
-		selectedColor.backgroundColor = 'rgb(218, 233, 255)';
+		selectedItemStyle.backgroundColor = 'rgb(218, 233, 255)';
+		selectedItemStyle.borderRightWidth = '3';
+		selectedItemStyle.borderRightColor = '#ccc';
+		selectedItemStyle.borderRightStyle = 'solid';
 	}
 
 	let clickHandle = () => {
@@ -25,7 +28,7 @@ function ConversationListItem(props) {
 	let status = props.userMapHolder.userMap.get(id).online;
 
 	return (
-		<div className="conversation-list-item" onClick={clickHandle} style={selectedColor}>
+		<div className="conversation-list-item" onClick={clickHandle} style={selectedItemStyle}>
 			<div className="conversation-avatar" style={{ width: 60 }}>
 				<CustomAvatar type="user-avatar" avatar={avatar} />
 			</div>

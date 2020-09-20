@@ -21,8 +21,8 @@ services:
       context: .
       dockerfile: ./foo-run/foo-backend/Dockerfile
     network_mode: host
-  frontend:
-    build:
-      context: .
-      dockerfile: ./foo-run/foo-frontend/Dockerfile
-    network_mode: host
+  # frontend:
+  #   build:
+  #     context: .
+  #     dockerfile: ./foo-run/foo-frontend/Dockerfile
+  #   network_mode: host

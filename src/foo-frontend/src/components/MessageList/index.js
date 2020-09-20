@@ -25,7 +25,7 @@ function MessageList(props) {
 		return <div />;
 	}
 
-	let history = useHistory(); 
+	let history = useHistory();
 	let receiverId = props.currentSessionId;
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 
@@ -38,7 +38,7 @@ function MessageList(props) {
 			id: item.createTime,
 			message: item.message,
 			author: item.senderId,
-			timestamp: item.createTime	 * 1000
+			timestamp: item.createTime * 1000
 		};
 	});
 
@@ -139,15 +139,8 @@ function MessageList(props) {
 		}
 	};
 
-	let onChangeText = (e) => {
-		if (e.keyCode === 13 && e.target.value !== '') {
-			// Click ENTER
-			let msg = e.target.value;
-
-			props.webSocket.send(receiverId, msg);
-
-			e.target.value = '';
-		}
+	const handleOnSendMessage = (text) => {
+		props.webSocket.send(receiverId, text);
 	};
 
 	return (
@@ -178,7 +171,7 @@ function MessageList(props) {
 					<ToolbarButton key="image" icon="ion-ios-image" />,
 					<ToolbarButton key="audio" icon="ion-ios-paper-plane" />
 				]}
-				onKeyUp={onChangeText}
+				onSendMessage={handleOnSendMessage}
 			/>
 		</div>
 	);

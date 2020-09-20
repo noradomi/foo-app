@@ -1,5 +1,5 @@
 import Sockette from 'sockette';
-import { ws_host } from './api';
+import { wsHost } from './api';
 import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
 import store from '../redux/fooStore';
 import { receiveMessage, sendbackMessage, changeUserStatus } from '../redux/fooAction';
@@ -7,7 +7,8 @@ import { receiveMessage, sendbackMessage, changeUserStatus } from '../redux/fooA
 export function initialWebSocket() {
 	const jwt = getJwtFromStorage();
 	const senderId = getUserIdFromStorage();
-	const webSocket = new Sockette(ws_host + '/chat' + '?jwt=' + jwt, {
+	// const webSocket = new Sockette(ws_host + '/chat' + '?jwt=' + jwt, {
+	const webSocket = new Sockette(`${wsHost}/chat?jwt=${jwt}`, {
 		timeout: 5e3,
 		maxAttempts: 10,
 		onopen: (e) => {},

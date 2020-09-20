@@ -1,18 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Compose.css';
+import TextareaAutosize from 'react-textarea-autosize';
 
-export default function Compose(props) {
-    return (
-      <div className="compose">
-        <input
+function Compose(props) {
+	const [ text, setText ] = useState('');
+
+	const handleOnChange = (event) => {
+		const text = event.target.value;
+		setText(text);
+	};
+
+	const handleKeyPress = (event) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			const message = event.target.value;
+			if (message.trim().length !== 0) {
+				props.onSendMessage(message);
+			}
+			setText('');
+		}
+	};
+
+	return (
+		<div className="compose">
+			{/* <input
           type="text"
           className="compose-input"
           placeholder="Type messages @name"
           onKeyUp={props.onKeyUp}
-        />
-        {
-          props.rightItems
-        }
-      </div>
-    );
+        /> */}
+			<TextareaAutosize
+				value={text}
+				// placeholder="Write a message..."
+				// onKeyPress={this.onKeyPress}
+				// onChange={this.onChange}
+				className="compose-input"
+				placeholder="Write a message ..."
+				onKeyPress={handleKeyPress}
+				maxRows="2"
+				onChange={handleOnChange}
+			/>
+			{props.rightItems}
+		</div>
+	);
 }
+
+export default Compose;
