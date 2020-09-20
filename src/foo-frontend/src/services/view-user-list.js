@@ -1,6 +1,6 @@
 import { api } from './api';
-import { updateCurrSessionId, fetchUserList } from '../redux/fooAction';
-import store from '../redux/fooStore';
+import { setSelectedUserAction, loadUserListAction } from '../actions/fooAction';
+import store from '../store/fooStore';
 
 export function getUserList() {
 	return new Promise((resolve, reject) => {
@@ -27,8 +27,8 @@ export function getUserList() {
 						return 0;
 					});
 
-					store.dispatch(fetchUserList(result));
-					store.dispatch(updateCurrSessionId(result[0].userId));
+					store.dispatch(loadUserListAction(result));
+					store.dispatch(setSelectedUserAction(result[0].userId));
 				}
 
 				resolve();

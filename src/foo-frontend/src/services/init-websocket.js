@@ -1,13 +1,12 @@
 import Sockette from 'sockette';
 import { wsHost } from './api';
 import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
-import store from '../redux/fooStore';
-import { receiveMessage, sendbackMessage, changeUserStatus } from '../redux/fooAction';
+import store from '../store/fooStore';
+import { receiveMessageAction, sendMessageAction, setUserStatusAction } from '../actions/fooAction';
 
 export function initialWebSocket() {
 	const jwt = getJwtFromStorage();
 	const senderId = getUserIdFromStorage();
-	// const webSocket = new Sockette(ws_host + '/chat' + '?jwt=' + jwt, {
 	const webSocket = new Sockette(`${wsHost}/chat?jwt=${jwt}`, {
 		timeout: 5e3,
 		maxAttempts: 10,
@@ -17,23 +16,23 @@ export function initialWebSocket() {
 			switch (jsonMessage.type) {
 				case 'ONLINE': {
 					if (senderId !== jsonMessage.senderid) {
-						store.dispatch(changeUserStatus(jsonMessage.senderId, true));
+						store.dispatch(setUserStatusAction(jsonMessage.senderId, true));
 					}
 					break;
 				}
 				case 'OFFLINE': {
 					if (senderId !== jsonMessage.senderId) {
-						store.dispatch(changeUserStatus(jsonMessage.senderId, false));
+						store.dispatch(setUserStatusAction(jsonMessage.senderId, false));
 					}
 					break;
 				}
 
 				case 'SEND':
-					store.dispatch(receiveMessage(jsonMessage));
+					store.dispatch(receiveMessageAction(jsonMessage));
 					break;
 				case 'FETCH': {
 					if (jsonMessage.receiverId !== senderId) {
-						store.dispatch(sendbackMessage(jsonMessage));
+						store.dispatch(sendMessageAction(jsonMessage));
 					}
 					break;
 				}

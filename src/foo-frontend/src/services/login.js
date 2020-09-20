@@ -1,6 +1,6 @@
 import { api } from './api';
-import { login } from '../redux/fooAction';
-import store from '../redux/fooStore';
+import { loginSuccessAction } from '../actions/fooAction';
+import store from '../store/fooStore';
 import { setJwtToStorage, setUserIdToStorage } from '../utils/utils';
 
 export function hanleLogin(username, password) {
@@ -12,7 +12,7 @@ export function hanleLogin(username, password) {
 			})
 			.then((response) => {
 				let data = response.data.data;
-				store.dispatch(login(data.jwtToken, data.userId));
+				store.dispatch(loginSuccessAction(data.jwtToken, data.userId));
 				setJwtToStorage(data.token);
 				setUserIdToStorage(data.userId);
 				resolve(data);

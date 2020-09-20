@@ -8,14 +8,12 @@ import { getUserList } from '../../services/view-user-list';
 import { connect } from 'react-redux';
 import { wsConnect } from '../../services/chat-single';
 
-
 function ConversationList(props) {
 	// Init user list
 	useEffect(() => {
-		getUserList()
-			.then(() => {
-				wsConnect();
-			})
+		getUserList().then(() => {
+			wsConnect();
+		});
 	}, []);
 
 	const conversations = props.userList.map((res) => {
@@ -31,15 +29,12 @@ function ConversationList(props) {
 	return (
 		<div className="conversation-list">
 			<Toolbar
-				title="Messenger"
+				title="Foo App Chat"
 				leftItems={[ <ToolbarButton key="cog" icon="ion-ios-cog" /> ]}
-				rightItems={[
-					<ToolbarButton key="cog" icon="ion-ios-notifications-outline" />
-				]}
+				rightItems={[ <ToolbarButton key="cog" icon="ion-ios-notifications-outline" /> ]}
 			/>
-			
-			<div className="conversation-list-scroll">
 			<ConversationSearch />
+			<div className="conversation-list-scroll">
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => (
 						<ConversationListItem key={conversation.id} data={conversation} />
@@ -54,8 +49,7 @@ function ConversationList(props) {
 
 function mapStateToProps(state) {
 	return {
-		userList: state.userList,
-	
+		userList: state.userList
 	};
 }
 

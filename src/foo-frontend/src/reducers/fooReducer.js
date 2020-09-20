@@ -1,14 +1,13 @@
 import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
 
 let initialState = {
-	activeTabKey: "1",
+	activeTabKey: '1',
 	user: {
 		jwt: getJwtFromStorage(),
 		userId: getUserIdFromStorage()
 	},
 	userList: [],
-	currSelectedUser: null,
-	currentSessionId: null,
+	selectedUserId: null,
 	userMapHolder: {
 		userMap: new Map()
 	},
@@ -19,41 +18,38 @@ let initialState = {
 	chatMessagesHolder: {
 		chatMessages: new Map()
 	},
-	scrollFlag: true,
-	notifyFlag: false
+	scrollFlag: true
 };
 
 export default function appReducer(state = initialState, action) {
 	let data = action.data;
 	switch (action.type) {
-		case 'LOGIN_SUCCEEDED':
+		case 'USER_LOGIN_SUCCEEDED':
 			state = loginSucceeded(state, data);
 			break;
-		case 'LOGOUT':
-			state = signOut(state);
+		case 'USER_LOGOUT':
+			state = logOut(state);
 			break;
 		case 'USERLIST_FETCHED':
 			state = userListFetched(state, data);
 			break;
-		case 'CURRENT_SESSIONID':
-			return {
-				...state,
-				currentSessionId: data
-			};
+		case 'USER_SELECTED':
+			state = setSelectedUser(state, data);
+			break;
 		case 'SEND_MESSAGE':
 			state = sendMessage(state, data);
 			break;
-		case 'FETCH_MESSAGE':
+		case 'RECEIVE_MESSAGE':
 			state = receiveMessage(state, data);
 			break;
-		case 'WS_CONNECTED':
-			state = handleWsConnected(state, data);
+		case 'WEBSOCKET_FETCHED':
+			state = setWebSocket(state, data);
 			break;
-		case 'FETCH_MESSAGE_LIST':
-			state = fetchMessageList(state, data);
+		case 'MESSAGE_LIST_FETCHED':
+			state = messageListFetched(state, data);
 			break;
-		case 'ONLINE_OFFLINE':
-			state = handleUserStatus(state,data);
+		case 'CHANGE_STATUS':
+			state = changeUserStatus(state, data);
 			break;
 		default:
 			break;
@@ -67,7 +63,7 @@ function loginSucceeded(state, data) {
 	});
 }
 
-function signOut(state) {
+function logOut(state) {
 	if (state.webSocket.webSocket !== null) {
 		state.webSocket.webSocket.close();
 	}
@@ -80,7 +76,7 @@ function signOut(state) {
 		userMapHolder: {
 			userMap: new Map()
 		},
-		currentSessionId: null,
+		selectedUserId: null,
 		webSocket: {
 			webSocket: null,
 			send: null
@@ -88,6 +84,12 @@ function signOut(state) {
 		chatMessagesHolder: {
 			chatMessages: new Map()
 		}
+	});
+}
+
+function setSelectedUser(state, userId) {
+	return Object.assign({}, state, {
+		selectedUserId: userId
 	});
 }
 
@@ -111,29 +113,27 @@ function userListFetched(state, userList) {
 	});
 }
 
-
 function receiveMessage(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	let listMessage = chatMessages.get(data.senderId);
-	listMessage.push(data); 
+	listMessage.push(data);
 	return Object.assign({}, state, {
 		chatMessagesHolder: { chatMessages },
 		scrollFlag: !state.scrollFlag
 	});
 }
-
 
 function sendMessage(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	let listMessage = chatMessages.get(data.receiverId);
-	listMessage.push(data); 
+	listMessage.push(data);
 	return Object.assign({}, state, {
 		chatMessagesHolder: { chatMessages },
 		scrollFlag: !state.scrollFlag
 	});
 }
 
-function handleWsConnected(state, data) {
+function setWebSocket(state, data) {
 	let newState = Object.assign({}, state, {
 		webSocket: {
 			webSocket: data.webSocket,
@@ -143,7 +143,7 @@ function handleWsConnected(state, data) {
 	return newState;
 }
 
-function fetchMessageList(state, data) {
+function messageListFetched(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	let listMessage = chatMessages.get(data.friendId);
 	chatMessages.set(data.friendId, [ ...data.items, ...listMessage ]);
@@ -154,19 +154,19 @@ function fetchMessageList(state, data) {
 	});
 }
 
-function handleUserStatus(state,data) {
+function changeUserStatus(state, data) {
 	let userMap = state.userMapHolder.userMap;
 	if (userMap === null) {
 		return state;
-	  }
+	}
 
 	let user = userMap.get(data.userId);
-	if(user === undefined) return state;
+	if (user === undefined) return state;
 	user.online = data.status;
-	userMap.set(data.userId,user);
+	userMap.set(data.userId, user);
 	return Object.assign({}, state, {
 		userMapHolder: {
-		  userMap
+			userMap
 		}
-	  });
+	});
 }

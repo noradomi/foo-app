@@ -1,6 +1,6 @@
-import { logout } from '../redux/fooAction';
-import store from '../redux/fooStore';
-import {clearStorage} from '../utils/utils';
+import { logOutAction } from '../actions/fooAction';
+import store from '../store/fooStore';
+import { clearStorage } from '../utils/utils';
 import { api } from './api';
 
 export function hanldeLogout() {
@@ -8,12 +8,12 @@ export function hanldeLogout() {
 		api
 			.authPost('/api/protected/logout', null)
 			.then((response) => {
-				store.dispatch(logout());
-                clearStorage();
+				store.dispatch(logOutAction());
+				clearStorage();
 				resolve();
 			})
 			.catch((reason) => {
-				reject("Log out failed");
+				reject('Log out failed');
 			});
 	});
 }

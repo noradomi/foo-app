@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import shave from 'shave';
 import CustomAvatar from '../CustomAvatar/index';
-import { updateCurrSessionId } from '../../redux/fooAction';
+import { setSelectedUserAction } from '../../actions/fooAction';
 import './ConversationListItem.css';
 import { connect } from 'react-redux';
 
@@ -14,7 +14,7 @@ function ConversationListItem(props) {
 
 	const { name, avatar, id, text } = props.data;
 
-	if (props.currentSessionId === id) {
+	if (props.selectedUserId === id) {
 		selectedItemStyle.backgroundColor = 'rgb(218, 233, 255)';
 		selectedItemStyle.borderRightWidth = '3';
 		selectedItemStyle.borderRightColor = '#ccc';
@@ -43,14 +43,14 @@ function ConversationListItem(props) {
 
 function mapStateToProps(state) {
 	return {
-		currentSessionId: state.currentSessionId,
+		selectedUserId: state.selectedUserId,
 		userMapHolder: state.userMapHolder
 	};
 }
 
 function mapDispathToProps(dispatch) {
 	return {
-		setActiveItem: (id) => dispatch(updateCurrSessionId(id))
+		setActiveItem: (id) => dispatch(setSelectedUserAction(id))
 	};
 }
 
