@@ -11,7 +11,10 @@ import vn.zalopay.phucvt.fooapp.dagger.ServiceComponent;
 import vn.zalopay.phucvt.fooapp.dagger.ServiceModule;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
+import vn.zalopay.phucvt.fooapp.server.gRPCServer;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
+
+import java.io.IOException;
 
 @Log4j2
 public class Runner {
@@ -29,6 +32,7 @@ public class Runner {
       deploymentOptions.setInstances(vertxOptions.getEventLoopPoolSize());
       RestfulAPI restfulAPI = component.getRestfulAPI();
       WebSocketServer webSocketServer = component.getWebSocketServer();
+      gRPCServer gRPCServer = component.getGRPCServer();
 
       component
           .getVertx()
@@ -49,6 +53,12 @@ public class Runner {
                     }
                   },
               new DeploymentOptions().setInstances(8));
+
+      try {
+        gRPCServer.start();
+      } catch (IOException | InterruptedException e) {
+        e.printStackTrace();
+      }
     } catch (Exception e) {
       log.error("start Runner failed cause={}", ExceptionUtil.getDetail(e));
       System.exit(1);
