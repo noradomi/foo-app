@@ -15,8 +15,10 @@ import vn.zalopay.phucvt.fooapp.cache.*;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.handler.*;
+import vn.zalopay.phucvt.fooapp.server.GreetServiceImpl;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
+import vn.zalopay.phucvt.fooapp.server.gRPCServer;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
@@ -243,5 +245,18 @@ public class ServiceModule {
         .jwtUtils(jwtUtils)
         .userCache(userCache)
         .build();
+  }
+
+  @Provides
+  @Singleton
+  GreetServiceImpl provideGreetServerImpl(){
+    return GreetServiceImpl.builder().build();
+  }
+
+  @Provides
+  @Singleton
+  gRPCServer provideGRPCServer(GreetServiceImpl greetServiceImpl
+          ) {
+    return gRPCServer.builder().greetServiceImpl(greetServiceImpl).build();
   }
 }
