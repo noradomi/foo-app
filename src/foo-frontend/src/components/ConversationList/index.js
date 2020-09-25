@@ -5,10 +5,16 @@ import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import './ConversationList.css';
 import { getUserList } from '../../services/view-user-list';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { wsConnect } from '../../services/chat-single';
 
 function ConversationList(props) {
+	const messageList = useSelector((state) => {
+		return state.chatMessagesHolder.chatMessages;
+	});
+
+	console.log(messageList);
+
 	// Init user list
 	useEffect(() => {
 		getUserList().then(() => {
@@ -17,12 +23,23 @@ function ConversationList(props) {
 	}, []);
 
 	const conversations = props.userList.map((res) => {
+		const { name, userId, avatar, online } = res;
+		const messagesState = messageList.get(res.userId);
+		debugger;
+		const messages = messagesState.map((item) => {
+			return {
+				message: item.message
+			};
+		});
+
+		console.log(messages);
+		const lastMessage = messages.length === 0 ? 'No message' : messages[messages.length - 1];
 		return {
-			name: res.name,
-			text: `@${res.name}`,
-			id: res.userId,
-			avatar: res.avatar,
-			online: res.online
+			name: name,
+			text: lastMessage,
+			id: userId,
+			avatar: avatar,
+			online: online
 		};
 	});
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Compose.css';
 import TextareaAutosize from 'react-textarea-autosize';
+import greeterApi from '../../services/greeterApi';
 
 function Compose(props) {
 	const [ text, setText ] = useState('');
@@ -12,6 +13,9 @@ function Compose(props) {
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
+			greeterApi.sayHello('Noradomi', (err, response) => {
+				console.log(response.getResult());
+			});
 			event.preventDefault();
 			const message = event.target.value;
 			if (message.trim().length !== 0) {

@@ -29,7 +29,6 @@ function MessageList(props) {
 
 	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId);
 
-	debugger;
 	let messages = [];
 
 	messages = messagesState.map((item) => {
