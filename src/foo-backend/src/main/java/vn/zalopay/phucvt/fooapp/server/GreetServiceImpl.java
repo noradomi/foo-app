@@ -7,128 +7,128 @@ import lombok.Builder;
 
 @Builder
 public class GreetServiceImpl extends GreetServiceGrpc.GreetServiceImplBase {
-    @Override
-    public void greet(GreetRequest request, StreamObserver<GreetResponse> responseObserver) {
+  @Override
+  public void greet(GreetRequest request, StreamObserver<GreetResponse> responseObserver) {
 
-        //   extract the fields we need
-        Greeting greeting = request.getGreeting();
-        String firstName = greeting.getFirstName();
-        System.out.println("Received a request with name="+firstName);
+    //   extract the fields we need
+    Greeting greeting = request.getGreeting();
+    String firstName = greeting.getFirstName();
+    System.out.println("Received a request with name=" + firstName);
 
-        String result = "Hello " + firstName;
-        GreetResponse greetResponse = GreetResponse.newBuilder().setResult(result).build();
+    String result = "Hello " + firstName;
+    GreetResponse greetResponse = GreetResponse.newBuilder().setResult(result).build();
 
-        //    Now we should return response to client, but we can write return response
-        //    because server are async -> using StreamObserver to return response
+    //    Now we should return response to client, but we can write return response
+    //    because server are async -> using StreamObserver to return response
 
-        //    send back the response
-        responseObserver.onNext(greetResponse);
+    //    send back the response
+    responseObserver.onNext(greetResponse);
+    System.out.println("Done sent response");
 
-        //    complete the RPC call
+    //    complete the RPC call
+    responseObserver.onCompleted();
+  }
+
+  @Override
+  public void greetManyTimes(
+      GreetManyTimeRequest request, StreamObserver<GreetManyTimeResponse> responseObserver) {
+    try {
+      String firstName = request.getGreeting().getFirstName();
+
+      for (int i = 0; i < 10; i++) {
+        String result = "Hello " + firstName + ", response number: " + i;
+        GreetManyTimeResponse response =
+            GreetManyTimeResponse.newBuilder().setResult(result).build();
+        responseObserver.onNext(response);
+        Thread.sleep(1000L);
+      }
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    } finally {
+      responseObserver.onCompleted();
+    }
+  }
+
+  @Override
+  public StreamObserver<LongGreetRequest> longGreet(
+      StreamObserver<LongGreetResponse> responseObserver) {
+    return new StreamObserver<LongGreetRequest>() {
+
+      String result = "";
+
+      @Override
+      public void onNext(LongGreetRequest longGreetRequest) {
+        // client send a message
+        result += "Hello " + longGreetRequest.getGreeting().getFirstName() + " !";
+      }
+
+      @Override
+      public void onError(Throwable throwable) {
+        // client send an error
+      }
+
+      @Override
+      public void onCompleted() {
+        // client is done -> onNext is called one time.
+        responseObserver.onNext(LongGreetResponse.newBuilder().setResult(result).build());
+        // this is when we return a response using responseObserver
         responseObserver.onCompleted();
-    }
+      }
+    };
+  }
 
-    @Override
-    public void greetManyTimes(
-            GreetManyTimeRequest request, StreamObserver<GreetManyTimeResponse> responseObserver) {
-        try {
-            String firstName = request.getGreeting().getFirstName();
+  @Override
+  public StreamObserver<GreetEveryoneRequest> greetEveryone(
+      StreamObserver<GreetEveryoneResponse> responseObserver) {
+    return new StreamObserver<GreetEveryoneRequest>() {
+      @Override
+      public void onNext(GreetEveryoneRequest greetEveryoneRequest) {
+        String response = "Hello " + greetEveryoneRequest.getGreeting().getFirstName();
+        GreetEveryoneResponse greetEveryoneResponse =
+            GreetEveryoneResponse.newBuilder().setResult(response).build();
 
-            for (int i = 0; i < 10; i++) {
-                String result = "Hello " + firstName + ", response number: " + i;
-                GreetManyTimeResponse response =
-                        GreetManyTimeResponse.newBuilder().setResult(result).build();
-                responseObserver.onNext(response);
-                Thread.sleep(1000L);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            responseObserver.onCompleted();
+        // call many time
+        responseObserver.onNext(greetEveryoneResponse);
+      }
+
+      @Override
+      public void onError(Throwable throwable) {
+        // do nothing
+      }
+
+      @Override
+      public void onCompleted() {
+        responseObserver.onCompleted();
+      }
+    };
+  }
+
+  @Override
+  public void greetWithDeadline(
+      GreetWithDeadlineRequest request,
+      StreamObserver<GreetWithDeadlineResponse> responseObserver) {
+
+    Context current = Context.current();
+
+    try {
+      for (int i = 0; i < 3; i++) {
+        if (!current.isCancelled()) {
+          System.out.println("sleep for 100 ms");
+          Thread.sleep(100);
+        } else {
+          return;
         }
+      }
+
+      System.out.println("send response");
+      responseObserver.onNext(
+          GreetWithDeadlineResponse.newBuilder()
+              .setResult("hello " + request.getGreeting().getFirstName())
+              .build());
+
+      responseObserver.onCompleted();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
-
-    @Override
-    public StreamObserver<LongGreetRequest> longGreet(
-            StreamObserver<LongGreetResponse> responseObserver) {
-        return new StreamObserver<LongGreetRequest>() {
-
-            String result = "";
-
-            @Override
-            public void onNext(LongGreetRequest longGreetRequest) {
-                // client send a message
-                result += "Hello " + longGreetRequest.getGreeting().getFirstName() + " !";
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                // client send an error
-            }
-
-            @Override
-            public void onCompleted() {
-                // client is done -> onNext is called one time.
-                responseObserver.onNext(LongGreetResponse.newBuilder().setResult(result).build());
-                // this is when we return a response using responseObserver
-                responseObserver.onCompleted();
-            }
-        };
-    }
-
-    @Override
-    public StreamObserver<GreetEveryoneRequest> greetEveryone(
-            StreamObserver<GreetEveryoneResponse> responseObserver) {
-        return new StreamObserver<GreetEveryoneRequest>() {
-            @Override
-            public void onNext(GreetEveryoneRequest greetEveryoneRequest) {
-                String response = "Hello " + greetEveryoneRequest.getGreeting().getFirstName();
-                GreetEveryoneResponse greetEveryoneResponse =
-                        GreetEveryoneResponse.newBuilder().setResult(response).build();
-
-                // call many time
-                responseObserver.onNext(greetEveryoneResponse);
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                // do nothing
-            }
-
-            @Override
-            public void onCompleted() {
-                responseObserver.onCompleted();
-            }
-        };
-    }
-
-    @Override
-    public void greetWithDeadline(
-            GreetWithDeadlineRequest request,
-            StreamObserver<GreetWithDeadlineResponse> responseObserver) {
-
-        Context current = Context.current();
-
-        try {
-            for (int i = 0; i < 3; i++) {
-                if (!current.isCancelled()) {
-                    System.out.println("sleep for 100 ms");
-                    Thread.sleep(100);
-                } else {
-                    return;
-                }
-            }
-
-            System.out.println("send response");
-            responseObserver.onNext(
-                    GreetWithDeadlineResponse.newBuilder()
-                            .setResult("hello " + request.getGreeting().getFirstName())
-                            .build());
-
-            responseObserver.onCompleted();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+  }
 }
-
