@@ -15,10 +15,7 @@ function ConversationListItem(props) {
 	const { name, avatar, id, text } = props.data;
 
 	if (props.selectedUserId === id) {
-		selectedItemStyle.backgroundColor = 'rgb(218, 233, 255)';
-		selectedItemStyle.borderRightWidth = '3';
-		selectedItemStyle.borderRightColor = '#ccc';
-		selectedItemStyle.borderRightStyle = 'solid';
+		selectedItemStyle.backgroundColor = 'rgb(230, 235, 245)';
 	}
 
 	let clickHandle = () => {

@@ -25,7 +25,6 @@ function ConversationList(props) {
 	const conversations = props.userList.map((res) => {
 		const { name, userId, avatar, online } = res;
 		const messagesState = messageList.get(res.userId);
-		debugger;
 		const messages = messagesState.map((item) => {
 			return {
 				message: item.message
@@ -45,13 +44,15 @@ function ConversationList(props) {
 
 	return (
 		<div className="conversation-list">
-			<Toolbar
+			{/* <Toolbar
 				title="Foo App Chat"
 				leftItems={[ <ToolbarButton key="cog" icon="ion-ios-cog" /> ]}
 				rightItems={[ <ToolbarButton key="cog" icon="ion-ios-notifications-outline" /> ]}
-			/>
+			/> */}
+			<div className="profile">FooApp - Noradomi</div>
 			<ConversationSearch />
 			<div className="conversation-list-scroll">
+				<div className="user-list-title">Users (15)</div>
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => (
 						<ConversationListItem key={conversation.id} data={conversation} />

@@ -1,10 +1,23 @@
 import React from 'react';
 import './ConversationSearch.css';
+import { Input } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 
 export default function ConversationSearch() {
 	return (
 		<div className="conversation-search">
-			<input type="search" className="conversation-search-input" placeholder="Search by name" />
+			<Input
+				size="large"
+				className="conversation-search-input"
+				placeholder="Search user"
+				prefix={<SearchOutlined />}
+				style={{
+					border: 'none',
+					backgroundColor: 'rgb(230, 235, 245)',
+					borderRadius: 6,
+					color: 'rgb(123, 128, 155)'
+				}}
+			/>
 		</div>
 	);
 }

@@ -1,7 +1,8 @@
+import { Input } from 'antd';
 import React, { useState } from 'react';
-import './Compose.css';
-import TextareaAutosize from 'react-textarea-autosize';
 import greeterApi from '../../services/greeterApi';
+import './Compose.css';
+const { TextArea } = Input;
 
 function Compose(props) {
 	const [ text, setText ] = useState('');
@@ -13,9 +14,9 @@ function Compose(props) {
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
-			greeterApi.sayHello('Noradomi', (err, response) => {
-				console.log(response.getResult());
-			});
+			// greeterApi.sayHello('Noradomi', (err, response) => {
+			// 	console.log(response.getResult());
+			// });
 			event.preventDefault();
 			const message = event.target.value;
 			if (message.trim().length !== 0) {
@@ -27,23 +28,22 @@ function Compose(props) {
 
 	return (
 		<div className="compose">
-			{/* <input
-          type="text"
-          className="compose-input"
-          placeholder="Type messages @name"
-          onKeyUp={props.onKeyUp}
-        /> */}
-			<TextareaAutosize
+			<TextArea
 				value={text}
-				// placeholder="Write a message..."
-				// onKeyPress={this.onKeyPress}
-				// onChange={this.onChange}
+				placeholder="Write a message ..."
+				onKeyPress={handleKeyPress}
+				onChange={handleOnChange}
+				autoSize={{ minRows: 1, maxRows: 4 }}
+				style={{ borderRadius: '10px' }}
+			/>
+			{/* <TextareaAutosize
+				value={text}
 				className="compose-input"
 				placeholder="Write a message ..."
 				onKeyPress={handleKeyPress}
 				maxRows="2"
 				onChange={handleOnChange}
-			/>
+			/> */}
 			{props.rightItems}
 		</div>
 	);

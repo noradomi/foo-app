@@ -1,10 +1,27 @@
 .conversation-list {
   display: flex;
   flex-direction: column;
-  background-color: rgb(250, 250, 250);
+  background-color: rgb(245, 247, 251);
+
 }
 
 .conversation-list-scroll {
   height: calc(100vh - 130px);
   overflow-y: auto;
+}
+
+.profile {
+  padding: 20px;
+  color: #495057;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 550;
+  font-size: 1.3125rem;
+}
+
+.user-list-title {
+  font-size: 15px;
+  font-weight: 500;
+  padding-left: 10px;
+  margin: 20px 0 10px 10px;
+  color: #72808e;
 }

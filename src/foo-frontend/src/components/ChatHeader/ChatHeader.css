@@ -1,17 +1,24 @@
 .chat-header {
-  display: flex;
+  /* display: flex;
   align-items: center;
   background-color: #fff;
   padding: 0;
   margin-left: 20px;
   flex-shrink: 0;
-  /* padding: 5px;   */
-  /* border-bottom: 1px solid #ddd; */
+  padding: 5px; */
+  background-color: #fff;
+  padding: 0;
+  flex-shrink: 0;
+  display: flex;
+  padding: 1.25rem !important;
+  border-bottom: 1px solid #f0eff5 !important;
 }
 
 .chat-header .panel-message {
-  font-size: 18px;
+  font-size: 16px !important;
   padding: 4px;
   margin-left: 10px;
-  font-weight: 500;
+  color: #495057;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 600;
 }

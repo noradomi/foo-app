@@ -14,7 +14,7 @@ class CustomAvatar extends React.Component {
 			case 'new-avatar':
 				return <Avatar icon="plus" className={customClassName} style={{ fontSize: 30 }} />;
 			case 'panel-avatar':
-				return <Ravatar name={this.props.avatar} className={customClassName} size="45" />;
+				return <Ravatar name={this.props.avatar} className={customClassName} size="40" />;
 			case 'panel-group-avatar':
 				return <Ravatar name="G" color="#001529" className={customClassName} size="50" />;
 			case 'user-avatar':

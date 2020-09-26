@@ -142,8 +142,8 @@ function MessageList(props) {
 	};
 
 	return (
-		<div className="message-list">
-			<Toolbar
+		<div className="message-list-container">
+			{/* <Toolbar
 				leftItems={[ <ChatHeader key="chat-header" user={receiver} /> ]}
 				// title={receiver.}
 				rightItems={[
@@ -157,11 +157,14 @@ function MessageList(props) {
 					// />,
 					<ToolbarButton key="phone" icon="ion-ios-call" />
 				]}
-			/>
+			/> */}
+			<ChatHeader key="chat-header" user={receiver} />
 
 			<div className="message-list-container" ref={msgList} onScroll={msgScrollHandle}>
-				{renderMessages()}
-				<div ref={endOfMsgList} style={{ height: '0px' }} />
+				<div style={{ padding: '24px' }}>
+					{renderMessages()}
+					<div ref={endOfMsgList} style={{ height: '0px' }} />
+				</div>
 			</div>
 
 			<Compose

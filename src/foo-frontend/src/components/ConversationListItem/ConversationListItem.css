@@ -3,15 +3,16 @@
   align-items: center;
   padding: 10px;
   position: relative;
-  /* border-radius: 10px; */
+  border-radius: 10px;
   /* margin-left: 6px;
   margin-right: 6px; */
+  margin: 3px 10px;
 }
 
 .conversation-list-item:hover {
   /* background: #eeeef1; */
-  border-right: 3px solid #ccc;
-  background: rgba(0, 0, 0, 0.08);
+
+  background: rgb(230, 235, 245);
   cursor: pointer;
 }
 

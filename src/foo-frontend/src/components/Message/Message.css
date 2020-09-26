@@ -44,7 +44,7 @@
 
 .message .bubble-container .bubble {
   margin: 1px 0px;
-  background: #f4f4f8;
+  background: rgb(245, 247, 251);
   padding: 10px 15px;
   border-radius: 20px;
   /* max-width: 75%; */

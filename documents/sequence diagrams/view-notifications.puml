@@ -1,0 +1,8 @@
+@startuml view-transactions-history
+hide footbox
+actor "User"
+"User" -> "Server": getNotifications (userId)
+"Server" -> "MySQL": get notifications by userId
+"MySQL" -> "Server": return notifications of user
+"Server" -> "User": return notifications of user
+@enduml
