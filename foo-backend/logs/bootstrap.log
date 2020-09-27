@@ -1,0 +1,246 @@
+2020-09-27 21:28:10,042 INFO  vn.zalopay.phucvt.fooapp.server.gRPCServer gRPC server start successfully !, port 5001
+2020-09-27 21:28:10,083 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-27 21:28:10,085 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-27 21:28:10,086 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-27 21:28:10,086 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-27 21:28:10,085 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-27 21:28:10,085 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-27 21:28:10,087 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-27 21:28:10,088 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-09-27 21:28:10,090 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-27 21:28:10,090 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-27 21:28:10,091 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-27 21:28:10,090 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-27 21:28:10,090 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-27 21:28:10,090 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-27 21:28:10,090 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-27 21:28:10,090 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-09-27 21:30:31,902 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-09-27 21:30:32,236 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=401
+2020-09-27 21:30:32,242 INFO  vn.zalopay.phucvt.fooapp.handler.LogInHandler login failed by user=taitt,cause=invalid.username
+2020-09-27 21:30:43,965 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/signup
+2020-09-27 21:30:44,016 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-09-27 21:30:44,018 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA close connection with method=insertUser
+2020-09-27 21:30:44,076 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/signup with status=200
+2020-09-27 21:30:47,566 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-09-27 21:30:47,614 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-09-27 21:30:47,615 INFO  vn.zalopay.phucvt.fooapp.handler.LogInHandler login successfully by user=taitt
+2020-09-27 21:30:47,747 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:30:47,761 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=0
+2020-09-27 21:30:47,763 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:30:47,766 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:30:48,011 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:31:16,883 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/signup
+2020-09-27 21:31:16,916 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-09-27 21:31:16,921 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA close connection with method=insertUser
+2020-09-27 21:31:16,943 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/signup with status=200
+2020-09-27 21:31:26,311 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-09-27 21:31:26,319 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-09-27 21:31:26,321 INFO  vn.zalopay.phucvt.fooapp.handler.LogInHandler login successfully by user=phucvt
+2020-09-27 21:31:26,415 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:31:26,436 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:31:26,438 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[3ce31374-ec07-40b5-9940-d06ff8e5687a]
+2020-09-27 21:31:26,439 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:31:26,561 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:31:26,588 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:31:26,595 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:31:26,653 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:31:29,477 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:31:30,332 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:31:30,339 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:31:30,340 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[f747a1c4-0ca5-4965-85ba-4517f1b693ec]
+2020-09-27 21:31:30,341 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:31:30,474 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/f747a1c4-0ca5-4965-85ba-4517f1b693ec/0
+2020-09-27 21:31:30,477 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3ce31374-ec07-40b5-9940-d06ff8e5687a-f747a1c4-0ca5-4965-85ba-4517f1b693ec-0
+2020-09-27 21:31:30,482 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/f747a1c4-0ca5-4965-85ba-4517f1b693ec/0 with status=200
+2020-09-27 21:31:30,498 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:34:54,555 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:34:54,556 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:34:56,956 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:34:56,964 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:34:56,964 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:34:56,965 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:34:56,970 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:34:56,974 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:34:56,974 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:34:56,974 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:34:58,368 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:34:58,463 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:34:58,467 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/f747a1c4-0ca5-4965-85ba-4517f1b693ec/0
+2020-09-27 21:34:58,467 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:34:58,470 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:34:58,470 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3ce31374-ec07-40b5-9940-d06ff8e5687a-f747a1c4-0ca5-4965-85ba-4517f1b693ec-0
+2020-09-27 21:34:58,688 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/f747a1c4-0ca5-4965-85ba-4517f1b693ec/0 with status=200
+2020-09-27 21:34:58,695 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:37:36,833 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:37:36,855 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:37:40,778 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:37:40,783 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:37:40,783 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:37:40,784 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:37:40,790 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:37:40,801 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:37:40,801 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:37:40,802 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:37:40,944 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:37:40,973 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:37:40,976 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:37:40,987 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:37:41,005 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/f747a1c4-0ca5-4965-85ba-4517f1b693ec/0
+2020-09-27 21:37:41,007 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3ce31374-ec07-40b5-9940-d06ff8e5687a-f747a1c4-0ca5-4965-85ba-4517f1b693ec-0
+2020-09-27 21:37:41,017 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:37:41,023 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/f747a1c4-0ca5-4965-85ba-4517f1b693ec/0 with status=200
+2020-09-27 21:37:53,226 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:37:53,325 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:37:55,277 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:37:55,281 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:37:55,282 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:37:55,282 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:37:55,319 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:37:55,330 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:37:55,330 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:37:55,331 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:37:55,409 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:37:55,770 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:37:55,772 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:37:55,838 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:37:55,938 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:37:56,569 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/f747a1c4-0ca5-4965-85ba-4517f1b693ec/0
+2020-09-27 21:37:56,571 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 3ce31374-ec07-40b5-9940-d06ff8e5687a-f747a1c4-0ca5-4965-85ba-4517f1b693ec-0
+2020-09-27 21:37:56,573 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/f747a1c4-0ca5-4965-85ba-4517f1b693ec/0 with status=200
+2020-09-27 21:37:57,383 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=3ce31374-ec07-40b5-9940-d06ff8e5687a
+2020-09-27 21:38:20,580 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:38:22,241 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:38:22,245 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:38:22,245 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:38:22,245 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:38:22,332 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:38:22,334 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:38:22,336 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:38:22,354 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:39:17,177 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:39:18,643 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:39:18,646 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:39:18,646 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:39:18,647 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:39:18,712 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:39:18,713 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:39:18,715 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:39:18,735 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:42:03,947 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:42:05,458 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:42:05,476 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=1
+2020-09-27 21:42:05,476 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:42:05,477 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:42:05,565 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:42:05,566 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:42:05,568 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:42:05,593 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:42:20,541 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:42:21,614 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:42:21,617 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:42:21,617 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:42:21,617 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:42:21,711 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:42:21,713 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:42:21,716 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:42:21,736 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:48:25,794 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:48:26,924 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:48:26,953 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:48:26,954 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:48:26,955 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:48:27,035 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:48:27,041 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:48:27,115 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:48:27,167 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:49:34,069 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:49:35,200 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:49:35,207 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:49:35,207 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:49:35,207 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:49:35,306 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:49:35,310 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:49:35,315 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:49:35,335 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:56:09,457 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:56:10,469 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:56:10,552 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=1
+2020-09-27 21:56:10,553 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:56:10,553 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:56:10,611 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:56:10,613 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:56:10,622 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:56:10,677 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:57:15,857 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 21:57:16,742 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 21:57:16,749 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 21:57:16,750 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 21:57:16,750 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 21:57:16,976 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 21:57:16,979 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 21:57:16,983 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 21:57:17,014 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:18:12,415 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:18:14,485 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 22:18:14,589 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=1
+2020-09-27 22:18:14,590 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 22:18:14,590 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 22:18:15,069 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 22:18:15,104 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 22:18:15,151 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 22:18:15,178 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:20:34,560 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:20:35,963 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 22:20:35,978 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 22:20:35,979 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 22:20:35,979 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 22:20:36,099 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 22:20:36,107 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 22:20:36,115 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 22:20:36,125 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:21:20,472 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:21:21,299 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 22:21:21,325 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 22:21:21,326 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 22:21:21,326 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 22:21:21,425 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 22:21:21,428 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 22:21:21,433 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 22:21:21,448 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:22:21,877 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:22:23,482 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 22:22:23,489 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 22:22:23,490 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 22:22:23,491 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 22:22:23,670 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:22:23,679 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 22:22:23,682 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 22:22:23,691 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 22:27:04,038 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:27:08,566 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 22:27:08,584 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 22:27:08,586 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 22:27:08,586 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 22:27:09,164 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 22:27:09,171 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 22:27:09,197 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:27:09,205 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 22:27:15,977 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:27:17,341 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 22:27:17,348 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 22:27:17,349 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 22:27:17,350 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 22:27:17,482 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 22:27:17,487 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 22:27:17,519 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200
+2020-09-27 22:27:17,521 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:27:23,847 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:27:25,382 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-09-27 22:27:25,386 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=1
+2020-09-27 22:27:25,387 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[]
+2020-09-27 22:27:25,387 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-09-27 22:27:25,548 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: f747a1c4-0ca5-4965-85ba-4517f1b693ec
+2020-09-27 22:27:25,551 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0
+2020-09-27 22:27:25,553 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, f747a1c4-0ca5-4965-85ba-4517f1b693ec-3ce31374-ec07-40b5-9940-d06ff8e5687a-0
+2020-09-27 22:27:25,569 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3ce31374-ec07-40b5-9940-d06ff8e5687a/0 with status=200

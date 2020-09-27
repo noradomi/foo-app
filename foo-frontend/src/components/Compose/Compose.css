@@ -55,12 +55,12 @@
 
 .compose textarea {
   padding: 20px;
-  border: none;
   resize: none;
   border-radius: 0;
   background: rgb(230, 235, 245);
   border: 1px solid #e6ebf5;
   color: rgb(76, 83, 90);
+  margin-right: 5px;
 }
 
 .compose textarea:focus,
@@ -75,4 +75,12 @@
 
 .compose textarea::placeholder {
   color: rgb(123, 128, 155);
+}
+
+.compose button {
+  margin-right: 5px;
+  color: rgb(25, 142, 252);
+  /* background-color: rgb(139, 198, 255); */
+  background-color: white;
+  border: none;
 }

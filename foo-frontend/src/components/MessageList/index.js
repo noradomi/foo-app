@@ -7,7 +7,6 @@ import { getUserIdFromStorage } from '../../utils/utils';
 import ChatHeader from '../ChatHeader';
 import Compose from '../Compose';
 import Message from '../Message';
-import ToolbarButton from '../ToolbarButton';
 import './MessageList.css';
 
 function MessageList(props) {
@@ -166,11 +165,12 @@ function MessageList(props) {
 			</div>
 
 			<Compose
-				rightItems={[
-					<ToolbarButton key="photo" icon="ion-ios-happy" />,
-					<ToolbarButton key="image" icon="ion-ios-image" />,
-					<ToolbarButton key="audio" icon="ion-ios-paper-plane" />
-				]}
+				// rightItems={[
+				//   <ToolbarButton key="photo" icon="ion-ios-notifications" />,
+				//   <Button type="primary" shape="circle" icon={<DownloadOutlined />} size={large} />,
+				// 	<ToolbarButton key="image" icon="ion-ios-swap" />,
+				// 	<ToolbarButton key="audio" icon="ion-ios-paper-plane" />
+				// ]}
 				onSendMessage={handleOnSendMessage}
 			/>
 		</div>
