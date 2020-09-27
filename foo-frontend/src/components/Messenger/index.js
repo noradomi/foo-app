@@ -1,6 +1,6 @@
 import { CommentOutlined, DollarCircleOutlined, NotificationOutlined } from '@ant-design/icons';
 import { Layout, Menu, Tooltip } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import ConversationList from '../ConversationList';
 import CustomAvatar from '../CustomAvatar';
 import MessageList from '../MessageList';
@@ -10,6 +10,11 @@ import { connect } from 'react-redux';
 const { Sider } = Layout;
 
 function Messenger(props) {
+	const [ sideBarKey, setSideBarKey ] = useState(1);
+
+	const handleSideBarChange = (e) => {
+		setSideBarKey(parseInt(e.key));
+	};
 	return (
 		<div style={{ height: 100 + 'vh' }}>
 			<Layout>
@@ -23,7 +28,13 @@ function Messenger(props) {
 				>
 					<CustomAvatar type="main-avatar" avatar={props.user.name ? props.user.name : 'Noradomi'} />
 					<div className="menu-separation" />
-					<Menu theme="light" id="side-menu" defaultSelectedKeys={[ '1' ]} mode="vertical">
+					<Menu
+						theme="light"
+						id="side-menu"
+						defaultSelectedKeys={[ '1' ]}
+						mode="vertical"
+						onSelect={handleSideBarChange}
+					>
 						<Menu.Item
 							key="1"
 							icon={
@@ -59,9 +70,9 @@ function Messenger(props) {
 					width="350"
 					id="sub-side-menu"
 				>
-					<ConversationList />
+					{sideBarKey === 1 ? <ConversationList /> : <div>Transactions</div>}
 				</Sider>
-				<MessageList style={{ padding: 0 }} />
+				{sideBarKey === 1 ? <MessageList style={{ padding: 0 }} /> : <div>Transactions</div>}
 			</Layout>
 		</div>
 	);
