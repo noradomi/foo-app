@@ -158,10 +158,11 @@ function MessageList(props) {
 			<ChatHeader key="chat-header" user={receiver} />
 
 			<div className="message-list-container" ref={msgList} onScroll={msgScrollHandle}>
-				<div style={{ padding: '24px' }}>
-					{renderMessages()}
-					<div ref={endOfMsgList} style={{ height: '0px' }} />
-				</div>
+				{/* <div style={{ padding: '24px' }} >
+					
+				</div> */}
+				{renderMessages()}
+				<div ref={endOfMsgList} style={{ height: '0px' }} />
 			</div>
 
 			<Compose

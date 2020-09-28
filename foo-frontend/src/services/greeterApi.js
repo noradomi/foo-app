@@ -5,7 +5,7 @@ const URL = 'http://' + window.location.hostname + ':8080';
 
 const client = new GreetServiceClient(URL, null, null);
 
-const metadata = { 'custom-header-1': 'value1' };
+const metadata = { jwt: '123' };
 
 export default {
 	sayHello: (name, callback) => {

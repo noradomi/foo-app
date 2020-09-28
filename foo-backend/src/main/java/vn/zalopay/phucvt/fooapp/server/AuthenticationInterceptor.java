@@ -14,6 +14,7 @@ public class AuthenticationInterceptor implements ServerInterceptor {
     final String auth_token =
         metadata.get(Metadata.Key.of("jwt", Metadata.ASCII_STRING_MARSHALLER));
 
+    System.out.println(metadata);
     System.out.println("JWT = " + auth_token);
 
     return serverCallHandler.startCall(serverCall, metadata);
