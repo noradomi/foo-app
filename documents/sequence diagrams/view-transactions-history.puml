@@ -1,8 +1,0 @@
-@startuml view-transactions-history
-hide footbox
-actor "User"
-"User" -> "Server": getTransactionsHistory (userId)
-"Server" -> "MySQL": get transactions history by userId
-"MySQL" -> "Server": list transactions of user
-"Server" -> "User": return transactions history
-@enduml

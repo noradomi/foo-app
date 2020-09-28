@@ -249,14 +249,13 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  GreetServiceImpl provideGreetServerImpl(){
+  GreetServiceImpl provideGreetServerImpl() {
     return GreetServiceImpl.builder().build();
   }
 
   @Provides
   @Singleton
-  gRPCServer provideGRPCServer(GreetServiceImpl greetServiceImpl
-          ) {
+  gRPCServer provideGRPCServer(GreetServiceImpl greetServiceImpl) {
     return gRPCServer.builder().greetServiceImpl(greetServiceImpl).build();
   }
 }

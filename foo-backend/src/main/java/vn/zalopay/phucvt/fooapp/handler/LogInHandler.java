@@ -54,7 +54,11 @@ public class LogInHandler extends BaseHandler {
     if (BCrypt.checkpw(user.getPassword(), userAuth.getPassword())) {
       String token = jwtUtils.generateToken(userAuth.getUserId());
       LoginDataResponse loginDR =
-          LoginDataResponse.builder().token(token).userId(userAuth.getUserId()).name(userAuth.getName()).build();
+          LoginDataResponse.builder()
+              .token(token)
+              .userId(userAuth.getUserId())
+              .name(userAuth.getName())
+              .build();
       BaseResponse baseResponse =
           BaseResponse.builder()
               .statusCode(HttpResponseStatus.OK.code())

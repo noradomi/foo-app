@@ -1,0 +1,9 @@
+@startuml remind-transfer
+hide footbox
+actor "User A"
+actor "User B"
+"User A" -> "Server": remindTransfer(B,amount)
+"Server" -> "MySQL": insert a remind to B's notifications
+"MySQL" -> "Server": return result
+"Server" -> "User B" : notify remind transfer
+@enduml

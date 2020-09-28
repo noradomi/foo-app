@@ -15,7 +15,11 @@ public class gRPCServer {
 
   public void start() throws IOException, InterruptedException {
     log.info("gRPC server start successfully !, port {}", port);
-    Server server = ServerBuilder.forPort(port).addService(greetServiceImpl).build();
+    Server server =
+        ServerBuilder.forPort(port)
+            .addService(greetServiceImpl)
+            .intercept(new AuthenticationInterceptor())
+            .build();
     server.start();
     Runtime.getRuntime()
         .addShutdownHook(

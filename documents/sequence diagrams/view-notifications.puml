@@ -1,8 +1,8 @@
-@startuml view-transactions-history
+@startuml view-notifications
 hide footbox
 actor "User"
-"User" -> "Server": getNotifications (userId)
-"Server" -> "MySQL": get notifications by userId
+"User" -> "Server": getNotifications (userId, pageSize, pageToken)
+"Server" -> "MySQL": get userId's notifications by page
 "MySQL" -> "Server": return notifications of user
-"Server" -> "User": return notifications of user
+"Server" -> "User": return list notifications and nextPageToken
 @enduml

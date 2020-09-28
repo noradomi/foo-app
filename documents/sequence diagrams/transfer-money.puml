@@ -1,0 +1,28 @@
+@startuml transfer-money
+hide footbox
+actor "User A"
+actor "User B"
+"User A" -> "Server": transfer(B, amount, password)
+"Server" -> "MySQL": get password of userId 
+"MySQL" -> "Server": return password
+"Server" -> "Server": validate password
+alt (password invalid)
+"Server" -> "User A": INVALID_PASSWORD
+else (password correct)
+"Server" -> "MySQL": start transaction
+"Server" -> "MySQL": get A's balance
+"MySQL" -> "Server": return A's balance
+"Server" -> "Server" : check amount <= balance
+alt  (amount > balance)
+"Server" -> "User A": NOT_ENOUGH_MONEY
+else (amount <= balance)
+"Server" -> "MySQL" : decrease A's balance by amount
+"Server" -> "MySQL" : increase B's balance by amount
+"Server" -> "MySQL" : insert to A's account log
+"Server" -> "MySQL" : insert to B's account log
+"Server" -> "MySQL" : commit
+"Server" -> "User A": return new balance
+"Server" -> "User B" : notify
+end
+end
+@enduml
