@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  database:
+    image: "mysql:8.0.21"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./foo-run/foo-database/data.sql:/docker-entrypoint-initdb.d/data.sql:ro
+  cache:
+    image: "redis"
+    ports:
+      - "6379:6379"
+  envoy:
+    container_name: envoy-proxy
+    image: envoyproxy/envoy:v1.15.0
+    ports:
+      - 8080:8080
+      - 9901:9901
+    volumes:
+      - ./foo-frontend/envoy.yaml:/etc/envoy/envoy.yaml:ro
+    network_mode: host
+  # backend:
+  #   depends_on:
+  #     - database
+  #     - cache
+  #   build:
+  #     context: .
+  #     dockerfile: ./foo-run/foo-backend/Dockerfile
+  #   network_mode: host
+  # frontend:
+  #   build:
+  #     context: .
+  #     dockerfile: ./foo-run/foo-frontend/Dockerfile
+  #   network_mode: host

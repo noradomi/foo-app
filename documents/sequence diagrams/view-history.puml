@@ -1,0 +1,8 @@
+@startuml view-history
+hide footbox
+actor "User"
+"User" -> "Server": getHistory (userId, pageSize, pageToken)
+"Server" -> "MySQL": get userId's history  by page
+"MySQL" -> "Server": return history of user
+"Server" -> "User": return history and nextPageToken
+@enduml

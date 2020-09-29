@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package fooapp.grpc;
+
+// common
+enum Code {
+  OK = 0;
+
+  NOT_ENOUGH_MONEY = 1;
+}
+
+message Status {
+  Code code = 1;
+  string message = 2;
+  map<string, string> extra = 3;
+}
+
+//  get balance
+message GetBalanceRequest {
+  string user_id = 1;
+}
+
+
+message GetBalanceResponse {
+  message Data {
+    int64 balance = 1;
+    int64 last_update = 2;
+  }
+
+  Data data = 1;
+  Status status = 2;
+}
+
+//  transfer money
+message TransferMoneyRequest {
+  string sender = 1;
+  string receiver = 2;
+  int64 amount = 3;
+  string description = 4;
+  string recorded_time = 5;
+}
+
+message TransferMoneyResponse {
+  message Data {
+    int64 balance = 1;
+  }
+
+  Data data  = 1;
+  Status status = 2;
+}
+
+// get transactions history
+message GetTransactionsHistoryRequest {
+  string user_id = 1;
+  int32 page_size = 2;
+  int32 page_token = 3;
+}
+
+message TransactionHistory{
+  string user_id = 1;
+  int64 amount = 2;
+  string description = 3;
+  string recorded_time = 4;
+  enum TransactionType {
+    SEND = 0;
+    RECEIVE = 1;
+  }
+  TransactionType transaction_type = 5;
+}
+
+message GetTransactionsHistoryResponse {
+  message Data {
+    repeated TransactionHistory transaction_history = 1;
+    int32 next_page_token = 2;
+  }
+
+  Data data = 1;
+  Status status = 2;
+}
+
+// get notifications
+message GetNotificationsRequest {
+  string user_id = 1;
+}
+
+message Notification {
+  string user_id = 1;
+  int64 amount = 2;
+  string message = 3;
+  string recorded_time = 4;
+  enum NotificationType {
+    REMINDED = 0;
+    RECEIVED = 1;
+  }
+  NotificationType notification_type = 5;
+}
+
+message GetNotificationsResponse {
+  message Data {
+    repeated Notification notification = 1;
+    int32 next_page_token = 2;
+  }
+
+  Data data = 1;
+  Status status = 2;
+}
+
+service TransferService {
+  rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {};
+
+  rpc TransferMoney(TransferMoneyRequest) returns (TransferMoneyResponse) {};
+
+  rpc GetTransactionsHistory(GetTransactionsHistoryRequest) returns (GetTransactionsHistoryResponse) {};
+
+  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {};
+}

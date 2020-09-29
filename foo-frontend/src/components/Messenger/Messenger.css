@@ -1,0 +1,87 @@
+.messenger {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  background: #eeeef1;
+
+  grid-template-columns: 100px 350px auto;
+  grid-template-rows: 60px auto 60px;
+  grid-column-gap: 1px;
+  grid-row-gap: 1px;
+}
+
+.container {
+  padding: 10px;
+}
+
+.scrollable {
+  position: relative;
+  /* overflow-y: scroll; */
+  height: 100vh;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sidebar {
+  background: white;
+  grid-row-start: 1;
+  grid-row-end: span 3;
+}
+
+.content {
+  background: white;
+  grid-row-start: 1;
+  grid-row-end: span 3;
+}
+
+.footer {
+  grid-column-start: 2;
+  background: white;
+}
+
+#main-side-menu {
+  /* box-shadow: 0 2px 4px rgba(15, 34, 58, .12);
+  margin-right: .25rem !important; */
+  /* background-color: white; */
+  background-image: linear-gradient(#0cb3ff, #0068ff);
+  border-right: 1px solid #f0f0f0;
+}
+
+#main-side-menu ul {
+  /* background-color: #0cb3ff; */
+}
+
+#main-side-menu ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#sub-side-menu {
+  /* box-shadow: 0 2px 4px rgba(15, 34, 58, .12); */
+  /* margin-right: .20rem !important;
+  background-color: white; */
+  border-right: 1px solid #f0f0f0;
+
+}
+
+.menu-separation {
+  margin-top: 40px;
+}
+
+.main-avatar {
+  margin: auto;
+  margin-top: 20px;
+  display: block;
+}
+
+#side-menu {
+  color: rgb(187, 189, 194);
+  border-right: 0px;
+}
+
+#side-menu li {
+  padding: 28px 0;
+  border-radius: 8px;
+  margin: 8px;
+}

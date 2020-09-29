@@ -1,0 +1,8 @@
+@startuml view-balance
+hide footbox
+actor "User"
+"User" -> "Server": getBalance(userId)
+"Server" -> "MySQL": get balance by userId
+"MySQL" -> "Server": return user's balance
+"Server" -> "User": return balance
+@enduml

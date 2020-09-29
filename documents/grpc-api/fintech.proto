@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package fintech;
+
+option java_package = "vn.zalopay.phucvt.fooapp.fintech";
+option java_multiple_files = true;
+
+// common
+enum Code {
+  OK = 0;
+  NOT_ENOUGH_MONEY = 1;
+  INVALID_PASSWORD = 2;
+  FAILED_PRECONDITION = 3; // missing jwt
+  INTERNAL = 4;
+  INVALID_INPUT_MONEY = 5;
+}
+
+message Status {
+  Code code = 1;
+  string message = 2;
+  map<string, string> extra = 3;
+}
+
+//  get balance
+message GetBalanceRequest {
+}
+
+
+message GetBalanceResponse {
+  message Data {
+    int64 balance = 1;
+    int64 last_update = 2;
+  }
+
+  Data data = 1;
+  Status status = 2;
+}
+
+//  transfer money
+message TransferMoneyRequest {
+  string receiver = 2;
+  int64 amount = 3;
+  string description = 4;
+}
+
+message TransferMoneyResponse {
+  message Data {
+    int64 balance = 1;
+  }
+
+  Data data  = 1;
+  Status status = 2;
+}
+
+// get transactions history
+message GetHistoryRequest {
+  int32 page_size = 2;
+  int32 page_token = 3;
+}
+
+message TransactionHistory{
+  string user_id = 1;
+  int64 amount = 2;
+  string description = 3;
+  string recorded_time = 4;
+  enum TransferType {
+    SEND = 0;
+    RECEIVE = 1;
+  }
+  TransferType transfer_type = 5;
+}
+
+message GetHistoryResponse {
+  message Data {
+    repeated TransactionHistory histories = 1;
+    int32 next_page_token = 2;
+  }
+
+  Data data = 1;
+  Status status = 2;
+}
+
+// get notifications
+message GetNotificationsRequest {
+}
+
+message Notification {
+  string user_id = 1;
+  int64 amount = 2;
+  string message = 3;
+  string recorded_time = 4;
+  enum NotificationType {
+    REMINDED = 0;
+    RECEIVED = 1;
+  }
+  NotificationType notification_type = 5;
+}
+
+message GetNotificationsResponse {
+  message Data {
+    repeated Notification notification = 1;
+    int32 next_page_token = 2;
+  }
+
+  Data data = 1;
+  Status status = 2;
+}
+
+// clear unread notifications
+// message MarkReadRequest{
+//   string user_id = 1;
+// }
+
+// message MarkReadResponse{
+//   Status status = 1;
+// }
+
+service FintechService {
+  rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {};
+
+  rpc TransferMoney(TransferMoneyRequest) returns (TransferMoneyResponse) {};
+
+  rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse) {};
+
+  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {};
+
+  // rpc MarkRead(MarkReadRequest) returns (MarkReadResponse); 
+}

@@ -1,0 +1,8 @@
+@startuml clear-unread-notifications
+hide footbox
+actor "User"
+"User" -> "Server": clearUnreadNotifications(userId)
+"Server" -> "MySQL": set unread notifications of userId to 0
+"MySQL" -> "Server": return result
+"Server" -> "User": return status
+@enduml

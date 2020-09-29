@@ -1,0 +1,85 @@
+/* .compose {
+  flex-direction: row;
+  flex-shrink: 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-top: 1px solid #eeeef1 !important;
+  border-left: 1px solid #eeeef1 !important;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: calc(100% - 380px);
+} */
+
+.compose {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #f0eff5 !important;
+  flex-shrink: 0;
+  padding: 10px;
+}
+
+@supports (backdrop-filter: blur(20px)) {
+  .compose {
+    /* border: none; */
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+  }
+}
+
+/* .compose-input {
+  border-radius: 18px;
+  flex: 1;
+  border: none;
+  font-size: 14px;
+  height: 40px;
+  background: rgb(242, 242, 242);
+  padding: 0 8px 0 12px;
+}
+
+.compose-input::placeholder {
+  opacity: 0.3;
+} */
+
+.compose .toolbar-button {
+  color: #bbbbbf;
+  margin-left: 15px;
+}
+
+.compose .toolbar-button:hover {
+  color: #99999c;
+}
+
+.compose textarea {
+  padding: 20px;
+  resize: none;
+  border-radius: 0;
+  background: rgb(230, 235, 245);
+  border: 1px solid #e6ebf5;
+  color: rgb(76, 83, 90);
+  margin-right: 5px;
+}
+
+.compose textarea:focus,
+.compose textarea:active,
+.compose textarea:hover {
+  box-shadow: none;
+  border: 1px solid #e6ebf5;
+  -webkit-box-shadow: none;
+}
+
+
+.compose textarea::placeholder {
+  color: rgb(123, 128, 155);
+}
+
+.compose button {
+  margin-right: 5px;
+  color: rgb(25, 142, 252);
+  /* background-color: rgb(139, 198, 255); */
+  background-color: white;
+  border: none;
+}
