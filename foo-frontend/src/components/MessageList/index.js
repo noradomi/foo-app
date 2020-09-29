@@ -96,7 +96,6 @@ function MessageList(props) {
 		return tempMessages;
 	};
 
-	// >>>
 	let endOfMsgList = useRef(null);
 	let msgList = useRef(null);
 
@@ -116,6 +115,9 @@ function MessageList(props) {
 	useEffect(
 		() => {
 			endOfMsgList.current.scrollIntoView({ behavior: 'smooth' });
+			// return function cleanup() {
+			// 	console.log('clean up component 2');
+			// };
 		},
 		[ props.scrollFlag, props.selectedUserId ]
 	);
@@ -139,41 +141,15 @@ function MessageList(props) {
 	};
 
 	return (
-		<div className="message-list-container">
-			{/* <Toolbar
-				leftItems={[ <ChatHeader key="chat-header" user={receiver} /> ]}
-				// title={receiver.}
-				rightItems={[
-					<MenuInfo key="menu-info" />,
-					// <SignOutButton
-					// 	key="add"
-					// 	icon="ion-ios-log-out"
-					// 	onClick={() => {
-					// 		hanldeLogout().then(() => history.push('/login'));
-					// 	}}
-					// />,
-					<ToolbarButton key="phone" icon="ion-ios-call" />
-				]}
-			/> */}
+		<div className="message-list">
 			<ChatHeader key="chat-header" user={receiver} />
 
 			<div className="message-list-container" ref={msgList} onScroll={msgScrollHandle}>
-				{/* <div style={{ padding: '24px' }} >
-					
-				</div> */}
 				{renderMessages()}
 				<div ref={endOfMsgList} style={{ height: '0px' }} />
 			</div>
 
-			<Compose
-				// rightItems={[
-				//   <ToolbarButton key="photo" icon="ion-ios-notifications" />,
-				//   <Button type="primary" shape="circle" icon={<DownloadOutlined />} size={large} />,
-				// 	<ToolbarButton key="image" icon="ion-ios-swap" />,
-				// 	<ToolbarButton key="audio" icon="ion-ios-paper-plane" />
-				// ]}
-				onSendMessage={handleOnSendMessage}
-			/>
+			<Compose onSendMessage={handleOnSendMessage} />
 		</div>
 	);
 }

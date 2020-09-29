@@ -10,13 +10,14 @@ import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
 public class UserDAImpl extends BaseTransactionDA implements UserDA {
   private static final String INSERT_USER_STATEMENT =
-      "INSERT INTO users (`id`, `username`, `password`,`name`) VALUES (?, ?,?,?)";
+      "INSERT INTO users (`id`, `username`, `password`,`name`,`balance`,`last_updated`) VALUES (?, ?,?,?,?,?)";
   private static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
   private static final String SELECT_USER_BY_USERNAME = "SELECT * FROM users WHERE username = ?";
   private static final String SELECT_USER_LIST = "SELECT * FROM users";
@@ -32,10 +33,17 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   @Override
   public Future<Void> insert(User user) {
     Future<Void> future = Future.future();
+    int balance = 100000;
+    long lastUpdate = Instant.now().getEpochSecond();
     asyncHandler.run(
         () -> {
           Object[] params = {
-            user.getUserId(), user.getUsername(), user.getPassword(), user.getName()
+            user.getUserId(),
+            user.getUsername(),
+            user.getPassword(),
+            user.getName(),
+            balance,
+            lastUpdate
           };
           try {
             executeWithParams(

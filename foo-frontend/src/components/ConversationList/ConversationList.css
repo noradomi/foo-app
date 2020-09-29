@@ -1,8 +1,8 @@
 .conversation-list {
   display: flex;
   flex-direction: column;
-  background-color: rgb(245, 247, 251);
-
+  /* background-color: rgb(245, 247, 251); */
+  background-color: white;
 }
 
 .conversation-list-scroll {

@@ -9,11 +9,12 @@ import lombok.Builder;
 public class GreetServiceImpl extends GreetServiceGrpc.GreetServiceImplBase {
   @Override
   public void greet(GreetRequest request, StreamObserver<GreetResponse> responseObserver) {
-
+    String jwt = AuthenticationInterceptor.JWT.get();
     //   extract the fields we need
     Greeting greeting = request.getGreeting();
     String firstName = greeting.getFirstName();
     System.out.println("Received a request with name=" + firstName);
+    System.out.println("And JWT = " + jwt);
 
     String result = "Hello " + firstName;
     GreetResponse greetResponse = GreetResponse.newBuilder().setResult(result).build();

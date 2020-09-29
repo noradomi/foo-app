@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import greeterApi from '../../services/greeterApi';
 import TransferMoneyModal from '../TransferMoneyModal';
 import './Compose.css';
+import { getUserFullNameToStorage } from '../../utils/utils';
 const { TextArea } = Input;
 
 function Compose(props) {
@@ -16,7 +17,7 @@ function Compose(props) {
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
-			greeterApi.sayHello('Noradomi', (err, response) => {
+			greeterApi.sayHello(getUserFullNameToStorage(), (err, response) => {
 				console.log(response.getResult());
 			});
 			event.preventDefault();

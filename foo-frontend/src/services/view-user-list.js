@@ -31,7 +31,7 @@ export function getUserList() {
 					store.dispatch(setSelectedUserAction(result[0].userId));
 				}
 
-				resolve();
+				resolve(result);
 			})
 			.catch((reason) => {
 				console.log(reason);

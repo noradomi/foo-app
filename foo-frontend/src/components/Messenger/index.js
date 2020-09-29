@@ -72,7 +72,8 @@ function Messenger(props) {
 				>
 					{sideBarKey === 1 ? <ConversationList /> : <div>Transactions</div>}
 				</Sider>
-				{sideBarKey === 1 ? <MessageList style={{ padding: 0 }} /> : <div>Transactions</div>}
+				{/* {sideBarKey === 1 ? <MessageList /> : <div>Transactions</div>} */}
+				<MessageList />
 			</Layout>
 		</div>
 	);
