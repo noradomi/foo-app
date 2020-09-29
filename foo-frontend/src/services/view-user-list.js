@@ -28,7 +28,7 @@ export function getUserList() {
 					});
 
 					store.dispatch(loadUserListAction(result));
-					store.dispatch(setSelectedUserAction(result[0].userId));
+					store.dispatch(setSelectedUserAction(result[0]));
 				}
 
 				resolve(result);

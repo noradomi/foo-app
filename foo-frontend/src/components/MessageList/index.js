@@ -119,7 +119,7 @@ function MessageList(props) {
 			// 	console.log('clean up component 2');
 			// };
 		},
-		[ props.scrollFlag, props.selectedUserId ]
+		[ props.scrollFlag, props.selectedUser.id ]
 	);
 
 	// Load more message
@@ -160,7 +160,7 @@ let mapStateToProps = (state) => {
 		chatMessagesHolder: state.chatMessagesHolder,
 		webSocket: state.webSocket,
 		scrollFlag: state.scrollFlag,
-		selectedUserId: state.selectedUserId
+		selectedUser: state.selectedUser
 	};
 };
 

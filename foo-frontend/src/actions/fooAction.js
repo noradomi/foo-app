@@ -20,10 +20,10 @@ export function loadUserListAction(userList) {
 	};
 }
 
-export function setSelectedUserAction(userId) {
+export function setSelectedUserAction(user) {
 	return {
 		type: 'USER_SELECTED',
-		data: userId
+		data: user
 	};
 }
 
