@@ -1,5 +1,6 @@
 port: 8055
 wsPort: 9009
+grpcPort: 5001
 vertxConfig:
   prometheusPort: 8054
 mySQLConfig:
@@ -13,5 +14,7 @@ cacheConfig:
   expireUserList: 10
 jwtConfig:
   expireToken: 174600
+  publicKey: "dragon"
+  algorithm: "HS256"
 chatConfig:
   numberOfMessagesRetrieve: 20
