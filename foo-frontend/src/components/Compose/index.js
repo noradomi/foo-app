@@ -2,6 +2,7 @@ import { MoneyCollectOutlined, NotificationOutlined, SendOutlined } from '@ant-d
 import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import greeterApi from '../../services/greeterApi';
+
 import TransferMoneyModal from '../TransferMoneyModal';
 import './Compose.css';
 import { getUserFullNameToStorage } from '../../utils/utils';
@@ -17,9 +18,10 @@ function Compose(props) {
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
-			greeterApi.sayHello(getUserFullNameToStorage(), (err, response) => {
-				console.log(response.getResult());
-			});
+			// greeterApi.sayHello(getUserFullNameToStorage(), (err, response) => {
+			// 	console.log(response.getResult());
+			// });
+
 			event.preventDefault();
 			const message = event.target.value;
 			if (message.trim().length !== 0) {

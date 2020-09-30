@@ -7,4 +7,6 @@ import lombok.Setter;
 @Setter
 public class JwtConfig {
   int expireToken = 174600; // seconds
+  String publicKey = "dragon";
+  String algorithm = "HS256";
 }

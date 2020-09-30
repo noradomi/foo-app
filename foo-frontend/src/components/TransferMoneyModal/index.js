@@ -3,6 +3,8 @@ import { Avatar, Form, Input, Modal } from 'antd';
 import 'antd/dist/antd.css';
 import React, { useState } from 'react';
 import './TransferMoneyModal.css';
+import { useSelector } from 'react-redux';
+import CustomAvatar from '../CustomAvatar';
 const { TextArea } = Input;
 
 const MoneyInput = ({ value = {}, onChange }) => {
@@ -47,6 +49,7 @@ const MoneyInput = ({ value = {}, onChange }) => {
 };
 
 const TransferMoneyModal = ({ visible, onCreate, onCancel }) => {
+	const selectedUser = useSelector((state) => state.selectedUser);
 	const [ form ] = Form.useForm();
 	const checkPrice = (rule, value) => {
 		if (value.number > 0) {
@@ -78,8 +81,8 @@ const TransferMoneyModal = ({ visible, onCreate, onCancel }) => {
 			}}
 		>
 			<div style={{ margin: '0 auto', textAlign: 'center' }}>
-				<Avatar size={64} icon={<UserOutlined />} />
-				<p>Noradomi</p>
+				<CustomAvatar type="user-avatar" avatar={selectedUser.avatar} />
+				<p>{selectedUser.name}</p>
 			</div>
 			<Form
 				form={form}

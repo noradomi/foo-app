@@ -23,5 +23,11 @@ public class User implements Serializable {
   @DBTable(columnName = "name")
   String name;
 
+  @DBTable(columnName = "balance")
+  long balance;
+
+  @DBTable(columnName = "last_updated")
+  long lastUpdated;
+
   boolean online = false;
 }

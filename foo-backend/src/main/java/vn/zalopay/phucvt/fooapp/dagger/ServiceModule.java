@@ -14,11 +14,12 @@ import lombok.Builder;
 import vn.zalopay.phucvt.fooapp.cache.*;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.da.*;
+import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
+import vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl;
+import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
 import vn.zalopay.phucvt.fooapp.handler.*;
-import vn.zalopay.phucvt.fooapp.server.GreetServiceImpl;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
-import vn.zalopay.phucvt.fooapp.server.gRPCServer;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
@@ -31,6 +32,29 @@ import java.util.concurrent.ConcurrentHashMap;
 @Builder
 public class ServiceModule {
   ServiceConfig serviceConfig;
+
+  @Provides
+  @Singleton
+  AuthInterceptor provideAuthInterceotor() {
+    return AuthInterceptor.builder().publicKey(serviceConfig.getJwtConfig().getPublicKey()).build();
+  }
+
+  @Provides
+  @Singleton
+  FintechServiceImpl provideFintechServiceImpl(UserDA userDA) {
+    return FintechServiceImpl.builder().userDA(userDA).build();
+  }
+
+  @Provides
+  @Singleton
+  gRPCServer provideGRPCServer(FintechServiceImpl fintechService, AuthInterceptor authInterceptor) {
+    return gRPCServer
+        .builder()
+        .port(serviceConfig.getGrpcPort())
+        .fintechService(fintechService)
+        .authInterceptor(authInterceptor)
+        .build();
+  }
 
   @Provides
   @Singleton
@@ -198,7 +222,10 @@ public class ServiceModule {
     // TODO: add key store
     return new JWTAuthOptions()
         .addPubSecKey(
-            new PubSecKeyOptions().setAlgorithm("HS256").setPublicKey("dragon").setSymmetric(true));
+            new PubSecKeyOptions()
+                .setAlgorithm(serviceConfig.getJwtConfig().getAlgorithm())
+                .setPublicKey(serviceConfig.getJwtConfig().getPublicKey())
+                .setSymmetric(true));
   }
 
   @Provides
@@ -245,17 +272,5 @@ public class ServiceModule {
         .jwtUtils(jwtUtils)
         .userCache(userCache)
         .build();
-  }
-
-  @Provides
-  @Singleton
-  GreetServiceImpl provideGreetServerImpl() {
-    return GreetServiceImpl.builder().build();
-  }
-
-  @Provides
-  @Singleton
-  gRPCServer provideGRPCServer(GreetServiceImpl greetServiceImpl) {
-    return gRPCServer.builder().greetServiceImpl(greetServiceImpl).build();
   }
 }

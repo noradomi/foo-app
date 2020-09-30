@@ -28,7 +28,12 @@ export function getUserList() {
 					});
 
 					store.dispatch(loadUserListAction(result));
-					store.dispatch(setSelectedUserAction(result[0].userId));
+					const initSelectedUser = {
+						id: result[0].userId,
+						name: result[0].name,
+						avatar: result[0].avatar
+					};
+					store.dispatch(setSelectedUserAction(initSelectedUser));
 				}
 
 				resolve(result);

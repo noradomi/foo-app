@@ -14,12 +14,17 @@ function ConversationListItem(props) {
 
 	const { name, avatar, id, text } = props.data;
 
-	if (props.selectedUserId === id) {
+	if (props.selectedUser.id === id) {
 		selectedItemStyle.backgroundColor = 'rgb(230, 235, 245)';
 	}
 
 	let clickHandle = () => {
-		props.setActiveItem(id);
+		const selectedUser = {
+			id: id,
+			name: name,
+			avatar: avatar
+		};
+		props.setActiveItem(selectedUser);
 	};
 
 	let status = props.userMapHolder.userMap.get(id).online;
@@ -40,14 +45,14 @@ function ConversationListItem(props) {
 
 function mapStateToProps(state) {
 	return {
-		selectedUserId: state.selectedUserId,
+		selectedUser: state.selectedUser,
 		userMapHolder: state.userMapHolder
 	};
 }
 
 function mapDispathToProps(dispatch) {
 	return {
-		setActiveItem: (id) => dispatch(setSelectedUserAction(id))
+		setActiveItem: (user) => dispatch(setSelectedUserAction(user))
 	};
 }
 

@@ -3,7 +3,7 @@
 export WORKING_DIR=$(pwd)
 
 # Start backend
-cd ./protos
-protoc -I=. greet.proto \
-  --js_out=import_style=commonjs:$WORKING_DIR/grpc \
-  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:$WORKING_DIR/grpc
+cd ./src/protos
+protoc -I=. fintech.proto \
+  --js_out=import_style=commonjs:$WORKING_DIR//src/grpc \
+  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:$WORKING_DIR/src/grpc

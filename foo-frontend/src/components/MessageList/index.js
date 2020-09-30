@@ -16,12 +16,13 @@ function MessageList(props) {
 	if (
 		props.userMapHolder.userMap.size === 0 ||
 		props.chatMessagesHolder.chatMessages.size === 0 ||
-		props.selectedUserId === null
+		props.selectedUser.id === null
 	) {
 		return <div />;
 	}
 
-	let receiverId = props.selectedUserId;
+	let receiverId = props.selectedUser.id;
+	console.log('Selected user id: ' + receiverId);
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 
 	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId);
@@ -119,7 +120,7 @@ function MessageList(props) {
 			// 	console.log('clean up component 2');
 			// };
 		},
-		[ props.scrollFlag, props.selectedUserId ]
+		[ props.scrollFlag, props.selectedUser.id ]
 	);
 
 	// Load more message
@@ -160,7 +161,7 @@ let mapStateToProps = (state) => {
 		chatMessagesHolder: state.chatMessagesHolder,
 		webSocket: state.webSocket,
 		scrollFlag: state.scrollFlag,
-		selectedUserId: state.selectedUserId
+		selectedUser: state.selectedUser
 	};
 };
 
