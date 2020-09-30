@@ -2,7 +2,7 @@ import { MoneyCollectOutlined, NotificationOutlined, SendOutlined } from '@ant-d
 import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import greeterApi from '../../services/greeterApi';
-import grpcApi from '../../services/grpcApi';
+
 import TransferMoneyModal from '../TransferMoneyModal';
 import './Compose.css';
 import { getUserFullNameToStorage } from '../../utils/utils';
@@ -22,9 +22,6 @@ function Compose(props) {
 			// 	console.log(response.getResult());
 			// });
 
-			// grpcApi.getBalance('Phuc', (err, response) => {
-			// 	console.log(response.getData().getBalance());
-			// });
 			event.preventDefault();
 			const message = event.target.value;
 			if (message.trim().length !== 0) {

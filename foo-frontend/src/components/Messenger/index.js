@@ -6,6 +6,7 @@ import CustomAvatar from '../CustomAvatar';
 import MessageList from '../MessageList';
 import './Messenger.css';
 import { connect } from 'react-redux';
+import UserWallet from '../UserWallet';
 
 const { Sider } = Layout;
 
@@ -29,7 +30,7 @@ function Messenger(props) {
 					<CustomAvatar type="main-avatar" avatar={props.user.name ? props.user.name : 'Noradomi'} />
 					<div className="menu-separation" />
 					<Menu
-						theme="light"
+						theme="dark"
 						id="side-menu"
 						defaultSelectedKeys={[ '1' ]}
 						mode="vertical"
@@ -70,10 +71,9 @@ function Messenger(props) {
 					width="350"
 					id="sub-side-menu"
 				>
-					{sideBarKey === 1 ? <ConversationList /> : <div>Transactions</div>}
+					{sideBarKey === 1 ? <ConversationList /> : <UserWallet />}
 				</Sider>
-				{/* {sideBarKey === 1 ? <MessageList /> : <div>Transactions</div>} */}
-				<MessageList />
+				{sideBarKey === 1 ? <MessageList /> : <div>Transactions</div>}
 			</Layout>
 		</div>
 	);
