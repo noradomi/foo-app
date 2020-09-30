@@ -1,11 +1,10 @@
 import { MoneyCollectOutlined, NotificationOutlined, SendOutlined } from '@ant-design/icons';
 import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
-import greeterApi from '../../services/greeterApi';
-
 import TransferMoneyModal from '../TransferMoneyModal';
+import grpcApi from '../../services/grpcApi';
 import './Compose.css';
-import { getUserFullNameToStorage } from '../../utils/utils';
+
 const { TextArea } = Input;
 
 function Compose(props) {
@@ -18,10 +17,6 @@ function Compose(props) {
 
 	const handleKeyPress = (event) => {
 		if (event.key === 'Enter') {
-			// greeterApi.sayHello(getUserFullNameToStorage(), (err, response) => {
-			// 	console.log(response.getResult());
-			// });
-
 			event.preventDefault();
 			const message = event.target.value;
 			if (message.trim().length !== 0) {
@@ -35,6 +30,14 @@ function Compose(props) {
 
 	const onCreate = (values) => {
 		console.log('Received values of form: ', values);
+
+		const request = {
+			receiver: values.receiver,
+			amount: values.money.number,
+			description: values.description,
+			confirmPassword: values.confirmPassword
+		};
+		grpcApi.transferMoney(request, (err, response) => {});
 		setVisible(false);
 	};
 

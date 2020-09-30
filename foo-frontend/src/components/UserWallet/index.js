@@ -12,10 +12,9 @@ function UserWallet(props) {
 
 	useEffect(() => {
 		grpcApi.getBalance('Phuc', (err, response) => {
-			// console.log(response.getData().getBalance());
 			const dataResponse = response.getData();
 			const balance = dataResponse.getBalance();
-			const lastUpdated = dataResponse.getLastUpdate();
+			const lastUpdated = dataResponse.getLastUpdated();
 			setWallet({ balance, lastUpdated });
 		});
 	}, []);
@@ -56,21 +55,6 @@ function UserWallet(props) {
 					</Col>
 				</Row>
 			</div>
-
-			{/* <Row gutter={12}>
-				<Col span={12}>
-					<Card>
-						<Statistic
-							title="Idle"
-							value={9.3}
-							precision={2}
-							valueStyle={{ color: '#cf1322' }}
-							prefix={<ArrowDownOutlined />}
-							suffix="%"
-						/>
-					</Card>
-				</Col>
-			</Row> */}
 		</div>
 	);
 }

@@ -15,5 +15,9 @@ export default {
 		const metadata = { jwt: jwtToken };
 		const getBalanceRequest = new GetBalanceRequest();
 		client.getBalance(getBalanceRequest, metadata, callback);
+	},
+
+	transferMoney: (request, callback) => {
+		console.log(request);
 	}
 };
