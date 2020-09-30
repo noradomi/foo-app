@@ -8,37 +8,20 @@ import './ConversationList.css';
 import { loadMessageListAction } from '../../actions/fooAction';
 
 function ConversationList(props) {
+	const webSocket = useSelector((state) => state.webSocket);
+
+	if (webSocket.webSocket === null) {
+		wsConnect();
+	}
+
 	// Init user list
 	useEffect(() => {
-		getUserList().then((userList) => {
-			wsConnect();
-			// userList.forEach((element) => {
-			// 	const { userId } = element;
-			// 	console.log('user id: ' + userId);
-			// 	getMessageList(userId, 20).then((data) => {
-			// 		props.updateMsgListOnStore(data, userId);
-			// 	});
-			// });
-		});
+		getUserList();
 	}, []);
-
-	// const messageList = useSelector((state) => {
-	// 	return state.chatMessagesHolder.chatMessages;
-	// });
-	// console.log(messageList);
 
 	const conversations = props.userList.map((res) => {
 		const { name, userId, avatar, online } = res;
-		// const messagesState = messageList.get(res.userId);
-		// const messages = messagesState.map((item) => {
-		// 	return {
-		// 		message: item.message
-		// 	};
-		// });
 
-		// console.log(messages);
-		// const lastMessage = messages.length === 0 ? 'No message' : messages[messages.length - 1];
-		// console.log(lastMessage);
 		return {
 			name: name,
 			text: 'lastMessage',
@@ -53,7 +36,7 @@ function ConversationList(props) {
 			<div className="profile">FooApp - {props.user.name}</div>
 			<ConversationSearch />
 			<div className="conversation-list-scroll">
-				<div className="user-list-title">Users (15)</div>
+				<div className="user-list-title">Users ({conversations.length})</div>
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => (
 						<ConversationListItem key={conversation.id} data={conversation} />
@@ -69,7 +52,8 @@ function ConversationList(props) {
 function mapStateToProps(state) {
 	return {
 		userList: state.userList,
-		user: state.user
+		user: state.user,
+		websocket: state.webSocket
 	};
 }
 

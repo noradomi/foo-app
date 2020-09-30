@@ -21,9 +21,10 @@ function Compose(props) {
 			// greeterApi.sayHello(getUserFullNameToStorage(), (err, response) => {
 			// 	console.log(response.getResult());
 			// });
-			grpcApi.getBalance('Phuc', (err, response) => {
-				console.log(response.getData().getBalance());
-			});
+
+			// grpcApi.getBalance('Phuc', (err, response) => {
+			// 	console.log(response.getData().getBalance());
+			// });
 			event.preventDefault();
 			const message = event.target.value;
 			if (message.trim().length !== 0) {

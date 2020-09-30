@@ -19,7 +19,12 @@ function ConversationListItem(props) {
 	}
 
 	let clickHandle = () => {
-		props.setActiveItem({});
+		const selectedUser = {
+			id: id,
+			name: name,
+			avatar: avatar
+		};
+		props.setActiveItem(selectedUser);
 	};
 
 	let status = props.userMapHolder.userMap.get(id).online;
@@ -47,7 +52,7 @@ function mapStateToProps(state) {
 
 function mapDispathToProps(dispatch) {
 	return {
-		setActiveItem: (id) => dispatch(setSelectedUserAction(id))
+		setActiveItem: (user) => dispatch(setSelectedUserAction(user))
 	};
 }
 

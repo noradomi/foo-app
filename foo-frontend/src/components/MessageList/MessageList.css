@@ -1,26 +1,9 @@
 .message-list-container {
-  /* padding: 10px;
-  padding-bottom: 10px;
-  height: calc(100vh - 150px);
-  overflow-y: auto; */
-
-  /* width: 100%;
-  height: calc(100vh - 150px);
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid #ddd; */
-
-  /* width: 100%;
-  overflow-y: auto;
-  height: calc(100vh - 150px);
-  display: flex;
-  flex-direction: column; */
-  /* border-left: 1px solid #ddd; */
-  /* background-color: white; */
   padding: 10px;
   padding-bottom: 10px;
   height: calc(100vh - 150px);
   overflow-y: auto;
+  background-color: white;
 }
 
 .message-list {

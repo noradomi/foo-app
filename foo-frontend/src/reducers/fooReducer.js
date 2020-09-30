@@ -8,7 +8,11 @@ let initialState = {
 		name: getUserFullNameToStorage()
 	},
 	userList: [],
-	selectedUser: null,
+	selectedUser: {
+		id: null,
+		name: null,
+		avatar: null
+	},
 	userMapHolder: {
 		userMap: new Map()
 	},
@@ -77,7 +81,11 @@ function logOut(state) {
 		userMapHolder: {
 			userMap: new Map()
 		},
-		selectedUser: null,
+		selectedUser: {
+			id: null,
+			name: null,
+			avatar: null
+		},
 		webSocket: {
 			webSocket: null,
 			send: null
@@ -90,7 +98,11 @@ function logOut(state) {
 
 function setSelectedUser(state, user) {
 	return Object.assign({}, state, {
-		selectedUser: user
+		selectedUser: {
+			id: user.id,
+			name: user.name,
+			avatar: user.avatar
+		}
 	});
 }
 

@@ -16,12 +16,13 @@ function MessageList(props) {
 	if (
 		props.userMapHolder.userMap.size === 0 ||
 		props.chatMessagesHolder.chatMessages.size === 0 ||
-		props.selectedUserId === null
+		props.selectedUser.id === null
 	) {
 		return <div />;
 	}
 
-	let receiverId = props.selectedUserId;
+	let receiverId = props.selectedUser.id;
+	console.log('Selected user id: ' + receiverId);
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 
 	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId);
