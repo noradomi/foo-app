@@ -5,15 +5,19 @@ import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.mindrot.jbcrypt.BCrypt;
+import vn.zalopay.phucvt.fooapp.da.FintechDA;
+import vn.zalopay.phucvt.fooapp.da.Transaction;
 import vn.zalopay.phucvt.fooapp.da.TransactionProvider;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.fintech.*;
+import vn.zalopay.phucvt.fooapp.model.TransferMoneyHolder;
 import vn.zalopay.phucvt.fooapp.model.User;
 
 @Log4j2
 @Builder
 public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBase {
   private final UserDA userDA;
+  private final FintechDA fintechDA;
   private final TransactionProvider transactionProvider;
 
   @Override
@@ -45,9 +49,13 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
   @Override
   public void transferMoney(
       TransferMoneyRequest request, StreamObserver<TransferMoneyResponse> responseObserver) {
-    //    String userId = AuthInterceptor.USER_ID.get();
-    //    //    Step 1: Validate password
-    //    String password = request.getConfirmPassword();
+    String userId = AuthInterceptor.USER_ID.get();
+    log.info("gRPC call transferMoney from userId={}", userId);
+    String receiver = request.getReceiver();
+    String password = request.getConfirmPassword();
+    Long amount = request.getAmount();
+    String description = request.getDescription();
+
     //    Future<User> userAuth = userDA.selectUserById(userId);
     //    userAuth.setHandler(
     //        userAsyncResult -> {
@@ -68,12 +76,22 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
     //            }
     //          }
     //        });
-    userDA.selectUserById(userId)
-            .compose(next -> this::validatePassword)
-            .setHandler()
-    String userId = AuthInterceptor.USER_ID.get();
-    log.info("gRPC call transferMoney from userId={}", userId);
-    System.out.println("Confirm password: "+request.getConfirmPassword());
+    //    userDA.selectUserById(userId)
+    //            .compose(next -> this::validatePassword)
+    //            .setHandler();
+    getUserAuth(userId)
+        .compose(this::validatePassword)
+        .setHandler(
+            asynResult -> {
+              if (asynResult.succeeded()) {
+                log.debug("Validated pwd, now start transaction");
+                Transaction transaction = transactionProvider.newTransaction();
+                //                transaction
+                //                        .begin()
+                //                        .compose(next -> )
+              }
+            });
+    System.out.println("Confirm password: " + request.getConfirmPassword());
     TransferMoneyResponse response =
         TransferMoneyResponse.newBuilder()
             .setStatus(Status.newBuilder().setCode(Code.OK).build())
@@ -82,12 +100,98 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
     responseObserver.onCompleted();
   }
 
-    public Future<Void> validatePassword() {
-      Future<Void> future = Future.future();
-      if (BCrypt.checkpw(user.getPassword(), password)) {
-        future.complete();
-      } else future.fail("Password not match");
-      return future;
+  public Future<TransferMoneyHolder> getUserAuth(String userId) {
+    Future<TransferMoneyHolder> future = Future.future();
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    userDA
+        .selectUserById(userId)
+        .setHandler(
+            userAsyncResult -> {
+              if (userAsyncResult.succeeded()) {
+                holder.setUserAuth(userAsyncResult.result());
+                future.complete(holder);
+              } else {
+                future.fail("Get user auth failed");
+              }
+            });
+    return future;
+  }
+
+  public Future<TransferMoneyHolder> validatePassword(TransferMoneyHolder holder) {
+    Future<TransferMoneyHolder> future = Future.future();
+    User userAuth = holder.getUserAuth();
+    String confirmPassword = holder.getConfirmPassword();
+    if (BCrypt.checkpw(userAuth.getPassword(), confirmPassword)) {
+      future.complete(holder);
+    } else {
+      future.fail("ConfirmPassword not match");
     }
+    return future;
+  }
+
+  public Future<TransferMoneyHolder> checkBalance(TransferMoneyHolder holder) {
+    Future<TransferMoneyHolder> future = Future.future();
+    String userId = holder.getUserAuth().getUserId();
+    userDA
+        .selectUserById(userId)
+        .setHandler(
+            userAsyncResult -> {
+              if (userAsyncResult.succeeded()) {
+                long balance = userAsyncResult.result().getBalance();
+                if (balance < holder.getAmount()) {
+                  future.complete(holder);
+                } else {
+                  future.fail("Balance less than transferred amount");
+                }
+              } else {
+                future.fail("Get user auth failed");
+              }
+            });
+
+    return future;
+  }
+
+  public Future<TransferMoneyHolder> withdraw(TransferMoneyHolder holder) {
+    Future<TransferMoneyHolder> future = Future.future();
+    Transaction transaction = holder.getTransaction();
+    String userId = holder.getUserAuth().getUserId();
+    Long amount = holder.getAmount();
+    amount = -amount;
+    transaction.execute(fintechDA.updateBalance(userId, amount))
+      .setHandler(asyncResult -> {
+        if(asyncResult.succeeded()){
+          future.complete(holder);
+        }
+        else{
+          future.fail("With draw failed");
+        }
+      });
+    return future;
+  }
+
+  public Future<TransferMoneyHolder> deposit(TransferMoneyHolder holder) {
+    Future<TransferMoneyHolder> future = Future.future();
+    Transaction transaction = holder.getTransaction();
+    String receiverId = holder.getReceiverId();
+    Long amount = holder.getAmount();
+    transaction.execute(fintechDA.updateBalance(receiverId, amount))
+            .setHandler(asyncResult -> {
+              if(asyncResult.succeeded()){
+                future.complete(holder);
+              }
+              else{
+                future.fail("With draw failed");
+              }
+            });
+    return future;
+  }
+
+  //    public Future<Void> validatePassword() {
+  //      Future<Void> future = Future.future();
+  //      if (BCrypt.checkpw(user.getPassword(), password)) {
+  //        future.complete();
+  //      } else future.fail("Password not match");
+  //      return future;
+  //    }
 
 }
