@@ -21,6 +21,6 @@ public class AccountLog {
   @DBTable(columnName = "balance")
   long balance;
 
-  @DBTable(columnName = "description")
-  String transferType;
+  @DBTable(columnName = "transfer_type")
+  int transferType;
 }

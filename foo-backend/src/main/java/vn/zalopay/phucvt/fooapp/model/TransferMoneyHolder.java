@@ -3,14 +3,14 @@ package vn.zalopay.phucvt.fooapp.model;
 import lombok.Getter;
 import lombok.Setter;
 import vn.zalopay.phucvt.fooapp.da.Transaction;
+import vn.zalopay.phucvt.fooapp.fintech.TransferMoneyRequest;
 
 @Getter
 @Setter
 public class TransferMoneyHolder {
 	private User userAuth;
-	private String receiverId;
-	private String confirmPassword;
-	private Long amount;
+	private TransferMoneyRequest request;
 	private Transaction transaction;
+	private String transferId;
 //	private Object
 }

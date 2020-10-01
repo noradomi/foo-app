@@ -10,8 +10,11 @@ import vn.zalopay.phucvt.fooapp.da.Transaction;
 import vn.zalopay.phucvt.fooapp.da.TransactionProvider;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.fintech.*;
+import vn.zalopay.phucvt.fooapp.model.Transfer;
 import vn.zalopay.phucvt.fooapp.model.TransferMoneyHolder;
 import vn.zalopay.phucvt.fooapp.model.User;
+
+import java.time.Instant;
 
 @Log4j2
 @Builder
@@ -51,44 +54,31 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
       TransferMoneyRequest request, StreamObserver<TransferMoneyResponse> responseObserver) {
     String userId = AuthInterceptor.USER_ID.get();
     log.info("gRPC call transferMoney from userId={}", userId);
-    String receiver = request.getReceiver();
-    String password = request.getConfirmPassword();
-    Long amount = request.getAmount();
-    String description = request.getDescription();
+    //    Init holder
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
 
-    //    Future<User> userAuth = userDA.selectUserById(userId);
-    //    userAuth.setHandler(
-    //        userAsyncResult -> {
-    //          if (userAsyncResult.succeeded()) {
-    //            User user = userAsyncResult.result();
-    //            if (BCrypt.checkpw(user.getPassword(),password)) {
-    //              //                  do something
-    //              Transaction transaction = transactionProvider.newTransaction();
-    ////              transaction.begin()
-    ////                      .compose()
-    //            } else {
-    //              TransferMoneyResponse response =
-    //                  TransferMoneyResponse.newBuilder()
-    //                      .setStatus(Status.newBuilder().setCode(Code.INVALID_PASSWORD).build())
-    //                      .build();
-    //              responseObserver.onNext(response);
-    //              responseObserver.onCompleted();
-    //            }
-    //          }
-    //        });
-    //    userDA.selectUserById(userId)
-    //            .compose(next -> this::validatePassword)
-    //            .setHandler();
-    getUserAuth(userId)
+    getUserAuth(userId, holder)
         .compose(this::validatePassword)
         .setHandler(
             asynResult -> {
               if (asynResult.succeeded()) {
+                TransferMoneyHolder validatedHolder = asynResult.result();
                 log.debug("Validated pwd, now start transaction");
                 Transaction transaction = transactionProvider.newTransaction();
-                //                transaction
-                //                        .begin()
-                //                        .compose(next -> )
+                transaction
+                    .begin()
+                    .compose(next -> checkBalance(validatedHolder))
+                    .compose(this::withdraw) // withdraw sender by amount
+                    .compose(this::deposit) // deposit receiver by amount
+                    .setHandler(
+                        holderAsyncResult -> {
+                          if (holderAsyncResult.succeeded()) {
+                            log.debug("Transaction successfully");
+                          } else {
+                            log.debug("Transaction failed");
+                          }
+                        });
               }
             });
     System.out.println("Confirm password: " + request.getConfirmPassword());
@@ -100,15 +90,15 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
     responseObserver.onCompleted();
   }
 
-  public Future<TransferMoneyHolder> getUserAuth(String userId) {
+  public Future<TransferMoneyHolder> getUserAuth(String userId, TransferMoneyHolder holder) {
     Future<TransferMoneyHolder> future = Future.future();
-    TransferMoneyHolder holder = new TransferMoneyHolder();
     userDA
         .selectUserById(userId)
         .setHandler(
             userAsyncResult -> {
               if (userAsyncResult.succeeded()) {
-                holder.setUserAuth(userAsyncResult.result());
+                User userAuth = userAsyncResult.result();
+                holder.setUserAuth(userAuth);
                 future.complete(holder);
               } else {
                 future.fail("Get user auth failed");
@@ -120,7 +110,7 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
   public Future<TransferMoneyHolder> validatePassword(TransferMoneyHolder holder) {
     Future<TransferMoneyHolder> future = Future.future();
     User userAuth = holder.getUserAuth();
-    String confirmPassword = holder.getConfirmPassword();
+    String confirmPassword = holder.getRequest().getConfirmPassword();
     if (BCrypt.checkpw(userAuth.getPassword(), confirmPassword)) {
       future.complete(holder);
     } else {
@@ -138,7 +128,7 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
             userAsyncResult -> {
               if (userAsyncResult.succeeded()) {
                 long balance = userAsyncResult.result().getBalance();
-                if (balance < holder.getAmount()) {
+                if (balance < holder.getRequest().getAmount()) {
                   future.complete(holder);
                 } else {
                   future.fail("Balance less than transferred amount");
@@ -155,17 +145,18 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
     Future<TransferMoneyHolder> future = Future.future();
     Transaction transaction = holder.getTransaction();
     String userId = holder.getUserAuth().getUserId();
-    Long amount = holder.getAmount();
+    long amount = holder.getRequest().getAmount();
     amount = -amount;
-    transaction.execute(fintechDA.updateBalance(userId, amount))
-      .setHandler(asyncResult -> {
-        if(asyncResult.succeeded()){
-          future.complete(holder);
-        }
-        else{
-          future.fail("With draw failed");
-        }
-      });
+    transaction
+        .execute(fintechDA.updateBalance(userId, amount))
+        .setHandler(
+            asyncResult -> {
+              if (asyncResult.succeeded()) {
+                future.complete(holder);
+              } else {
+                future.fail("With draw failed");
+              }
+            });
     return future;
   }
 
@@ -173,25 +164,42 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
     Future<TransferMoneyHolder> future = Future.future();
     Transaction transaction = holder.getTransaction();
     String receiverId = holder.getReceiverId();
-    Long amount = holder.getAmount();
-    transaction.execute(fintechDA.updateBalance(receiverId, amount))
-            .setHandler(asyncResult -> {
-              if(asyncResult.succeeded()){
+    long amount = holder.getRequest().getAmount();
+    transaction
+        .execute(fintechDA.updateBalance(receiverId, amount))
+        .setHandler(
+            asyncResult -> {
+              if (asyncResult.succeeded()) {
                 future.complete(holder);
-              }
-              else{
+              } else {
                 future.fail("With draw failed");
               }
             });
     return future;
   }
 
-  //    public Future<Void> validatePassword() {
-  //      Future<Void> future = Future.future();
-  //      if (BCrypt.checkpw(user.getPassword(), password)) {
-  //        future.complete();
-  //      } else future.fail("Password not match");
-  //      return future;
-  //    }
-
+  public Future<TransferMoneyHolder> logTransfer(TransferMoneyHolder holder) {
+    Future<TransferMoneyHolder> future = Future.future();
+    Transaction transaction = holder.getTransaction();
+    Transfer transfer =
+        Transfer.builder()
+            .amount(holder.getRequest().getAmount())
+            .sender(holder.getUserAuth().getUserId())
+            .receiver(holder.getRequest().getReceiver())
+            .description(holder.getRequest().getDescription())
+            .recordedTime(Instant.now().getEpochSecond()) // now
+            .build();
+    transaction
+        .execute(fintechDA.insertTransferLog(transfer))
+        .setHandler(
+            asyncResult -> {
+              if (asyncResult.succeeded()) {
+                holder.setTransferId(transfer.getTransferId());
+                future.complete(holder);
+              } else {
+                future.fail("Log transfer failed");
+              }
+            });
+    return future;
+  }
 }
