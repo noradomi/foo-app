@@ -57,12 +57,12 @@ public class SignUpHandler extends BaseHandler {
                 log.error(
                     "insert user to db failed, cause={}", ExceptionUtil.getDetail(event.cause()));
               } else {
-                handleSucceedInserUserDB(future, user);
+                handleSucceedInsertUserDB(future, user);
               }
             });
   }
 
-  private void handleSucceedInserUserDB(Future<BaseResponse> future, User user) {
+  private void handleSucceedInsertUserDB(Future<BaseResponse> future, User user) {
     userCache
         .addToUserList(user)
         .setHandler(

@@ -21,7 +21,7 @@ const MoneyInput = ({ value = {}, onChange }) => {
 	};
 
 	const onNumberChange = (e) => {
-		const newNumber = parseInt(e.target.value || 0, 10);
+		const newNumber = parseInt(e.target.value.replace(/\$\s?|(,*)/g, '') || 0, 10);
 
 		if (Number.isNaN(number)) {
 			return;
@@ -39,7 +39,7 @@ const MoneyInput = ({ value = {}, onChange }) => {
 		<span>
 			<Input
 				type="text"
-				value={value.number || number}
+				value={`${value.number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || number}
 				onChange={onNumberChange}
 				placeholder="Input money"
 				suffix="VND"

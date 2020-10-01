@@ -23,4 +23,7 @@ public class AccountLog {
 
   @DBTable(columnName = "transfer_type")
   int transferType;
+
+  @DBTable(columnName = "recorded_time")
+  long recordedTime;
 }

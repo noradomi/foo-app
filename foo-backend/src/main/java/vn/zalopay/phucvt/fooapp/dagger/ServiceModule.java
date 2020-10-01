@@ -41,8 +41,17 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  FintechServiceImpl provideFintechServiceImpl(UserDA userDA) {
-    return FintechServiceImpl.builder().userDA(userDA).build();
+  FintechServiceImpl provideFintechServiceImpl(UserDA userDA,FintechDA fintechDA, TransactionProvider transactionProvider) {
+    return FintechServiceImpl.builder().userDA(userDA).fintechDA(fintechDA).transactionProvider(transactionProvider).build();
+  }
+
+  @Provides
+  @Singleton
+  FintechDA provideFintechDA(DataSourceProvider dataSourceProvider, AsyncHandler asyncHandler) {
+    return FintechDAImpl.builder()
+        .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
+        .asyncHandler(asyncHandler)
+        .build();
   }
 
   @Provides
