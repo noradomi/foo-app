@@ -528,3 +528,171 @@ sqlState=01000
 2020-10-02 10:54:17,086 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
 2020-10-02 10:54:17,086 DEBUG vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl Transaction successfully
 2020-10-02 10:54:17,089 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA close connection with method=insertAccountLog
+2020-10-02 10:57:38,813 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-02 10:57:38,841 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 10:57:38,843 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 10:57:38,845 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 10:57:38,846 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 10:57:38,843 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 10:57:38,846 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 10:57:38,848 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 10:57:38,849 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 10:57:38,850 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 10:57:38,854 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 10:57:38,854 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 10:57:38,854 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 10:57:38,854 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 10:57:38,854 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 10:57:38,858 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 10:57:38,863 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 10:57:43,454 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 90442508-f1d4-46aa-952c-6dbb7113d914
+2020-10-02 10:57:44,352 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 3e323fc8-35fa-4d9f-a3d2-fea1452d210f
+2020-10-02 10:57:53,005 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl gRPC call transferMoney from userId=90442508-f1d4-46aa-952c-6dbb7113d914 to userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f with amount=123000
+2020-10-02 10:57:53,006 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl get user auth for userId=90442508-f1d4-46aa-952c-6dbb7113d914
+2020-10-02 10:57:53,052 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl validate password
+2020-10-02 10:57:53,064 ERROR vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl validate password failed, cause= message: Confirm password not match
+, stackTrace: vn.zalopay.phucvt.fooapp.grpc.exceptions.TransferMoneyException: Confirm password not match
+	at vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl.validatePassword(FintechServiceImpl.java:166)
+	at io.vertx.core.Future.lambda$compose$1(Future.java:265)
+	at io.vertx.core.impl.FutureImpl.tryComplete(FutureImpl.java:125)
+	at io.vertx.core.impl.FutureImpl.complete(FutureImpl.java:86)
+	at vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl.lambda$getUserAuth$4(FintechServiceImpl.java:147)
+	at io.vertx.core.impl.FutureImpl.tryComplete(FutureImpl.java:125)
+	at io.vertx.core.impl.FutureImpl.complete(FutureImpl.java:86)
+	at vn.zalopay.phucvt.fooapp.da.BaseTransactionDA.queryEntity(BaseTransactionDA.java:168)
+	at vn.zalopay.phucvt.fooapp.da.UserDAImpl.lambda$selectUserById$1(UserDAImpl.java:65)
+	at vn.zalopay.phucvt.fooapp.utils.AsyncHandler.lambda$run$0(AsyncHandler.java:21)
+	at io.vertx.core.impl.ContextImpl.lambda$executeBlocking$2(ContextImpl.java:272)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+
+2020-10-02 10:57:53,065 ERROR vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl transfer money transaction failed, cause=Confirm password not match
+2020-10-02 11:00:20,662 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-02 11:00:20,691 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 11:00:20,692 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 11:00:20,692 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 11:00:20,693 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 11:00:20,693 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 11:00:20,694 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 11:00:20,694 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 11:00:20,696 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 11:00:20,696 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 11:00:20,697 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 11:00:20,697 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 11:00:20,697 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 11:00:20,697 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 11:00:20,697 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 11:00:20,698 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 11:00:20,699 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 11:00:21,133 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 90442508-f1d4-46aa-952c-6dbb7113d914
+2020-10-02 11:00:21,347 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 3e323fc8-35fa-4d9f-a3d2-fea1452d210f
+2020-10-02 11:00:28,497 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl gRPC call transferMoney from userId=90442508-f1d4-46aa-952c-6dbb7113d914 to userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f with amount=111111
+2020-10-02 11:00:28,497 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl get user auth for userId=90442508-f1d4-46aa-952c-6dbb7113d914
+2020-10-02 11:00:28,547 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl validate password
+2020-10-02 11:00:28,556 ERROR vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl transfer money transaction failed, cause=Confirm password not match
+2020-10-02 11:02:34,399 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl gRPC call transferMoney from userId=90442508-f1d4-46aa-952c-6dbb7113d914 to userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f with amount=21000000
+2020-10-02 11:02:34,400 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl get user auth for userId=90442508-f1d4-46aa-952c-6dbb7113d914
+2020-10-02 11:02:34,404 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl validate password
+2020-10-02 11:02:34,408 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl Validated pwd, now start transaction
+2020-10-02 11:02:34,423 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl check balance
+2020-10-02 11:02:34,435 ERROR vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl transfer money transaction failed, cause=Balance less than transferred amount
+2020-10-02 13:35:10,515 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-02 13:35:10,540 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:35:10,542 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:35:10,542 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:35:10,543 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:35:10,543 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:35:10,544 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:35:10,546 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:35:10,546 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:35:10,546 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:35:10,546 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:35:10,547 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:35:10,546 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:35:10,542 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:35:10,544 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:35:10,548 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:35:10,548 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:35:15,227 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-10-02 13:35:15,335 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-10-02 13:35:15,345 INFO  vn.zalopay.phucvt.fooapp.handler.LogInHandler login successfully by user=phucvt
+2020-10-02 13:35:15,434 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:35:15,528 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-02 13:35:15,540 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=5
+2020-10-02 13:35:15,541 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[4568355d-5768-4813-8ce7-5ac8fd807240]
+2020-10-02 13:35:15,542 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-02 13:35:15,676 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/3e323fc8-35fa-4d9f-a3d2-fea1452d210f/0
+2020-10-02 13:35:15,684 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, 4568355d-5768-4813-8ce7-5ac8fd807240-3e323fc8-35fa-4d9f-a3d2-fea1452d210f-0
+2020-10-02 13:35:15,703 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/3e323fc8-35fa-4d9f-a3d2-fea1452d210f/0 with status=200
+2020-10-02 13:35:45,824 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl gRPC call transferMoney from userId=4568355d-5768-4813-8ce7-5ac8fd807240 to userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f with amount=1000
+2020-10-02 13:35:45,825 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl get user auth for userId=4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:35:45,830 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl validate password
+2020-10-02 13:35:45,835 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl Validated pwd, now start transaction
+2020-10-02 13:35:45,846 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl check balance
+2020-10-02 13:35:45,854 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl withdraw userId=4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:35:45,870 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-10-02 13:35:45,872 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl deposit userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f with amount=1000
+2020-10-02 13:35:45,875 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA close connection with method=updateBalance
+2020-10-02 13:35:45,882 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-10-02 13:35:45,883 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl log transfer 4568355d-5768-4813-8ce7-5ac8fd807240=3e323fc8-35fa-4d9f-a3d2-fea1452d210f
+2020-10-02 13:35:45,886 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA close connection with method=updateBalance
+2020-10-02 13:35:45,887 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-10-02 13:35:45,888 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl log account_log userId=4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:35:45,891 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA close connection with method=insertTransfer
+2020-10-02 13:35:45,894 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-10-02 13:35:45,895 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl log account_log userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f
+2020-10-02 13:35:45,895 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA close connection with method=insertAccountLog
+2020-10-02 13:35:45,897 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA affectedRow: 1
+2020-10-02 13:35:45,897 DEBUG vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl Transaction successfully
+2020-10-02 13:35:45,955 INFO  vn.zalopay.phucvt.fooapp.da.BaseTransactionDA close connection with method=insertAccountLog
+2020-10-02 13:39:05,584 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-02 13:39:05,605 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:39:05,606 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:39:05,607 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:39:05,608 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:39:05,606 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:39:05,609 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:39:05,609 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:39:05,609 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-02 13:39:05,618 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:39:05,619 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:39:05,619 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:39:05,619 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:39:05,619 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:39:05,619 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:39:05,619 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:39:05,620 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-02 13:39:06,446 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: 4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:39:29,538 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl gRPC call transferMoney from userId=4568355d-5768-4813-8ce7-5ac8fd807240 to userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f with amount=100000
+2020-10-02 13:39:29,539 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl get user auth for userId=4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:39:29,587 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl validate password
+2020-10-02 13:39:29,595 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl Validated pwd, now start transaction
+2020-10-02 13:39:29,624 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl check balance
+2020-10-02 13:39:29,642 ERROR vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl transfer money transaction failed, cause= message: Balance less than transferred amount
+, stackTrace: vn.zalopay.phucvt.fooapp.grpc.exceptions.TransferMoneyException: Balance less than transferred amount
+	at vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl.lambda$checkBalance$5(FintechServiceImpl.java:187)
+	at io.vertx.core.impl.CompositeFutureImpl.lambda$all$1(CompositeFutureImpl.java:49)
+	at io.vertx.core.impl.FutureImpl.tryComplete(FutureImpl.java:125)
+	at io.vertx.core.impl.FutureImpl.complete(FutureImpl.java:86)
+	at vn.zalopay.phucvt.fooapp.da.BaseTransactionDA.queryEntity(BaseTransactionDA.java:164)
+	at vn.zalopay.phucvt.fooapp.da.FintechDAImpl.lambda$selectUserForUpdate$0(FintechDAImpl.java:36)
+	at vn.zalopay.phucvt.fooapp.utils.AsyncHandler.lambda$run$0(AsyncHandler.java:21)
+	at io.vertx.core.impl.ContextImpl.lambda$executeBlocking$2(ContextImpl.java:272)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+
+2020-10-02 13:40:00,074 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl gRPC call transferMoney from userId=4568355d-5768-4813-8ce7-5ac8fd807240 to userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f with amount=20000
+2020-10-02 13:40:00,075 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl get user auth for userId=4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:40:00,078 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl validate password
+2020-10-02 13:40:00,082 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl Validated pwd, now start transaction
+2020-10-02 13:40:00,090 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl check balance
+2020-10-02 13:40:00,104 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl withdraw userId=4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:40:00,122 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl deposit userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f with amount=20000
+2020-10-02 13:40:00,125 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl log transfer 4568355d-5768-4813-8ce7-5ac8fd807240=3e323fc8-35fa-4d9f-a3d2-fea1452d210f
+2020-10-02 13:40:00,131 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl log account_log userId=4568355d-5768-4813-8ce7-5ac8fd807240
+2020-10-02 13:40:00,145 INFO  vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl log account_log userId=3e323fc8-35fa-4d9f-a3d2-fea1452d210f
+2020-10-02 13:40:00,149 DEBUG vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl Transaction successfully

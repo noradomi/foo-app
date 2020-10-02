@@ -40,8 +40,6 @@ public class BaseTransactionDA extends BaseDA {
       setParamsFromArray(preparedStatement, params);
       int affectedRow = preparedStatement.executeUpdate();
 
-      LOGGER.info("affectedRow: {}", affectedRow);
-
       if (1 != affectedRow) {
         String reason =
             String.format(
@@ -55,8 +53,6 @@ public class BaseTransactionDA extends BaseDA {
         result.complete();
       }
     } finally {
-      LOGGER.info("close connection with method={}", method);
-      //      closeResource(LOGGER, preparedStatement, connection);
       closeResource(LOGGER, preparedStatement);
     }
   }
