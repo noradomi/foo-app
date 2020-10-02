@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 @Builder
 public class AuthInterceptor implements ServerInterceptor {
   public static final Context.Key<String> USER_ID = Context.key("userId");
-  private final String  publicKey;
+  private final String publicKey;
   private JwtParser parser;
 
   public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(

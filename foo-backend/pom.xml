@@ -27,7 +27,7 @@
         <vertx.version>3.7.0</vertx.version>
         <redisson.version>3.13.3</redisson.version>
 
-        <hikariCP.version>3.3.1</hikariCP.version>
+        <hikariCP.version>3.4.5</hikariCP.version>
         <mysql.version>8.0.21</mysql.version>
     </properties>
 
@@ -57,13 +57,6 @@
             <artifactId>vertx-micrometer-metrics</artifactId>
             <version>${vertx.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-auth-jwt</artifactId>
-            <version>${vertx.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-jdbc-client</artifactId>
@@ -190,12 +183,6 @@
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
         </dependency>
 
         <!--gRPC-->

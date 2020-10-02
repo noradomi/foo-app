@@ -29,7 +29,7 @@ message GetBalanceRequest {
 message GetBalanceResponse {
   message Data {
     int64 balance = 1;
-    int64 last_update = 2;
+    int64 last_updated = 2;
   }
 
   Data data = 1;
@@ -38,6 +38,7 @@ message GetBalanceResponse {
 
 //  transfer money
 message TransferMoneyRequest {
+  string confirm_password = 1;
   string receiver = 2;
   int64 amount = 3;
   string description = 4;
@@ -48,7 +49,7 @@ message TransferMoneyResponse {
     int64 balance = 1;
   }
 
-  Data data  = 1;
+  Data data = 1;
   Status status = 2;
 }
 

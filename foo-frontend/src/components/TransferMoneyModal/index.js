@@ -1,10 +1,10 @@
-import { UserOutlined } from '@ant-design/icons';
-import { Avatar, Form, Input, Modal } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { Form, Input, Modal } from 'antd';
 import 'antd/dist/antd.css';
 import React, { useState } from 'react';
-import './TransferMoneyModal.css';
 import { useSelector } from 'react-redux';
 import CustomAvatar from '../CustomAvatar';
+import './TransferMoneyModal.css';
 const { TextArea } = Input;
 
 const MoneyInput = ({ value = {}, onChange }) => {
@@ -21,7 +21,7 @@ const MoneyInput = ({ value = {}, onChange }) => {
 	};
 
 	const onNumberChange = (e) => {
-		const newNumber = parseInt(e.target.value || 0, 10);
+		const newNumber = parseInt(e.target.value.replace(/\$\s?|(,*)/g, '') || 0, 10);
 
 		if (Number.isNaN(number)) {
 			return;
@@ -39,7 +39,7 @@ const MoneyInput = ({ value = {}, onChange }) => {
 		<span>
 			<Input
 				type="text"
-				value={value.number || number}
+				value={`${value.number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || number}
 				onChange={onNumberChange}
 				placeholder="Input money"
 				suffix="VND"
@@ -73,6 +73,7 @@ const TransferMoneyModal = ({ visible, onCreate, onCancel }) => {
 						console.log(values);
 
 						form.resetFields();
+						values.receiver = selectedUser.id;
 						onCreate(values);
 					})
 					.catch((info) => {
@@ -113,6 +114,12 @@ const TransferMoneyModal = ({ visible, onCreate, onCancel }) => {
 						allowClear
 						maxLength="120"
 						autoSize={{ minRows: 2, maxRows: 4 }}
+					/>
+				</Form.Item>
+				<Form.Item name="confirmPassword" label="Confirm password">
+					<Input.Password
+						placeholder="input password"
+						iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
 					/>
 				</Form.Item>
 			</Form>

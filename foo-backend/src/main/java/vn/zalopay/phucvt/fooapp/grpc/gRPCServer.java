@@ -10,10 +10,10 @@ import java.io.IOException;
 @Builder
 @Log4j2
 public class gRPCServer {
-  private Server server;
   private final int port;
   private final FintechServiceImpl fintechService;
   private final AuthInterceptor authInterceptor;
+  private Server server;
 
   public void start() throws IOException, InterruptedException {
     log.info("gRPC server start successfully !, port {}", port);

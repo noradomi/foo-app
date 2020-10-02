@@ -28,8 +28,8 @@ public class BaseTransactionDA extends BaseDA {
     super(statementTimeoutSec);
   }
 
-  protected void executeWithParams(
-      Future<Void> result, Connection connection, String stm, Object[] params, String method)
+  protected <T> void executeWithParams(
+      Future<T> result, Connection connection, String stm, Object[] params, String method)
       throws SQLException {
 
     PreparedStatement preparedStatement = null;
@@ -40,20 +40,20 @@ public class BaseTransactionDA extends BaseDA {
       setParamsFromArray(preparedStatement, params);
       int affectedRow = preparedStatement.executeUpdate();
 
-      LOGGER.info("affectedRow: {}", affectedRow);
-
       if (1 != affectedRow) {
         String reason =
             String.format(
                 "%s wrong effected row expected=1, actual=%d, query=%s, params=%s",
                 method, affectedRow, stm, JsonProtoUtils.printGson(params));
-        throw new SQLException(reason, "01000", 1508);
+        SQLException sqlException = new SQLException(reason, "01000", 1508);
+        result.fail(sqlException);
+        throw sqlException;
+
       } else {
         result.complete();
       }
     } finally {
-      LOGGER.info("close connection with method={}", method);
-      closeResource(LOGGER, preparedStatement, connection);
+      closeResource(LOGGER, preparedStatement);
     }
   }
 

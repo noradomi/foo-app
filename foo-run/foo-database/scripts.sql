@@ -126,8 +126,7 @@ COLLATE 'utf8mb4_unicode_ci' NOT NULL,
   `transfer_id` CHAR
 (36) NOT NULL,
   `balance` BIGINT NOT NULL,
-  `transfer_type` ENUM
-('send', 'receive') NULL,
+  `transfer_type` INT NULL,
   `recorded_time` BIGINT NOT NULL,
   PRIMARY KEY
 (`id`),
@@ -179,10 +178,8 @@ COLLATE 'utf8mb4_unicode_ci' NOT NULL,
   `message` VARCHAR
 (120) NULL,
   `recorded_time` BIGINT NULL,
-  `notification_type` ENUM
-('reminded', 'received') NULL,
-  `status` ENUM
-('finished', 'unfinished') NULL,
+  `notification_type` INT NULL,
+  `status` INT NULL,
   PRIMARY KEY
 (`id`),
   INDEX `fk_transfer_reminds_users1_idx`
