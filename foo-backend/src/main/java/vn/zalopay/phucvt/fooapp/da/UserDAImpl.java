@@ -10,7 +10,6 @@ import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +32,6 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   @Override
   public Future<Void> insert(User user) {
     Future<Void> future = Future.future();
-    int balance = 100000;
-    long lastUpdate = Instant.now().getEpochSecond();
     asyncHandler.run(
         () -> {
           Object[] params = {
@@ -42,8 +39,8 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             user.getUsername(),
             user.getPassword(),
             user.getName(),
-            balance,
-            lastUpdate
+            user.getBalance(),
+            user.getLastUpdated()
           };
           try {
             executeWithParams(

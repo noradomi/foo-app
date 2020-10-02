@@ -18,3 +18,5 @@ jwtConfig:
   algorithm: "HS256"
 chatConfig:
   numberOfMessagesRetrieve: 20
+userConfig:
+  initialBalance: 20000000

@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import vn.zalopay.phucvt.fooapp.cache.UserCache;
+import vn.zalopay.phucvt.fooapp.config.UserConfig;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.entity.request.BaseRequest;
 import vn.zalopay.phucvt.fooapp.entity.response.BaseResponse;
@@ -15,17 +16,22 @@ import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 
+import java.time.Instant;
+
 @Builder
 @Log4j2
 public class SignUpHandler extends BaseHandler {
   private final UserCache userCache;
   private final UserDA userDA;
   private final WSHandler wsHandler;
+  private final UserConfig userConfig;
 
   @Override
   public Future<BaseResponse> handle(BaseRequest baseRequest) {
     Future<BaseResponse> future = Future.future();
     final User user = JsonProtoUtils.parseGson(baseRequest.getPostData(), User.class);
+    user.setBalance(userConfig.getInitialBalance()); // init balance
+    user.setLastUpdated(Instant.now().getEpochSecond());
     Future<BaseResponse> validateFuture = validatePostData(future, user);
     if (validateFuture != null) return validateFuture;
     Future<User> userAuthFuture = userDA.selectUserByUserName(user.getUsername());

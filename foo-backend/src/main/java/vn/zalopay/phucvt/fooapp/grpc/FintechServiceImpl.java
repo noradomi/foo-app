@@ -4,11 +4,13 @@ import io.grpc.stub.StreamObserver;
 import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
+import org.mindrot.jbcrypt.BCrypt;
 import vn.zalopay.phucvt.fooapp.da.FintechDA;
 import vn.zalopay.phucvt.fooapp.da.Transaction;
 import vn.zalopay.phucvt.fooapp.da.TransactionProvider;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.fintech.*;
+import vn.zalopay.phucvt.fooapp.grpc.exceptions.TransferMoneyException;
 import vn.zalopay.phucvt.fooapp.model.AccountLog;
 import vn.zalopay.phucvt.fooapp.model.Transfer;
 import vn.zalopay.phucvt.fooapp.model.TransferMoneyHolder;
@@ -63,19 +65,19 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
     //    Init holder
     TransferMoneyHolder holder = new TransferMoneyHolder();
     holder.setRequest(request);
-
     getUserAuth(userId, holder)
         .compose(this::validatePassword)
         .setHandler(
-            asynResult -> {
-              if (asynResult.succeeded()) {
-                TransferMoneyHolder validatedHolder = asynResult.result();
+            asyncResult -> {
+              if (asyncResult.succeeded()) {
+                TransferMoneyHolder validatedHolder = asyncResult.result();
                 log.info("Validated pwd, now start transaction");
                 transferMoneyTransaction(responseObserver, validatedHolder);
               } else {
                 log.error(
                     "validate password failed, cause={}",
-                    ExceptionUtil.getDetail(asynResult.cause()));
+                    ExceptionUtil.getDetail(asyncResult.cause()));
+                handleExceptionResponse(asyncResult.cause(), responseObserver);
               }
             });
   }
@@ -108,14 +110,22 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
                 log.error(
                     "transfer money transaction failed, cause={}",
                     ExceptionUtil.getDetail(holderAsyncResult.cause()));
-                  TransferMoneyResponse response =
-                          TransferMoneyResponse.newBuilder()
-                                  .setStatus(Status.newBuilder().setCode(Code.NOT_ENOUGH_MONEY).build())
-                                  .build();
-                  responseObserver.onNext(response);
-                  responseObserver.onCompleted();
+                handleExceptionResponse(holderAsyncResult.cause(), responseObserver);
               }
             });
+  }
+
+  public void handleExceptionResponse(
+      Throwable throwable, StreamObserver<TransferMoneyResponse> responseObserver) {
+    Status status = null;
+    if (throwable instanceof TransferMoneyException) {
+      status = Status.newBuilder().setCode(((TransferMoneyException) throwable).getCode()).build();
+    } else {
+      status = Status.newBuilder().setCode(Code.INTERNAL).build();
+    }
+    TransferMoneyResponse response = TransferMoneyResponse.newBuilder().setStatus(status).build();
+    responseObserver.onNext(response);
+    responseObserver.onCompleted();
   }
 
   public Future<TransferMoneyHolder> getUserAuth(String userId, TransferMoneyHolder holder) {
@@ -144,12 +154,11 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
     Future<TransferMoneyHolder> future = Future.future();
     User userAuth = holder.getUserAuth();
     String confirmPassword = holder.getRequest().getConfirmPassword();
-    //    if (BCrypt.checkpw(userAuth.getPassword(), confirmPassword)) {
-    //      future.complete(holder);
-    //    } else {
-    //      future.fail("ConfirmPassword not match");
-    //    }
-    future.complete(holder);
+    if (BCrypt.checkpw(confirmPassword, userAuth.getPassword())) {
+      future.complete(holder);
+    } else {
+      future.fail(new TransferMoneyException("Confirm password not match", Code.INVALID_PASSWORD));
+    }
     return future;
   }
 
@@ -168,10 +177,12 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
                 if (balance >= holder.getRequest().getAmount()) {
                   future.complete(holder);
                 } else {
-                  future.fail("Balance less than transferred amount");
+                  future.fail(
+                      new TransferMoneyException(
+                          "Balance less than transferred amount", Code.NOT_ENOUGH_MONEY));
                 }
               } else {
-                future.fail("Get user auth failed");
+                future.fail(userAsyncResult.cause());
                 log.error(
                     "get user auth failed, cause={}",
                     ExceptionUtil.getDetail(userAsyncResult.cause()));

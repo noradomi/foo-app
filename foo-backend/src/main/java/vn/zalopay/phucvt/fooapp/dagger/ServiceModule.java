@@ -41,8 +41,13 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  FintechServiceImpl provideFintechServiceImpl(UserDA userDA,FintechDA fintechDA, TransactionProvider transactionProvider) {
-    return FintechServiceImpl.builder().userDA(userDA).fintechDA(fintechDA).transactionProvider(transactionProvider).build();
+  FintechServiceImpl provideFintechServiceImpl(
+      UserDA userDA, FintechDA fintechDA, TransactionProvider transactionProvider) {
+    return FintechServiceImpl.builder()
+        .userDA(userDA)
+        .fintechDA(fintechDA)
+        .transactionProvider(transactionProvider)
+        .build();
   }
 
   @Provides
@@ -152,7 +157,11 @@ public class ServiceModule {
   @Provides
   @Singleton
   SignUpHandler provideSignUpHandler(UserDA userDA, UserCache userCache) {
-    return SignUpHandler.builder().userCache(userCache).userDA(userDA).build();
+    return SignUpHandler.builder()
+        .userCache(userCache)
+        .userDA(userDA)
+        .userConfig(serviceConfig.getUserConfig())
+        .build();
   }
 
   @Provides

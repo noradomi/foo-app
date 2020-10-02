@@ -14,4 +14,5 @@ public class ServiceConfig {
   private CacheConfig cacheConfig;
   private JwtConfig jwtConfig;
   private ChatConfig chatConfig;
+  private UserConfig userConfig;
 }

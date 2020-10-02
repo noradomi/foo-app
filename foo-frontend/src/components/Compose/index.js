@@ -39,11 +39,7 @@ function Compose(props) {
 		};
 		grpcApi.transferMoney(request, (err, response) => {
 			const code = response.getStatus().getCode();
-			if (code === 0) {
-				console.log('Validate password OK');
-			} else {
-				console.log('password INVALID');
-			}
+			console.log('Code = ' + code);
 		});
 		setVisible(false);
 	};
