@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserConfig {
-    long initialBalance = 2000000;
+  long initialBalance = 2000000;
 }

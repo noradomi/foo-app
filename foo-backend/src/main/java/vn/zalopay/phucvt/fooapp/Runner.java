@@ -9,9 +9,9 @@ import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.dagger.DaggerServiceComponent;
 import vn.zalopay.phucvt.fooapp.dagger.ServiceComponent;
 import vn.zalopay.phucvt.fooapp.dagger.ServiceModule;
+import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
-import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
 import java.io.IOException;

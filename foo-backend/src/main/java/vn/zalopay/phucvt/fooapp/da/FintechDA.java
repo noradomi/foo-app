@@ -8,10 +8,9 @@ import vn.zalopay.phucvt.fooapp.model.User;
 public interface FintechDA {
   Future<User> selectUserForUpdate(String userId);
 
-  Executable<Void> updateBalance(String userId, long newBalance,long lastUpdated);
+  Executable<Void> updateBalance(String userId, long newBalance, long lastUpdated);
 
-  Executable<Void> insertTransferLog(
-      Transfer transfer);
+  Executable<Void> insertTransferLog(Transfer transfer);
 
   Executable<Void> insertAccountLog(AccountLog accountLog);
 }

@@ -49,7 +49,7 @@ message TransferMoneyResponse {
     int64 balance = 1;
   }
 
-  Data data  = 1;
+  Data data = 1;
   Status status = 2;
 }
 
