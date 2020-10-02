@@ -18,6 +18,7 @@ import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl;
 import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
 import vn.zalopay.phucvt.fooapp.grpc.handler.GetBalanceHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.GetHistoryHandler;
 import vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler;
 import vn.zalopay.phucvt.fooapp.handler.*;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
@@ -49,7 +50,7 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  TransferMoneyHandler providetransferMoneyHandler(
+  TransferMoneyHandler provideTransferMoneyHandler(
       UserDA userDA, FintechDA fintechDA, TransactionProvider transactionProvider) {
     return TransferMoneyHandler.builder()
         .userDA(userDA)
@@ -60,11 +61,20 @@ public class ServiceModule {
 
   @Provides
   @Singleton
+  GetHistoryHandler provideGetHistory(FintechDA fintechDA) {
+    return GetHistoryHandler.builder().fintechDA(fintechDA).build();
+  }
+
+  @Provides
+  @Singleton
   FintechServiceImpl provideFintechServiceImpl(
-      GetBalanceHandler getBalanceHandler, TransferMoneyHandler transferMoneyHandler) {
+      GetBalanceHandler getBalanceHandler,
+      TransferMoneyHandler transferMoneyHandler,
+      GetHistoryHandler getHistoryHandler) {
     return FintechServiceImpl.builder()
         .getBalanceHandler(getBalanceHandler)
         .transferMoneyHandler(transferMoneyHandler)
+        .getHistoryHandler(getHistoryHandler)
         .build();
   }
 

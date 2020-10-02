@@ -17,6 +17,12 @@ function UserWallet(props) {
 			const lastUpdated = dataResponse.getLastUpdated();
 			setWallet({ balance, lastUpdated });
 		});
+		grpcApi.getHistory((err, response) => {
+			const rs = response.getData().getHistoriesList();
+			rs.forEach((x) => {
+				console.log(x.getDescription());
+			});
+		});
 	}, []);
 	return (
 		<div className="conversation-list">

@@ -1750,7 +1750,7 @@ proto.fintech.TransactionHistory.toObject = function(includeInstance, msg) {
     userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     amount: jspb.Message.getFieldWithDefault(msg, 2, 0),
     description: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    recordedTime: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    recordedTime: jspb.Message.getFieldWithDefault(msg, 4, 0),
     transferType: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
@@ -1801,7 +1801,7 @@ proto.fintech.TransactionHistory.deserializeBinaryFromReader = function(msg, rea
       msg.setDescription(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readInt64());
       msg.setRecordedTime(value);
       break;
     case 5:
@@ -1859,8 +1859,8 @@ proto.fintech.TransactionHistory.serializeBinaryToWriter = function(message, wri
     );
   }
   f = message.getRecordedTime();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeInt64(
       4,
       f
     );
@@ -1938,20 +1938,20 @@ proto.fintech.TransactionHistory.prototype.setDescription = function(value) {
 
 
 /**
- * optional string recorded_time = 4;
- * @return {string}
+ * optional int64 recorded_time = 4;
+ * @return {number}
  */
 proto.fintech.TransactionHistory.prototype.getRecordedTime = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
 /**
- * @param {string} value
+ * @param {number} value
  * @return {!proto.fintech.TransactionHistory} returns this
  */
 proto.fintech.TransactionHistory.prototype.setRecordedTime = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setProto3IntField(this, 4, value);
 };
 
 

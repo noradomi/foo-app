@@ -63,7 +63,7 @@ message TransactionHistory{
   string user_id = 1;
   int64 amount = 2;
   string description = 3;
-  string recorded_time = 4;
+  int64 recorded_time = 4;
   enum TransferType {
     SEND = 0;
     RECEIVE = 1;
