@@ -2,7 +2,14 @@ import Sockette from 'sockette';
 import { wsHost } from './api';
 import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
 import store from '../store/fooStore';
-import { receiveMessageAction, sendMessageAction, setUserStatusAction } from '../actions/fooAction';
+import {
+	receiveMessageAction,
+	sendMessageAction,
+	setUserStatusAction,
+	updateLastMessage,
+	setUnseenMessages
+} from '../actions/fooAction';
+import { resetUnseen } from './reset-unseen';
 
 export function initialWebSocket() {
 	const jwt = getJwtFromStorage();
@@ -27,12 +34,25 @@ export function initialWebSocket() {
 					break;
 				}
 
-				case 'SEND':
+				case 'SEND': {
+					const selectedId = store.getState().selectedUser.id;
+					console.log('SEND: ' + jsonMessage.senderId + '===' + selectedId);
+
+					if (selectedId === jsonMessage.senderId) {
+						resetUnseen(jsonMessage.senderId);
+					} else {
+						console.log('Inscrease unseen messages');
+						store.dispatch(setUnseenMessages(jsonMessage.senderId, 1));
+					}
 					store.dispatch(receiveMessageAction(jsonMessage));
+					store.dispatch(updateLastMessage(jsonMessage.senderId, jsonMessage.message));
 					break;
+				}
 				case 'FETCH': {
 					if (jsonMessage.receiverId !== senderId) {
+						console.log('FETCH: ' + jsonMessage.receiverId);
 						store.dispatch(sendMessageAction(jsonMessage));
+						store.dispatch(updateLastMessage(jsonMessage.receiverId, jsonMessage.message));
 					}
 					break;
 				}

@@ -48,8 +48,14 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  GetFriendListHandler provideGetFriendListHandler(UserDA userDA) {
-    return GetFriendListHandler.builder().userDA(userDA).build();
+  GetFriendListHandler provideGetFriendListHandler(UserDA userDA, WSHandler wsHandler) {
+    return GetFriendListHandler.builder().userDA(userDA).wsHandler(wsHandler).build();
+  }
+
+  @Provides
+  @Singleton
+  ResetUnseenHandler provideResetUnseenHandler(UserDA userDA) {
+    return ResetUnseenHandler.builder().userDA(userDA).build();
   }
 
   @Provides
@@ -82,13 +88,15 @@ public class ServiceModule {
       TransferMoneyHandler transferMoneyHandler,
       GetHistoryHandler getHistoryHandler,
       AddFriendHandler addFriendHandler,
-      GetFriendListHandler getFriendListHandler) {
+      GetFriendListHandler getFriendListHandler,
+      ResetUnseenHandler resetUnseenHandler) {
     return FintechServiceImpl.builder()
         .getBalanceHandler(getBalanceHandler)
         .transferMoneyHandler(transferMoneyHandler)
         .getHistoryHandler(getHistoryHandler)
         .addFriendHandler(addFriendHandler)
         .getFriendListHandler(getFriendListHandler)
+        .resetUnseenHandler(resetUnseenHandler)
         .build();
   }
 
@@ -313,8 +321,9 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  WSHandler provideWSHandler(ChatDA chatDA, ChatCache chatCache) {
+  WSHandler provideWSHandler(UserDA userDA, ChatDA chatDA, ChatCache chatCache) {
     return WSHandler.builder()
+        .userDA(userDA)
         .chatCache(chatCache)
         .chatDA(chatDA)
         .clients(new ConcurrentHashMap<>())

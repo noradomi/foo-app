@@ -25,7 +25,8 @@ public class GetUserInfoHandler {
               GetUserInfoResponse response;
               if (ayncResult.succeeded()) {
                 User u = ayncResult.result();
-                UserInfo user = UserInfo.newBuilder().setUserId(u.getUserId()).setName(u.getName()).build();
+                UserInfo user =
+                    UserInfo.newBuilder().setUserId(u.getUserId()).setName(u.getName()).build();
                 GetUserInfoResponse.Data data =
                     GetUserInfoResponse.Data.newBuilder().setUser(user).build();
                 response =

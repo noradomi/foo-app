@@ -18,9 +18,9 @@ public class GetHistoryHandler {
   public void handle(
       GetHistoryRequest request, StreamObserver<GetHistoryResponse> responseObserver) {
     String userId = AuthInterceptor.USER_ID.get();
-      int pageSize = request.getPageSize();
-      int pageToken = request.getPageToken();
-    log.info("gRPC call getHistory from userId={} with {}-{}", userId,pageSize,pageToken);
+    int pageSize = request.getPageSize();
+    int pageToken = request.getPageToken();
+    log.info("gRPC call getHistory from userId={} with {}-{}", userId, pageSize, pageToken);
     fintechDA
         .getHistory(userId, pageSize, pageToken)
         .setHandler(

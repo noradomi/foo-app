@@ -60,6 +60,16 @@ export default function appReducer(state = initialState, action) {
 		case 'CHANGE_STATUS':
 			state = changeUserStatus(state, data);
 			break;
+		case 'UPDATE_LAST_MESSAGE':
+			state = updateLastMessage(state, data);
+			break;
+		case 'SET_UNSEEN_MESSAGES':
+			state = setUnseenMessages(state, data);
+			break;
+		case 'ADD_NEW_FRIEND':
+			state = addNewFriend(state, data);
+			break;
+
 		default:
 			break;
 	}
@@ -111,22 +121,8 @@ function setSelectedUser(state, user) {
 }
 
 function userListFetched(state, userList) {
-	let userMap = new Map();
-	let chatMessages = state.chatMessagesHolder.chatMessages;
-	for (let user of userList) {
-		userMap.set(user.userId, user);
-		if (!chatMessages.has(user.userId)) {
-			chatMessages.set(user.userId, []);
-		}
-	}
 	return Object.assign({}, state, {
-		userList,
-		userMapHolder: {
-			userMap
-		},
-		chatMessagesHolder: {
-			chatMessages
-		}
+		userList
 	});
 }
 
@@ -204,6 +200,63 @@ function changeUserStatus(state, data) {
 	return Object.assign({}, state, {
 		userMapHolder: {
 			userMap
+		}
+	});
+}
+
+function updateLastMessage(state, data) {
+	let userMap = state.userMapHolder.userMap;
+	if (userMap === null) {
+		return state;
+	}
+
+	let user = userMap.get(data.userId);
+	if (user === undefined) return state;
+	user.lastMessage = data.message;
+	userMap.set(data.userId, user);
+	return Object.assign({}, state, {
+		userMapHolder: {
+			userMap
+		}
+	});
+}
+
+function setUnseenMessages(state, data) {
+	let userMap = state.userMapHolder.userMap;
+	if (userMap === null) {
+		return state;
+	}
+
+	let user = userMap.get(data.userId);
+	if (user === undefined) return state;
+	const value = user.unreadMessages;
+	user.unreadMessages = data.type === 0 ? 0 : value + 1;
+	console.log(typeof user.unreadMessages);
+	userMap.set(data.userId, user);
+	return Object.assign({}, state, {
+		userMapHolder: {
+			userMap
+		}
+	});
+}
+
+function addNewFriend(state, data) {
+	const newFriend = data.newFriend;
+	let friendList = state.friendList;
+	friendList.push(newFriend);
+	let userMap = new Map();
+	let chatMessages = state.chatMessagesHolder.chatMessages;
+	userMap.set(newFriend.userId, newFriend);
+	if (!chatMessages.has(newFriend.userId)) {
+		chatMessages.set(newFriend.userId, []);
+	}
+	return Object.assign({}, state, {
+		friendList,
+		userMapHolder: {
+			userMap
+		},
+		chatMessagesHolder: {
+			chatMessages
 		}
 	});
 }

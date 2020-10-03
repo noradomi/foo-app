@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import CustomAvatar from '../CustomAvatar';
-import Modal from 'antd/lib/modal/Modal';
-import { Alert, Input } from 'antd';
-import './AddFriend.css';
 import { UserAddOutlined } from '@ant-design/icons';
+import Modal from 'antd/lib/modal/Modal';
+import React, { useState } from 'react';
+import AddFriendList from '../AddFriendList';
+import './AddFriend.css';
 
 AddFriend.propTypes = {};
 
@@ -16,9 +14,6 @@ function AddFriend(props) {
 
 	const handleOk = (e) => {
 		console.log(e);
-		// var un = $('#add-user-name').val();
-		// $('#add-user-name').val('');
-		// this.props.addNewFriend(un);
 	};
 
 	const handleCancel = (e) => {
@@ -35,16 +30,13 @@ function AddFriend(props) {
 			</div>
 			<Modal
 				width="420px"
+				onCancel={handleCancel}
 				title="Add New Friend"
 				visible={visible}
-				onOk={handleOk}
-				onCancel={handleCancel}
-				okText="Add"
-				cancelText="Cancel"
+				footer={null}
+				width={600}
 			>
-				{/* {this.props.addFriendError ? <Alert message={this.props.addFriendErrorMessage} type="error" /> : ''} */}
-				<p className="model-label">Please enter user name:</p>
-				<Input id="add-user-name" className="add-user-name" onPressEnter={handleOk} />
+				<AddFriendList />
 			</Modal>
 		</div>
 	);

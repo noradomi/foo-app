@@ -9,6 +9,7 @@ import vn.zalopay.phucvt.fooapp.fintech.AddFriendResponse;
 import vn.zalopay.phucvt.fooapp.fintech.Code;
 import vn.zalopay.phucvt.fooapp.fintech.Status;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
+import vn.zalopay.phucvt.fooapp.handler.WSHandler;
 import vn.zalopay.phucvt.fooapp.model.Friend;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
@@ -17,6 +18,7 @@ import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 @Builder
 public class AddFriendHandler {
   private final UserDA userDA;
+  private final WSHandler wsHandler;
 
   public void handle(AddFriendRequest request, StreamObserver<AddFriendResponse> responseObserver) {
     String userId = AuthInterceptor.USER_ID.get();
@@ -37,6 +39,7 @@ public class AddFriendHandler {
               Status status;
               if (asyncResult.succeeded()) {
                 status = Status.newBuilder().setCode(Code.OK).build();
+                wsHandler.notifyAddFriend();
               } else {
                 log.error(
                     "insert to friend table failed, cause={}",

@@ -147,11 +147,11 @@ message GetStrangerListResponse {
   Status status = 2;
 }
 
-message MarkReadRequest {
+message ResetUnseenRequest {
   string user_id = 1;
 }
 
-message MarkReadResponse {
+message ResetUnseenResponse {
   Status status = 1;
 }
 
@@ -192,7 +192,7 @@ service FintechService {
 
   rpc AddFriend(AddFriendRequest) returns (AddFriendResponse) {};
 
-  rpc MarkRead(MarkReadRequest) returns (MarkReadResponse) {};
+  rpc ResetUnseen (ResetUnseenRequest) returns (ResetUnseenResponse) {};
 
   rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {};
 

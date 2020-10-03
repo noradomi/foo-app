@@ -6,14 +6,17 @@ import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
+import vn.zalopay.phucvt.fooapp.handler.WSHandler;
 import vn.zalopay.phucvt.fooapp.model.UserFriendItem;
 
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @Log4j2
 public class GetFriendListHandler {
   private final UserDA userDA;
+  private final WSHandler wsHandler;
 
   public void handle(
       GetFriendListRequest request, StreamObserver<GetFriendListResponse> responseObserver) {
@@ -26,7 +29,7 @@ public class GetFriendListHandler {
               GetFriendListResponse response;
               if (listAsyncResult.succeeded()) {
                 List<UserFriendItem> userList = listAsyncResult.result();
-                userList.forEach(x -> System.out.println(x.getName()));
+                //                userList.forEach(x -> System.out.println(x.getName()));
                 response = handleSuccessResponse(userList);
               } else {
                 log.error("get friend list failed, cause=", listAsyncResult.cause());
@@ -50,13 +53,21 @@ public class GetFriendListHandler {
         .build();
   }
 
+  private boolean getOnlineStatus(UserFriendItem u) {
+    Set<String> onlineUserIds = wsHandler.getOnlineUserIds();
+    if (onlineUserIds != null) {
+      return onlineUserIds.contains(u.getId());
+    }
+    return false;
+  }
+
   public UserInfo mapToUserInfo(UserFriendItem u) {
     return UserInfo.newBuilder()
         .setUserId(u.getId())
         .setName(u.getName())
         .setUnreadMessages(u.getUnreadMessages())
         .setLastMessage(u.getLastMessage())
-        .setIsOnline(false)
+        .setIsOnline(getOnlineStatus(u))
         .build();
   }
 }

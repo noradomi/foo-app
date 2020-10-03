@@ -1,5 +1,5 @@
 import { CommentOutlined, DollarCircleOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Layout, Menu, Tooltip } from 'antd';
+import { Layout, Menu, Tooltip, Badge } from 'antd';
 import React, { useState } from 'react';
 import ConversationList from '../ConversationList';
 import CustomAvatar from '../CustomAvatar';
@@ -8,6 +8,7 @@ import './Messenger.css';
 import { connect } from 'react-redux';
 import UserWallet from '../UserWallet';
 import TransactionHistory from '../TransactionHistory';
+import AddressBook from '../AddressBook';
 
 const { Sider } = Layout;
 
@@ -41,7 +42,9 @@ function Messenger(props) {
 							key="1"
 							icon={
 								<Tooltip placement="topLeft" title="Chat">
-									<CommentOutlined style={{ fontSize: 25 }} />
+									<Badge dot>
+										<CommentOutlined style={{ fontSize: 25 }} />
+									</Badge>
 								</Tooltip>
 							}
 						/>
@@ -72,7 +75,7 @@ function Messenger(props) {
 					width="350"
 					id="sub-side-menu"
 				>
-					{sideBarKey === 1 ? <ConversationList /> : <UserWallet />}
+					{sideBarKey === 1 ? <ConversationList /> : sideBarKey === 3 ? <AddressBook /> : <UserWallet />}
 				</Sider>
 				{sideBarKey === 1 ? <MessageList /> : <TransactionHistory />}
 			</Layout>

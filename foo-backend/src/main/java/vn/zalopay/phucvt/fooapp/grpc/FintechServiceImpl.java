@@ -13,7 +13,7 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
   private final TransferMoneyHandler transferMoneyHandler;
   private final GetHistoryHandler getHistoryHandler;
   private final AddFriendHandler addFriendHandler;
-  private final MarkReadHandler markReadHandler;
+  private final ResetUnseenHandler resetUnseenHandler;
   private final GetFriendListHandler getFriendListHandler;
 
   @Override
@@ -59,7 +59,8 @@ public class FintechServiceImpl extends FintechServiceGrpc.FintechServiceImplBas
   }
 
   @Override
-  public void markRead(MarkReadRequest request, StreamObserver<MarkReadResponse> responseObserver) {
-    markReadHandler.handle(request, responseObserver);
+  public void resetUnseen(
+      ResetUnseenRequest request, StreamObserver<ResetUnseenResponse> responseObserver) {
+    resetUnseenHandler.handle(request, responseObserver);
   }
 }

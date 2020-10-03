@@ -1,0 +1,38 @@
+.addfriend-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  margin: 3px 10px;
+}
+
+.addfriend-list-item:hover {
+
+  background: rgb(230, 235, 245);
+  cursor: pointer;
+}
+
+
+.addfriend-title {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.addfriend-name {
+  font-size: 15px;
+  line-height: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.addfriend-btn {
+  flex-shrink: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+
+}

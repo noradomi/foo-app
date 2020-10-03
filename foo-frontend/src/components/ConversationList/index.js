@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { wsConnect } from '../../services/chat-single';
-import { getUserList } from '../../services/view-user-list';
+import { getFriendList } from '../../services/load-friend-list';
+import AddFriendModal from '../AddFriend';
 import ConversationListItem from '../ConversationListItem';
 import ConversationSearch from '../ConversationSearch';
 import './ConversationList.css';
-import { loadMessageListAction } from '../../actions/fooAction';
-import AddFriendModal from '../AddFriend';
-import { getFriendList } from '../../services/load-friend-list';
 
 function ConversationList(props) {
 	const webSocket = useSelector((state) => state.webSocket);
@@ -18,7 +16,6 @@ function ConversationList(props) {
 
 	// Init user list
 	useEffect(() => {
-		// getUserList();
 		getFriendList();
 	}, []);
 
@@ -63,12 +60,4 @@ function mapStateToProps(state) {
 	};
 }
 
-let mapDispatchToProps = (dispatch) => {
-	return {
-		updateMsgListOnStore: (data, friendId) => {
-			dispatch(loadMessageListAction(data, friendId));
-		}
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ConversationList);
+export default connect(mapStateToProps, null)(ConversationList);

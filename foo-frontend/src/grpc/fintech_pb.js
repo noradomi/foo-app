@@ -34,10 +34,10 @@ goog.exportSymbol('proto.fintech.GetStrangerListResponse.Data', null, global);
 goog.exportSymbol('proto.fintech.GetUserInfoRequest', null, global);
 goog.exportSymbol('proto.fintech.GetUserInfoResponse', null, global);
 goog.exportSymbol('proto.fintech.GetUserInfoResponse.Data', null, global);
-goog.exportSymbol('proto.fintech.MarkReadRequest', null, global);
-goog.exportSymbol('proto.fintech.MarkReadResponse', null, global);
 goog.exportSymbol('proto.fintech.Notification', null, global);
 goog.exportSymbol('proto.fintech.Notification.NotificationType', null, global);
+goog.exportSymbol('proto.fintech.ResetUnseenRequest', null, global);
+goog.exportSymbol('proto.fintech.ResetUnseenResponse', null, global);
 goog.exportSymbol('proto.fintech.Status', null, global);
 goog.exportSymbol('proto.fintech.TransactionHistory', null, global);
 goog.exportSymbol('proto.fintech.TransactionHistory.TransferType', null, global);
@@ -3746,12 +3746,12 @@ proto.fintech.GetStrangerListResponse.prototype.hasStatus = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.fintech.MarkReadRequest = function(opt_data) {
+proto.fintech.ResetUnseenRequest = function(opt_data) {
 	jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.fintech.MarkReadRequest, jspb.Message);
+goog.inherits(proto.fintech.ResetUnseenRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-	proto.fintech.MarkReadRequest.displayName = 'proto.fintech.MarkReadRequest';
+	proto.fintech.ResetUnseenRequest.displayName = 'proto.fintech.ResetUnseenRequest';
 }
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -3765,8 +3765,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-	proto.fintech.MarkReadRequest.prototype.toObject = function(opt_includeInstance) {
-		return proto.fintech.MarkReadRequest.toObject(opt_includeInstance, this);
+	proto.fintech.ResetUnseenRequest.prototype.toObject = function(opt_includeInstance) {
+		return proto.fintech.ResetUnseenRequest.toObject(opt_includeInstance, this);
 	};
 
 	/**
@@ -3774,11 +3774,11 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.fintech.MarkReadRequest} msg The msg instance to transform.
+ * @param {!proto.fintech.ResetUnseenRequest} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-	proto.fintech.MarkReadRequest.toObject = function(includeInstance, msg) {
+	proto.fintech.ResetUnseenRequest.toObject = function(includeInstance, msg) {
 		var f,
 			obj = {
 				userId: jspb.Message.getFieldWithDefault(msg, 1, '')
@@ -3794,22 +3794,22 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.fintech.MarkReadRequest}
+ * @return {!proto.fintech.ResetUnseenRequest}
  */
-proto.fintech.MarkReadRequest.deserializeBinary = function(bytes) {
+proto.fintech.ResetUnseenRequest.deserializeBinary = function(bytes) {
 	var reader = new jspb.BinaryReader(bytes);
-	var msg = new proto.fintech.MarkReadRequest();
-	return proto.fintech.MarkReadRequest.deserializeBinaryFromReader(msg, reader);
+	var msg = new proto.fintech.ResetUnseenRequest();
+	return proto.fintech.ResetUnseenRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.fintech.MarkReadRequest} msg The message object to deserialize into.
+ * @param {!proto.fintech.ResetUnseenRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.fintech.MarkReadRequest}
+ * @return {!proto.fintech.ResetUnseenRequest}
  */
-proto.fintech.MarkReadRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.fintech.ResetUnseenRequest.deserializeBinaryFromReader = function(msg, reader) {
 	while (reader.nextField()) {
 		if (reader.isEndGroup()) {
 			break;
@@ -3832,20 +3832,20 @@ proto.fintech.MarkReadRequest.deserializeBinaryFromReader = function(msg, reader
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.fintech.MarkReadRequest.prototype.serializeBinary = function() {
+proto.fintech.ResetUnseenRequest.prototype.serializeBinary = function() {
 	var writer = new jspb.BinaryWriter();
-	proto.fintech.MarkReadRequest.serializeBinaryToWriter(this, writer);
+	proto.fintech.ResetUnseenRequest.serializeBinaryToWriter(this, writer);
 	return writer.getResultBuffer();
 };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.fintech.MarkReadRequest} message
+ * @param {!proto.fintech.ResetUnseenRequest} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.fintech.MarkReadRequest.serializeBinaryToWriter = function(message, writer) {
+proto.fintech.ResetUnseenRequest.serializeBinaryToWriter = function(message, writer) {
 	var f = undefined;
 	f = message.getUserId();
 	if (f.length > 0) {
@@ -3857,12 +3857,12 @@ proto.fintech.MarkReadRequest.serializeBinaryToWriter = function(message, writer
  * optional string user_id = 1;
  * @return {string}
  */
-proto.fintech.MarkReadRequest.prototype.getUserId = function() {
+proto.fintech.ResetUnseenRequest.prototype.getUserId = function() {
 	return /** @type {string} */ jspb.Message.getFieldWithDefault(this, 1, '');
 };
 
 /** @param {string} value */
-proto.fintech.MarkReadRequest.prototype.setUserId = function(value) {
+proto.fintech.ResetUnseenRequest.prototype.setUserId = function(value) {
 	jspb.Message.setProto3StringField(this, 1, value);
 };
 
@@ -3876,12 +3876,12 @@ proto.fintech.MarkReadRequest.prototype.setUserId = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.fintech.MarkReadResponse = function(opt_data) {
+proto.fintech.ResetUnseenResponse = function(opt_data) {
 	jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.fintech.MarkReadResponse, jspb.Message);
+goog.inherits(proto.fintech.ResetUnseenResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-	proto.fintech.MarkReadResponse.displayName = 'proto.fintech.MarkReadResponse';
+	proto.fintech.ResetUnseenResponse.displayName = 'proto.fintech.ResetUnseenResponse';
 }
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -3895,8 +3895,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-	proto.fintech.MarkReadResponse.prototype.toObject = function(opt_includeInstance) {
-		return proto.fintech.MarkReadResponse.toObject(opt_includeInstance, this);
+	proto.fintech.ResetUnseenResponse.prototype.toObject = function(opt_includeInstance) {
+		return proto.fintech.ResetUnseenResponse.toObject(opt_includeInstance, this);
 	};
 
 	/**
@@ -3904,11 +3904,11 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.fintech.MarkReadResponse} msg The msg instance to transform.
+ * @param {!proto.fintech.ResetUnseenResponse} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-	proto.fintech.MarkReadResponse.toObject = function(includeInstance, msg) {
+	proto.fintech.ResetUnseenResponse.toObject = function(includeInstance, msg) {
 		var f,
 			obj = {
 				status: (f = msg.getStatus()) && proto.fintech.Status.toObject(includeInstance, f)
@@ -3924,22 +3924,22 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.fintech.MarkReadResponse}
+ * @return {!proto.fintech.ResetUnseenResponse}
  */
-proto.fintech.MarkReadResponse.deserializeBinary = function(bytes) {
+proto.fintech.ResetUnseenResponse.deserializeBinary = function(bytes) {
 	var reader = new jspb.BinaryReader(bytes);
-	var msg = new proto.fintech.MarkReadResponse();
-	return proto.fintech.MarkReadResponse.deserializeBinaryFromReader(msg, reader);
+	var msg = new proto.fintech.ResetUnseenResponse();
+	return proto.fintech.ResetUnseenResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.fintech.MarkReadResponse} msg The message object to deserialize into.
+ * @param {!proto.fintech.ResetUnseenResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.fintech.MarkReadResponse}
+ * @return {!proto.fintech.ResetUnseenResponse}
  */
-proto.fintech.MarkReadResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.fintech.ResetUnseenResponse.deserializeBinaryFromReader = function(msg, reader) {
 	while (reader.nextField()) {
 		if (reader.isEndGroup()) {
 			break;
@@ -3963,20 +3963,20 @@ proto.fintech.MarkReadResponse.deserializeBinaryFromReader = function(msg, reade
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.fintech.MarkReadResponse.prototype.serializeBinary = function() {
+proto.fintech.ResetUnseenResponse.prototype.serializeBinary = function() {
 	var writer = new jspb.BinaryWriter();
-	proto.fintech.MarkReadResponse.serializeBinaryToWriter(this, writer);
+	proto.fintech.ResetUnseenResponse.serializeBinaryToWriter(this, writer);
 	return writer.getResultBuffer();
 };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.fintech.MarkReadResponse} message
+ * @param {!proto.fintech.ResetUnseenResponse} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.fintech.MarkReadResponse.serializeBinaryToWriter = function(message, writer) {
+proto.fintech.ResetUnseenResponse.serializeBinaryToWriter = function(message, writer) {
 	var f = undefined;
 	f = message.getStatus();
 	if (f != null) {
@@ -3988,16 +3988,16 @@ proto.fintech.MarkReadResponse.serializeBinaryToWriter = function(message, write
  * optional Status status = 1;
  * @return {?proto.fintech.Status}
  */
-proto.fintech.MarkReadResponse.prototype.getStatus = function() {
+proto.fintech.ResetUnseenResponse.prototype.getStatus = function() {
 	return /** @type{?proto.fintech.Status} */ jspb.Message.getWrapperField(this, proto.fintech.Status, 1);
 };
 
 /** @param {?proto.fintech.Status|undefined} value */
-proto.fintech.MarkReadResponse.prototype.setStatus = function(value) {
+proto.fintech.ResetUnseenResponse.prototype.setStatus = function(value) {
 	jspb.Message.setWrapperField(this, 1, value);
 };
 
-proto.fintech.MarkReadResponse.prototype.clearStatus = function() {
+proto.fintech.ResetUnseenResponse.prototype.clearStatus = function() {
 	this.setStatus(undefined);
 };
 
@@ -4005,7 +4005,7 @@ proto.fintech.MarkReadResponse.prototype.clearStatus = function() {
  * Returns whether this field is set.
  * @return {!boolean}
  */
-proto.fintech.MarkReadResponse.prototype.hasStatus = function() {
+proto.fintech.ResetUnseenResponse.prototype.hasStatus = function() {
 	return jspb.Message.getField(this, 1) != null;
 };
 

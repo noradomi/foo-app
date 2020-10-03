@@ -1,7 +1,6 @@
 package vn.zalopay.phucvt.fooapp.da;
 
 import io.vertx.core.Future;
-import vn.zalopay.phucvt.fooapp.fintech.TransactionHistory;
 import vn.zalopay.phucvt.fooapp.model.AccountLog;
 import vn.zalopay.phucvt.fooapp.model.HistoryItem;
 import vn.zalopay.phucvt.fooapp.model.Transfer;

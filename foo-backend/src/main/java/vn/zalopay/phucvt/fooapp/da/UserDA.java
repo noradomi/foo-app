@@ -24,5 +24,9 @@ public interface UserDA {
 
   Future<List<User>> getStrangerList(String userId);
 
-  Future<Void> markRead(String userId, String markedUserId);
+  Future<Void> resetUnseen(String userId, String friendId);
+
+  void increaseUnseenMessages(String userId, String friendId);
+
+  void updateLastMessage(String message, String userId, String friendId);
 }

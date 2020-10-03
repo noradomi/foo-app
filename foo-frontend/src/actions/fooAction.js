@@ -76,3 +76,32 @@ export function setUserStatusAction(userId, status) {
 		}
 	};
 }
+
+export function updateLastMessage(userId, message) {
+	return {
+		type: 'UPDATE_LAST_MESSAGE',
+		data: {
+			userId,
+			message
+		}
+	};
+}
+
+export function setUnseenMessages(userId, type) {
+	return {
+		type: 'SET_UNSEEN_MESSAGES',
+		data: {
+			userId,
+			type
+		}
+	};
+}
+
+export function addNewFriendAction(newFriend) {
+	return {
+		type: 'ADD_NEW_FRIEND',
+		data: {
+			newFriend
+		}
+	};
+}

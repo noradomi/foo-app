@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.cache.ChatCache;
 import vn.zalopay.phucvt.fooapp.da.ChatDA;
+import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Builder
 @Log4j2
 public class WSHandler {
+  private final UserDA userDA;
   private final ChatDA chatDA;
   private final ChatCache chatCache;
   private Map<String, Set<ServerWebSocket>> clients;
@@ -63,6 +65,11 @@ public class WSHandler {
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
+                String receiverId = message.getReceiverId();
+                //                update last messages between 2 user
+                userDA.updateLastMessage(message.getMessage(), userId, receiverId);
+                userDA.updateLastMessage(message.getMessage(), receiverId, userId);
+                userDA.increaseUnseenMessages(receiverId, userId);
                 handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
                 handleSendMessage(message, message.getReceiverId());
               } else {

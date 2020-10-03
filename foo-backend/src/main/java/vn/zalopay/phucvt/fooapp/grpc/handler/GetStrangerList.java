@@ -11,11 +11,11 @@ import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 @Builder
 @Log4j2
 public class GetStrangerList {
-	private final UserDA userDA;
+  private final UserDA userDA;
 
-	public void handle(GetStrangerListRequest request, StreamObserver<GetStrangerListResponse> responseObserver){
-		String userId = AuthInterceptor.USER_ID.get();
-		log.info("gRPC call getStrangerList from userId={}", userId);
-
-	}
+  public void handle(
+      GetStrangerListRequest request, StreamObserver<GetStrangerListResponse> responseObserver) {
+    String userId = AuthInterceptor.USER_ID.get();
+    log.info("gRPC call getStrangerList from userId={}", userId);
+  }
 }

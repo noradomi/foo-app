@@ -29,14 +29,20 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   private static final String SELECT_USER_LIST = "SELECT * FROM users";
 
   private static final String ADD_FRIEND =
-      "insert into friends ('id','user_id','friend_id', 'unread_messages','last_message') values (?,?,?,?,?)";
+      "insert into friends (`id`,`user_id`,`friend_id`, `unread_messages`,`last_message`) values (?,?,?,?,?)";
 
-  private static final String MARK_READ =
+  private static final String RESET_UNSEEN =
       "update friends set unread_messages = 0 where user_id = ? and friend_id = ?";
 
+  private static final String INSCREASE_UNSEEN_MESSAGES =
+      "update friends set unread_messages = unread_messages + 1 where user_id = ? and friend_id = ?";
+
   private static final String SELECT_FRIEND_LIST =
-          "select uf.id, uf.name, f.unread_messages,f.last_message from users u join friends f on u.id  = f.user_id "
+      "select uf.id, uf.name, f.unread_messages,f.last_message from users u join friends f on u.id  = f.user_id "
           + "join users uf on uf.id  = f.friend_id where u.id = ?";
+
+  private static final String UPDATE_LAST_MESSAGE =
+      "update friends set last_message = ? where user_id = ? and friend_id = ?";
   private static final String GET_STRANGER_LIST = "";
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;
@@ -124,23 +130,72 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   }
 
   @Override
-  public Future<Void> markRead(String userId, String markedUserId) {
+  public Future<Void> resetUnseen(String userId, String friendId) {
     Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
-          Object[] params = {userId, markedUserId};
+          Object[] params = {userId, friendId};
           try {
-            executeWithParams(future, dataSource.getConnection(), MARK_READ, params, "markRead");
+            executeWithParams(
+                future, dataSource.getConnection(), RESET_UNSEEN, params, "resetUnseen");
           } catch (SQLException e) {
             log.error(
-                "mark read failed {}--{}, caused={}",
+                "reset unseen failed {}--{}, caused={}",
                 userId,
-                markedUserId,
+                friendId,
                 ExceptionUtil.getDetail(e));
             future.fail(e);
           }
         });
     return future;
+  }
+
+  @Override
+  public void increaseUnseenMessages(String userId, String friendId) {
+    Future<Void> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          Object[] params = {userId, friendId};
+          try {
+            executeWithParams(
+                future,
+                dataSource.getConnection(),
+                INSCREASE_UNSEEN_MESSAGES,
+                params,
+                "increaseUnseenMessages");
+          } catch (SQLException e) {
+            log.error(
+                "increase unseen messages failed {}--{}, caused={}",
+                userId,
+                friendId,
+                ExceptionUtil.getDetail(e));
+            future.fail(e);
+          }
+        });
+  }
+
+  @Override
+  public void updateLastMessage(String message, String userId, String friendId) {
+    Future<Void> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          Object[] params = {message, userId, friendId};
+          try {
+            executeWithParams(
+                future,
+                dataSource.getConnection(),
+                UPDATE_LAST_MESSAGE,
+                params,
+                "updateLastMessage");
+          } catch (SQLException e) {
+            log.error(
+                "update last messages failed {}--{}, caused={}",
+                userId,
+                friendId,
+                ExceptionUtil.getDetail(e));
+            future.fail(e);
+          }
+        });
   }
 
   @Override
@@ -215,25 +270,26 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
     return future;
   }
 
-    private UserFriendItem mapRs2EntityUserFrinedItem(ResultSet resultSet) throws Exception {
-        UserFriendItem user = null;
-        while (resultSet.next()) {
-            user = new UserFriendItem();
-            EntityMapper.getInstance().loadResultSetIntoObject(resultSet, user);
-        }
-        return user;
+  private UserFriendItem mapRs2EntityUserFrinedItem(ResultSet resultSet) throws Exception {
+    UserFriendItem user = null;
+    while (resultSet.next()) {
+      user = new UserFriendItem();
+      EntityMapper.getInstance().loadResultSetIntoObject(resultSet, user);
     }
+    return user;
+  }
 
-    private List<UserFriendItem> mapRs2EntityListUserFriendItem(ResultSet resultSet) throws Exception {
-        UserFriendItem user = null;
-        List<UserFriendItem> listUser = new ArrayList<>();
-        while (resultSet.next()) {
-            user = new UserFriendItem();
-            EntityMapper.getInstance().loadResultSetIntoObject(resultSet, user);
-            listUser.add(user);
-        }
-        return listUser;
+  private List<UserFriendItem> mapRs2EntityListUserFriendItem(ResultSet resultSet)
+      throws Exception {
+    UserFriendItem user = null;
+    List<UserFriendItem> listUser = new ArrayList<>();
+    while (resultSet.next()) {
+      user = new UserFriendItem();
+      EntityMapper.getInstance().loadResultSetIntoObject(resultSet, user);
+      listUser.add(user);
     }
+    return listUser;
+  }
 
   private User mapRs2EntityUser(ResultSet resultSet) throws Exception {
     User user = null;

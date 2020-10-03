@@ -553,80 +553,80 @@ proto.fintech.FintechServicePromiseClient.prototype.addFriend =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.fintech.MarkReadRequest,
- *   !proto.fintech.MarkReadResponse>}
+ *   !proto.fintech.ResetUnseenRequest,
+ *   !proto.fintech.ResetUnseenResponse>}
  */
-const methodDescriptor_FintechService_MarkRead = new grpc.web.MethodDescriptor(
-  '/fintech.FintechService/MarkRead',
+const methodDescriptor_FintechService_ResetUnseen = new grpc.web.MethodDescriptor(
+  '/fintech.FintechService/ResetUnseen',
   grpc.web.MethodType.UNARY,
-  proto.fintech.MarkReadRequest,
-  proto.fintech.MarkReadResponse,
+  proto.fintech.ResetUnseenRequest,
+  proto.fintech.ResetUnseenResponse,
   /**
-   * @param {!proto.fintech.MarkReadRequest} request
+   * @param {!proto.fintech.ResetUnseenRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.fintech.MarkReadResponse.deserializeBinary
+  proto.fintech.ResetUnseenResponse.deserializeBinary
 );
 
 
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.fintech.MarkReadRequest,
- *   !proto.fintech.MarkReadResponse>}
+ *   !proto.fintech.ResetUnseenRequest,
+ *   !proto.fintech.ResetUnseenResponse>}
  */
-const methodInfo_FintechService_MarkRead = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.fintech.MarkReadResponse,
+const methodInfo_FintechService_ResetUnseen = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.fintech.ResetUnseenResponse,
   /**
-   * @param {!proto.fintech.MarkReadRequest} request
+   * @param {!proto.fintech.ResetUnseenRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.fintech.MarkReadResponse.deserializeBinary
+  proto.fintech.ResetUnseenResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.fintech.MarkReadRequest} request The
+ * @param {!proto.fintech.ResetUnseenRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.fintech.MarkReadResponse)}
+ * @param {function(?grpc.web.Error, ?proto.fintech.ResetUnseenResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.fintech.MarkReadResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.fintech.ResetUnseenResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.fintech.FintechServiceClient.prototype.markRead =
+proto.fintech.FintechServiceClient.prototype.resetUnseen =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/fintech.FintechService/MarkRead',
+      '/fintech.FintechService/ResetUnseen',
       request,
       metadata || {},
-      methodDescriptor_FintechService_MarkRead,
+      methodDescriptor_FintechService_ResetUnseen,
       callback);
 };
 
 
 /**
- * @param {!proto.fintech.MarkReadRequest} request The
+ * @param {!proto.fintech.ResetUnseenRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.fintech.MarkReadResponse>}
+ * @return {!Promise<!proto.fintech.ResetUnseenResponse>}
  *     Promise that resolves to the response
  */
-proto.fintech.FintechServicePromiseClient.prototype.markRead =
+proto.fintech.FintechServicePromiseClient.prototype.resetUnseen =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/fintech.FintechService/MarkRead',
+      '/fintech.FintechService/ResetUnseen',
       request,
       metadata || {},
-      methodDescriptor_FintechService_MarkRead);
+      methodDescriptor_FintechService_ResetUnseen);
 };
 
 
