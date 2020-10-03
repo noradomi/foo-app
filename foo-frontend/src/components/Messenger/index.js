@@ -7,6 +7,7 @@ import MessageList from '../MessageList';
 import './Messenger.css';
 import { connect } from 'react-redux';
 import UserWallet from '../UserWallet';
+import TransactionHistory from '../TransactionHistory';
 
 const { Sider } = Layout;
 
@@ -18,7 +19,7 @@ function Messenger(props) {
 	};
 	return (
 		<div style={{ height: 100 + 'vh' }}>
-			<Layout>
+			<Layout style={{ height: 100 + 'vh' }}>
 				<Sider
 					breakpoint="lg"
 					collapsedWidth="0"
@@ -73,7 +74,7 @@ function Messenger(props) {
 				>
 					{sideBarKey === 1 ? <ConversationList /> : <UserWallet />}
 				</Sider>
-				{sideBarKey === 1 ? <MessageList /> : <div>Transactions</div>}
+				{sideBarKey === 1 ? <MessageList /> : <TransactionHistory />}
 			</Layout>
 		</div>
 	);

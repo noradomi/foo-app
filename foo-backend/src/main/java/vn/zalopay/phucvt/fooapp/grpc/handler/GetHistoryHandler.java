@@ -18,41 +18,39 @@ public class GetHistoryHandler {
   public void handle(
       GetHistoryRequest request, StreamObserver<GetHistoryResponse> responseObserver) {
     String userId = AuthInterceptor.USER_ID.get();
-    log.info("gRPC call getHistory from userId={}", userId);
-    int pageSize = request.getPageSize();
-    int pageToken = request.getPageToken();
-
+      int pageSize = request.getPageSize();
+      int pageToken = request.getPageToken();
+    log.info("gRPC call getHistory from userId={} with {}-{}", userId,pageSize,pageToken);
     fintechDA
-        .getHistories(userId)
+        .getHistory(userId, pageSize, pageToken)
         .setHandler(
             listAsyncResult -> {
+              GetHistoryResponse response;
               if (listAsyncResult.succeeded()) {
                 List<HistoryItem> historyList = listAsyncResult.result();
-
-                historyList.forEach(x -> System.out.println(x.getUserId()));
-
-                GetHistoryResponse.Data.Builder builder = GetHistoryResponse.Data.newBuilder();
-                historyList.forEach(x -> builder.addHistories(mapToTransactionHistory(x)));
-                builder.setNextPageToken(20);
-                GetHistoryResponse.Data data = builder.build();
-                GetHistoryResponse response =
-                    GetHistoryResponse.newBuilder()
-                        .setData(data)
-                        .setStatus(Status.newBuilder().setCode(Code.OK).build())
-                        .build();
-                responseObserver.onNext(response);
-                log.info("Done response history");
-                responseObserver.onCompleted();
+                response = handleSuccessResponse(historyList, pageSize, pageToken);
               } else {
-                log.error("get transaction history failed, cause=",listAsyncResult.cause());
-                GetHistoryResponse response =
+                log.error("get transaction history failed, cause=", listAsyncResult.cause());
+                response =
                     GetHistoryResponse.newBuilder()
                         .setStatus(Status.newBuilder().setCode(Code.INTERNAL).build())
                         .build();
-                responseObserver.onNext(response);
-                responseObserver.onCompleted();
               }
+              responseObserver.onNext(response);
+              responseObserver.onCompleted();
             });
+  }
+
+  private GetHistoryResponse handleSuccessResponse(
+      List<HistoryItem> historyList, int pageSize, int pageToken) {
+    GetHistoryResponse.Data.Builder builder = GetHistoryResponse.Data.newBuilder();
+    historyList.forEach(x -> builder.addItems(mapToTransactionHistory(x)));
+    builder.setNextPageToken(pageSize + pageToken);
+    GetHistoryResponse.Data data = builder.build();
+    return GetHistoryResponse.newBuilder()
+        .setData(data)
+        .setStatus(Status.newBuilder().setCode(Code.OK).build())
+        .build();
   }
 
   public TransactionHistory mapToTransactionHistory(HistoryItem item) {

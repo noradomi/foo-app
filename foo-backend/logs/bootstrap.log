@@ -1,0 +1,355 @@
+2020-10-03 11:54:01,064 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-03 11:54:01,432 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 11:54:01,440 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 11:54:01,440 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 11:54:01,440 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 11:54:01,441 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 11:54:01,441 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 11:54:01,441 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 11:54:01,443 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 11:54:01,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 11:54:01,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 11:54:01,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 11:54:01,457 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 11:54:01,458 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 11:54:01,458 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 11:54:01,458 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 11:54:01,458 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 11:54:13,738 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-10-03 11:54:14,148 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-10-03 11:54:14,155 INFO  vn.zalopay.phucvt.fooapp.handler.LogInHandler login successfully by user=phucvt
+2020-10-03 11:54:14,376 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 11:54:14,633 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 11:54:14,737 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=2
+2020-10-03 11:54:14,740 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 11:54:14,752 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 11:54:15,244 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 11:54:15,249 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 11:54:15,900 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 12:49:33,576 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-03 12:49:33,620 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:49:33,628 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:49:33,628 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:49:33,628 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:49:33,630 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:49:33,630 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:49:33,631 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:49:33,631 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:49:33,632 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:49:33,632 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:49:33,633 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:49:33,634 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:49:33,636 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:49:33,646 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:49:33,646 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:49:33,647 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:49:41,339 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:49:42,660 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:49:43,207 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 12:49:43,422 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=2
+2020-10-03 12:49:43,423 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 12:49:43,440 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 12:49:43,573 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 12:49:43,580 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 12:49:43,676 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 12:50:51,447 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:50:53,399 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:50:53,453 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:50:53,653 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 12:50:53,695 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 12:50:53,695 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 12:50:53,697 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 12:50:53,917 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 12:50:53,927 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 12:50:53,937 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 12:51:16,777 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:51:18,103 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:51:18,137 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:51:18,311 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 12:51:18,320 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 12:51:18,321 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 12:51:18,321 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 12:51:18,483 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 12:51:18,487 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 12:51:18,489 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 12:51:33,650 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:51:34,880 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:51:34,910 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:51:35,084 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 12:51:35,088 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 12:51:35,088 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 12:51:35,089 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 12:51:35,252 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 12:51:35,256 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 12:51:35,259 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 12:52:39,725 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-03 12:52:39,771 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:52:39,773 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:52:39,773 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:52:39,773 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:52:39,773 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:52:39,775 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:52:39,775 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:52:39,775 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:52:39,778 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:52:39,779 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:52:39,779 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:52:39,779 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:52:39,778 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:52:39,778 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:52:39,780 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:52:39,781 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:52:44,583 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:52:45,397 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 12:52:45,424 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 12:52:45,425 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 12:52:45,455 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:52:45,463 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 12:52:45,593 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 12:52:45,601 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 12:52:45,965 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 12:54:15,997 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-03 12:54:16,044 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:54:16,046 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:54:16,046 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:54:16,047 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:54:16,048 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:54:16,047 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:54:16,049 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:54:16,051 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:54:16,058 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:54:16,058 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:54:16,059 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:54:16,060 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:54:16,060 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:54:16,060 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:54:16,060 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:54:16,060 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:54:20,817 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:54:20,947 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 12:54:21,013 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 12:54:21,014 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 12:54:21,039 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 12:54:21,180 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:54:21,282 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 12:56:42,959 WARN  com.zaxxer.hikari.pool.HikariPool HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=2m26s978ms44µs735ns).
+2020-10-03 12:56:42,959 WARN  com.zaxxer.hikari.pool.HikariPool HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=2m26s974ms18µs320ns).
+2020-10-03 12:56:42,966 WARN  com.zaxxer.hikari.pool.HikariPool HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=2m26s992ms188µs891ns).
+2020-10-03 12:56:42,966 WARN  com.zaxxer.hikari.pool.HikariPool HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m27s698ms139µs974ns).
+2020-10-03 12:56:42,988 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 12:56:43,007 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 12:56:48,385 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-03 12:56:48,579 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:56:48,582 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:56:48,583 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:56:48,584 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:56:48,586 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:56:48,586 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:56:48,587 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:56:48,587 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:56:48,592 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:56:48,592 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:56:48,593 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:56:48,593 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:56:48,594 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:56:48,594 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:56:48,595 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:56:48,595 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:56:54,178 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:56:54,363 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:56:54,453 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 12:56:54,495 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 12:56:54,496 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 12:56:54,502 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 12:57:35,288 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-03 12:57:35,463 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:57:35,465 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:57:35,465 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:57:35,465 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:57:35,465 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:57:35,465 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:57:35,467 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:57:35,467 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 12:57:35,469 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:57:35,469 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:57:35,469 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:57:35,469 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:57:35,469 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:57:35,469 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:57:35,469 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:57:35,469 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 12:57:36,051 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:57:47,803 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:57:49,624 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:57:50,456 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 12:57:50,519 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 12:57:50,520 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 12:57:50,528 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 12:57:50,777 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 12:57:51,348 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 12:57:51,362 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 12:57:51,501 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 13:39:42,319 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-03 13:39:42,359 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:39:42,361 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:39:42,361 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:39:42,361 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:39:42,361 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:39:42,361 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:39:42,361 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:39:42,364 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:39:42,364 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:39:42,364 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:39:42,364 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:39:42,364 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:39:42,364 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:39:42,366 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:39:42,366 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:39:42,366 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:40:19,176 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-10-03 13:40:19,361 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-10-03 13:40:19,372 INFO  vn.zalopay.phucvt.fooapp.handler.LogInHandler login successfully by user=phucvt
+2020-10-03 13:40:19,506 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:19,613 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 13:40:19,631 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=2
+2020-10-03 13:40:19,632 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 13:40:19,634 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 13:40:19,771 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 13:40:19,818 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 13:40:19,850 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 13:40:19,916 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:21,247 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetBalanceHandler gRPC call getBalance from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:21,279 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetHistoryHandler gRPC call getHistory from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7 with 3-0
+2020-10-03 13:40:28,522 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:28,540 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 13:40:28,545 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 13:40:28,557 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 13:40:28,565 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 13:40:28,576 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 13:40:28,576 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 13:40:28,577 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 13:40:30,357 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/0
+2020-10-03 13:40:30,359 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-0
+2020-10-03 13:40:30,368 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/0 with status=200
+2020-10-03 13:40:45,392 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler gRPC call transferMoney from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7 to userId=97628204-b6cb-4676-9997-93fc842cc33f with amount=1000
+2020-10-03 13:40:45,393 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler get user auth for userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:45,397 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler validate password
+2020-10-03 13:40:45,402 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler Validated pwd, now start transaction
+2020-10-03 13:40:45,416 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler check balance
+2020-10-03 13:40:45,426 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler withdraw userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:45,445 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler deposit userId=97628204-b6cb-4676-9997-93fc842cc33f with amount=1000
+2020-10-03 13:40:45,448 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler log transfer ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7=97628204-b6cb-4676-9997-93fc842cc33f
+2020-10-03 13:40:45,458 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler log account_log userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:45,468 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler log account_log userId=97628204-b6cb-4676-9997-93fc842cc33f
+2020-10-03 13:40:45,472 DEBUG vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler Transaction successfully
+2020-10-03 13:40:48,029 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetBalanceHandler gRPC call getBalance from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:48,040 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetHistoryHandler gRPC call getHistory from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7 with 3-0
+2020-10-03 13:40:59,899 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:40:59,919 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 13:40:59,925 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 13:40:59,925 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 13:40:59,926 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 13:40:59,991 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 13:40:59,993 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 13:40:59,996 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 13:42:25,746 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetHistoryHandler gRPC call getHistory from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7 with 3-0
+2020-10-03 13:42:25,747 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetBalanceHandler gRPC call getBalance from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:42:27,207 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:42:27,223 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 13:42:27,223 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 13:42:27,226 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 13:42:27,229 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 13:42:27,230 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache hit, user list size=2
+2020-10-03 13:42:27,231 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 13:42:27,232 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 13:42:43,728 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/20
+2020-10-03 13:42:43,730 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-20
+2020-10-03 13:42:43,737 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/20 with status=200
+2020-10-03 13:42:45,242 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/32
+2020-10-03 13:42:45,242 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-32
+2020-10-03 13:42:45,247 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/32 with status=200
+2020-10-03 13:42:46,594 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 13:42:46,596 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 13:42:46,598 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 13:50:35,476 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:50:38,104 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:50:38,181 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/users
+2020-10-03 13:50:38,768 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler cache miss, get user list from db, size=2
+2020-10-03 13:50:38,770 DEBUG vn.zalopay.phucvt.fooapp.handler.UserListHandler get online user ids, set=[ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7]
+2020-10-03 13:50:38,772 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/users with status=200
+2020-10-03 13:50:39,022 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0
+2020-10-03 13:50:39,046 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-c484460a-ba09-4db2-bfbf-37bb1aa249e9-0
+2020-10-03 13:50:39,080 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/c484460a-ba09-4db2-bfbf-37bb1aa249e9/0 with status=200
+2020-10-03 13:56:00,992 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:56:23,834 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/public/login
+2020-10-03 13:56:23,857 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/public/login with status=200
+2020-10-03 13:56:23,859 INFO  vn.zalopay.phucvt.fooapp.handler.LogInHandler login successfully by user=phucvt
+2020-10-03 13:56:23,921 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:56:24,093 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:57:24,825 INFO  vn.zalopay.phucvt.fooapp.grpc.gRPCServer gRPC server start successfully !, port 5001
+2020-10-03 13:57:24,866 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:57:24,868 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:57:24,867 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:57:24,868 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:57:24,867 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:57:24,868 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:57:24,868 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:57:24,869 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer Web Socket server start successfully !, port 9009
+2020-10-03 13:57:24,872 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:57:24,872 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:57:24,872 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:57:24,872 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:57:24,872 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:57:24,872 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:57:24,872 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:57:24,872 INFO  vn.zalopay.phucvt.fooapp.server.RestfulAPI API Server start successfully !, port:8055
+2020-10-03 13:57:29,760 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:57:29,946 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:58:29,627 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:58:30,457 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:58:30,479 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:58:34,423 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:58:35,179 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:58:35,189 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:59:33,076 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:59:34,199 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 13:59:34,219 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:00:36,071 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:00:37,291 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:00:37,377 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:01:24,874 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:01:26,044 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:01:26,124 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:01:26,532 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/0
+2020-10-03 14:01:26,540 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache miss, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-0
+2020-10-03 14:01:26,568 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/0 with status=200
+2020-10-03 14:02:34,708 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:02:36,052 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:02:36,130 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:02:36,439 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/0
+2020-10-03 14:02:36,471 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache hit, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-0
+2020-10-03 14:02:36,472 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/0 with status=200
+2020-10-03 14:02:40,914 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/20
+2020-10-03 14:02:40,915 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-20
+2020-10-03 14:02:40,929 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/20 with status=200
+2020-10-03 14:02:41,879 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/32
+2020-10-03 14:02:41,880 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-32
+2020-10-03 14:02:41,884 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/32 with status=200
+2020-10-03 14:03:06,061 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws : close connection with userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:03:07,089 INFO  vn.zalopay.phucvt.fooapp.server.WebSocketServer ws connected with user: ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:03:07,116 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:03:07,245 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/0
+2020-10-03 14:03:07,263 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get messages list: cache hit, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-0
+2020-10-03 14:03:07,264 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/0 with status=200
+2020-10-03 14:03:26,645 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/20
+2020-10-03 14:03:26,646 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-20
+2020-10-03 14:03:26,656 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/20 with status=200
+2020-10-03 14:03:27,578 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/32
+2020-10-03 14:03:27,579 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-32
+2020-10-03 14:03:27,582 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/32 with status=200
+2020-10-03 14:03:41,377 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetBalanceHandler gRPC call getBalance from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:03:41,423 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetHistoryHandler gRPC call getHistory from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7 with 3-0
+2020-10-03 14:03:43,327 INFO  vn.zalopay.phucvt.fooapp.grpc.handler.GetFriendListHandler gRPC call getFriendList from userId=ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7
+2020-10-03 14:03:45,511 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Handle request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/32
+2020-10-03 14:03:45,511 DEBUG vn.zalopay.phucvt.fooapp.handler.MessageListHandler get more messages from db, ed7770b6-9af4-4b8d-b3be-8b6e75e2b5f7-97628204-b6cb-4676-9997-93fc842cc33f-32
+2020-10-03 14:03:45,516 INFO  vn.zalopay.phucvt.fooapp.handler.BaseHandler Response to request=/api/protected/messages/97628204-b6cb-4676-9997-93fc842cc33f/32 with status=200

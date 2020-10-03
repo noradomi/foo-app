@@ -1,5 +1,10 @@
 import { FintechServiceClient } from '../grpc/fintech_grpc_web_pb.js';
-import { GetBalanceRequest, TransferMoneyRequest, GetHistoryRequest } from '../grpc/fintech_pb.js';
+import {
+	GetBalanceRequest,
+	TransferMoneyRequest,
+	GetHistoryRequest,
+	GetFriendListRequest
+} from '../grpc/fintech_pb.js';
 import { getJwtFromStorage } from '../utils/utils.js';
 
 const URL = 'http://' + window.location.hostname + ':8080';
@@ -24,9 +29,15 @@ export default {
 	getHistory: (callback) => {
 		console.log('Get history');
 		const getHistoryRequest = new GetHistoryRequest();
-		getHistoryRequest.setPageSize(10);
-		getHistoryRequest.setPageToken(10);
+		getHistoryRequest.setPageSize(3);
+		getHistoryRequest.setPageToken(0);
 		client.getHistory(getHistoryRequest, prepareMetadata(), callback);
+	},
+
+	getFriendList: (callback) => {
+		console.log('Get friendlist');
+		const getFriendListRequest = new GetFriendListRequest();
+		client.getFriendList(getFriendListRequest, prepareMetadata(), callback);
 	}
 };
 

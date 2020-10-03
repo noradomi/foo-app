@@ -1,0 +1,52 @@
+.new-action-menu {
+  padding: 8px 16px 8px 26px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+  transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+  transition-delay: initial, initial, initial, initial;
+  border-bottom: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.new-action-menu a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+}
+
+.new-action-menu:hover {
+  background-color: #1890ff;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
+  background-color: #4bb5ff;
+  background-color: #f55;
+  color: #FFFFFF;
+}
+
+.new-action-menu:active {
+  box-shadow: none;
+}
+
+.new-action-menu:hover .new-text {
+  color: #FFFFFF;
+}
+
+.new-text {
+  font-size: 18px;
+  margin-left: 10px;
+  display: inline-block;
+  font-weight: 300;
+  color: #000;
+}
+
+.model-label {
+  margin-bottom: 8px;
+}
+
+.add-user-name {
+  max-width: 200px;
+  margin-right: 10px;
+}

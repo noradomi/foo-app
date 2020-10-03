@@ -18,5 +18,5 @@ public interface FintechDA {
 
   Executable<Void> insertAccountLog(AccountLog accountLog);
 
-  Future<List<HistoryItem>> getHistories(String userId);
+  Future<List<HistoryItem>> getHistory(String userId, int pageSize, int pageToken);
 }

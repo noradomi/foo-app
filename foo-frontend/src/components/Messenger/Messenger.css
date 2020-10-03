@@ -39,10 +39,8 @@
 }
 
 #main-side-menu {
-  /* box-shadow: 0 2px 4px rgba(15, 34, 58, .12);
-  margin-right: .25rem !important; */
-  /* background-color: white; */
-  background-image: linear-gradient(#0cb3ff, #0068ff);
+  background-color: rgb(2, 21, 41);
+  /* background-image: linear-gradient(#0cb3ff, #0068ff); */
   border-right: 1px solid #f0f0f0;
 }
 
@@ -58,9 +56,6 @@
 }
 
 #sub-side-menu {
-  /* box-shadow: 0 2px 4px rgba(15, 34, 58, .12); */
-  /* margin-right: .20rem !important;
-  background-color: white; */
   border-right: 1px solid #f0f0f0;
 
 }

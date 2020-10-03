@@ -8,6 +8,7 @@ let initialState = {
 		name: getUserFullNameToStorage()
 	},
 	userList: [],
+	friendList: [],
 	selectedUser: {
 		id: null,
 		name: null,
@@ -37,6 +38,9 @@ export default function appReducer(state = initialState, action) {
 			break;
 		case 'USERLIST_FETCHED':
 			state = userListFetched(state, data);
+			break;
+		case 'FRIENDLIST_FETCHED':
+			state = friendListFetched(state, data);
 			break;
 		case 'USER_SELECTED':
 			state = setSelectedUser(state, data);
@@ -117,6 +121,26 @@ function userListFetched(state, userList) {
 	}
 	return Object.assign({}, state, {
 		userList,
+		userMapHolder: {
+			userMap
+		},
+		chatMessagesHolder: {
+			chatMessages
+		}
+	});
+}
+
+function friendListFetched(state, friendList) {
+	let userMap = new Map();
+	let chatMessages = state.chatMessagesHolder.chatMessages;
+	for (let user of friendList) {
+		userMap.set(user.userId, user);
+		if (!chatMessages.has(user.userId)) {
+			chatMessages.set(user.userId, []);
+		}
+	}
+	return Object.assign({}, state, {
+		friendList,
 		userMapHolder: {
 			userMap
 		},

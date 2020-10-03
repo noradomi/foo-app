@@ -17,9 +17,7 @@ import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl;
 import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
-import vn.zalopay.phucvt.fooapp.grpc.handler.GetBalanceHandler;
-import vn.zalopay.phucvt.fooapp.grpc.handler.GetHistoryHandler;
-import vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.*;
 import vn.zalopay.phucvt.fooapp.handler.*;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
@@ -40,6 +38,18 @@ public class ServiceModule {
   @Singleton
   AuthInterceptor provideAuthInterceotor() {
     return AuthInterceptor.builder().publicKey(serviceConfig.getJwtConfig().getPublicKey()).build();
+  }
+
+  @Provides
+  @Singleton
+  AddFriendHandler provideAddFriendHandler(UserDA userDA) {
+    return AddFriendHandler.builder().userDA(userDA).build();
+  }
+
+  @Provides
+  @Singleton
+  GetFriendListHandler provideGetFriendListHandler(UserDA userDA) {
+    return GetFriendListHandler.builder().userDA(userDA).build();
   }
 
   @Provides
@@ -70,11 +80,15 @@ public class ServiceModule {
   FintechServiceImpl provideFintechServiceImpl(
       GetBalanceHandler getBalanceHandler,
       TransferMoneyHandler transferMoneyHandler,
-      GetHistoryHandler getHistoryHandler) {
+      GetHistoryHandler getHistoryHandler,
+      AddFriendHandler addFriendHandler,
+      GetFriendListHandler getFriendListHandler) {
     return FintechServiceImpl.builder()
         .getBalanceHandler(getBalanceHandler)
         .transferMoneyHandler(transferMoneyHandler)
         .getHistoryHandler(getHistoryHandler)
+        .addFriendHandler(addFriendHandler)
+        .getFriendListHandler(getFriendListHandler)
         .build();
   }
 

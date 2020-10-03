@@ -90,6 +90,17 @@ public class WSHandler {
     }
   }
 
+  public void notifyAddFriend(WsMessage addFriendMessage) {
+    String receiverId = addFriendMessage.getReceiverId();
+    if (clients.containsKey(receiverId)) {
+      Set<ServerWebSocket> receiverCon = clients.get(receiverId);
+      receiverCon.forEach(
+          conn -> {
+            conn.writeTextMessage(JsonProtoUtils.printGson(addFriendMessage));
+          });
+    }
+  }
+
   public Set<String> getOnlineUserIds() {
     return clients.keySet();
   }

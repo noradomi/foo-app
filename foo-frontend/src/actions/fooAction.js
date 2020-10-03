@@ -20,6 +20,13 @@ export function loadUserListAction(userList) {
 	};
 }
 
+export function loadFriendListAction(friendList) {
+	return {
+		type: 'FRIENDLIST_FETCHED',
+		data: friendList
+	};
+}
+
 export function setSelectedUserAction(user) {
 	return {
 		type: 'USER_SELECTED',
