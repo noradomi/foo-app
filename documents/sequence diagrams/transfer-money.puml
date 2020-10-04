@@ -9,6 +9,7 @@ actor "User B"
 alt (password invalid)
 "Server" -> "User A": INVALID_PASSWORD
 else (password correct)
+== Start transaction ==
 "Server" -> "MySQL": start transaction
 activate MySQL
 "Server" -> "MySQL": get A's balance
@@ -23,6 +24,7 @@ else (amount <= balance)
 "Server" -> "MySQL" : insert to A's account log
 "Server" -> "MySQL" : insert to B's account log
 "Server" -> "MySQL" : commit
+== End transaction ==
 deactivate MySQL
 "Server" -> "User A": return new balance
 "Server" -> "User B" : notify

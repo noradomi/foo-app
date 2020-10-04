@@ -241,17 +241,19 @@ function setUnseenMessages(state, data) {
 }
 
 function addNewFriend(state, data) {
+	console.log('Add new friend');
 	const newFriend = data.newFriend;
 	let friendList = state.friendList;
 	friendList.push(newFriend);
-	let userMap = new Map();
+	let userMap = state.userMapHolder.userMap;
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	userMap.set(newFriend.userId, newFriend);
 	if (!chatMessages.has(newFriend.userId)) {
 		chatMessages.set(newFriend.userId, []);
 	}
+	console.log(friendList);
 	return Object.assign({}, state, {
-		friendList,
+		friendList: friendList,
 		userMapHolder: {
 			userMap
 		},

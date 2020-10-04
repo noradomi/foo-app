@@ -1,0 +1,13 @@
+.wallet-list {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px 10px;
+  box-sizing: border-box;
+}
+
+.wallet-list-scroll {
+  height: 370px;
+  overflow-y: auto;
+  border-radius: 4px;
+}

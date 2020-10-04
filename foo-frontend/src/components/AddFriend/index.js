@@ -1,13 +1,15 @@
-import { UserAddOutlined } from '@ant-design/icons';
+import { UserAddOutlined, StepForwardOutlined } from '@ant-design/icons';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useState } from 'react';
 import AddFriendList from '../AddFriendList';
 import './AddFriend.css';
+import { useHistory } from 'react-router-dom';
 
 AddFriend.propTypes = {};
 
 function AddFriend(props) {
 	const [ visible, setVisible ] = useState(false);
+	const history = useHistory();
 	const showModal = () => {
 		setVisible(true);
 	};
@@ -18,6 +20,7 @@ function AddFriend(props) {
 
 	const handleCancel = (e) => {
 		setVisible(false);
+		history.push('/');
 	};
 	return (
 		<div>
@@ -30,11 +33,22 @@ function AddFriend(props) {
 			</div>
 			<Modal
 				width="420px"
+				title={
+          <>
+          <img
+							src="https://zalo-chat-static.zadn.vn/v1/NewFr@2x.png"
+							style={{ borderRadius: '50%', width: '50px', height: '50px', marginRight: '11px' }}
+						/>
+						<span>Add new friend</span>
+    </>
+				
+				}
 				onCancel={handleCancel}
-				title="Add New Friend"
 				visible={visible}
 				footer={null}
-				width={600}
+				destroyOnClose={true}
+				width={380}
+				bodyStyle={{ backgroundColor: 'rgb(245, 245, 245)' }}
 			>
 				<AddFriendList />
 			</Modal>

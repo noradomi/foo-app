@@ -7,6 +7,7 @@ import CustomAvatar from '../CustomAvatar/index';
 import './ConversationListItem.css';
 
 function ConversationListItem(props) {
+	console.log('Rerender conversation list item');
 	useEffect(() => {
 		shave('.history-message', 20);
 	});
@@ -16,7 +17,7 @@ function ConversationListItem(props) {
 	const { name, avatar, id } = props.data;
 
 	if (props.selectedUser.id === id) {
-		selectedItemStyle.backgroundColor = 'rgb(230, 235, 245)';
+		selectedItemStyle.backgroundColor = 'rgb(245, 245, 245)';
 	}
 
 	const userInfo = props.userMapHolder.userMap.get(id);

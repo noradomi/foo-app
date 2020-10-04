@@ -85,6 +85,7 @@ function Compose(props) {
 				/>
 			</Tooltip>
 			<TransferMoneyModal
+				userInfo={null}
 				visible={visible}
 				onCreate={onCreate}
 				onCancel={() => {

@@ -1,8 +1,11 @@
 import { FieldTimeOutlined, MoneyCollectOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Statistic } from 'antd';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import grpcApi from '../../services/grpcApi';
 import CustomAvatar from '../CustomAvatar';
+import WallTransferList from '../WallTransferList';
 import './Wallet.css';
 
 function UserWallet(props) {
@@ -10,6 +13,8 @@ function UserWallet(props) {
 		balance: 0,
 		lastUpdated: 0
 	});
+
+	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
 		grpcApi.getBalance('Phuc', (err, response) => {
@@ -22,15 +27,16 @@ function UserWallet(props) {
 	return (
 		<div className="wallet-info">
 			<div className="profile">FooApp Wallet</div>
-			<div style={{ margin: '0 auto', textAlign: 'center' }}>
+			<div className="wallet-user">
 				<CustomAvatar type="user-avatar" avatar={'Noradomi'} />
-				<p>Noradomi</p>
+				<h5 className="wallet-username">{user.name}</h5>
 			</div>
 			<div style={{ width: '100%' }}>
 				<Row justify="center">
 					<Col>
-						<Card>
+						<Card className="wallet-card">
 							<Statistic
+								className="wallet-balance"
 								title="Balance"
 								value={wallet.balance}
 								precision={0}
@@ -38,15 +44,19 @@ function UserWallet(props) {
 								prefix={<MoneyCollectOutlined />}
 								suffix="VND"
 							/>
-						</Card>
-					</Col>
-				</Row>
-				<Row justify="center">
-					<Col>
-						<Card>
+							{/* <Input.Password
+								className="wallet-balance"
+								prefix={<MoneyCollectOutlined />}
+								suffix="RMB"
+								value={`${wallet.balance} VND`}
+								iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+								readOnly
+								bordered={false}
+							/> */}
 							<Statistic
+								className="wallet-last-updated"
 								title="Last updated"
-								value={wallet.lastUpdated}
+								value={moment(wallet.lastUpdated * 1000).format('DD-MM-YYYY, hh:mm A')}
 								precision={0}
 								valueStyle={{ color: '#cf1322' }}
 								prefix={<FieldTimeOutlined />}
@@ -55,6 +65,7 @@ function UserWallet(props) {
 						</Card>
 					</Col>
 				</Row>
+				<WallTransferList />
 			</div>
 		</div>
 	);

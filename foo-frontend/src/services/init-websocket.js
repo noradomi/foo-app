@@ -1,13 +1,14 @@
 import Sockette from 'sockette';
 import { wsHost } from './api';
-import { getJwtFromStorage, getUserIdFromStorage } from '../utils/utils';
+import { getJwtFromStorage, getUserIdFromStorage, processUsernameForAvatar } from '../utils/utils';
 import store from '../store/fooStore';
 import {
 	receiveMessageAction,
 	sendMessageAction,
 	setUserStatusAction,
 	updateLastMessage,
-	setUnseenMessages
+	setUnseenMessages,
+	addNewFriendAction
 } from '../actions/fooAction';
 import { resetUnseen } from './reset-unseen';
 
@@ -54,6 +55,21 @@ export function initialWebSocket() {
 						store.dispatch(sendMessageAction(jsonMessage));
 						store.dispatch(updateLastMessage(jsonMessage.receiverId, jsonMessage.message));
 					}
+					break;
+				}
+
+				case 'ADD_FRIEND': {
+					const newFriend = jsonMessage.userInfo;
+					console.log(newFriend);
+					let userItem = {
+						userId: newFriend.userId_,
+						name: newFriend.name_,
+						avatar: processUsernameForAvatar(newFriend.name_),
+						unreadMessages: newFriend.unreadMessages_,
+						lastMessage: newFriend.lastMessage_,
+						online: newFriend.isOnline_
+					};
+					store.dispatch(addNewFriendAction(userItem));
 					break;
 				}
 				default:

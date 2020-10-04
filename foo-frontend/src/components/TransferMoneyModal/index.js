@@ -48,8 +48,14 @@ const MoneyInput = ({ value = {}, onChange }) => {
 	);
 };
 
-const TransferMoneyModal = ({ visible, onCreate, onCancel }) => {
-	const selectedUser = useSelector((state) => state.selectedUser);
+const TransferMoneyModal = ({ userInfo, visible, onCreate, onCancel }) => {
+	let selectedUser = null;
+	if (userInfo !== null) {
+		selectedUser = userInfo;
+	} else {
+		selectedUser = useSelector((state) => state.selectedUser);
+	}
+
 	const [ form ] = Form.useForm();
 	const checkPrice = (rule, value) => {
 		if (value.number > 0) {

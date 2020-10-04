@@ -1,16 +1,19 @@
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import { Button, message } from 'antd';
-import React from 'react';
-import CustomAvatar from '../CustomAvatar';
+import React, { useState } from 'react';
 import { doAddFriend } from '../../services/addfriend';
+import CustomAvatar from '../CustomAvatar';
 import './AddFriendListItem.css';
 
 AddFriendListItem.propTypes = {};
 
 function AddFriendListItem(props) {
 	const { id, name, avatar } = props.data;
+	const [ btnVisbale, setBtnVisible ] = useState('visible');
+	const [ loadings, setLoadings ] = useState([]);
 
 	const handleAddFriend = () => {
+		setBtnVisible('none');
 		doAddFriend(id)
 			.then(() => {
 				message.success('Add friend with ' + id);
@@ -24,11 +27,17 @@ function AddFriendListItem(props) {
 			<div style={{ width: 40 }}>
 				<CustomAvatar type="panel-avatar" avatar={avatar} />
 			</div>
-			<div className="addfriend-info" style={{ paddingLeft: '10px', overflow: 'hidden', paddingTop: 5 }}>
+			<div className="addfriend-info" style={{ overflow: 'hidden', paddingTop: 5 }}>
 				<div className="addfriend-name">{name}</div>
 			</div>
-			<Button className="addfriend-btn" type="primary" size={'small'} danger onClick={handleAddFriend}>
-				ADD
+			<Button
+				onClick={handleAddFriend}
+				style={{ display: btnVisbale }}
+				className="addfriend-btn"
+				size={'small'}
+				// loading={loadings[0]}
+			>
+				<span>Add friend</span>
 			</Button>
 		</div>
 	);

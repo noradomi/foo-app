@@ -1,18 +1,21 @@
 package vn.zalopay.phucvt.fooapp.grpc.handler;
 
 import io.grpc.stub.StreamObserver;
+import io.vertx.core.CompositeFuture;
+import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
-import vn.zalopay.phucvt.fooapp.fintech.AddFriendRequest;
-import vn.zalopay.phucvt.fooapp.fintech.AddFriendResponse;
-import vn.zalopay.phucvt.fooapp.fintech.Code;
-import vn.zalopay.phucvt.fooapp.fintech.Status;
+import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.handler.WSHandler;
 import vn.zalopay.phucvt.fooapp.model.Friend;
+import vn.zalopay.phucvt.fooapp.model.User;
+import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
+
+import java.util.Set;
 
 @Log4j2
 @Builder
@@ -24,7 +27,7 @@ public class AddFriendHandler {
     String userId = AuthInterceptor.USER_ID.get();
     String friendId = request.getUserId();
     log.info("gRPC call addFriend {}--{}", userId, friendId);
-    Friend friendModel =
+    Friend friendModelRequest =
         Friend.builder()
             .id(GenerationUtils.generateId())
             .userId(userId)
@@ -32,23 +35,76 @@ public class AddFriendHandler {
             .unreadMessages(0)
             .lastMessage("")
             .build();
+    Friend friendModelApprove =
+        Friend.builder()
+            .id(GenerationUtils.generateId())
+            .userId(friendId)
+            .friendId(userId)
+            .unreadMessages(0)
+            .lastMessage("")
+            .build();
     userDA
-        .addFriend(friendModel)
+        .addFriend(friendModelRequest)
+        .compose(next -> userDA.addFriend(friendModelApprove))
         .setHandler(
             asyncResult -> {
-              Status status;
+              //              Status status;
               if (asyncResult.succeeded()) {
-                status = Status.newBuilder().setCode(Code.OK).build();
-                wsHandler.notifyAddFriend();
-              } else {
-                log.error(
-                    "insert to friend table failed, cause={}",
-                    ExceptionUtil.getDetail(asyncResult.cause()));
-                status = Status.newBuilder().setCode(Code.INTERNAL).build();
+                CompositeFuture cp =
+                    CompositeFuture.all(
+                        userDA.selectUserById(userId), userDA.selectUserById(friendId));
+                cp.setHandler(
+                    ar -> {
+                      if (ar.succeeded()) {
+                        UserInfo user = mapToUserInfo(cp.resultAt(0));
+                        UserInfo newFriend = mapToUserInfo(cp.resultAt(1));
+                        WsMessage wsMessage =
+                            WsMessage.builder()
+                                .type("ADD_FRIEND")
+                                .senderId(userId)
+                                .receiverId(friendId)
+                                .userInfo(user)
+                                .build();
+                        wsHandler.notifyAddFriend(wsMessage);
+                        Status status = Status.newBuilder().setCode(Code.OK).build();
+                        AddFriendResponse response =
+                            AddFriendResponse.newBuilder()
+                                .setData(
+                                    AddFriendResponse.Data.newBuilder().setUser(newFriend).build())
+                                .setStatus(status)
+                                .build();
+                        responseObserver.onNext(response);
+                        responseObserver.onCompleted();
+                      } else {
+                        log.error(
+                            "insert to friend table failed, cause={}",
+                            ExceptionUtil.getDetail(asyncResult.cause()));
+                        Status status = Status.newBuilder().setCode(Code.INTERNAL).build();
+                        AddFriendResponse response =
+                            AddFriendResponse.newBuilder().setStatus(status).build();
+                        responseObserver.onNext(response);
+                        responseObserver.onCompleted();
+                      }
+                    });
               }
-              AddFriendResponse response = AddFriendResponse.newBuilder().setStatus(status).build();
-              responseObserver.onNext(response);
-              responseObserver.onCompleted();
             });
+  }
+
+  private boolean getOnlineStatus(String userId) {
+    Set<String> onlineUserIds = wsHandler.getOnlineUserIds();
+    if (onlineUserIds != null) {
+      return onlineUserIds.contains(userId);
+    }
+    return false;
+  }
+
+  private UserInfo mapToUserInfo(User u) {
+    return UserInfo.newBuilder()
+        .setUserId(u.getUserId())
+        .setName(u.getName())
+        .setUnreadMessages(0)
+        .setLastMessage("")
+        .setIsOnline(getOnlineStatus(u.getUserId()))
+        .build();
   }
 }

@@ -73,7 +73,7 @@ message TransactionHistory{
 
 message GetHistoryResponse {
   message Data {
-    repeated TransactionHistory histories = 1;
+    repeated TransactionHistory items = 1;
     int32 next_page_token = 2;
   }
 
@@ -99,7 +99,7 @@ message Notification {
 
 message GetNotificationsResponse {
   message Data {
-    repeated Notification notification = 1;
+    repeated Notification items = 1;
     int32 next_page_token = 2;
   }
 
@@ -107,14 +107,69 @@ message GetNotificationsResponse {
   Status status = 2;
 }
 
-// clear unread notifications
-// message MarkReadRequest{
-//   string user_id = 1;
-// }
+message UserInfo {
+  string user_id = 1;
+  string name = 2;
+  int32 unread_messages = 3;
+  string last_message = 4;
+  bool is_online = 5;
+}
 
-// message MarkReadResponse{
-//   Status status = 1;
-// }
+message AddFriendRequest{
+  string user_id = 1;
+}
+
+message AddFriendResponse {
+  message Data {
+    UserInfo user = 1;
+  }
+
+  Data data = 1;
+  Status status = 2;
+}
+
+message GetStrangerListRequest {
+}
+
+message GetStrangerListResponse {
+  message Data {
+    repeated UserInfo items = 1;
+  }
+  Data data = 1;
+  Status status = 2;
+}
+
+message ResetUnseenRequest {
+  string user_id = 1;
+}
+
+message ResetUnseenResponse {
+  Status status = 1;
+}
+
+message GetUserInfoRequest {
+  string user_id = 1;
+}
+
+message GetUserInfoResponse {
+  message Data {
+    UserInfo user = 1;
+  }
+  Data data = 1;
+  Status status = 2;
+}
+
+message GetFriendListRequest {
+}
+
+message GetFriendListResponse {
+  message Data {
+    repeated UserInfo items = 1;
+  }
+  Data data = 1;
+  Status status = 2;
+}
+
 
 service FintechService {
   rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {};
@@ -125,5 +180,13 @@ service FintechService {
 
   rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {};
 
-  // rpc MarkRead(MarkReadRequest) returns (MarkReadResponse);
+  rpc GetStrangerList(GetStrangerListRequest) returns (GetStrangerListResponse) {};
+
+  rpc AddFriend(AddFriendRequest) returns (AddFriendResponse) {};
+
+  rpc ResetUnseen (ResetUnseenRequest) returns (ResetUnseenResponse) {};
+
+  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {};
+
+  rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse) {};
 }

@@ -107,14 +107,6 @@ message GetNotificationsResponse {
   Status status = 2;
 }
 
-// clear unread notifications
-// message MarkReadRequest{
-//   string user_id = 1;
-// }
-
-// message MarkReadResponse{
-//   Status status = 1;
-// }
 message UserInfo {
   string user_id = 1;
   string name = 2;
@@ -198,5 +190,4 @@ service FintechService {
 
   rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse) {};
 
-  // rpc MarkRead(MarkReadRequest) returns (MarkReadResponse);
 }

@@ -4,6 +4,8 @@ import { List } from 'antd/lib/form/Form';
 import grpcApi from '../../services/grpcApi';
 import Avatar from 'antd/lib/avatar/avatar';
 import { Table } from 'antd';
+import AddressBook from '../AddressBook';
+import './TransactionHistory.css';
 
 TransactionHistory.propTypes = {};
 
@@ -31,51 +33,41 @@ function TransactionHistory(props) {
 		}
 	];
 
-	const [ data, setData ] = useState([]);
-	useEffect(() => {
-		grpcApi.getHistory((err, response) => {
-			const history = response.getData().getItemsList();
+	// const [ data, setData ] = useState([]);
+	// useEffect(() => {
+	// 	grpcApi.getHistory((err, response) => {
+	// 		const history = response.getData().getItemsList();
 
-			if (history.length !== 0) {
-				const items = [];
-				let i = 0;
-				history.forEach((x) => {
-					console.log(x.getUserId());
-					const item = {
-						key: i,
-						userId: x.getUserId(),
-						description: x.getDescription(),
-						amount: x.getAmount(),
-						recordedTime: x.getRecordedTime()
-					};
-					items.push(item);
-					i++;
-				});
+	// 		if (history.length !== 0) {
+	// 			const items = [];
+	// 			let i = 0;
+	// 			history.forEach((x) => {
+	// 				console.log(x.getUserId());
+	// 				const item = {
+	// 					key: i,
+	// 					userId: x.getUserId(),
+	// 					description: x.getDescription(),
+	// 					amount: x.getAmount(),
+	// 					recordedTime: x.getRecordedTime()
+	// 				};
+	// 				items.push(item);
+	// 				i++;
+	// 			});
 
-				setData(items);
-			}
-		});
-	}, []);
+	// 			setData(items);
+	// 		}
+	// 	});
+	// }, []);
 
 	return (
-		// <List
-		// 		itemLayout="horizontal"
-		// 		dataSource={data}
-		// 		renderItem={item => (
-		// 			<List.Item>
-		// 				<List.Item.Meta
-		// 					avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-		// 					title={<a href="https://ant.design">{item.userId}</a>}
-		// 					description="aaaa"
-		// 				/>
-		// 			</List.Item>
-		// 		)}
-		// 	/>
 		<div className="transaction-history">
 			<div className="chat-header">
 				<h2>Transaction History</h2>
 			</div>
-			<Table columns={columns} dataSource={data} scroll={{ y: 500 }} />
+			{/* <Table columns={columns} dataSource={data} scroll={{ y: 500 }} /> */}
+			<div className="transaction-list">
+				<AddressBook />
+			</div>
 		</div>
 	);
 }

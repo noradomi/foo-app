@@ -41,3 +41,9 @@ export function isEmptyString(prop) {
 		return false;
 	}
 }
+
+export function processUsernameForAvatar(username) {
+	var x1 = username.charAt(0);
+	var x2 = username.charAt(1);
+	return x1 + ' ' + x2;
+}

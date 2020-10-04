@@ -29,8 +29,8 @@
   padding: 20px;
   resize: none;
   border-radius: 0;
-  background: rgb(230, 235, 245);
-  border: 1px solid #e6ebf5;
+  background: rgb(245, 245, 245);
+  border: 1px solid rgb(245, 245, 245);
   color: rgb(76, 83, 90);
   margin-right: 5px;
 }
@@ -39,13 +39,13 @@
 .compose textarea:active,
 .compose textarea:hover {
   box-shadow: none;
-  border: 1px solid #e6ebf5;
+  border: 1px solid rgb(245, 245, 245);
   -webkit-box-shadow: none;
 }
 
 
 .compose textarea::placeholder {
-  color: rgb(123, 128, 155);
+  color: rgb(169, 184, 183);
 }
 
 .compose button {

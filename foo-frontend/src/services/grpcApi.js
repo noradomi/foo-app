@@ -28,11 +28,11 @@ export default {
 		client.transferMoney(transferMoneyRequest, prepareMetadata(), callback);
 	},
 
-	getHistory: (callback) => {
+	getHistory: (pageSize, pageToken, callback) => {
 		console.log('Get history');
 		const getHistoryRequest = new GetHistoryRequest();
-		getHistoryRequest.setPageSize(3);
-		getHistoryRequest.setPageToken(0);
+		getHistoryRequest.setPageSize(pageSize);
+		getHistoryRequest.setPageToken(pageToken);
 		client.getHistory(getHistoryRequest, prepareMetadata(), callback);
 	},
 

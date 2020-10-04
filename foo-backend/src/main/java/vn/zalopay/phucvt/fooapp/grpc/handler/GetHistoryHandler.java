@@ -28,7 +28,10 @@ public class GetHistoryHandler {
               GetHistoryResponse response;
               if (listAsyncResult.succeeded()) {
                 List<HistoryItem> historyList = listAsyncResult.result();
-                response = handleSuccessResponse(historyList, pageSize, pageToken);
+                response =
+                    historyList.size() == 0
+                        ? handleSuccessResponse(historyList, 0, 0)
+                        : handleSuccessResponse(historyList, historyList.size(), pageToken);
               } else {
                 log.error("get transaction history failed, cause=", listAsyncResult.cause());
                 response =
@@ -42,10 +45,10 @@ public class GetHistoryHandler {
   }
 
   private GetHistoryResponse handleSuccessResponse(
-      List<HistoryItem> historyList, int pageSize, int pageToken) {
+      List<HistoryItem> historyList, int size, int pageToken) {
     GetHistoryResponse.Data.Builder builder = GetHistoryResponse.Data.newBuilder();
     historyList.forEach(x -> builder.addItems(mapToTransactionHistory(x)));
-    builder.setNextPageToken(pageSize + pageToken);
+    builder.setNextPageToken(pageToken + size);
     GetHistoryResponse.Data data = builder.build();
     return GetHistoryResponse.newBuilder()
         .setData(data)

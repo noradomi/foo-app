@@ -116,9 +116,6 @@ function MessageList(props) {
 	useEffect(
 		() => {
 			endOfMsgList.current.scrollIntoView({ behavior: 'smooth' });
-			// return function cleanup() {
-			// 	console.log('clean up component 2');
-			// };
 		},
 		[ props.scrollFlag, props.selectedUser.id ]
 	);

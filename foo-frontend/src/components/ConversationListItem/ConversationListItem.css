@@ -12,7 +12,7 @@
 .conversation-list-item:hover {
   /* background: #eeeef1; */
 
-  background: rgb(230, 235, 245);
+  background: rgb(245, 245, 245);
   cursor: pointer;
 }
 

@@ -50,3 +50,7 @@
   max-width: 200px;
   margin-right: 10px;
 }
+
+.ant-modal-header .ant-modal.body {
+  background-color: rgb(245, 245, 245);
+}

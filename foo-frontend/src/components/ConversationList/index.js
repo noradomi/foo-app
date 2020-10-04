@@ -6,8 +6,10 @@ import AddFriendModal from '../AddFriend';
 import ConversationListItem from '../ConversationListItem';
 import ConversationSearch from '../ConversationSearch';
 import './ConversationList.css';
+import { Divider } from 'antd';
 
 function ConversationList(props) {
+	console.log('Rerender conversation list');
 	const webSocket = useSelector((state) => state.webSocket);
 
 	if (webSocket.webSocket === null) {
@@ -39,7 +41,10 @@ function ConversationList(props) {
 			<ConversationSearch />
 			<AddFriendModal />
 			<div className="conversation-list-scroll">
-				<div className="user-list-title">Friends ({conversations.length})</div>
+				{/* <div className="user-list-title">Friends ({conversations.length})</div> */}
+				<Divider className="user-list-title" orientation="left" plain>
+					Friends ({conversations.length})
+				</Divider>
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => (
 						<ConversationListItem key={conversation.id} data={conversation} />
@@ -56,7 +61,8 @@ function mapStateToProps(state) {
 	return {
 		friendList: state.friendList,
 		user: state.user,
-		websocket: state.webSocket
+		websocket: state.webSocket,
+		userMapHolder: state.userMapHolder
 	};
 }
 

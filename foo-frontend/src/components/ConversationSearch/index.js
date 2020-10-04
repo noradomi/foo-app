@@ -13,7 +13,7 @@ export default function ConversationSearch() {
 				prefix={<SearchOutlined />}
 				style={{
 					border: 'none',
-					backgroundColor: 'rgb(230, 235, 245)',
+					backgroundColor: 'rgb(245, 245, 245)',
 					borderRadius: 6,
 					color: 'rgb(123, 128, 155)'
 				}}
