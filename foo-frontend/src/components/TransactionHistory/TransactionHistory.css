@@ -4,8 +4,8 @@
 }
 
 .transaction-list {
-  padding: 10px 30px;
+  padding: 10px;
   width: 100%;
-  /* height: calc(100vh - 200px); */
-  height: 300px;
+  height: calc(100vh - 200px);
+  /* height: 300px; */
 }

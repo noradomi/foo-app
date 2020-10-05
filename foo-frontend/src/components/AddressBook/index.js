@@ -5,6 +5,7 @@ import reqwest from 'reqwest';
 import CustomAvatar from '../CustomAvatar';
 import grpcApi from '../../services/grpcApi';
 import './AddressBook.css';
+import TransactionHistoryItem from '../TransactionHistoryItem';
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=20&inc=name,gender,email,nat&noinfo';
 
@@ -15,11 +16,12 @@ function AddressBook(props) {
 	let nextPageToken = useRef(0);
 
 	useEffect(() => {
-		grpcApi.getHistory(5, 0, (err, response) => {
+		grpcApi.getHistory(20, 0, (err, response) => {
 			const history = response.getData().getItemsList();
 			nextPageToken.current = response.getData().getNextPageToken();
+			console.log('next page token: ' + nextPageToken.current);
 			if (nextPageToken.current === 0) {
-				message.warning('Infinite List loaded all');
+				message.warning('Transaction history: No data');
 				setLoading(false);
 				setHasMore(false);
 				return;
@@ -33,7 +35,8 @@ function AddressBook(props) {
 						userId: x.getUserId(),
 						description: x.getDescription(),
 						amount: x.getAmount(),
-						recordedTime: x.getRecordedTime()
+						recordedTime: x.getRecordedTime(),
+						transferType: x.getTransferType()
 					};
 					items.push(item);
 					i++;
@@ -64,11 +67,12 @@ function AddressBook(props) {
 	// };
 
 	const handleInfiniteOnLoad = () => {
-		grpcApi.getHistory(5, 0, (err, response) => {
+		grpcApi.getHistory(5, nextPageToken.current, (err, response) => {
 			const history = response.getData().getItemsList();
 			nextPageToken.current = response.getData().getNextPageToken();
+			console.log('next page token: ' + nextPageToken.current);
 			if (nextPageToken.current === 0) {
-				message.warning('Infinite List loaded all');
+				message.warning('Transacion history loaded all');
 				setLoading(false);
 				setHasMore(false);
 				return;
@@ -83,11 +87,14 @@ function AddressBook(props) {
 						userId: x.getUserId(),
 						description: x.getDescription(),
 						amount: x.getAmount(),
-						recordedTime: x.getRecordedTime()
+						recordedTime: x.getRecordedTime(),
+						transferType: x.getTransferType()
 					};
 					items.push(item);
 					i++;
 				});
+				console.log('Transfer types: ');
+				items.forEach((x) => console.log(x.transferType));
 				newData = newData.concat(items);
 				setData(newData);
 				setLoading(false);
@@ -104,33 +111,6 @@ function AddressBook(props) {
 				hasMore={!loading && hasMore}
 				useWindow={false}
 			>
-				{/* <List
-						dataSource={this.state.data}
-						renderItem={(item) => (
-							<List.Item
-								key={item.id}
-								actions={[
-									<Button type="primary" shape="circle" icon={<DownloadOutlined />} size={'large'} />
-								]}
-							>
-								<List.Item.Meta
-									avatar={
-										<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-									}
-									title={<a href="https://ant.design">{item.name.last}</a>}
-									// description={item.email}
-								/>
-					
-							</List.Item>
-						)}
-					>
-						{this.state.loading &&
-						this.state.hasMore && (
-							<div className="demo-loading-container">
-								<Spin />
-							</div>
-						)}
-					</List> */}
 				<List
 					dataSource={data}
 					renderItem={(item) => (
@@ -142,23 +122,7 @@ function AddressBook(props) {
 									title={<a href="https://ant.design">{item.name.last}</a>}
 									description={item.email}
 								/> */}
-							<div className="addfriend-list-item" style={{ width: '100%' }}>
-								<div style={{ width: 40 }}>
-									<CustomAvatar type="panel-avatar" avatar={'Noradomi'} />
-								</div>
-								<div className="addfriend-info" style={{ overflow: 'hidden', paddingTop: 5 }}>
-									<div className="addfriend-name">Vo Trong Phyc</div>
-								</div>
-								<Button
-									// onClick={() => setVisible(true)}
-									// style={{ display: btnVisbale }}
-									className="addfriend-btn"
-									size={'small'}
-									// loading={loadings[0]}
-								>
-									<span>Transfer</span>
-								</Button>
-							</div>
+							<TransactionHistoryItem data={item} />
 						</List.Item>
 					)}
 				>

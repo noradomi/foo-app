@@ -1,0 +1,39 @@
+.transaction-list-item {
+  display: flex;
+  align-items: center;
+  /* padding: 10px; */
+  position: relative;
+  border-radius: 10px;
+  margin: 3px 10px;
+  width: 100%;
+}
+
+.transaction-icon {
+  font-size: 25px;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.transaction-info {}
+
+.transaction-user-name {
+  font-size: 16px !important;
+}
+
+.amount-transfer {
+  font-size: 16px;
+  font-weight: 500;
+  flex-shrink: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.deposit {
+  color: rgb(81, 204, 40);
+}
+
+.withdraw {
+  color: rgb(255, 0, 0);
+}

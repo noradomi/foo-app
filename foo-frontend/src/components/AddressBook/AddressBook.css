@@ -2,8 +2,9 @@
   border: 1px solid #e8e8e8;
   border-radius: 4px;
   overflow: auto;
-  padding: 8px 24px;
+  padding: 24px;
   height: 100%;
+  background-color: #ffffff;
 }
 
 .demo-loading-container {
@@ -11,4 +12,9 @@
   bottom: 40px;
   width: 50px;
   text-align: center;
+
+}
+
+.demo-infinite-container li {
+  padding: 0;
 }
