@@ -39,8 +39,8 @@ function AddFriend(props) {
 							src="https://zalo-chat-static.zadn.vn/v1/NewFr@2x.png"
 							style={{ borderRadius: '50%', width: '50px', height: '50px', marginRight: '11px' }}
 						/>
-						<span>Add new friend</span>
-    </>
+						<span className="addfriend-title">Add new friend</span>
+          </>
 				
 				}
 				onCancel={handleCancel}

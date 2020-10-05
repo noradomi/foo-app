@@ -54,3 +54,8 @@
 .ant-modal-header .ant-modal.body {
   background-color: rgb(245, 245, 245);
 }
+
+.addfriend-title{
+  font-size: 20px;
+  font-weight: 500;
+}

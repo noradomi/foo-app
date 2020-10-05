@@ -17,4 +17,5 @@
 
 .demo-infinite-container li {
   padding: 0;
+  border-bottom: none;
 }

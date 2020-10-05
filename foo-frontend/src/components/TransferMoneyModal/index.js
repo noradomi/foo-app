@@ -58,11 +58,15 @@ const TransferMoneyModal = ({ userInfo, visible, onCreate, onCancel }) => {
 
 	const [ form ] = Form.useForm();
 	const checkPrice = (rule, value) => {
-		if (value.number > 0) {
-			return Promise.resolve();
+		if (value.number > 1000) {
+			if (value.number % 1000 === 0) {
+				return Promise.resolve();
+			} else {
+				return Promise.reject('Số tiền gửi phải là bội số của 1,000!');
+			}
+		} else {
+			return Promise.reject('Số tiền gửi tối thiểu là 1,000 đ !');
 		}
-
-		return Promise.reject('Money transfer must be greater than zero!');
 	};
 	return (
 		<Modal
