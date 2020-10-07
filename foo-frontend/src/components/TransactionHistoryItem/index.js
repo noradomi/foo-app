@@ -4,9 +4,10 @@ import React from 'react';
 import CustomAvatar from '../CustomAvatar';
 import './TransactionHistoryItem.css';
 import { Row, Col, Button } from 'antd';
+import { useSelector } from 'react-redux';
 
 function TransactionHistoryItem(props) {
-	const { userId, description, recordedTime, amount, transferType } = props.data;
+	const { userName, description, recordedTime, amount, transferType } = props.data;
 
 	const formattedAmount = `${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
@@ -20,23 +21,23 @@ function TransactionHistoryItem(props) {
 					{transferType === 1 ? <span>INT</span> : <span>OUT</span>}
 				</div>
 			</Col>
-			<Col span={8}>
+			<Col span={5}>
 				<div className="transaction-list-item">
 					<div style={{ width: 40 }}>
-						<CustomAvatar type="panel-avatar" avatar={'No'} />
+						<CustomAvatar type="panel-avatar" avatar={userName} />
 					</div>
 					<div
 						className="transaction-info"
 						style={{ paddingLeft: '10px', overflow: 'hidden', paddingTop: 5 }}
 					>
-						<div className="transaction-user-name">{userId}</div>
+						<div className="transaction-user-name">{userName}</div>
 						<div className="transaction-time">
 							{moment(recordedTime * 1000).format('hh:mm A - DD/MM/YYYY')}
 						</div>
 					</div>
 				</div>
 			</Col>
-			<Col span={9}>
+			<Col span={12}>
 				<div>{description}</div>
 			</Col>
 			<Col span={3}>

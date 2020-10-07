@@ -9,8 +9,11 @@ import vn.zalopay.phucvt.fooapp.common.mapper.DBTable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HistoryItem {
-  @DBTable(columnName = "user_id")
-  String userId;
+  @DBTable(columnName = "sender_id")
+  String senderId;
+
+  @DBTable(columnName = "receiver_id")
+  String receiverId;
 
   @DBTable(columnName = "amount")
   long amount;

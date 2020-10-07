@@ -28,4 +28,6 @@ public class WsMessage {
   private long createTime;
 
   private UserInfo userInfo; // return when added friend
+
+  private Object transferMoneyData;
 }

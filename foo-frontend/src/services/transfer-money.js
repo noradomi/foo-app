@@ -14,15 +14,19 @@ export function transferMoney(request) {
 			if (code === 0) {
 				const data = response.getData();
 				const transacion = data.getTransaction();
-				const item = {
-					userId: transacion.getUserId(),
-					description: transacion.getDescription(),
-					amount: transacion.getAmount(),
-					recordedTime: transacion.getRecordedTime(),
-					transferType: transacion.getTransferType()
-				};
 				const newBalance = data.getBalance();
 				const lastUpdated = data.getLastUpdated();
+				const friendList = store.getState().friendList;
+				const index = friendList.findIndex((friend) => friend.userId === transacion.getUserId());
+				const userName = friendList[index].name;
+				const item = {
+					userName: userName,
+					description: transacion.getDescription(),
+					amount: transacion.getAmount(),
+					recordedTime: lastUpdated,
+					transferType: transacion.getTransferType()
+				};
+
 				store.dispatch(setWalletAction(newBalance, lastUpdated));
 				store.dispatch(appendTranctionHistoryAction(item));
 			}

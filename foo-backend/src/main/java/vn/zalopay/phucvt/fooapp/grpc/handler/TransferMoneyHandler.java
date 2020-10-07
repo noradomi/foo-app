@@ -13,10 +13,8 @@ import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.grpc.exceptions.TransferMoneyException;
-import vn.zalopay.phucvt.fooapp.model.AccountLog;
-import vn.zalopay.phucvt.fooapp.model.Transfer;
-import vn.zalopay.phucvt.fooapp.model.TransferMoneyHolder;
-import vn.zalopay.phucvt.fooapp.model.User;
+import vn.zalopay.phucvt.fooapp.handler.WSHandler;
+import vn.zalopay.phucvt.fooapp.model.*;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 
@@ -29,6 +27,7 @@ import java.util.List;
 public class TransferMoneyHandler {
   private final UserDA userDA;
   private final FintechDA fintechDA;
+  private final WSHandler wsHandler;
   private final TransactionProvider transactionProvider;
 
   public void handle(
@@ -80,6 +79,7 @@ public class TransferMoneyHandler {
                 TransferMoneyResponse response = buildSuccessTransferMoneyResponse(holder);
                 responseObserver.onNext(response);
                 responseObserver.onCompleted();
+                notifyTransferMoney(holder);
               } else {
                 transaction.rollback();
                 log.error(
@@ -100,7 +100,6 @@ public class TransferMoneyHandler {
                     .setUserId(holder.getRequest().getReceiver())
                     .setAmount(holder.getRequest().getAmount())
                     .setDescription(holder.getRequest().getDescription())
-                    .setRecordedTime(holder.getRecordedTime())
                     .setTransferType(TransactionHistory.TransferType.SEND)
                     .build())
             .build();
@@ -108,6 +107,28 @@ public class TransferMoneyHandler {
         .setData(data)
         .setStatus(Status.newBuilder().setCode(Code.OK).build())
         .build();
+  }
+
+  private void notifyTransferMoney(TransferMoneyHolder holder) {
+    TransferMoneyResponse.Data data =
+        TransferMoneyResponse.Data.newBuilder()
+            .setBalance(holder.getReceiverBalance())
+            .setLastUpdated(holder.getRecordedTime())
+            .setTransaction(
+                TransactionHistory.newBuilder()
+                    .setUserId(holder.getUserAuth().getUserId())
+                    .setAmount(holder.getRequest().getAmount())
+                    .setDescription(holder.getRequest().getDescription())
+                    .setTransferType(TransactionHistory.TransferType.RECEIVE)
+                    .build())
+            .build();
+    WsMessage transferMoneyMessage =
+        WsMessage.builder()
+            .type("TRANSFER_MONEY")
+            .receiverId(holder.getRequest().getReceiver())
+            .transferMoneyData(data)
+            .build();
+    wsHandler.notifyTransferMoney(transferMoneyMessage);
   }
 
   private void handleExceptionResponse(

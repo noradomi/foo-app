@@ -58,7 +58,7 @@ public class GetHistoryHandler {
 
   public TransactionHistory mapToTransactionHistory(HistoryItem item) {
     return TransactionHistory.newBuilder()
-        .setUserId(item.getUserId())
+        .setUserId(item.getTransferType() == 0 ? item.getReceiverId() : item.getSenderId())
         .setAmount(item.getAmount())
         .setDescription(item.getDescription())
         .setRecordedTime(item.getRecordedTime())

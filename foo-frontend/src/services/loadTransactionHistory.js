@@ -12,10 +12,12 @@ export function loadTransactionHistory(pageSize, pageToken) {
 
 				if (nextPageToken !== 0) {
 					const items = [];
+					const friendList = store.getState().friendList;
 					history.forEach((x) => {
-						console.log(x.getUserId());
+						const index = friendList.findIndex((friend) => friend.userId === x.getUserId());
+						const userName = friendList[index].name;
 						const item = {
-							userId: x.getUserId(),
+							userName: userName,
 							description: x.getDescription(),
 							amount: x.getAmount(),
 							recordedTime: x.getRecordedTime(),

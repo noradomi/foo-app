@@ -51,6 +51,7 @@ const MoneyInput = ({ value = {}, onChange }) => {
 };
 
 const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
+  const [confirmLoading, setConfirmLoading] = useState(false);
 	let selectedUser = null;
 	if (userInfo !== null) {
 		selectedUser = userInfo;
@@ -62,12 +63,17 @@ const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
 	const checkPrice = (rule, value) => {
 		if (value.number >= 1000) {
 			if (value.number % 1000 === 0) {
-				return Promise.resolve();
+				if(value.number <= 20000000){
+          return Promise.resolve();
+        }
+        else{
+          return Promise.reject('Số tiền gửi tối đa là 20,000,000 VND')
+        }
 			} else {
 				return Promise.reject('Số tiền gửi phải là bội số của 1,000!');
 			}
 		} else {
-			return Promise.reject('Số tiền gửi tối thiểu là 1,000 đ !');
+			return Promise.reject('Số tiền gửi tối thiểu là 1,000 VND !');
 		}
 	};
 
@@ -172,9 +178,14 @@ const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
     form
 			.validateFields()
 			.then((values) => {
-				form.resetFields();
-        values.receiver = selectedUser.id;
-        submitTransferMoney(values)
+        // form.resetFields();
+        setConfirmLoading(true);
+         setTimeout(() => {
+            setConfirmLoading(false);
+            values.receiver = selectedUser.id;
+        submitTransferMoney(values);
+          }, 2000);
+        
 				
         // onCreate(values);
 			})
@@ -198,7 +209,8 @@ const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
 			okText={<span><CheckOutlined/> Chuyển tiền</span>}
 			cancelText={<span><CloseOutlined /> Hủy</span>}
 			onCancel={onCancel}
-			onOk={handleOk}
+      onOk={handleOk}
+      confirmLoading={confirmLoading}
 		>
 			<div style={{ margin: '0 auto', textAlign: 'center' }}>
 				<CustomAvatar type="user-avatar" avatar={selectedUser.avatar} />

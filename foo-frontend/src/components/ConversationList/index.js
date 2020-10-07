@@ -23,7 +23,6 @@ function ConversationList(props) {
 
 	const conversations = props.friendList.map((res) => {
 		const { name, userId, avatar, online, lastMessage } = res;
-
 		return {
 			name: name,
 			text: lastMessage,
@@ -33,17 +32,14 @@ function ConversationList(props) {
 		};
 	});
 
-	console.log(conversations.length);
-
 	return (
 		<div className="conversation-list">
 			<div className="profile">FooApp - {props.user.name}</div>
 			<ConversationSearch />
 			<AddFriendModal />
 			<div className="conversation-list-scroll">
-				{/* <div className="user-list-title">Friends ({conversations.length})</div> */}
 				<Divider className="user-list-title" orientation="left" plain>
-					Friends ({conversations.length})
+					Bạn ({conversations.length})
 				</Divider>
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => (

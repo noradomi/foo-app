@@ -67,10 +67,14 @@ public class ServiceModule {
   @Provides
   @Singleton
   TransferMoneyHandler provideTransferMoneyHandler(
-      UserDA userDA, FintechDA fintechDA, TransactionProvider transactionProvider) {
+      UserDA userDA,
+      FintechDA fintechDA,
+      WSHandler wsHandler,
+      TransactionProvider transactionProvider) {
     return TransferMoneyHandler.builder()
         .userDA(userDA)
         .fintechDA(fintechDA)
+        .wsHandler(wsHandler)
         .transactionProvider(transactionProvider)
         .build();
   }

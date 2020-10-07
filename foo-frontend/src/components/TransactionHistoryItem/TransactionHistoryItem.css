@@ -4,14 +4,13 @@
   /* padding: 10px; */
   position: relative;
   border-radius: 10px;
-  margin: 3px 10px;
-  width: 100%;
+  margin-left: 30px;
+  /* width: 100%; */
   border: 1px solid rgb(245, 245, 245);
 }
 
 .transaction-item {
-  border-radius: 15px;
-  border-radius: 4px;
+  border-radius: 12px;
   box-shadow: 0 0 3px rgba(0, 0, 0, .19);
   margin: 5px 0;
 }
@@ -35,18 +34,18 @@
 }
 
 .transaction-icon {
-  padding: 10px 0;
+  padding: 16px 0;
   font-size: 18px;
   font-weight: 700;
   min-width: 80px;
   text-align: center;
-  border-radius: 3px;
+  border-radius: 12px;
   background: #000;
   text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
   font-family: sans-serif;
   color: #fff;
 
-  margin-left: 5px;
+  /* margin-left: 5px; */
 }
 
 .transaction-icon-out {
@@ -91,7 +90,6 @@
   color: #888;
   font-weight: 100;
   line-height: 10px;
-  margin-left: 10px;
   margin-top: 5px;
   overflow: hidden;
   text-overflow: ellipsis;

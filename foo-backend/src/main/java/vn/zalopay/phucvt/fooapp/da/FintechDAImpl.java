@@ -34,7 +34,7 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
           + "VALUES (?,?,?,?,?,?)";
 
   private static final String SELECT_TRANSACTION_HISTORY_STATEMENT =
-      "select a.recorded_time , a.transfer_type , t.amount ,t.description ,t.receiver as user_id from account_logs a "
+      "select a.recorded_time , a.transfer_type , t.amount ,t.description ,t.sender as sender_id, t.receiver as receiver_id from account_logs a "
           + "join transfers t on a.transfer_id = t.id where a.user_id = ? order by a.recorded_time desc limit ?,? ";
 
   private final DataSource dataSource;

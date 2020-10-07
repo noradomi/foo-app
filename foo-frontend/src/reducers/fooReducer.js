@@ -289,7 +289,7 @@ function setWallet(state, data) {
 function loadTransactionHistory(state, data) {
 	console.log(data.items);
 	return Object.assign({}, state, {
-		transactionHistory: [ ...data.items, ...state.transactionHistory ]
+		transactionHistory: [ ...data.items ]
 	});
 }
 

@@ -108,6 +108,17 @@ public class WSHandler {
     }
   }
 
+  public void notifyTransferMoney(WsMessage transferMoneyMessage) {
+    String receiverId = transferMoneyMessage.getReceiverId();
+    if (clients.containsKey(receiverId)) {
+      Set<ServerWebSocket> receiverCon = clients.get(receiverId);
+      receiverCon.forEach(
+              conn -> {
+                conn.writeTextMessage(JsonProtoUtils.printGson(transferMoneyMessage));
+              });
+    }
+  }
+
   public Set<String> getOnlineUserIds() {
     return clients.keySet();
   }

@@ -29,7 +29,6 @@ public class GetFriendListHandler {
               GetFriendListResponse response;
               if (listAsyncResult.succeeded()) {
                 List<UserFriendItem> userList = listAsyncResult.result();
-                //                userList.forEach(x -> System.out.println(x.getName()));
                 response = handleSuccessResponse(userList);
               } else {
                 log.error("get friend list failed, cause=", listAsyncResult.cause());
