@@ -22,7 +22,6 @@ function MessageList(props) {
 	}
 
 	let receiverId = props.selectedUser.id;
-	console.log('Selected user id: ' + receiverId);
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 
 	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId);
@@ -34,9 +33,12 @@ function MessageList(props) {
 			id: item.createTime,
 			message: item.message,
 			author: item.senderId,
-			timestamp: item.createTime * 1000
+			timestamp: item.createTime * 1000,
+			amount: item.amount
 		};
 	});
+	console.log('Messages:');
+	console.log(messages);
 
 	const renderMessages = () => {
 		let i = 0;
@@ -90,7 +92,7 @@ function MessageList(props) {
 				/>
 			);
 
-			// Proceed to the next message.
+			// Proceed to the next message.createTime
 			i += 1;
 		}
 

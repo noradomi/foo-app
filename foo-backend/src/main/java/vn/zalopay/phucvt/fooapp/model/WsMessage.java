@@ -27,6 +27,9 @@ public class WsMessage {
   @DBTable(columnName = "create_time")
   private long createTime;
 
+//  @DBTable(columnName = "amount")
+//  private long amount = 0;
+
   private UserInfo userInfo; // return when added friend
 
   private Object transferMoneyData;

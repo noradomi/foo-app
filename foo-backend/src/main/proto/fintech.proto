@@ -13,6 +13,7 @@ enum Code {
   FAILED_PRECONDITION = 3; // missing jwt
   INTERNAL = 4;
   INVALID_INPUT_MONEY = 5;
+  USER_ID_NOT_FOUND = 6;
 }
 
 message Status {

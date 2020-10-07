@@ -40,7 +40,7 @@ function UserWallet(props) {
 							<Statistic
 								className="wallet-last-updated"
 								title="Lần cập nhật cuối"
-								value={moment(wallet.lastUpdated * 1000).format('HH:MM - DD/MM/YYYY')}
+								value={moment(wallet.lastUpdated * 1000).format('hh:mm A - DD/MM/YYYY')}
 								precision={0}
 								valueStyle={{ color: '#cf1322' }}
 								prefix={<FieldTimeOutlined />}

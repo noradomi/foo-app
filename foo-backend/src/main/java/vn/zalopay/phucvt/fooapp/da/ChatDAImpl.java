@@ -21,10 +21,11 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
   private static final String INSERT_MESSAGE_STATEMENT =
       "INSERT INTO messages (`id`, `sender`, `receiver`,`message`,`create_time`) VALUES (?,?,?,?,?)";
   private static final String GET_MESSAGE_LIST_STATEMENT =
-      "SELECT * FROM "
-          + "(SELECT * FROM messages WHERE (sender = ? AND receiver = ?) "
-          + "UNION "
-          + "SELECT * FROM messages WHERE (sender = ? AND receiver = ?)) as msgs "
+      "SELECT m.id,m.sender,m.receiver,m.message,m.create_time, t.amount FROM \n"
+          + "(SELECT * FROM messages WHERE (sender = ? AND receiver = ?) \n"
+          + "UNION \n"
+          + "SELECT * FROM messages WHERE (sender = ? AND receiver = ?)) \n"
+          + "as m left join transfers t on m.transfer_id = t.id \n"
           + "ORDER BY create_time DESC LIMIT ?, ?";
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;

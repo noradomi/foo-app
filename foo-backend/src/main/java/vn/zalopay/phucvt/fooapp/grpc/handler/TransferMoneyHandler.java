@@ -43,6 +43,8 @@ public class TransferMoneyHandler {
     holder.setRequest(request);
     getUserAuth(userId, holder)
         .compose(this::validatePassword)
+        .compose(this::validateReceiverId)
+        .compose(this::validateAmountTransfer  )
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
@@ -162,6 +164,44 @@ public class TransferMoneyHandler {
                     ExceptionUtil.getDetail(userAsyncResult.cause()));
               }
             });
+    return future;
+  }
+
+  private Future<TransferMoneyHolder> validateReceiverId(TransferMoneyHolder holder) {
+    log.info("validate receiver id");
+    Future<TransferMoneyHolder> future = Future.future();
+    userDA
+        .selectUserById(holder.getRequest().getReceiver())
+        .setHandler(
+            userAsyncResult -> {
+              if (userAsyncResult.succeeded()) {
+                User u = userAsyncResult.result();
+                if (u == null) {
+                  future.fail(
+                      new TransferMoneyException(
+                          "Receiver Id not found", Code.USER_ID_NOT_FOUND)); // note
+                } else {
+                  future.complete();
+                }
+              } else {
+                future.fail("Get user auth failed");
+                log.error(
+                    "get user auth failed, cause={}",
+                    ExceptionUtil.getDetail(userAsyncResult.cause()));
+              }
+            });
+    return future;
+  }
+
+  private Future<TransferMoneyHolder> validateAmountTransfer(TransferMoneyHolder holder) {
+    log.info("validate amount transfer");
+    Future<TransferMoneyHolder> future = Future.future();
+    long amount = holder.getRequest().getAmount();
+    if (amount < 1000 || amount > 20000000 || amount % 1000 != 0) {
+      future.fail(new TransferMoneyException("Amount transfer invalid", Code.INVALID_INPUT_MONEY));
+    } else {
+      future.complete();
+    }
     return future;
   }
 
