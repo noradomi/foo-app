@@ -1040,7 +1040,9 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
 	proto.fintech.TransferMoneyResponse.Data.toObject = function(includeInstance, msg) {
 		var f,
 			obj = {
-				balance: jspb.Message.getFieldWithDefault(msg, 1, 0)
+				balance: jspb.Message.getFieldWithDefault(msg, 1, 0),
+				lastUpdated: jspb.Message.getFieldWithDefault(msg, 2, 0),
+				transaction: (f = msg.getTransaction()) && proto.fintech.TransactionHistory.toObject(includeInstance, f)
 			};
 
 		if (includeInstance) {
@@ -1079,6 +1081,15 @@ proto.fintech.TransferMoneyResponse.Data.deserializeBinaryFromReader = function(
 				var value /** @type {number} */ = reader.readInt64();
 				msg.setBalance(value);
 				break;
+			case 2:
+				var value /** @type {number} */ = reader.readInt64();
+				msg.setLastUpdated(value);
+				break;
+			case 3:
+				var value = new proto.fintech.TransactionHistory();
+				reader.readMessage(value, proto.fintech.TransactionHistory.deserializeBinaryFromReader);
+				msg.setTransaction(value);
+				break;
 			default:
 				reader.skipField();
 				break;
@@ -1110,6 +1121,14 @@ proto.fintech.TransferMoneyResponse.Data.serializeBinaryToWriter = function(mess
 	if (f !== 0) {
 		writer.writeInt64(1, f);
 	}
+	f = message.getLastUpdated();
+	if (f !== 0) {
+		writer.writeInt64(2, f);
+	}
+	f = message.getTransaction();
+	if (f != null) {
+		writer.writeMessage(3, f, proto.fintech.TransactionHistory.serializeBinaryToWriter);
+	}
 };
 
 /**
@@ -1123,6 +1142,48 @@ proto.fintech.TransferMoneyResponse.Data.prototype.getBalance = function() {
 /** @param {number} value */
 proto.fintech.TransferMoneyResponse.Data.prototype.setBalance = function(value) {
 	jspb.Message.setProto3IntField(this, 1, value);
+};
+
+/**
+ * optional int64 last_updated = 2;
+ * @return {number}
+ */
+proto.fintech.TransferMoneyResponse.Data.prototype.getLastUpdated = function() {
+	return /** @type {number} */ jspb.Message.getFieldWithDefault(this, 2, 0);
+};
+
+/** @param {number} value */
+proto.fintech.TransferMoneyResponse.Data.prototype.setLastUpdated = function(value) {
+	jspb.Message.setProto3IntField(this, 2, value);
+};
+
+/**
+ * optional TransactionHistory transaction = 3;
+ * @return {?proto.fintech.TransactionHistory}
+ */
+proto.fintech.TransferMoneyResponse.Data.prototype.getTransaction = function() {
+	return /** @type{?proto.fintech.TransactionHistory} */ jspb.Message.getWrapperField(
+		this,
+		proto.fintech.TransactionHistory,
+		3
+	);
+};
+
+/** @param {?proto.fintech.TransactionHistory|undefined} value */
+proto.fintech.TransferMoneyResponse.Data.prototype.setTransaction = function(value) {
+	jspb.Message.setWrapperField(this, 3, value);
+};
+
+proto.fintech.TransferMoneyResponse.Data.prototype.clearTransaction = function() {
+	this.setTransaction(undefined);
+};
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.fintech.TransferMoneyResponse.Data.prototype.hasTransaction = function() {
+	return jspb.Message.getField(this, 3) != null;
 };
 
 /**

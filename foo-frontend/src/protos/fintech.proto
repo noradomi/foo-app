@@ -47,6 +47,8 @@ message TransferMoneyRequest {
 message TransferMoneyResponse {
   message Data {
     int64 balance = 1;
+    int64 last_updated = 2;
+    TransactionHistory transaction = 3;
   }
 
   Data data = 1;
@@ -107,14 +109,6 @@ message GetNotificationsResponse {
   Status status = 2;
 }
 
-// clear unread notifications
-// message MarkReadRequest{
-//   string user_id = 1;
-// }
-
-// message MarkReadResponse{
-//   Status status = 1;
-// }
 message UserInfo {
   string user_id = 1;
   string name = 2;
@@ -198,5 +192,4 @@ service FintechService {
 
   rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse) {};
 
-  // rpc MarkRead(MarkReadRequest) returns (MarkReadResponse);
 }

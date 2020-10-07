@@ -4,4 +4,9 @@
   line-height: 60px;
   background-color: #dddddd;
   border-radius: 50%;
+
+}
+
+.user-avatar span {
+  font-size: 20px;
 }

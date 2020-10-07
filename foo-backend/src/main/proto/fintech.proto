@@ -47,6 +47,8 @@ message TransferMoneyRequest {
 message TransferMoneyResponse {
   message Data {
     int64 balance = 1;
+    int64 last_updated = 2;
+    TransactionHistory transaction = 3;
   }
 
   Data data = 1;

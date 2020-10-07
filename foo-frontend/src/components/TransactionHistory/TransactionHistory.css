@@ -6,6 +6,6 @@
 .transaction-list {
   padding: 10px;
   width: 100%;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 100px);
   /* height: 300px; */
 }

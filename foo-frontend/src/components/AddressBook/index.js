@@ -6,10 +6,14 @@ import CustomAvatar from '../CustomAvatar';
 import grpcApi from '../../services/grpcApi';
 import './AddressBook.css';
 import TransactionHistoryItem from '../TransactionHistoryItem';
+import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
+import { loadTransactionHistory } from '../../services/loadTransactionHistory';
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=20&inc=name,gender,email,nat&noinfo';
 
 function AddressBook(props) {
+	// const data = useSelector((state) => state.transactionHistory);
 	const [ data, setData ] = useState([]);
 	const [ loading, setLoading ] = useState(false);
 	const [ hasMore, setHasMore ] = useState(true);
@@ -21,17 +25,15 @@ function AddressBook(props) {
 			nextPageToken.current = response.getData().getNextPageToken();
 			console.log('next page token: ' + nextPageToken.current);
 			if (nextPageToken.current === 0) {
-				message.warning('Transaction history: No data');
+				message.warning('Lịch sử giao dịch rỗng');
 				setLoading(false);
 				setHasMore(false);
 				return;
 			} else {
 				const items = [];
-				let i = 0;
 				history.forEach((x) => {
 					console.log(x.getUserId());
 					const item = {
-						key: i,
 						userId: x.getUserId(),
 						description: x.getDescription(),
 						amount: x.getAmount(),
@@ -39,32 +41,23 @@ function AddressBook(props) {
 						transferType: x.getTransferType()
 					};
 					items.push(item);
-					i++;
 				});
-
 				setData(items);
 				setLoading(false);
 			}
 		});
+		// loadTransactionHistory(20, 0).then((x) => {
+		// 	nextPageToken.current = x;
+		// 	console.log('Nex page token: ' + nextPageToken.current);
+		// 	if (x === 0) {
+		// 		message.warning('Lịch sử giao dịch rỗng');
+		// 		setLoading(false);
+		// 		setHasMore(false);
+		// 	} else {
+		// 		setLoading(false);
+		// 	}
+		// });
 	}, []);
-
-	// useEffect(() => {
-	// 	fetchData((res) => {
-	// 		setData(res.results);
-	// 	});
-	// }, []);
-
-	// const fetchData = (callback) => {
-	// 	reqwest({
-	// 		url: fakeDataUrl,
-	// 		type: 'json',
-	// 		method: 'get',
-	// 		contentType: 'application/json',
-	// 		success: (res) => {
-	// 			callback(res);
-	// 		}
-	// 	});
-	// };
 
 	const handleInfiniteOnLoad = () => {
 		grpcApi.getHistory(5, nextPageToken.current, (err, response) => {
@@ -72,7 +65,7 @@ function AddressBook(props) {
 			nextPageToken.current = response.getData().getNextPageToken();
 			console.log('next page token: ' + nextPageToken.current);
 			if (nextPageToken.current === 0) {
-				message.warning('Transacion history loaded all');
+				message.warning('Đã tải hết lịch sử giao dịch');
 				setLoading(false);
 				setHasMore(false);
 				return;
@@ -100,6 +93,17 @@ function AddressBook(props) {
 				setLoading(false);
 			}
 		});
+		// loadTransactionHistory(20, nextPageToken.current).then((x) => {
+		// 	nextPageToken.current = x;
+		// 	console.log('Nex page token: ' + nextPageToken.current);
+		// 	if (x === 0) {
+		// 		message.warning('Đã tải hết lịch sử giao dịch');
+		// 		setLoading(false);
+		// 		setHasMore(false);
+		// 	} else {
+		// 		setLoading(false);
+		// 	}
+		// });
 	};
 
 	return (
@@ -115,13 +119,6 @@ function AddressBook(props) {
 					dataSource={data}
 					renderItem={(item) => (
 						<List.Item key={item.id}>
-							{/* <List.Item.Meta
-									avatar={
-										<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-									}
-									title={<a href="https://ant.design">{item.name.last}</a>}
-									description={item.email}
-								/> */}
 							<TransactionHistoryItem data={item} />
 						</List.Item>
 					)}

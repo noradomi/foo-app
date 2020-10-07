@@ -7,22 +7,15 @@ import grpcApi from '../../services/grpcApi';
 import CustomAvatar from '../CustomAvatar';
 import WallTransferList from '../WallTransferList';
 import './Wallet.css';
+import { getBalace } from '../../services/get-balace';
 
 function UserWallet(props) {
-	const [ wallet, setWallet ] = useState({
-		balance: 0,
-		lastUpdated: 0
-	});
+	const wallet = useSelector((state) => state.wallet);
 
 	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
-		grpcApi.getBalance('Phuc', (err, response) => {
-			const dataResponse = response.getData();
-			const balance = dataResponse.getBalance();
-			const lastUpdated = dataResponse.getLastUpdated();
-			setWallet({ balance, lastUpdated });
-		});
+		getBalace();
 	}, []);
 	return (
 		<div className="wallet-info">
@@ -37,26 +30,17 @@ function UserWallet(props) {
 						<Card className="wallet-card">
 							<Statistic
 								className="wallet-balance"
-								title="Balance"
+								title="Số dư"
 								value={wallet.balance}
 								precision={0}
 								valueStyle={{ color: '#3f8600' }}
 								prefix={<MoneyCollectOutlined />}
 								suffix="VND"
 							/>
-							{/* <Input.Password
-								className="wallet-balance"
-								prefix={<MoneyCollectOutlined />}
-								suffix="RMB"
-								value={`${wallet.balance} VND`}
-								iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-								readOnly
-								bordered={false}
-							/> */}
 							<Statistic
 								className="wallet-last-updated"
-								title="Last updated"
-								value={moment(wallet.lastUpdated * 1000).format('hh:mm A - DD/MM/YYYY')}
+								title="Lần cập nhật cuối"
+								value={moment(wallet.lastUpdated * 1000).format('HH:MM - DD/MM/YYYY')}
 								precision={0}
 								valueStyle={{ color: '#cf1322' }}
 								prefix={<FieldTimeOutlined />}

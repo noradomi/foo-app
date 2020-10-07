@@ -10,10 +10,7 @@ import vn.zalopay.phucvt.fooapp.da.FintechDA;
 import vn.zalopay.phucvt.fooapp.da.Transaction;
 import vn.zalopay.phucvt.fooapp.da.TransactionProvider;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
-import vn.zalopay.phucvt.fooapp.fintech.Code;
-import vn.zalopay.phucvt.fooapp.fintech.Status;
-import vn.zalopay.phucvt.fooapp.fintech.TransferMoneyRequest;
-import vn.zalopay.phucvt.fooapp.fintech.TransferMoneyResponse;
+import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.grpc.exceptions.TransferMoneyException;
 import vn.zalopay.phucvt.fooapp.model.AccountLog;
@@ -79,10 +76,8 @@ public class TransferMoneyHandler {
               if (holderAsyncResult.succeeded()) {
                 log.debug("Transaction successfully");
                 transaction.commit();
-                TransferMoneyResponse response =
-                    TransferMoneyResponse.newBuilder()
-                        .setStatus(Status.newBuilder().setCode(Code.OK).build())
-                        .build();
+                TransferMoneyHolder holder = holderAsyncResult.result();
+                TransferMoneyResponse response = buildSuccessTransferMoneyResponse(holder);
                 responseObserver.onNext(response);
                 responseObserver.onCompleted();
               } else {
@@ -93,6 +88,26 @@ public class TransferMoneyHandler {
                 handleExceptionResponse(holderAsyncResult.cause(), responseObserver);
               }
             });
+  }
+
+  private TransferMoneyResponse buildSuccessTransferMoneyResponse(TransferMoneyHolder holder) {
+    TransferMoneyResponse.Data data =
+        TransferMoneyResponse.Data.newBuilder()
+            .setBalance(holder.getSenderBalance())
+            .setLastUpdated(holder.getRecordedTime())
+            .setTransaction(
+                TransactionHistory.newBuilder()
+                    .setUserId(holder.getRequest().getReceiver())
+                    .setAmount(holder.getRequest().getAmount())
+                    .setDescription(holder.getRequest().getDescription())
+                    .setRecordedTime(holder.getRecordedTime())
+                    .setTransferType(TransactionHistory.TransferType.SEND)
+                    .build())
+            .build();
+    return TransferMoneyResponse.newBuilder()
+        .setData(data)
+        .setStatus(Status.newBuilder().setCode(Code.OK).build())
+        .build();
   }
 
   private void handleExceptionResponse(

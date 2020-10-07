@@ -105,3 +105,31 @@ export function addNewFriendAction(newFriend) {
 		}
 	};
 }
+
+export function setWalletAction(balance, lastUpdated) {
+	return {
+		type: 'SET_WALLET',
+		data: {
+			balance,
+			lastUpdated
+		}
+	};
+}
+
+export function loadTranctionHistoryAction(items) {
+	return {
+		type: 'LOAD_TRANSACTION_HISTORY',
+		data: {
+			items
+		}
+	};
+}
+
+export function appendTranctionHistoryAction(item) {
+	return {
+		type: 'APPEND_TRANSACTION_HISTORY',
+		data: {
+			item
+		}
+	};
+}

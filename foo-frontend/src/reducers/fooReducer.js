@@ -7,6 +7,11 @@ let initialState = {
 		userId: getUserIdFromStorage(),
 		name: getUserFullNameToStorage()
 	},
+	wallet: {
+		balance: null,
+		lastUpdated: null
+	},
+	transactionHistory: [],
 	userList: [],
 	friendList: [],
 	selectedUser: {
@@ -69,7 +74,17 @@ export default function appReducer(state = initialState, action) {
 		case 'ADD_NEW_FRIEND':
 			state = addNewFriend(state, data);
 			break;
+		case 'SET_WALLET':
+			state = setWallet(state, data);
+			break;
 
+		case 'LOAD_TRANSACTION_HISTORY':
+			state = loadTransactionHistory(state, data);
+			break;
+
+		case 'APPEND_TRANSACTION_HISTORY':
+			state = appendTransactionHistory(state, data);
+			break;
 		default:
 			break;
 	}
@@ -241,7 +256,6 @@ function setUnseenMessages(state, data) {
 }
 
 function addNewFriend(state, data) {
-	console.log('Add new friend');
 	const newFriend = data.newFriend;
 	let friendList = state.friendList;
 	friendList.push(newFriend);
@@ -260,5 +274,27 @@ function addNewFriend(state, data) {
 		chatMessagesHolder: {
 			chatMessages
 		}
+	});
+}
+
+function setWallet(state, data) {
+	return Object.assign({}, state, {
+		wallet: {
+			balance: data.balance,
+			lastUpdated: data.lastUpdated
+		}
+	});
+}
+
+function loadTransactionHistory(state, data) {
+	console.log(data.items);
+	return Object.assign({}, state, {
+		transactionHistory: [ ...data.items, ...state.transactionHistory ]
+	});
+}
+
+function appendTransactionHistory(state, data) {
+	return Object.assign({}, state, {
+		transactionHistory: [ data.item, ...state.transactionHistory ]
 	});
 }

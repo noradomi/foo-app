@@ -18,7 +18,11 @@ public class gRPCServer {
   public void start() throws IOException, InterruptedException {
     log.info("gRPC server start successfully !, port {}", port);
     server =
-        ServerBuilder.forPort(port).addService(fintechService).intercept(authInterceptor).build();
+        ServerBuilder.
+                forPort(port)
+                .addService(fintechService)
+                .intercept(authInterceptor)
+                .build();
     server.start();
     Runtime.getRuntime()
         .addShutdownHook(

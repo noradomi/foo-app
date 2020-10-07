@@ -14,7 +14,7 @@ const URL = 'http://' + window.location.hostname + ':8080';
 const client = new FintechServiceClient(URL, null, null);
 
 export default {
-	getBalance: (name, callback) => {
+	getBalance: (callback) => {
 		const getBalanceRequest = new GetBalanceRequest();
 		client.getBalance(getBalanceRequest, prepareMetadata(), callback);
 	},

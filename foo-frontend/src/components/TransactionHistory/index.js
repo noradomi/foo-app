@@ -60,9 +60,9 @@ function TransactionHistory(props) {
 	// }, []);
 
 	return (
-		<div className="transaction-history">
-			<div className="chat-header">
-				<h2>Transaction History</h2>
+		<div className="transaction-history" >
+			<div className="chat-header" style={{textAlign: "center"}}>
+				<p>Lịch sử giao dịch</p>
 			</div>
 			{/* <Table columns={columns} dataSource={data} scroll={{ y: 500 }} /> */}
 			<div className="transaction-list">

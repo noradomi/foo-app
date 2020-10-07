@@ -9,14 +9,57 @@
   border: 1px solid rgb(245, 245, 245);
 }
 
-.transaction-icon {
-  font-size: 25px;
-  font-weight: 600;
-  margin-right: 20px;
-  background-color: chartreuse;
+.transaction-item {
+  border-radius: 15px;
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .19);
+  margin: 5px 0;
 }
 
-.transaction-info {}
+.transaction-item-in {
+  border: 1px solid #61affe;
+  background: rgba(97, 175, 254, .1);
+}
+
+.transaction-item-out {
+  border: 1px solid #fca130;
+  background: rgba(252, 161, 48, .1);
+}
+
+.transaction-item-in:hover {
+  box-shadow: 0px 0px 0px 1px #1391FF;
+}
+
+.transaction-item-out:hover {
+  box-shadow: 0px 0px 0px 1px #E97500;
+}
+
+.transaction-icon {
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 700;
+  min-width: 80px;
+  text-align: center;
+  border-radius: 3px;
+  background: #000;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+  font-family: sans-serif;
+  color: #fff;
+
+  margin-left: 5px;
+}
+
+.transaction-icon-out {
+  background-color: rgb(233, 117, 3);
+}
+
+.transaction-icon-in {
+  background-color: rgb(28, 145, 254);
+}
+
+.transaction-info {
+  padding: 8px;
+}
 
 .transaction-user-name {
   font-size: 16px !important;
@@ -33,12 +76,14 @@
 }
 
 .deposit {
-  color: rgb(81, 204, 40);
+  color: rgb(28, 145, 254);
+  font-weight: 600;
 
 }
 
 .withdraw {
-  color: rgb(255, 0, 0);
+  color: rgb(233, 117, 3);
+  font-weight: 600;
 }
 
 .transaction-time {
@@ -47,8 +92,12 @@
   font-weight: 100;
   line-height: 10px;
   margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   padding-bottom: 5px;
+}
+
+.ant-row {
+  width: 100%;
 }
