@@ -1,16 +1,14 @@
-import { Button, List, message, Spin } from 'antd';
-import React, { useEffect, useState, useRef } from 'react';
+import { List, message, Spin, Divider, Alert, Collapse } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import reqwest from 'reqwest';
-import CustomAvatar from '../CustomAvatar';
-import grpcApi from '../../services/grpcApi';
-import './AddressBook.css';
-import TransactionHistoryItem from '../TransactionHistoryItem';
-import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import { loadTransactionHistory } from '../../services/loadTransactionHistory';
+import TransactionHistoryItem from '../TransactionHistoryItem';
+import './AddressBook.css';
+import { CaretRightOutlined, CalendarOutlined } from '@ant-design/icons';
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=20&inc=name,gender,email,nat&noinfo';
+const { Panel } = Collapse;
 
 function AddressBook(props) {
 	const [ loading, setLoading ] = useState(false);
@@ -21,7 +19,7 @@ function AddressBook(props) {
 		loadTransactionHistory(20, 0).then((x) => {
 			nextPageToken.current = x;
 			if (x === 0) {
-				message.info('Bạn chưa có lịch sử giao dịch nào');
+				message.warning('Bạn chưa có lịch sử giao dịch nào');
 				setLoading(false);
 				setHasMore(false);
 			} else {
@@ -31,12 +29,29 @@ function AddressBook(props) {
 	}, []);
 
 	let data = props.transactionHistory;
+	let groups = data.reduce(function(r, o) {
+		var date = moment(o.recordedTime * 1000).format('YYYY-MM-DD');
+		var m = date.split('-')[1];
+		var y = date.split('-')[0];
+		r[m] ? r[m].data.push(o) : (r[m] = { group: `Tháng ${m}/${y}`, data: [ o ] });
+		return r;
+	}, {});
+
+	var result = Object.keys(groups).map(function(k) {
+		return groups[k];
+	});
+
+	let i = 1;
+	result.forEach((x) => {
+		x.key = i;
+		i++;
+	});
 
 	const handleInfiniteOnLoad = () => {
 		loadTransactionHistory(20, nextPageToken.current).then((x) => {
 			nextPageToken.current = x;
 			if (x === 0) {
-				message.info('Đã tải hết lịch sử giao dịch');
+				message.warning('Đã tải hết lịch sử giao dịch');
 				setLoading(false);
 				setHasMore(false);
 			} else {
@@ -54,21 +69,41 @@ function AddressBook(props) {
 				hasMore={!loading && hasMore}
 				useWindow={false}
 			>
-				<List
-					dataSource={data}
-					renderItem={(item) => (
-						<List.Item key={item.id}>
-							<TransactionHistoryItem data={item} />
-						</List.Item>
-					)}
+				<Collapse
+					expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+					bordered={false}
+					defaultActiveKey={[ '1' ]}
+					expandIconPosition={'right'}
 				>
-					{loading &&
-					hasMore && (
-						<div className="demo-loading-container">
-							<Spin />
-						</div>
-					)}
-				</List>
+					{result.map((x) => (
+						<Panel
+							header={
+								<div className="panel-header">
+									<CalendarOutlined style={{ color: '#0068ff', marginRight: '8px' }} /> {x.group}
+								</div>
+							}
+							key={x.key}
+						>
+							<List
+								// header={<Divider orientation="left">{x.group}</Divider>}
+								// header={<Alert message={x.group} type="success" />}
+								dataSource={x.data}
+								renderItem={(item) => (
+									<List.Item key={item.id}>
+										<TransactionHistoryItem data={item} />
+									</List.Item>
+								)}
+							>
+								{loading &&
+								hasMore && (
+									<div className="demo-loading-container">
+										<Spin />
+									</div>
+								)}
+							</List>
+						</Panel>
+					))}
+				</Collapse>
 			</InfiniteScroll>
 		</div>
 	);

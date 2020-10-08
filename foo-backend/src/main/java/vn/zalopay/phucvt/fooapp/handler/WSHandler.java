@@ -113,9 +113,9 @@ public class WSHandler {
     if (clients.containsKey(receiverId)) {
       Set<ServerWebSocket> receiverCon = clients.get(receiverId);
       receiverCon.forEach(
-              conn -> {
-                conn.writeTextMessage(JsonProtoUtils.printGson(transferMoneyMessage));
-              });
+          conn -> {
+            conn.writeTextMessage(JsonProtoUtils.printGson(transferMoneyMessage));
+          });
     }
   }
 

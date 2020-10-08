@@ -2,9 +2,9 @@ package vn.zalopay.phucvt.fooapp.grpc.handler;
 
 import io.grpc.stub.StreamObserver;
 import io.vertx.core.CompositeFuture;
-import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
+import vn.zalopay.phucvt.fooapp.cache.UserCache;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
@@ -21,6 +21,7 @@ import java.util.Set;
 @Builder
 public class AddFriendHandler {
   private final UserDA userDA;
+  private final UserCache userCache;
   private final WSHandler wsHandler;
 
   public void handle(AddFriendRequest request, StreamObserver<AddFriendResponse> responseObserver) {
@@ -48,7 +49,6 @@ public class AddFriendHandler {
         .compose(next -> userDA.addFriend(friendModelApprove))
         .setHandler(
             asyncResult -> {
-              //              Status status;
               if (asyncResult.succeeded()) {
                 CompositeFuture cp =
                     CompositeFuture.all(
@@ -58,6 +58,7 @@ public class AddFriendHandler {
                       if (ar.succeeded()) {
                         UserInfo user = mapToUserInfo(cp.resultAt(0));
                         UserInfo newFriend = mapToUserInfo(cp.resultAt(1));
+                        userCache.appendFriendList(newFriend, friendId);
                         WsMessage wsMessage =
                             WsMessage.builder()
                                 .type("ADD_FRIEND")

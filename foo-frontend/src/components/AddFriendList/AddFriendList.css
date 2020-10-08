@@ -3,16 +3,17 @@
   flex-direction: column;
   /* background-color: rgb(245, 247, 251); */
   background-color: white;
-  padding: 20px 10px;
+  padding: 5px;
   box-sizing: border-box;
 
 }
 
 .addfriend-list-scroll {
-  height: 300px;
+  height: 350px;
   overflow-y: auto;
   /* border: 1px solid #e8e8e8; */
   border-radius: 4px;
+  padding: 10px;
 }
 
 .addfriend-user-list-title {

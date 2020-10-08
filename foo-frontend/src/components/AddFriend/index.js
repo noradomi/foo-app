@@ -1,9 +1,9 @@
-import { UserAddOutlined, StepForwardOutlined } from '@ant-design/icons';
+import { UserAddOutlined } from '@ant-design/icons';
 import Modal from 'antd/lib/modal/Modal';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import AddFriendList from '../AddFriendList';
 import './AddFriend.css';
-import { useHistory } from 'react-router-dom';
 
 AddFriend.propTypes = {};
 
@@ -12,10 +12,6 @@ function AddFriend(props) {
 	const history = useHistory();
 	const showModal = () => {
 		setVisible(true);
-	};
-
-	const handleOk = (e) => {
-		console.log(e);
 	};
 
 	const handleCancel = (e) => {
@@ -28,18 +24,20 @@ function AddFriend(props) {
 				<a href="#">
 					{/* <CustomAvatar type="new-avatar" /> */}
 					<UserAddOutlined style={{ fontSize: '30px' }} />
-					<div className="new-text">Add New Friend</div>
+					<div className="new-text">Thêm bạn mới</div>
 				</a>
 			</div>
 			<Modal
-				width="420px"
 				title={
           <>
-          <img
+            <div className="addfriend-header">
+            <img
 							src="https://zalo-chat-static.zadn.vn/v1/NewFr@2x.png"
 							style={{ borderRadius: '50%', width: '50px', height: '50px', marginRight: '11px' }}
 						/>
-						<span className="addfriend-title">Add new friend</span>
+						<span className="addfriend-title">Thêm bạn mới</span>
+            </div>
+          
           </>
 				
 				}
@@ -47,8 +45,8 @@ function AddFriend(props) {
 				visible={visible}
 				footer={null}
 				destroyOnClose={true}
-				width={380}
-				bodyStyle={{ backgroundColor: 'rgb(245, 245, 245)' }}
+				width={400}
+				bodyStyle={{ backgroundColor: 'rgb(245, 245, 245)', padding: 0 }}
 			>
 				<AddFriendList />
 			</Modal>

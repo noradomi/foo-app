@@ -23,7 +23,7 @@ function WalletTransferList(props) {
 	return (
 		<div className="wallet-list">
 			<Divider orientation="left" plain>
-				Friends ({conversations.length})
+				Bạn ({conversations.length})
 			</Divider>
 			<div className="wallet-list-scroll">
 				{conversations.length > 0 ? (

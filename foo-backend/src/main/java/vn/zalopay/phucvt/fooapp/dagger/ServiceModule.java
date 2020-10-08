@@ -48,8 +48,13 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  GetFriendListHandler provideGetFriendListHandler(UserDA userDA, WSHandler wsHandler) {
-    return GetFriendListHandler.builder().userDA(userDA).wsHandler(wsHandler).build();
+  GetFriendListHandler provideGetFriendListHandler(
+      UserDA userDA, UserCache userCache, WSHandler wsHandler) {
+    return GetFriendListHandler.builder()
+        .userDA(userDA)
+        .userCache(userCache)
+        .wsHandler(wsHandler)
+        .build();
   }
 
   @Provides

@@ -4,8 +4,23 @@
 }
 
 .transaction-list {
-  padding: 10px;
+  /* padding: 10px; */
   width: 100%;
   height: calc(100vh - 100px);
+  background-color: rgb(250, 250, 252);
   /* height: 300px; */
+}
+
+
+.transaction-history-header {
+  background-color: rgb(255, 255, 255);
+  font-weight: 600;
+  font-size: 24px;
+  padding: 20px;
+}
+
+.history-icon {
+  color: red;
+  font-size: 30px;
+  margin-right: 10px;
 }

@@ -41,7 +41,7 @@ function Messenger(props) {
 						<Menu.Item
 							key="1"
 							icon={
-								<Tooltip placement="topLeft" title="Chat">
+								<Tooltip placement="topLeft" title="Nhắn tin">
 									<Badge dot>
 										<CommentOutlined style={{ fontSize: 25 }} />
 									</Badge>
@@ -51,7 +51,7 @@ function Messenger(props) {
 						<Menu.Item
 							key="2"
 							icon={
-								<Tooltip placement="topLeft" title="Transactions">
+								<Tooltip placement="topLeft" title="Ví">
 									<DollarCircleOutlined style={{ fontSize: 25 }} />
 								</Tooltip>
 							}
@@ -59,7 +59,7 @@ function Messenger(props) {
 						<Menu.Item
 							key="3"
 							icon={
-								<Tooltip placement="topLeft" title="Notifications">
+								<Tooltip placement="topLeft" title="Thông báo">
 									<NotificationOutlined style={{ fontSize: 25 }} />
 								</Tooltip>
 							}

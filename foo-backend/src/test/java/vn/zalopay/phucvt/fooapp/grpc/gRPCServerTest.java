@@ -1,6 +1,9 @@
 package vn.zalopay.phucvt.fooapp.grpc;
 
-import com.proto.greet.*;
+import com.proto.greet.GreetRequest;
+import com.proto.greet.GreetResponse;
+import com.proto.greet.GreetServiceGrpc;
+import com.proto.greet.Greeting;
 import io.grpc.inprocess.InProcessChannelBuilder;
 import io.grpc.inprocess.InProcessServerBuilder;
 import io.grpc.testing.GrpcCleanupRule;
@@ -15,6 +18,8 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
 public class gRPCServerTest {
+
+
   @Rule public final GrpcCleanupRule grpcCleanupRule = new GrpcCleanupRule();
 
   @Test
@@ -28,12 +33,17 @@ public class gRPCServerTest {
             .build()
             .start());
 
-	  GreetServiceGrpc.GreetServiceBlockingStub blockingStub = GreetServiceGrpc.newBlockingStub(
-	  		grpcCleanupRule.register(InProcessChannelBuilder.forName(serverName).directExecutor().build())
-	  );
+    GreetServiceGrpc.GreetServiceBlockingStub blockingStub =
+        GreetServiceGrpc.newBlockingStub(
+            grpcCleanupRule.register(
+                InProcessChannelBuilder.forName(serverName).directExecutor().build()));
 
-	  GreetResponse response =blockingStub.greet(GreetRequest.newBuilder().setGreeting(Greeting.newBuilder().setFirstName("Noradomi").build()).build());
+    GreetResponse response =
+        blockingStub.greet(
+            GreetRequest.newBuilder()
+                .setGreeting(Greeting.newBuilder().setFirstName("Noradomi").build())
+                .build());
 
-	  assertEquals("Hello Noradomi", response.getResult());
+    assertEquals("Hello Noradomi", response.getResult());
   }
 }

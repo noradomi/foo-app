@@ -37,7 +37,7 @@ function AddFriendListItem(props) {
 				size={'small'}
 				// loading={loadings[0]}
 			>
-				<span>Add friend</span>
+				<span>Kết bạn</span>
 			</Button>
 		</div>
 	);

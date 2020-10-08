@@ -200,13 +200,13 @@ const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
 			title={
         <>
           <div style={{textAlign: "center"}}>
-            <span style={{fontSize: "23px"}}> <SwapOutlined  /> Chuyển tiền đến</span>
+            <span style={{fontSize: "23px"}}> <SwapOutlined style={{fontSize: "30px", color: "rgb(103, 174, 63)"}} /> Chuyển tiền đến</span>
           </div>
         </>
       
       }
       headStyle={{ backgroundColor: 'red' }}
-			okText={<span><CheckOutlined/> Chuyển tiền</span>}
+			okText={<span><CheckOutlined /> Chuyển tiền</span>}
 			cancelText={<span><CloseOutlined /> Hủy</span>}
 			onCancel={onCancel}
       onOk={handleOk}
@@ -233,6 +233,7 @@ const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
 					label="Số tiền"
 					rules={[
 						{
+              required: true,
 							validator: checkPrice
 						}
 					]}

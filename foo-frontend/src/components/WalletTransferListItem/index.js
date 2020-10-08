@@ -40,7 +40,7 @@ function WalletTransferListItem(props) {
 				size={'small'}
 				// loading={loadings[0]}
 			>
-				<span>Transfer</span>
+				<span>Chuyển tiền</span>
 			</Button>
 			<TransferMoneyModal
 				userInfo={props.data}

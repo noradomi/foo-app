@@ -26,7 +26,7 @@ function AddFriendList(props) {
 	return (
 		<div className="addfriend-list">
 			{/* <ConversationSearch /> */}
-			<div className="addfriend-user-list-title">Users ({conversations.length})</div>
+			<div className="addfriend-user-list-title">Danh sách kết bạn ({conversations.length})</div>
 			<div className="addfriend-list-scroll">
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => <AddFriendListItem key={conversation.id} data={conversation} />)

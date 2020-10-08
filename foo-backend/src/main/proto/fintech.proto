@@ -192,5 +192,4 @@ service FintechService {
   rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {};
 
   rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse) {};
-
 }

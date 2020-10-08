@@ -51,11 +51,19 @@
   margin-right: 10px;
 }
 
-.ant-modal-header .ant-modal.body {
-  background-color: rgb(245, 245, 245);
-}
-
-.addfriend-title{
+.addfriend-title {
   font-size: 20px;
   font-weight: 500;
+}
+
+.ant-modal-content {
+  border-radius: 10px;
+}
+
+.ant-modal-content .ant-modal-header {
+  padding: 10px;
+}
+
+.addfriend-header {
+  padding-left: 45px;
 }

@@ -44,16 +44,16 @@ public class TransferMoneyHandler {
     getUserAuth(userId, holder)
         .compose(this::validatePassword)
         .compose(this::validateReceiverId)
-        .compose(this::validateAmountTransfer  )
+        .compose(this::validateAmountTransfer)
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
                 TransferMoneyHolder validatedHolder = asyncResult.result();
-                log.info("Validated pwd, now start transaction");
+                log.info("validated password, now start transaction");
                 transferMoneyTransaction(responseObserver, validatedHolder);
               } else {
                 log.error(
-                    "validate password failed, cause={}",
+                    "validate preparation input failed, cause={}",
                     ExceptionUtil.getDetail(asyncResult.cause()));
                 handleExceptionResponse(asyncResult.cause(), responseObserver);
               }
@@ -181,7 +181,7 @@ public class TransferMoneyHandler {
                       new TransferMoneyException(
                           "Receiver Id not found", Code.USER_ID_NOT_FOUND)); // note
                 } else {
-                  future.complete();
+                  future.complete(holder);
                 }
               } else {
                 future.fail("Get user auth failed");
@@ -200,7 +200,7 @@ public class TransferMoneyHandler {
     if (amount < 1000 || amount > 20000000 || amount % 1000 != 0) {
       future.fail(new TransferMoneyException("Amount transfer invalid", Code.INVALID_INPUT_MONEY));
     } else {
-      future.complete();
+      future.complete(holder);
     }
     return future;
   }

@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.redisson.api.RSet;
 import vn.zalopay.phucvt.fooapp.config.CacheConfig;
+import vn.zalopay.phucvt.fooapp.fintech.UserInfo;
 import vn.zalopay.phucvt.fooapp.model.User;
+import vn.zalopay.phucvt.fooapp.model.UserFriendItem;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
@@ -75,6 +77,69 @@ public class UserCacheImpl implements UserCache {
             }
           } catch (Exception e) {
             log.error("get user list in cache failed cause={}", ExceptionUtil.getDetail(e));
+            future.fail(e);
+          }
+        });
+    return future;
+  }
+
+  @Override
+  public void setFriendList(List<UserInfo> friendList, String userId) {
+    asyncHandler.run(
+        () -> {
+          try {
+            RSet<UserInfo> userRSet =
+                redisCache.getRedissonClient().getSet(CacheKey.getFriendListKey(userId));
+            userRSet.addAll(friendList);
+            userRSet.expire(cacheConfig.getExpireUserList(), TimeUnit.MINUTES);
+          } catch (Exception e) {
+            log.error(
+                "add friend list of userId={} to cache failed cause={}",
+                userId,
+                ExceptionUtil.getDetail(e));
+          }
+        });
+  }
+
+  @Override
+  public void appendFriendList(UserInfo user, String userId) {
+    asyncHandler.run(
+        () -> {
+          try {
+            RSet<UserInfo> userRSet =
+                redisCache.getRedissonClient().getSet(CacheKey.getFriendListKey(userId));
+            if (userRSet.size() != 0) {
+              userRSet.add(user);
+              userRSet.expire(cacheConfig.getExpireUserList(), TimeUnit.MINUTES);
+            }
+          } catch (Exception e) {
+            log.error(
+                "append user={} to friendList of user={} cache failed cause={}",
+                user.getUserId(),
+                userId,
+                ExceptionUtil.getDetail(e));
+          }
+        });
+  }
+
+  @Override
+  public Future<List<UserInfo>> getFriendList(String userId) {
+    Future<List<UserInfo>> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          try {
+            RSet<UserInfo> userRSet =
+                redisCache.getRedissonClient().getSet(CacheKey.getFriendListKey(userId));
+            if (userRSet.isEmpty()) {
+              future.fail("friend list empty, user="+userId);
+            } else {
+              future.complete(new ArrayList<>(userRSet.readAll()));
+            }
+          } catch (Exception e) {
+            log.error(
+                "get friend list of user={} in cache failed cause={}",
+                userId,
+                ExceptionUtil.getDetail(e));
             future.fail(e);
           }
         });

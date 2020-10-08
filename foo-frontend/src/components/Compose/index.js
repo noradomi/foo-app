@@ -1,10 +1,8 @@
-import { MoneyCollectOutlined, NotificationOutlined, SendOutlined } from '@ant-design/icons';
+import { MoneyCollectOutlined, NotificationOutlined, SendOutlined, DollarOutlined } from '@ant-design/icons';
 import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import TransferMoneyModal from '../TransferMoneyModal';
-import grpcApi from '../../services/grpcApi';
 import './Compose.css';
-import Modal from 'antd/lib/modal/Modal';
 
 const { TextArea } = Input;
 
@@ -30,30 +28,14 @@ function Compose(props) {
 	const [ visible, setVisible ] = useState(false);
 
 	const onCreate = (values) => {
-		// console.log('Received values of form: ', values);
-
-		// const request = {
-		// 	receiver: values.receiver,
-		// 	amount: values.money.number,
-		// 	description: values.description,
-		// 	confirmPassword: values.confirmPassword
-		// };
-		// grpcApi.transferMoney(request, (err, response) => {
-		// 	const code = response.getStatus().getCode();
-		// 	console.log('Code = ' + code);
-		// 	Modal.success({
-		// 		content: 'Transfer success...'
-		// 	});
-		// });
-    // setVisible(false);
-    setVisible(false);
+		setVisible(false);
 	};
 
 	return (
 		<div className="compose">
 			<TextArea
 				value={text}
-				placeholder="Write a message ..."
+				placeholder="Nhập @, tin nhắn ..."
 				onKeyPress={handleKeyPress}
 				onChange={handleOnChange}
 				autoSize={{ minRows: 1, maxRows: 4 }}
@@ -68,12 +50,12 @@ function Compose(props) {
 					size={'large'}
 				/>
 			</Tooltip>
-			<Tooltip placement="topLeft" title={'Transfer money'}>
+			<Tooltip placement="topLeft" title={'Chuyển tiền'}>
 				<Button
 					className="compose-button"
 					type="primary"
 					shape="circle"
-					icon={<MoneyCollectOutlined />}
+					icon={<DollarOutlined />}
 					size={'large'}
 					onClick={() => {
 						setVisible(true);

@@ -1,10 +1,9 @@
-import { RightCircleFilled, LeftCircleFilled, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { InfoOutlined } from '@ant-design/icons';
+import { Button, Col, Row, Tooltip } from 'antd';
 import moment from 'moment';
 import React from 'react';
 import CustomAvatar from '../CustomAvatar';
 import './TransactionHistoryItem.css';
-import { Row, Col, Button } from 'antd';
-import { useSelector } from 'react-redux';
 
 function TransactionHistoryItem(props) {
 	const { userName, description, recordedTime, amount, transferType } = props.data;
@@ -21,7 +20,7 @@ function TransactionHistoryItem(props) {
 					{transferType === 1 ? <span>INT</span> : <span>OUT</span>}
 				</div>
 			</Col>
-			<Col span={5}>
+			<Col span={6}>
 				<div className="transaction-list-item">
 					<div style={{ width: 40 }}>
 						<CustomAvatar type="panel-avatar" avatar={userName} />
@@ -45,10 +44,10 @@ function TransactionHistoryItem(props) {
 					<span>{transferType === 0 ? `-${formattedAmount} VND` : `+${formattedAmount} VND`}</span>
 				</div>
 			</Col>
-			<Col span={2}>
-				<Button className="addfriend-btn" size={'small'}>
-					<span>Detail</span>
-				</Button>
+			<Col span={1}>
+				<Tooltip placement="topLeft" title={'Chi tiết'}>
+					<Button className="addfriend-btn" size={'small'} shape="circle" icon={<InfoOutlined />} />
+				</Tooltip>
 			</Col>
 		</Row>
 	);

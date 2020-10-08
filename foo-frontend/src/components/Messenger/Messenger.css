@@ -80,3 +80,7 @@
   border-radius: 8px;
   margin: 8px;
 }
+
+.ant-menu-item .anticon {
+  margin-right: 0;
+}
