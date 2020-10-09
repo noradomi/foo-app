@@ -30,7 +30,7 @@ public class GetFriendListHandler {
         .setHandler(
             cacheListAsyncResult -> {
               if (cacheListAsyncResult.succeeded()) {
-                List<UserInfo> userList = cacheListAsyncResult.result();
+                List<UserFriendItem> userList = cacheListAsyncResult.result();
                 if (userList.size() > 0) {
                   log.info("get friend list from cache, cache hit");
                   GetFriendListResponse response = handleSuccessResponse(userList);
@@ -54,9 +54,8 @@ public class GetFriendListHandler {
               GetFriendListResponse response;
               if (listAsyncResult.succeeded()) {
                 List<UserFriendItem> friendList = listAsyncResult.result();
-                List<UserInfo> userInfoList = mapToUserInfo(friendList);
-                userCache.setFriendList(userInfoList, userId);
-                response = handleSuccessResponse(userInfoList);
+                userCache.setFriendList(friendList, userId);
+                response = handleSuccessResponse(friendList);
               } else {
                 log.error("get friend list failed, cause=", listAsyncResult.cause());
                 response =
@@ -69,9 +68,9 @@ public class GetFriendListHandler {
             });
   }
 
-  private GetFriendListResponse handleSuccessResponse(List<UserInfo> userList) {
+  private GetFriendListResponse handleSuccessResponse(List<UserFriendItem> userList) {
     GetFriendListResponse.Data.Builder builder = GetFriendListResponse.Data.newBuilder();
-    builder.addAllItems(userList);
+    builder.addAllItems(mapToUserInfo(userList));
     GetFriendListResponse.Data data = builder.build();
     return GetFriendListResponse.newBuilder()
         .setData(data)

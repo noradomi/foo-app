@@ -1,7 +1,6 @@
 package vn.zalopay.phucvt.fooapp.cache;
 
 import io.vertx.core.Future;
-import vn.zalopay.phucvt.fooapp.fintech.UserInfo;
 import vn.zalopay.phucvt.fooapp.model.User;
 import vn.zalopay.phucvt.fooapp.model.UserFriendItem;
 
@@ -14,9 +13,9 @@ public interface UserCache {
 
   Future<List<User>> getUserList();
 
-  void setFriendList(List<UserInfo> friendList, String userId);
+  void setFriendList(List<UserFriendItem> friendList, String userId);
 
-  void appendFriendList(UserInfo user, String userId);
+  void appendFriendList(UserFriendItem user, String userId);
 
-  Future<List<UserInfo>> getFriendList(String userId);
+  Future<List<UserFriendItem>> getFriendList(String userId);
 }

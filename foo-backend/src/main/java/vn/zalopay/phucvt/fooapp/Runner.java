@@ -17,7 +17,7 @@ import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import java.io.IOException;
 
 @Log4j2
-public class    Runner {
+public class Runner {
 
   public static void main(String[] args) {
     try {

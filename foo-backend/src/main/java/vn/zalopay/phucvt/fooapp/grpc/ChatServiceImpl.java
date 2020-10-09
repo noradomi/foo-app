@@ -1,4 +1,3 @@
 package vn.zalopay.phucvt.fooapp.grpc;
 
-public class ChatServiceImpl {
-}
+public class ChatServiceImpl {}
