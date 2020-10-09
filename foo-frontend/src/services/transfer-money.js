@@ -2,9 +2,12 @@ import {
 	addNewFriendAction,
 	setUserStatusAction,
 	setWalletAction,
-	appendTranctionHistoryAction
+	appendTranctionHistoryAction,
+	receiveMessageAction,
+	sendMessageAction
 } from '../actions/fooAction';
 import store from '../store/fooStore';
+import { getUserIdFromStorage } from '../utils/utils';
 import grpcApi from './grpcApi';
 
 export function transferMoney(request) {
@@ -29,6 +32,14 @@ export function transferMoney(request) {
 
 				store.dispatch(setWalletAction(newBalance, lastUpdated));
 				store.dispatch(appendTranctionHistoryAction(item));
+				const transferMessage = {
+					message: item.amount,
+					senderId: getUserIdFromStorage(),
+					receiverId: transacion.getUserId(),
+					createTime: item.recordedTime,
+					messageType: 1
+				};
+				store.dispatch(sendMessageAction(transferMessage));
 			}
 			resolve(response);
 		});

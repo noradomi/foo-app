@@ -1,42 +1,32 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { handleRegister } from '../../services/register';
-import { Button, Form, Input, Alert } from 'antd';
+import { Button, Form, Input, Alert, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './RegisterForm.css';
 
 export default function RegisterForm(props) {
 	const FormItem = Form.Item;
 	let [ form ] = Form.useForm();
-	let [message, setMessage] = useState(false);
 
 	let handleSubmit = (data) => {
-		console.log(data.username + " "+data.fullname);
+		console.log(data.username + ' ' + data.fullname);
 		handleRegister(data.username, data.fullname, data.password)
 			.then((value) => {
-				setMessage(true);
+				message.success('Đăng kí thành công. Bạn có thể đăng nhập ngay bây giờ !');
 			})
 			.catch((error) => {
 				form.resetFields();
 			});
 	};
 
-	let cleanMessage = (event) => {
-		setMessage(false);
-	};
-
-	let alert = null;
-	if(message){
-		alert = <Alert message="Register successfully" banner closable showIcon/>
-	}
-
 	return (
-		<Form onFinish={handleSubmit} className="login-form" form={form} onFieldsChange={cleanMessage}>
+		<Form onFinish={handleSubmit} className="login-form" form={form}>
 			<Form.Item
 				name="username"
 				rules={[
 					{
 						required: true,
-						message: 'Please input your username!',
+						message: 'Vui lòng nhập tên đăng nhập!',
 						whitespace: false
 					}
 				]}
@@ -49,7 +39,7 @@ export default function RegisterForm(props) {
 							}}
 						/>
 					}
-					placeholder="Username"
+					placeholder="Tên đăng nhập"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -57,7 +47,7 @@ export default function RegisterForm(props) {
 				rules={[
 					{
 						required: true,
-						message: 'Please input your fullname!',
+						message: 'Vui lòng nhập tên đầy đủ của bạn!',
 						whitespace: true
 					}
 				]}
@@ -70,7 +60,7 @@ export default function RegisterForm(props) {
 							}}
 						/>
 					}
-					placeholder="Fullname"
+					placeholder="Tên của bạn"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -78,7 +68,7 @@ export default function RegisterForm(props) {
 				rules={[
 					{
 						required: true,
-						message: 'Please input your password!'
+						message: 'Vui lòng nhập mật khẩu!'
 					}
 				]}
 				hasFeedback
@@ -91,6 +81,7 @@ export default function RegisterForm(props) {
 							}}
 						/>
 					}
+					placeholder="Mật khẩu"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -100,7 +91,7 @@ export default function RegisterForm(props) {
 				rules={[
 					{
 						required: true,
-						message: 'Please confirm your password!'
+						message: 'Vui lòng nhập mật khẩu xácnhậnn!'
 					},
 					({ getFieldValue }) => ({
 						validator(rule, value) {
@@ -108,7 +99,7 @@ export default function RegisterForm(props) {
 								return Promise.resolve();
 							}
 
-							return Promise.reject('The two passwords that you entered do not match!');
+							return Promise.reject('Mật khẩu xác nhận chưa khớp');
 						}
 					})
 				]}
@@ -121,11 +112,12 @@ export default function RegisterForm(props) {
 							}}
 						/>
 					}
+					placeholder="Mật khẩu xác nhận"
 				/>
 			</Form.Item>
 			<FormItem>
 				<Button type="primary" htmlType="submit" className="login-form-button">
-					Register
+					Đăng kí
 				</Button>
 			</FormItem>
 			{alert}

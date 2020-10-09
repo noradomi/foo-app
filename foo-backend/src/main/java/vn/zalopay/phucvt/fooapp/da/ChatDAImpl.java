@@ -19,9 +19,9 @@ import java.util.List;
 @Log4j2
 public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
   private static final String INSERT_MESSAGE_STATEMENT =
-      "INSERT INTO messages (`id`, `sender`, `receiver`,`message`,`create_time`) VALUES (?,?,?,?,?)";
+      "INSERT INTO messages (`id`, `sender`, `receiver`,`message`,`create_time`, `message_type`) VALUES (?,?,?,?,?,?)";
   private static final String GET_MESSAGE_LIST_STATEMENT =
-      "SELECT m.id,m.sender,m.receiver,m.message,m.create_time FROM \n"
+      "SELECT m.id,m.sender,m.receiver,m.message,m.create_time, m.message_type FROM \n"
           + "(SELECT * FROM messages WHERE (sender = ? AND receiver = ?) \n"
           + "UNION \n"
           + "SELECT * FROM messages WHERE (sender = ? AND receiver = ?)) \n"
@@ -41,7 +41,8 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
             message.getSenderId(),
             message.getReceiverId(),
             message.getMessage(),
-            message.getCreateTime()
+            message.getCreateTime(),
+            message.getMessageType()
           };
           try {
             executeWithParams(

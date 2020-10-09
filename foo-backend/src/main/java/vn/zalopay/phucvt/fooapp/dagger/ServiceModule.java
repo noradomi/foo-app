@@ -79,11 +79,15 @@ public class ServiceModule {
   TransferMoneyHandler provideTransferMoneyHandler(
       UserDA userDA,
       FintechDA fintechDA,
+      ChatDA chatDA,
+      ChatCache chatCache,
       WSHandler wsHandler,
       TransactionProvider transactionProvider) {
     return TransferMoneyHandler.builder()
         .userDA(userDA)
         .fintechDA(fintechDA)
+        .chatDA(chatDA)
+        .chatCache(chatCache)
         .wsHandler(wsHandler)
         .transactionProvider(transactionProvider)
         .build();

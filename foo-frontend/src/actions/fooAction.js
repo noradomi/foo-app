@@ -133,3 +133,25 @@ export function appendTranctionHistoryAction(item) {
 		}
 	};
 }
+export function setActiveTabKeyAction(key) {
+	return {
+		type: 'SET_ACTIVE_TAB_KEY',
+		data: {
+			key
+		}
+	};
+}
+
+export function setHavingUnseenChat() {
+	return {
+		type: 'SET_HAVING_UNSEEN_CHAT',
+		data: {}
+	};
+}
+
+export function setHavingUnseenTransfer() {
+	return {
+		type: 'SET_HAVING_UNSEEN_TRANSFER',
+		data: {}
+	};
+}

@@ -47,6 +47,7 @@ public class WSHandler {
     message.setSenderId(userId);
     message.setCreateTime(Instant.now().getEpochSecond());
     message.setId(GenerationUtils.generateId());
+    message.setMessageType(0);
     chatDA
         .insert(message)
         .setHandler(

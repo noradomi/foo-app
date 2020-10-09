@@ -34,7 +34,7 @@ function MessageList(props) {
 			message: item.message,
 			author: item.senderId,
 			timestamp: item.createTime * 1000,
-			amount: item.amount
+			messageType: item.messageType
 		};
 	});
 	console.log('Messages:');
@@ -84,6 +84,7 @@ function MessageList(props) {
 			tempMessages.push(
 				<Message
 					key={i}
+					isTransfer={messages[i].messageType === 1}
 					isMine={isMine}
 					startsSequence={startsSequence}
 					endsSequence={endsSequence}

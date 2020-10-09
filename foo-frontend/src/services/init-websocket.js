@@ -91,6 +91,15 @@ export function initialWebSocket() {
 						transferType: transacion.transferType_
 					};
 
+					const transferMessage = {
+						message: item.amount,
+						receiverId: getUserIdFromStorage(),
+						senderId: transacion.userId_,
+						createTime: item.recordedTime,
+						messageType: 1
+					};
+					store.dispatch(receiveMessageAction(transferMessage));
+
 					store.dispatch(setWalletAction(newBalance, lastUpdated));
 					store.dispatch(appendTranctionHistoryAction(item));
 					break;

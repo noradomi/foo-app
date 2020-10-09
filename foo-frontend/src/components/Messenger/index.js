@@ -5,18 +5,20 @@ import ConversationList from '../ConversationList';
 import CustomAvatar from '../CustomAvatar';
 import MessageList from '../MessageList';
 import './Messenger.css';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import UserWallet from '../UserWallet';
 import TransactionHistory from '../TransactionHistory';
 import AddressBook from '../AddressBook';
+import { setActiveTabKeyAction } from '../../actions/fooAction';
 
 const { Sider } = Layout;
 
 function Messenger(props) {
-	const [ sideBarKey, setSideBarKey ] = useState(1);
+	const activeTabKey = useSelector((state) => state.activeTabKey);
+	const dispatch = useDispatch();
 
 	const handleSideBarChange = (e) => {
-		setSideBarKey(parseInt(e.key));
+		dispatch(setActiveTabKeyAction(e.key));
 	};
 	return (
 		<div style={{ height: 100 + 'vh' }}>
@@ -56,14 +58,6 @@ function Messenger(props) {
 								</Tooltip>
 							}
 						/>
-						<Menu.Item
-							key="3"
-							icon={
-								<Tooltip placement="topLeft" title="Thông báo">
-									<NotificationOutlined style={{ fontSize: 25 }} />
-								</Tooltip>
-							}
-						/>
 					</Menu>
 				</Sider>
 				<Sider
@@ -75,9 +69,9 @@ function Messenger(props) {
 					width="350"
 					id="sub-side-menu"
 				>
-					{sideBarKey === 1 ? <ConversationList /> : sideBarKey === 3 ? <AddressBook /> : <UserWallet />}
+					{activeTabKey === '1' ? <ConversationList /> : <UserWallet />}
 				</Sider>
-				{sideBarKey === 1 ? <MessageList /> : <TransactionHistory />}
+				{activeTabKey === '1' ? <MessageList /> : <TransactionHistory />}
 			</Layout>
 		</div>
 	);

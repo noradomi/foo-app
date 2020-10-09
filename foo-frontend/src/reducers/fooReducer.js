@@ -2,6 +2,8 @@ import { getJwtFromStorage, getUserIdFromStorage, getUserFullNameToStorage } fro
 
 let initialState = {
 	activeTabKey: '1',
+	unseenChat: false,
+	unseenTransfer: false,
 	user: {
 		jwt: getJwtFromStorage(),
 		userId: getUserIdFromStorage(),
@@ -35,6 +37,18 @@ let initialState = {
 export default function appReducer(state = initialState, action) {
 	let data = action.data;
 	switch (action.type) {
+		case 'SET_ACTIVE_TAB_KEY':
+			return Object.assign({}, state, {
+				activeTabKey: data.key
+			});
+		case 'SET_HAVING_UNSEEN_CHAT':
+			return Object.assign({}, state, {
+				unseenChat: !state.unseenChat
+			});
+		case 'SET_HAVING_UNSEEN_TRANSFER':
+			return Object.assign({}, state, {
+				unseenTransfer: !state.unseenTransfer
+			});
 		case 'USER_LOGIN_SUCCEEDED':
 			state = loginSucceeded(state, data);
 			break;
@@ -287,9 +301,11 @@ function setWallet(state, data) {
 }
 
 function loadTransactionHistory(state, data) {
-	console.log(data.items);
+	console.log('reducers load history', data.items);
+	let transactionHistory = state.transactionHistory;
+	const newTransactionHistory = [ ...data.items, ...transactionHistory ];
 	return Object.assign({}, state, {
-		transactionHistory: [ ...data.items ]
+		transactionHistory: newTransactionHistory
 	});
 }
 

@@ -1,8 +1,5 @@
 .demo-infinite-container {
-  /* border: 1px solid #e8e8e8; */
-  /* border-radius: 4px; */
   overflow: auto;
-  /* padding: 50px; */
   height: 100%;
   background-color: rgb(250, 250, 252);
 }

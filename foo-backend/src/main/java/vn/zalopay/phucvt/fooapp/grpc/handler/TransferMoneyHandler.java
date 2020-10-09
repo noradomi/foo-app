@@ -6,10 +6,8 @@ import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.mindrot.jbcrypt.BCrypt;
-import vn.zalopay.phucvt.fooapp.da.FintechDA;
-import vn.zalopay.phucvt.fooapp.da.Transaction;
-import vn.zalopay.phucvt.fooapp.da.TransactionProvider;
-import vn.zalopay.phucvt.fooapp.da.UserDA;
+import vn.zalopay.phucvt.fooapp.cache.ChatCache;
+import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.grpc.exceptions.TransferMoneyException;
@@ -27,6 +25,8 @@ import java.util.List;
 public class TransferMoneyHandler {
   private final UserDA userDA;
   private final FintechDA fintechDA;
+  private final ChatDA chatDA;
+  private final ChatCache chatCache;
   private final WSHandler wsHandler;
   private final TransactionProvider transactionProvider;
 
@@ -72,6 +72,7 @@ public class TransferMoneyHandler {
         .compose(this::logTransfer)
         .compose(this::logSenderAccountLog)
         .compose(this::logReceiverAccountLog)
+        .compose(this::logTransferMessage)
         .setHandler(
             holderAsyncResult -> {
               if (holderAsyncResult.succeeded()) {
@@ -388,5 +389,37 @@ public class TransferMoneyHandler {
                     ExceptionUtil.getDetail(asyncResult.cause()));
               }
             });
+  }
+
+  private Future<TransferMoneyHolder> logTransferMessage(TransferMoneyHolder holder) {
+    log.info(
+        "insert to messages as transfer message, {}-{}",
+        holder.getUserAuth().getUserId(),
+        holder.getRequest().getReceiver());
+    Future<TransferMoneyHolder> future = Future.future();
+    WsMessage wsMessage =
+        WsMessage.builder()
+            .id(GenerationUtils.generateId())
+            .senderId(holder.getUserAuth().getUserId())
+            .receiverId(holder.getRequest().getReceiver())
+            .message(String.valueOf(holder.getRequest().getAmount()))
+            .messageType(1)
+            .createTime(holder.getRecordedTime())
+            .build();
+    chatDA
+        .insert(wsMessage)
+        .setHandler(
+            asyncResult -> {
+              if (asyncResult.succeeded()) {
+                chatCache.addToList(wsMessage); // temp code
+                future.complete(holder);
+              } else {
+                future.fail("log transfer message  failed");
+                log.error(
+                    "log transfer message failed, cause={}",
+                    ExceptionUtil.getDetail(asyncResult.cause()));
+              }
+            });
+    return future;
   }
 }

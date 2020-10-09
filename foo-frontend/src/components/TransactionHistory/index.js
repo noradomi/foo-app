@@ -1,8 +1,7 @@
+import { HistoryOutlined } from '@ant-design/icons';
 import React from 'react';
 import AddressBook from '../AddressBook';
-import Toolbar from '../Toolbar';
 import './TransactionHistory.css';
-import { HistoryOutlined } from '@ant-design/icons';
 
 TransactionHistory.propTypes = {};
 

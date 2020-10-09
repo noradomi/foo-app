@@ -24,8 +24,8 @@ export function loadTransactionHistory(pageSize, pageToken) {
 							transferType: x.getTransferType()
 						};
 						items.push(item);
-						store.dispatch(loadTranctionHistoryAction(items));
 					});
+					store.dispatch(loadTranctionHistoryAction(items));
 				}
 
 				resolve(nextPageToken);

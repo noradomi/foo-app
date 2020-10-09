@@ -1,12 +1,12 @@
-import { List, message, Spin, Divider, Alert, Collapse } from 'antd';
+import { CalendarOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { Collapse, List, message, Spin } from 'antd';
+import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect } from 'react-redux';
-import moment from 'moment';
-import { loadTransactionHistory } from '../../services/loadTransactionHistory';
+import { connect, useSelector } from 'react-redux';
+import { loadTransactionHistory } from '../../services/load-transaction-history';
 import TransactionHistoryItem from '../TransactionHistoryItem';
 import './AddressBook.css';
-import { CaretRightOutlined, CalendarOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 
@@ -15,8 +15,12 @@ function AddressBook(props) {
 	const [ hasMore, setHasMore ] = useState(true);
 	let nextPageToken = useRef(0);
 
+	let data = useSelector((state) => state.transactionHistory);
+	console.log('Data: ', data);
+
 	useEffect(() => {
 		loadTransactionHistory(20, 0).then((x) => {
+			console.log(' next token: ', x);
 			nextPageToken.current = x;
 			if (x === 0) {
 				message.warning('Bạn chưa có lịch sử giao dịch nào');
@@ -28,7 +32,6 @@ function AddressBook(props) {
 		});
 	}, []);
 
-	let data = props.transactionHistory;
 	let groups = data.reduce(function(r, o) {
 		var date = moment(o.recordedTime * 1000).format('YYYY-MM-DD');
 		var m = date.split('-')[1];
@@ -49,6 +52,7 @@ function AddressBook(props) {
 
 	const handleInfiniteOnLoad = () => {
 		loadTransactionHistory(20, nextPageToken.current).then((x) => {
+			console.log(' next token: ', x);
 			nextPageToken.current = x;
 			if (x === 0) {
 				message.warning('Đã tải hết lịch sử giao dịch');
@@ -65,7 +69,10 @@ function AddressBook(props) {
 			<InfiniteScroll
 				initialLoad={false}
 				pageStart={0}
-				loadMore={handleInfiniteOnLoad}
+				loadMore={() => {
+					console.log('Load more');
+					handleInfiniteOnLoad();
+				}}
 				hasMore={!loading && hasMore}
 				useWindow={false}
 			>
@@ -85,8 +92,6 @@ function AddressBook(props) {
 							key={x.key}
 						>
 							<List
-								// header={<Divider orientation="left">{x.group}</Divider>}
-								// header={<Alert message={x.group} type="success" />}
 								dataSource={x.data}
 								renderItem={(item) => (
 									<List.Item key={item.id}>
@@ -109,10 +114,4 @@ function AddressBook(props) {
 	);
 }
 
-let mapStateToProps = (state) => {
-	return {
-		transactionHistory: state.transactionHistory
-	};
-};
-
-export default connect(mapStateToProps, null)(AddressBook);
+export default AddressBook;

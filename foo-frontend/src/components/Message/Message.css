@@ -66,3 +66,66 @@
   border-bottom-right-radius: 2px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
 }
+
+
+
+.message.transfer .bubble-container .ant-card {
+  background-color: rgb(244, 247, 251);
+  color: #000000;
+}
+
+.message.mine.transfer .bubble-container .ant-card {
+  background-color: rgb(0, 178, 85);
+  color: #ffffff;
+}
+
+.transfer-message {
+  background-color: rgb(0, 178, 85);
+  padding: 10px 15px;
+  display: flex;
+  border-radius: 20px;
+  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+}
+
+.transfer-message-icon {
+  font-size: 30px;
+  color: rgb(0, 178, 85);
+}
+
+.message.mine.transfer .bubble-container .ant-card .transfer-message-icon {
+  color: #ffffff;
+}
+
+.transfer-message-amount {
+  font-size: 16px;
+  margin-left: 5px;
+  font-weight: 500;
+
+}
+
+.message.mine.transfer .bubble-container .ant-card .transfer-message-amount {
+  color: #ffffff;
+}
+
+.message.transfer .bubble-container .ant-card {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+  max-width: 75%;
+  margin-bottom: 7px;
+}
+
+.message.transfer .bubble-container .ant-card .ant-card-body {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 20px;
+}
+
+.ant-card-actions {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.ant-card-actions li {
+  margin: 5px 0;
+}
