@@ -142,16 +142,16 @@ export function setActiveTabKeyAction(key) {
 	};
 }
 
-export function setHavingUnseenChat() {
+export function setHavingUnseenChatAction(status) {
 	return {
 		type: 'SET_HAVING_UNSEEN_CHAT',
-		data: {}
+		data: { status }
 	};
 }
 
-export function setHavingUnseenTransfer() {
+export function setHavingUnseenTransferAction(status) {
 	return {
 		type: 'SET_HAVING_UNSEEN_TRANSFER',
-		data: {}
+		data: { status }
 	};
 }

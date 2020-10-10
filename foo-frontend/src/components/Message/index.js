@@ -1,9 +1,9 @@
-import React from 'react';
-import moment from 'moment';
-import './Message.css';
-import { DollarCircleOutlined } from '@ant-design/icons';
+import { DollarCircleFilled } from '@ant-design/icons';
 import { Card } from 'antd';
 import Meta from 'antd/lib/card/Meta';
+import moment from 'moment';
+import React from 'react';
+import './Message.css';
 
 export default function Message(props) {
 	const { data, isTransfer, isMine, startsSequence, endsSequence, showTimestamp } = props;
@@ -24,16 +24,10 @@ export default function Message(props) {
 
 			<div className="bubble-container">
 				{isTransfer ? (
-					// <div className="transfer-message">
-					// 	<DollarCircleOutlined className="transfer-message-icon" />
-					// <div className="transfer-message-amount">
-					// 	Chuyển {`${data.message}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
-					// </div>
-					// </div>
 					<Card style={{ borderRadius: '20px' }} actions={[ <span>Chạm để xem</span> ]}>
 						<Meta
 							avatar={
-								<DollarCircleOutlined
+								<DollarCircleFilled
 									className={[ 'transfer-message-icon', `${isMine ? 'mine' : ''}` ].join(' ')}
 								/>
 							}

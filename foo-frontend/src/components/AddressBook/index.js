@@ -1,5 +1,11 @@
-import { CalendarOutlined, CaretRightOutlined } from '@ant-design/icons';
-import { Collapse, List, message, Spin } from 'antd';
+import {
+	CalendarOutlined,
+	CaretRightOutlined,
+	CaretRightFilled,
+	InfoOutlined,
+	ArrowRightOutlined
+} from '@ant-design/icons';
+import { Collapse, List, message, Spin, Badge, Skeleton, Tooltip, Button } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -7,6 +13,8 @@ import { connect, useSelector } from 'react-redux';
 import { loadTransactionHistory } from '../../services/load-transaction-history';
 import TransactionHistoryItem from '../TransactionHistoryItem';
 import './AddressBook.css';
+import Avatar from 'antd/lib/avatar/avatar';
+import CustomAvatar from '../CustomAvatar';
 
 const { Panel } = Collapse;
 
@@ -91,7 +99,7 @@ function AddressBook(props) {
 							}
 							key={x.key}
 						>
-							<List
+							{/* <List
 								dataSource={x.data}
 								renderItem={(item) => (
 									<List.Item key={item.id}>
@@ -105,7 +113,43 @@ function AddressBook(props) {
 										<Spin />
 									</div>
 								)}
-							</List>
+							</List> */}
+							<List
+								itemLayout="horizontal"
+								dataSource={x.data}
+								renderItem={(item) => (
+									<Badge.Ribbon text={<span>Chuyển tiền đến</span>} placement="start">
+										<div style={{ paddingTop: '18px' }} />
+										<List.Item
+											actions={[
+												<Tooltip placement="topLeft" title={'Chi tiết'}>
+													<Button
+														className="addfriend-btn"
+														size={'small'}
+														shape="circle"
+														icon={<InfoOutlined />}
+													/>
+												</Tooltip>
+											]}
+											className="transaction-history-item"
+										>
+											<List.Item.Meta
+												avatar={<CustomAvatar type="panel-avatar" avatar={item.userName} />}
+												title={
+													<a href="https://ant.design">
+														{item.userName}
+														{moment(item.recordedTime * 1000).format(
+															'hh:mm A - DD/MM/YYYY'
+														)}
+													</a>
+												}
+												description={item.description}
+											/>
+											<div>{`${item.amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND</div>
+										</List.Item>
+									</Badge.Ribbon>
+								)}
+							/>
 						</Panel>
 					))}
 				</Collapse>

@@ -1,20 +1,29 @@
-import { CommentOutlined, DollarCircleOutlined, NotificationOutlined } from '@ant-design/icons';
-import { Layout, Menu, Tooltip, Badge } from 'antd';
-import React, { useState } from 'react';
+import {
+	AlertOutlined,
+	CommentOutlined,
+	DollarCircleOutlined,
+	MessageFilled,
+	WalletFilled,
+	FireFilled
+} from '@ant-design/icons';
+import { Badge, Layout, Menu, Tooltip } from 'antd';
+import React from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { setActiveTabKeyAction } from '../../actions/fooAction';
 import ConversationList from '../ConversationList';
 import CustomAvatar from '../CustomAvatar';
 import MessageList from '../MessageList';
-import './Messenger.css';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import UserWallet from '../UserWallet';
 import TransactionHistory from '../TransactionHistory';
-import AddressBook from '../AddressBook';
-import { setActiveTabKeyAction } from '../../actions/fooAction';
+import UserWallet from '../UserWallet';
+import './Messenger.css';
+import { TransferFormSteps } from '../TransferFormSteps';
 
 const { Sider } = Layout;
 
 function Messenger(props) {
 	const activeTabKey = useSelector((state) => state.activeTabKey);
+	const unseenChat = useSelector((state) => state.unseenChat);
+	const unseenTransfer = useSelector((state) => state.unseenTransfer);
 	const dispatch = useDispatch();
 
 	const handleSideBarChange = (e) => {
@@ -44,9 +53,13 @@ function Messenger(props) {
 							key="1"
 							icon={
 								<Tooltip placement="topLeft" title="Nhắn tin">
-									<Badge dot>
+									{unseenChat ? (
+										<Badge count={<FireFilled style={{ color: '#f5222d', fontSize: '15px' }} />}>
+											<MessageFilled style={{ fontSize: 25 }} />
+										</Badge>
+									) : (
 										<CommentOutlined style={{ fontSize: 25 }} />
-									</Badge>
+									)}
 								</Tooltip>
 							}
 						/>
@@ -54,7 +67,7 @@ function Messenger(props) {
 							key="2"
 							icon={
 								<Tooltip placement="topLeft" title="Ví">
-									<DollarCircleOutlined style={{ fontSize: 25 }} />
+									<WalletFilled style={{ fontSize: 25 }} />
 								</Tooltip>
 							}
 						/>
@@ -71,7 +84,7 @@ function Messenger(props) {
 				>
 					{activeTabKey === '1' ? <ConversationList /> : <UserWallet />}
 				</Sider>
-				{activeTabKey === '1' ? <MessageList /> : <TransactionHistory />}
+				{activeTabKey === '1' ? <MessageList /> : <TransferFormSteps />}
 			</Layout>
 		</div>
 	);

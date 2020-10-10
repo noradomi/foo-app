@@ -38,3 +38,26 @@
 .ant-collapse>.ant-collapse-item {
   border: none;
 }
+
+.ant-collapse>.ant-collapse-item>.ant-collapse-content {
+  background-color: #f8f8fb;
+
+}
+
+.ant-collapse>.ant-collapse-item>.ant-collapse-content>.ant-collapse-content-box {
+  padding: 2px 80px;
+}
+
+.ant-ribbon-wrapper .transaction-history-item {
+
+  margin-top: 10px;
+  padding: 15px 20px;
+
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+  border: 0 solid #f6f6f6;
+  background-clip: border-box;
+  background-color: #fff;
+  margin-bottom: 15px;
+}

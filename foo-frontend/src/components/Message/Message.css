@@ -45,7 +45,7 @@
 
 .message .bubble-container .bubble {
   margin: 1px 0px;
-  background: rgb(245, 247, 251);
+  /* background: rgb(245, 247, 251); */
   padding: 10px 15px;
   border-radius: 20px;
   max-width: 75%;
@@ -54,23 +54,31 @@
   border-bottom-left-radius: 2px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+  /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17); */
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+  border: 0 solid #f6f6f6;
+  background-clip: border-box;
+  background-color: #fff;
 }
 
 .message.mine .bubble-container .bubble {
-  background: #007aff;
+
   color: white;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+  /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17); */
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
+  border: 0 solid #f6f6f6;
+  background-clip: border-box;
+  background: #007aff;
 }
 
 
 
 .message.transfer .bubble-container .ant-card {
-  background-color: rgb(244, 247, 251);
+  background-color: #ffffff;
   color: #000000;
 }
 

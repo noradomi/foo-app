@@ -7,7 +7,6 @@ export function getFriendList() {
 		grpcApi.getFriendList((err, response) => {
 			const dataResponse = response;
 			const items = dataResponse.getData().getItemsList();
-			console.log('Items friend list: ' + items);
 			let result = [];
 			items.forEach((item) => {
 				let userItem = {
@@ -18,7 +17,6 @@ export function getFriendList() {
 					lastMessage: item.getLastMessage(),
 					online: item.getIsOnline()
 				};
-				console.log(userItem);
 				result.push(userItem);
 			});
 			if (result.length > 0) {

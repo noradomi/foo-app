@@ -10,7 +10,9 @@ import {
 	setUnseenMessages,
 	addNewFriendAction,
 	setWalletAction,
-	appendTranctionHistoryAction
+	appendTranctionHistoryAction,
+	setHavingUnseenChat,
+	setHavingUnseenChatAction
 } from '../actions/fooAction';
 import { resetUnseen } from './reset-unseen';
 
@@ -39,6 +41,7 @@ export function initialWebSocket() {
 
 				case 'SEND': {
 					const selectedId = store.getState().selectedUser.id;
+					const activeTabKey = store.getState().activeTabKey;
 					console.log('SEND: ' + jsonMessage.senderId + '===' + selectedId);
 
 					if (selectedId === jsonMessage.senderId) {
@@ -47,8 +50,10 @@ export function initialWebSocket() {
 						console.log('Inscrease unseen messages');
 						store.dispatch(setUnseenMessages(jsonMessage.senderId, 1));
 					}
+
 					store.dispatch(receiveMessageAction(jsonMessage));
 					store.dispatch(updateLastMessage(jsonMessage.senderId, jsonMessage.message));
+					if (activeTabKey !== '1') store.dispatch(setHavingUnseenChatAction(true));
 					break;
 				}
 				case 'FETCH': {

@@ -2,7 +2,7 @@ import { getJwtFromStorage, getUserIdFromStorage, getUserFullNameToStorage } fro
 
 let initialState = {
 	activeTabKey: '1',
-	unseenChat: false,
+	unseenChat: true,
 	unseenTransfer: false,
 	user: {
 		jwt: getJwtFromStorage(),
@@ -31,23 +31,42 @@ let initialState = {
 	chatMessagesHolder: {
 		chatMessages: new Map()
 	},
-	scrollFlag: true
+	scrollFlag: true,
+	currentStep: null,
+	stepFormData: {
+		amount: null,
+		description: null,
+		receiver: null
+	}
 };
 
 export default function appReducer(state = initialState, action) {
 	let data = action.data;
 	switch (action.type) {
+		case 'SAVE_CURRENT_STEP':
+			return Object.assign({}, state, {
+				currentStep: data.payload
+			});
+		case 'SAVE_STEP_FORM_DATA':
+			return Object.assign({}, state, {
+				stepFormData: {
+					amount: data.amount,
+					description: data.description,
+					receiver: data.receiver
+				}
+			});
 		case 'SET_ACTIVE_TAB_KEY':
 			return Object.assign({}, state, {
-				activeTabKey: data.key
+				activeTabKey: data.key,
+				transactionHistory: []
 			});
 		case 'SET_HAVING_UNSEEN_CHAT':
 			return Object.assign({}, state, {
-				unseenChat: !state.unseenChat
+				unseenChat: data.status
 			});
 		case 'SET_HAVING_UNSEEN_TRANSFER':
 			return Object.assign({}, state, {
-				unseenTransfer: !state.unseenTransfer
+				unseenTransfer: data.status
 			});
 		case 'USER_LOGIN_SUCCEEDED':
 			state = loginSucceeded(state, data);

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { transferMoney } from '../../services/transfer-money';
 import CustomAvatar from '../CustomAvatar';
 import './TransferMoneyModal.css';
+import { TransferFormSteps } from '../TransferFormSteps';
 const { TextArea } = Input;
 const { Paragraph } = Typography;
 
@@ -196,7 +197,7 @@ const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
 	return (
 		<Modal
 			visible={visible}
-			// destroyOnClose={true}
+			destroyOnClose={true}
 			title={
         <>
           <div style={{textAlign: "center"}}>
@@ -212,7 +213,7 @@ const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
       onOk={handleOk}
       confirmLoading={confirmLoading}
 		>
-			<div style={{ margin: '0 auto', textAlign: 'center' }}>
+			{/* <div style={{ margin: '0 auto', textAlign: 'center' }}>
 				<CustomAvatar type="user-avatar" avatar={selectedUser.avatar} />
 				<p className="transfer-user-name">{selectedUser.name}</p>
 			</div>
@@ -261,7 +262,8 @@ const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
             
 					/>
 				</Form.Item>
-			</Form>
+			</Form> */}
+      <TransferFormSteps/>
 		</Modal>
 	);
 };
