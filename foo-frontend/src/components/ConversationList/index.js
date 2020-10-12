@@ -38,7 +38,7 @@ function ConversationList(props) {
 			<ConversationSearch />
 			<AddFriendModal />
 			<div className="conversation-list-scroll">
-				<Divider className="user-list-title" orientation="left" plain>
+				<Divider className="user-list-title" orientation="left" plain style={{ color: 'rgb(122, 134, 154)' }}>
 					Bạn ({conversations.length})
 				</Divider>
 				{conversations.length > 0 ? (

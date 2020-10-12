@@ -9,14 +9,14 @@ export default function ConversationSearch() {
 			<Input
 				size="large"
 				className="conversation-search-input"
-				placeholder="Search user"
+				placeholder="Tìm kiếm theo tên"
 				prefix={<SearchOutlined />}
-				style={{
-					border: 'none',
-					backgroundColor: 'rgb(245, 245, 245)',
-					borderRadius: 6,
-					color: 'rgb(123, 128, 155)'
-				}}
+				// style={{
+				// 	border: 'none',
+				// 	backgroundColor: 'rgb(245, 245, 245)',
+				// 	borderRadius: 6,
+				// 	color: 'rgb(123, 128, 155)'
+				// }}
 			/>
 		</div>
 	);

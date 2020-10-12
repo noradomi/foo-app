@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getNotFriendList } from '../../services/load-not-friend-list';
 import AddFriendListItem from '../AddFriendListItem';
-import ConversationSearch from '../ConversationSearch';
 import './AddFriendList.css';
 
 function AddFriendList(props) {

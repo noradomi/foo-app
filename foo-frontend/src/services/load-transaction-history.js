@@ -1,4 +1,4 @@
-import { setWalletAction, loadTranctionHistoryAction } from '../actions/fooAction';
+import { loadTranctionHistoryAction } from '../actions/fooAction';
 import store from '../store/fooStore';
 import grpcApi from './grpcApi';
 

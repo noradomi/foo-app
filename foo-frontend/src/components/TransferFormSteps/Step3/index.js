@@ -1,15 +1,14 @@
 import {
 	CloseCircleOutlined,
+	DollarOutlined,
+	ReloadOutlined,
 	UndoOutlined,
-	RobotFilled,
 	UserOutlined,
-	WalletOutlined,
-	DollarOutlined
+	WalletOutlined
 } from '@ant-design/icons';
-import { Button, Descriptions, Result, Statistic, Typography } from 'antd';
-
+import { Button, Descriptions, Result, Typography } from 'antd';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.less';
 
 const { Paragraph } = Typography;
@@ -60,18 +59,21 @@ function Step3(props) {
 					}
 				>
 					{' '}
-					{selectedUser.name}
+					<span style={{ fontWeight: 600 }}>{selectedUser.name}</span>
 				</Descriptions.Item>
 
 				<Descriptions.Item
 					label={
 						<span>
-							<DollarOutlined style={{ fontSize: '17px', marginRight: '5px', color: '#1890ff' }} /> Đã
-							chuyển
+							<DollarOutlined style={{ fontSize: '17px', marginRight: '5px', color: '#1890ff' }} /> Số
+							tiền chuyển
 						</span>
 					}
 				>
-					{`${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+					<span style={{ color: 'blue', fontWeight: 600 }}>
+						{' '}
+						{`${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+					</span>
 				</Descriptions.Item>
 				<Descriptions.Item
 					label={
@@ -82,14 +84,17 @@ function Step3(props) {
 					}
 				>
 					{' '}
-					{`${balance}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+					<span style={{ color: 'green', fontWeight: 600 }}>
+						{' '}
+						{`${balance}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+					</span>
 				</Descriptions.Item>
 			</Descriptions>
 		</div>
 	);
 	const extra = (
-		<Button type="primary" onClick={onFinish}>
-			Chuyển lại
+		<Button type="primary" onClick={onFinish} icon={<ReloadOutlined />}>
+			Thực hiện lại
 		</Button>
 	);
 

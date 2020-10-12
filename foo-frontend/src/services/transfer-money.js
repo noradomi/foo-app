@@ -1,10 +1,8 @@
 import {
-	addNewFriendAction,
-	setUserStatusAction,
-	setWalletAction,
 	appendTranctionHistoryAction,
-	receiveMessageAction,
-	sendMessageAction
+	sendMessageAction,
+	setWalletAction,
+	updateLastMessage
 } from '../actions/fooAction';
 import store from '../store/fooStore';
 import { getUserIdFromStorage } from '../utils/utils';
@@ -40,6 +38,12 @@ export function transferMoney(request) {
 					messageType: 1
 				};
 				store.dispatch(sendMessageAction(transferMessage));
+				store.dispatch(
+					updateLastMessage(
+						transacion.getUserId(),
+						'Bạn: [Chuyển tiền] Chuyển ' + transacion.getAmount() + ' VND'
+					)
+				);
 			}
 			resolve(response);
 		});

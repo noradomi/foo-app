@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.mindrot.jbcrypt.BCrypt;
 import vn.zalopay.phucvt.fooapp.cache.ChatCache;
+import vn.zalopay.phucvt.fooapp.cache.FintechCache;
 import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
@@ -25,6 +26,7 @@ import java.util.List;
 public class TransferMoneyHandler {
   private final UserDA userDA;
   private final FintechDA fintechDA;
+  private final FintechCache fintechCache;
   private final ChatDA chatDA;
   private final ChatCache chatCache;
   private final WSHandler wsHandler;
@@ -83,6 +85,17 @@ public class TransferMoneyHandler {
                 responseObserver.onNext(response);
                 responseObserver.onCompleted();
                 notifyTransferMoney(holder);
+                appendToTransactionHistoryCache(holder);
+                userDA.updateLastMessage(
+                    "Bạn: [Chuyển tiền] Chuyển " + holder.getRequest().getAmount() + " VND",
+                    holder.getUserAuth().getUserId(),
+                    holder.getRequest().getReceiver());
+                userDA.updateLastMessage(
+                    "[Nhận tiền] Nhận " + holder.getRequest().getAmount() + " VND",
+                    holder.getRequest().getReceiver(),
+                    holder.getUserAuth().getUserId());
+                userDA.increaseUnseenMessages(
+                    holder.getRequest().getReceiver(), holder.getUserAuth().getUserId());
               } else {
                 transaction.rollback();
                 log.error(
@@ -110,6 +123,31 @@ public class TransferMoneyHandler {
         .setData(data)
         .setStatus(Status.newBuilder().setCode(Code.OK).build())
         .build();
+  }
+
+  private void appendToTransactionHistoryCache(TransferMoneyHolder holder) {
+    HistoryItem historySender =
+        HistoryItem.builder()
+            .senderId(holder.getUserAuth().getUserId())
+            .receiverId(holder.getRequest().getReceiver())
+            .amount(holder.getRequest().getAmount())
+            .description(holder.getRequest().getDescription())
+            .recordedTime(holder.getRecordedTime())
+            .transferType(0)
+            .build();
+
+    HistoryItem historyReceiver =
+        HistoryItem.builder()
+            .senderId(holder.getUserAuth().getUserId())
+            .receiverId(holder.getRequest().getReceiver())
+            .amount(holder.getRequest().getAmount())
+            .description(holder.getRequest().getDescription())
+            .recordedTime(holder.getRecordedTime())
+            .transferType(1)
+            .build();
+
+    fintechCache.appendToTransactionHistory(historySender, holder.getUserAuth().getUserId());
+    fintechCache.appendToTransactionHistory(historyReceiver, holder.getRequest().getReceiver());
   }
 
   private void notifyTransferMoney(TransferMoneyHolder holder) {
@@ -223,10 +261,10 @@ public class TransferMoneyHandler {
     log.info("check balance");
     Future<TransferMoneyHolder> future = Future.future();
     String userId = holder.getUserAuth().getUserId();
-    List<Future> seleceUserBalanceList = new ArrayList<>();
-    seleceUserBalanceList.add(fintechDA.selectUserForUpdate(userId));
-    seleceUserBalanceList.add(fintechDA.selectUserForUpdate(holder.getRequest().getReceiver()));
-    CompositeFuture cp = CompositeFuture.all(seleceUserBalanceList);
+    List<Future> selectedUserBalanceList = new ArrayList<>();
+    selectedUserBalanceList.add(fintechDA.selectUserForUpdate(userId));
+    selectedUserBalanceList.add(fintechDA.selectUserForUpdate(holder.getRequest().getReceiver()));
+    CompositeFuture cp = CompositeFuture.all(selectedUserBalanceList);
     cp.setHandler(
         cpFutureAsyncResult -> {
           if (cpFutureAsyncResult.succeeded()) {

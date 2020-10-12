@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class CacheConfig {
   int maxMessagesSize = 20;
+  int maxTransactionHistorySize = 20;
   int expireMessages = 10; // minus
   int expireUserList = 10; // minus
+  int expireTransactionHistory = 10; // minus
 }

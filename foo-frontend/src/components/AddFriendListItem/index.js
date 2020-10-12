@@ -10,16 +10,15 @@ AddFriendListItem.propTypes = {};
 function AddFriendListItem(props) {
 	const { id, name, avatar } = props.data;
 	const [ btnVisbale, setBtnVisible ] = useState('visible');
-	const [ loadings, setLoadings ] = useState([]);
 
 	const handleAddFriend = () => {
 		setBtnVisible('none');
 		doAddFriend(id)
 			.then(() => {
-				message.success('Add friend with ' + id);
+				message.success('Kết bạn thành công với ' + name);
 			})
 			.catch(() => {
-				message.error('Add friend failed');
+				message.error('Kết bạn thất bại, thử lại !');
 			});
 	};
 	return (
@@ -35,7 +34,7 @@ function AddFriendListItem(props) {
 				style={{ display: btnVisbale }}
 				className="addfriend-btn"
 				size={'small'}
-				// loading={loadings[0]}
+				icon={<PlusOutlined />}
 			>
 				<span>Kết bạn</span>
 			</Button>

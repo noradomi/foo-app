@@ -1,3 +1,4 @@
+import { SwapOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import React, { useState } from 'react';
 import grpcApi from '../../services/grpcApi';
@@ -22,7 +23,6 @@ function WalletTransferListItem(props) {
 		};
 		grpcApi.transferMoney(request, (err, response) => {
 			const code = response.getStatus().getCode();
-			console.log('Code = ' + code);
 		});
 		setVisible(false);
 	};
@@ -34,12 +34,7 @@ function WalletTransferListItem(props) {
 			<div className="addfriend-info" style={{ overflow: 'hidden', paddingTop: 5 }}>
 				<div className="addfriend-name">{name}</div>
 			</div>
-			<Button
-				onClick={() => setVisible(true)}
-				className="addfriend-btn"
-				size={'small'}
-				// loading={loadings[0]}
-			>
+			<Button icon={<SwapOutlined />} onClick={() => setVisible(true)} className="addfriend-btn" size={'small'}>
 				<span>Chuyển tiền</span>
 			</Button>
 			<TransferMoneyModal

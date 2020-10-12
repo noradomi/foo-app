@@ -1,21 +1,21 @@
 import Sockette from 'sockette';
-import { wsHost } from './api';
-import { getJwtFromStorage, getUserIdFromStorage, processUsernameForAvatar } from '../utils/utils';
-import store from '../store/fooStore';
 import {
+	addNewFriendAction,
+	appendTranctionHistoryAction,
 	receiveMessageAction,
 	sendMessageAction,
-	setUserStatusAction,
-	updateLastMessage,
+	setHavingUnseenChatAction,
+	setHavingUnseenTransferAction,
 	setUnseenMessages,
-	addNewFriendAction,
+	setUserStatusAction,
 	setWalletAction,
-	appendTranctionHistoryAction,
-	setHavingUnseenChat,
-	setHavingUnseenChatAction
+	updateLastMessage
 } from '../actions/fooAction';
+import store from '../store/fooStore';
+import { getJwtFromStorage, getUserIdFromStorage, processUsernameForAvatar } from '../utils/utils';
+import { wsHost } from './api';
 import { resetUnseen } from './reset-unseen';
-
+/*  */
 export function initialWebSocket() {
 	const jwt = getJwtFromStorage();
 	const senderId = getUserIdFromStorage();
@@ -42,12 +42,10 @@ export function initialWebSocket() {
 				case 'SEND': {
 					const selectedId = store.getState().selectedUser.id;
 					const activeTabKey = store.getState().activeTabKey;
-					console.log('SEND: ' + jsonMessage.senderId + '===' + selectedId);
 
 					if (selectedId === jsonMessage.senderId) {
 						resetUnseen(jsonMessage.senderId);
 					} else {
-						console.log('Inscrease unseen messages');
 						store.dispatch(setUnseenMessages(jsonMessage.senderId, 1));
 					}
 
@@ -58,16 +56,14 @@ export function initialWebSocket() {
 				}
 				case 'FETCH': {
 					if (jsonMessage.receiverId !== senderId) {
-						console.log('FETCH: ' + jsonMessage.receiverId);
 						store.dispatch(sendMessageAction(jsonMessage));
-						store.dispatch(updateLastMessage(jsonMessage.receiverId, jsonMessage.message));
+						store.dispatch(updateLastMessage(jsonMessage.receiverId, 'Bạn: ' + jsonMessage.message));
 					}
 					break;
 				}
 
 				case 'ADD_FRIEND': {
 					const newFriend = jsonMessage.userInfo;
-					console.log(newFriend);
 					let userItem = {
 						userId: newFriend.userId_,
 						name: newFriend.name_,
@@ -81,10 +77,7 @@ export function initialWebSocket() {
 				}
 
 				case 'TRANSFER_MONEY': {
-					console.log('Receive 1 transfer money');
-
 					const data = jsonMessage.transferMoneyData;
-					console.log(data);
 					const transacion = data.transaction_;
 					const newBalance = data.balance_;
 					const lastUpdated = data.lastUpdated_;
@@ -104,9 +97,13 @@ export function initialWebSocket() {
 						messageType: 1
 					};
 					store.dispatch(receiveMessageAction(transferMessage));
-
 					store.dispatch(setWalletAction(newBalance, lastUpdated));
 					store.dispatch(appendTranctionHistoryAction(item));
+					store.dispatch(
+						updateLastMessage(transacion.userId_, '[Nhận tiền] Nhận ' + transacion.amount_ + ' VND')
+					);
+					const activeTabKey = store.getState().activeTabKey;
+					if (activeTabKey !== '2') store.dispatch(setHavingUnseenTransferAction(true));
 					break;
 				}
 				default:

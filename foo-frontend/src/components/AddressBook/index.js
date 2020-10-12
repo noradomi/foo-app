@@ -1,20 +1,12 @@
-import {
-	CalendarOutlined,
-	CaretRightOutlined,
-	CaretRightFilled,
-	InfoOutlined,
-	ArrowRightOutlined
-} from '@ant-design/icons';
-import { Collapse, List, message, Spin, Badge, Skeleton, Tooltip, Button } from 'antd';
+import { CalendarOutlined, CaretRightOutlined, FieldTimeOutlined, InfoOutlined } from '@ant-design/icons';
+import { Badge, Button, Collapse, List, message, Tooltip } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { loadTransactionHistory } from '../../services/load-transaction-history';
-import TransactionHistoryItem from '../TransactionHistoryItem';
-import './AddressBook.css';
-import Avatar from 'antd/lib/avatar/avatar';
 import CustomAvatar from '../CustomAvatar';
+import './AddressBook.css';
 
 const { Panel } = Collapse;
 
@@ -99,26 +91,17 @@ function AddressBook(props) {
 							}
 							key={x.key}
 						>
-							{/* <List
-								dataSource={x.data}
-								renderItem={(item) => (
-									<List.Item key={item.id}>
-										<TransactionHistoryItem data={item} />
-									</List.Item>
-								)}
-							>
-								{loading &&
-								hasMore && (
-									<div className="demo-loading-container">
-										<Spin />
-									</div>
-								)}
-							</List> */}
 							<List
 								itemLayout="horizontal"
 								dataSource={x.data}
 								renderItem={(item) => (
-									<Badge.Ribbon text={<span>Chuyển tiền đến</span>} placement="start">
+									<Badge.Ribbon
+										text={
+											<span>{item.transferType === 0 ? 'Chuyển tiền đến' : 'Nhận tiền từ'}</span>
+										}
+										placement="start"
+										color={item.transferType !== 0 ? 'green' : 'blue'}
+									>
 										<div style={{ paddingTop: '18px' }} />
 										<List.Item
 											actions={[
@@ -136,16 +119,35 @@ function AddressBook(props) {
 											<List.Item.Meta
 												avatar={<CustomAvatar type="panel-avatar" avatar={item.userName} />}
 												title={
-													<a href="https://ant.design">
-														{item.userName}
-														{moment(item.recordedTime * 1000).format(
-															'hh:mm A - DD/MM/YYYY'
-														)}
-													</a>
+													<div>
+														<span
+															style={{
+																marginRight: '20px',
+																fontWeight: 600,
+																fontSize: '16px'
+															}}
+														>
+															{item.userName}
+														</span>
+														<span style={{ color: 'rgba(0, 0, 0, 0.45)' }}>
+															<FieldTimeOutlined style={{ marginRight: '5px' }} />
+															{moment(item.recordedTime * 1000).format(
+																'hh:mm A - DD/MM/YYYY'
+															)}
+														</span>
+													</div>
 												}
 												description={item.description}
 											/>
-											<div>{`${item.amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND</div>
+											{item.transferType === 0 ? (
+												<div style={{ color: '#008dfa', fontWeight: 600 }}>
+													- {`${item.amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+												</div>
+											) : (
+												<div style={{ color: 'green', fontWeight: 600 }}>
+													+ {`${item.amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+												</div>
+											)}
 										</List.Item>
 									</Badge.Ribbon>
 								)}

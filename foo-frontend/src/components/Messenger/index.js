@@ -2,7 +2,7 @@ import { CommentOutlined, FireFilled, MessageFilled, WalletFilled } from '@ant-d
 import { Badge, Layout, Menu, Tooltip } from 'antd';
 import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { setActiveTabKeyAction } from '../../actions/fooAction';
+import { setActiveTabKeyAction, setHavingUnseenTransferAction } from '../../actions/fooAction';
 import ConversationList from '../ConversationList';
 import CustomAvatar from '../CustomAvatar';
 import MessageList from '../MessageList';
@@ -16,10 +16,12 @@ function Messenger(props) {
 	const activeTabKey = useSelector((state) => state.activeTabKey);
 	const unseenChat = useSelector((state) => state.unseenChat);
 	const unseenTransfer = useSelector((state) => state.unseenTransfer);
+	console.log('Transfer status: ', unseenTransfer);
 	const dispatch = useDispatch();
 
 	const handleSideBarChange = (e) => {
 		dispatch(setActiveTabKeyAction(e.key));
+		if (e.key === '2') dispatch(setHavingUnseenTransferAction(false));
 	};
 	return (
 		<div style={{ height: 100 + 'vh' }}>
@@ -59,7 +61,13 @@ function Messenger(props) {
 							key="2"
 							icon={
 								<Tooltip placement="topLeft" title="Ví">
-									<WalletFilled style={{ fontSize: 25 }} />
+									{unseenTransfer === 'true' ? (
+										<Badge count={<FireFilled style={{ color: '#f5222d', fontSize: '15px' }} />}>
+											<WalletFilled style={{ fontSize: 25 }} />
+										</Badge>
+									) : (
+										<WalletFilled style={{ fontSize: 25 }} />
+									)}
 								</Tooltip>
 							}
 						/>

@@ -1,4 +1,4 @@
-import { Divider } from 'antd';
+import { Card, Divider } from 'antd';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getFriendList } from '../../services/load-friend-list';
@@ -22,18 +22,25 @@ function WalletTransferList(props) {
 	});
 	return (
 		<div className="wallet-list">
-			<Divider orientation="left" plain>
-				Bạn ({conversations.length})
-			</Divider>
-			<div className="wallet-list-scroll">
-				{conversations.length > 0 ? (
-					conversations.map((conversation) => (
-						<WalletTransferListItem key={conversation.id} data={conversation} />
-					))
-				) : (
-					''
-				)}
-			</div>
+			{/* <Divider plain style={{ color: 'rgb(122, 134, 154)' }}>
+				Danh sách chuyển tiền ({conversations.length})
+			</Divider> */}
+
+			<Card
+				className="wallet-list-card"
+				title={<span>Danh sách chuyển tiền ({conversations.length})</span>}
+				bodyStyle={{ padding: '10px 0' }}
+			>
+				<div className="wallet-list-scroll">
+					{conversations.length > 0 ? (
+						conversations.map((conversation) => (
+							<WalletTransferListItem key={conversation.id} data={conversation} />
+						))
+					) : (
+						''
+					)}
+				</div>
+			</Card>
 		</div>
 	);
 }

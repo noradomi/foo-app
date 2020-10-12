@@ -24,7 +24,7 @@ export default function Message(props) {
 
 			<div className="bubble-container">
 				{isTransfer ? (
-					<Card style={{ borderRadius: '20px' }} actions={[ <span>Chạm để xem</span> ]}>
+					<Card style={{ borderRadius: '15px' }} actions={[ <span>Chạm để xem</span> ]}>
 						<Meta
 							avatar={
 								<DollarCircleFilled
@@ -33,7 +33,8 @@ export default function Message(props) {
 							}
 							title={
 								<div className="transfer-message-amount">
-									Chuyển {`${data.message}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+									{isMine ? 'Chuyển' : 'Nhận'}{' '}
+									{`${data.message}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
 								</div>
 							}
 						/>

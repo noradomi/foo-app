@@ -79,6 +79,7 @@ public class ServiceModule {
   TransferMoneyHandler provideTransferMoneyHandler(
       UserDA userDA,
       FintechDA fintechDA,
+      FintechCache fintechCache,
       ChatDA chatDA,
       ChatCache chatCache,
       WSHandler wsHandler,
@@ -86,6 +87,7 @@ public class ServiceModule {
     return TransferMoneyHandler.builder()
         .userDA(userDA)
         .fintechDA(fintechDA)
+        .fintechCache(fintechCache)
         .chatDA(chatDA)
         .chatCache(chatCache)
         .wsHandler(wsHandler)
@@ -95,8 +97,8 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  GetHistoryHandler provideGetHistory(FintechDA fintechDA) {
-    return GetHistoryHandler.builder().fintechDA(fintechDA).build();
+  GetHistoryHandler provideGetHistory(FintechDA fintechDA, FintechCache fintechCache) {
+    return GetHistoryHandler.builder().fintechDA(fintechDA).fintechCache(fintechCache).build();
   }
 
   @Provides
@@ -171,6 +173,16 @@ public class ServiceModule {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Provides
+  @Singleton
+  FintechCache provideFintechCache(RedisCache redisCache, AsyncHandler asyncHandler) {
+    return FintechCacheImpl.builder()
+        .redisCache(redisCache)
+        .asyncHandler(asyncHandler)
+        .cacheConfig(serviceConfig.getCacheConfig())
+        .build();
   }
 
   @Provides

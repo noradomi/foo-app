@@ -1,9 +1,9 @@
-import { MoneyCollectOutlined, NotificationOutlined, SendOutlined, DollarOutlined } from '@ant-design/icons';
+import { DollarOutlined, NotificationOutlined, SendOutlined } from '@ant-design/icons';
 import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import TransferMoneyModal from '../TransferMoneyModal';
 import './Compose.css';
-import { useDispatch } from 'react-redux';
 
 const { TextArea } = Input;
 

@@ -25,24 +25,25 @@ public class GetFriendListHandler {
       GetFriendListRequest request, StreamObserver<GetFriendListResponse> responseObserver) {
     String userId = AuthInterceptor.USER_ID.get();
     log.info("gRPC call getFriendList from userId={}", userId);
-    userCache
-        .getFriendList(userId)
-        .setHandler(
-            cacheListAsyncResult -> {
-              if (cacheListAsyncResult.succeeded()) {
-                List<UserFriendItem> userList = cacheListAsyncResult.result();
-                if (userList.size() > 0) {
-                  log.info("get friend list from cache, cache hit");
-                  GetFriendListResponse response = handleSuccessResponse(userList);
-                  responseObserver.onNext(response);
-                  responseObserver.onCompleted();
-                } else {
-                  getFriendListFromDB(userId, responseObserver);
-                }
-              } else {
-                getFriendListFromDB(userId, responseObserver);
-              }
-            });
+//    userCache
+//        .getFriendList(userId)
+//        .setHandler(
+//            cacheListAsyncResult -> {
+//              if (cacheListAsyncResult.succeeded()) {
+//                List<UserFriendItem> userList = cacheListAsyncResult.result();
+//                if (userList.size() > 0) {
+//                  log.info("get friend list from cache, cache hit");
+//                  GetFriendListResponse response = handleSuccessResponse(userList);
+//                  responseObserver.onNext(response);
+//                  responseObserver.onCompleted();
+//                } else {
+//                  getFriendListFromDB(userId, responseObserver);
+//                }
+//              } else {
+//                getFriendListFromDB(userId, responseObserver);
+//              }
+//            });
+      getFriendListFromDB(userId, responseObserver);
   }
 
   private void getFriendListFromDB(
@@ -54,7 +55,7 @@ public class GetFriendListHandler {
               GetFriendListResponse response;
               if (listAsyncResult.succeeded()) {
                 List<UserFriendItem> friendList = listAsyncResult.result();
-                userCache.setFriendList(friendList, userId);
+//                userCache.setFriendList(friendList, userId);
                 response = handleSuccessResponse(friendList);
               } else {
                 log.error("get friend list failed, cause=", listAsyncResult.cause());

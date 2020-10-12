@@ -1,4 +1,4 @@
-import { addNewFriendAction, setUserStatusAction } from '../actions/fooAction';
+import { addNewFriendAction } from '../actions/fooAction';
 import store from '../store/fooStore';
 import grpcApi from './grpcApi';
 
@@ -20,7 +20,6 @@ export function doAddFriend(userId) {
 					online: newFriend.getIsOnline()
 				};
 				store.dispatch(addNewFriendAction(userItem));
-				// store.dispatch(setUserStatusAction('97628204-b6cb-4676-9997-93fc842cc33f', true));
 				resolve();
 			} else {
 				reject();

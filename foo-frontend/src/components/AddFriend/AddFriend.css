@@ -9,6 +9,7 @@
   transition-delay: initial, initial, initial, initial;
   border-bottom: 1px solid #f0f0f0;
   border-top: 1px solid #f0f0f0;
+  cursor: pointer;
 }
 
 .new-action-menu a {
@@ -65,5 +66,5 @@
 }
 
 .addfriend-header {
-  padding-left: 45px;
+  padding-left: 80px;
 }

@@ -97,7 +97,7 @@ function Step2(props) {
 					}
 				>
 					{' '}
-					{selectedUser.name}
+					<span style={{ fontWeight: 600 }}>{selectedUser.name}</span>
 				</Descriptions.Item>
 
 				<Descriptions.Item
@@ -108,7 +108,9 @@ function Step2(props) {
 						</span>
 					}
 				>
-					{`${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+					<span style={{ color: 'blue', fontWeight: 600 }}>
+						{`${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+					</span>
 				</Descriptions.Item>
 				<Descriptions.Item
 					label={
@@ -118,11 +120,12 @@ function Step2(props) {
 					}
 				>
 					{' '}
-					{`"${description}"`}
+					<i>{`"${description}"`}</i>
 				</Descriptions.Item>
 			</Descriptions>
 			<Divider style={{ margin: '24px 0' }} />
 			<Form.Item
+				style={{ marginBottom: 8 }}
 				label="Xác nhận mật khẩu"
 				name="confirmPassword"
 				required={false}

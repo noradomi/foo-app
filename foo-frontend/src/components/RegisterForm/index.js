@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { LockOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Form, Input, message } from 'antd';
+import React from 'react';
 import { handleRegister } from '../../services/register';
-import { Button, Form, Input, Alert, message } from 'antd';
-import { UserOutlined, LockOutlined, UserAddOutlined } from '@ant-design/icons';
 import './RegisterForm.css';
 
 export default function RegisterForm(props) {

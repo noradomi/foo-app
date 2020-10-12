@@ -3,7 +3,7 @@ import { getJwtFromStorage, getUserIdFromStorage, getUserFullNameToStorage } fro
 let initialState = {
 	activeTabKey: '1',
 	unseenChat: true,
-	unseenTransfer: false,
+	unseenTransfer: sessionStorage.getItem('unseenTransfer'),
 	user: {
 		jwt: getJwtFromStorage(),
 		userId: getUserIdFromStorage(),
@@ -35,7 +35,7 @@ let initialState = {
 	currentStep: null,
 	stepFormData: {
 		amount: null,
-		description: null,
+		description: null
 	},
 	transferCodeResponse: null
 };
@@ -51,7 +51,7 @@ export default function appReducer(state = initialState, action) {
 			return Object.assign({}, state, {
 				stepFormData: {
 					amount: data.amount,
-					description: data.description,
+					description: data.description
 				}
 			});
 		case 'SAVE_TRANSFER_CODE_RESPONSE':
@@ -63,7 +63,7 @@ export default function appReducer(state = initialState, action) {
 				currentStep: null,
 				stepFormData: {
 					amount: null,
-					description: null,
+					description: null
 				},
 				transferCodeResponse: null
 			});
@@ -76,10 +76,12 @@ export default function appReducer(state = initialState, action) {
 			return Object.assign({}, state, {
 				unseenChat: data.status
 			});
-		case 'SET_HAVING_UNSEEN_TRANSFER':
+		case 'SET_HAVING_UNSEEN_TRANSFER': {
+			sessionStorage.setItem('unseenTransfer', data.status);
 			return Object.assign({}, state, {
 				unseenTransfer: data.status
 			});
+		}
 		case 'USER_LOGIN_SUCCEEDED':
 			state = loginSucceeded(state, data);
 			break;
@@ -334,7 +336,7 @@ function setWallet(state, data) {
 function loadTransactionHistory(state, data) {
 	console.log('reducers load history', data.items);
 	let transactionHistory = state.transactionHistory;
-	const newTransactionHistory = [ ...data.items, ...transactionHistory ];
+	const newTransactionHistory = [ ...transactionHistory, ...data.items ];
 	return Object.assign({}, state, {
 		transactionHistory: newTransactionHistory
 	});

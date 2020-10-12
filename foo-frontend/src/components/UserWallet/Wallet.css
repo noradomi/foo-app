@@ -1,5 +1,6 @@
 .wall-info {
-  height: 100vh;
+  /* height: 100vh; */
+  height: calc(100vh - 500px);
 }
 
 .wallet-card {
@@ -7,7 +8,7 @@
   /* background-color: rgb(250, 250, 250); */
   box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, .03);
   border-radius: 10px;
-  border: 1px solid #eff2f7 !important;
+  /* border: 1px solid #eff2f7 !important; */
   background-clip: border-box;
 }
 
