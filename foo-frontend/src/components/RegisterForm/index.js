@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { handleRegister } from '../../services/register';
 import { Button, Form, Input, Alert, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, UserAddOutlined } from '@ant-design/icons';
 import './RegisterForm.css';
 
 export default function RegisterForm(props) {
@@ -116,7 +116,7 @@ export default function RegisterForm(props) {
 				/>
 			</Form.Item>
 			<FormItem>
-				<Button type="primary" htmlType="submit" className="login-form-button">
+				<Button type="primary" htmlType="submit" className="login-form-button" icon={<UserAddOutlined />}>
 					Đăng kí
 				</Button>
 			</FormItem>

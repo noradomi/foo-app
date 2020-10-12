@@ -1,68 +1,138 @@
-import React from 'react';
-import { Form, Alert, Button, Descriptions, Divider, Statistic, Input } from 'antd';
-import styles from './index.less';
+import {
+	CheckOutlined,
+	DollarOutlined,
+	EyeInvisibleOutlined,
+	EyeTwoTone,
+	LeftOutlined,
+	MailOutlined,
+	UserOutlined
+} from '@ant-design/icons';
+import { Alert, Button, Descriptions, Divider, Form, Input } from 'antd';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { transferMoney } from '../../../services/transfer-money';
+import './Step2.css';
 
 const formItemLayout = {
 	labelCol: {
-		span: 5
+		span: 9
 	},
 	wrapperCol: {
-		span: 19
+		span: 15
 	}
 };
 
 function Step2(props) {
-	const [ form ] = Form.useForm();
+	const { selectedUser } = props;
 	const stepFormData = useSelector((state) => state.stepFormData);
+	const [ confirmLoading, setConfirmLoading ] = useState(false);
+	const { amount, description } = stepFormData;
 	const dispatch = useDispatch();
+	const [ form ] = Form.useForm();
 
 	const onPrev = () => {
-		console.log('Step 2 : back');
 		dispatch({
 			type: 'SAVE_CURRENT_STEP',
 			data: { payload: 'info' }
 		});
 		dispatch({
 			type: 'SAVE_STEP_FORM_DATA',
-			data: { amount: 10000, description: 'Test', receiver: 'Noradomi' }
+			data: { amount, description }
 		});
 	};
 
-	const onValidateForm = async () => {
-		if (dispatch) {
+	const submitTransferMoney = (confirmPassword) => {
+		const request = {
+			receiver: selectedUser.id,
+			amount: amount,
+			description: description,
+			confirmPassword: confirmPassword
+		};
+		transferMoney(request).then((response) => {
+			const code = response.getStatus().getCode();
+			console.log('Transfer code: ' + code);
+			dispatch({
+				type: 'SAVE_TRANSFER_CODE_RESPONSE',
+				data: { payload: code }
+			});
 			dispatch({
 				type: 'SAVE_CURRENT_STEP',
 				data: { payload: 'result' }
 			});
-		}
+		});
 	};
 
-	const { amount, description, receiver } = stepFormData;
+	const onValidateForm = () => {
+		form.validateFields().then((values) => {
+			setConfirmLoading(true);
+			setTimeout(() => {
+				setConfirmLoading(false);
+				submitTransferMoney(values.confirmPassword);
+			}, 2000);
+		});
+	};
+
 	return (
 		<Form
 			{...formItemLayout}
 			form={form}
 			layout="horizontal"
-			className={styles.stepForm}
+			className="step-form"
 			initialValues={{ password: '123456' }}
 		>
-			<Alert closable showIcon message="确认转账后，资金将直接打入对方账户，无法退回。" style={{ marginBottom: 24 }} />
+			<Alert
+				type="info"
+				closable
+				message="Vui lòng xác nhận các thông tin đã nhập"
+				style={{ marginBottom: 24 }}
+				showIcon
+			/>
 			<Descriptions column={1}>
-				<Descriptions.Item label="Người nhận"> {receiver}</Descriptions.Item>
-				<Descriptions.Item label="Lời nhắn"> {description}</Descriptions.Item>
-				<Descriptions.Item label="Số tiền">
-					<Statistic value={amount} suffix="VND" />
+				<Descriptions.Item
+					label={
+						<span>
+							<UserOutlined style={{ fontSize: '17px', marginRight: '5px', color: '#1890ff' }} /> Người
+							nhận
+						</span>
+					}
+				>
+					{' '}
+					{selectedUser.name}
+				</Descriptions.Item>
+
+				<Descriptions.Item
+					label={
+						<span>
+							<DollarOutlined style={{ fontSize: '17px', marginRight: '5px', color: '#1890ff' }} /> Số
+							tiền chuyển
+						</span>
+					}
+				>
+					{`${amount}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+				</Descriptions.Item>
+				<Descriptions.Item
+					label={
+						<span>
+							<MailOutlined style={{ fontSize: '17px', marginRight: '5px', color: '#1890ff' }} /> Lời nhắn
+						</span>
+					}
+				>
+					{' '}
+					{`"${description}"`}
 				</Descriptions.Item>
 			</Descriptions>
 			<Divider style={{ margin: '24px 0' }} />
 			<Form.Item
-				label="支付密码"
-				name="password"
+				label="Xác nhận mật khẩu"
+				name="confirmPassword"
 				required={false}
-				rules={[ { required: true, message: '需要支付密码才能进行支付' } ]}
+				rules={[ { required: true, message: 'Vui lòng nhập mật khẩu xác nhận' } ]}
 			>
-				<Input type="password" autoComplete="off" style={{ width: '80%' }} />
+				<Input.Password
+					placeholder="Nhập mật khẩu"
+					style={{ width: '80%' }}
+					iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+				/>
 			</Form.Item>
 			<Form.Item
 				style={{ marginBottom: 8 }}
@@ -74,11 +144,11 @@ function Step2(props) {
 					}
 				}}
 			>
-				<Button type="primary" onClick={onValidateForm}>
-					Gửi
-				</Button>
-				<Button onClick={onPrev} style={{ marginLeft: 8 }}>
+				<Button onClick={onPrev} style={{ marginRight: 8 }} icon={<LeftOutlined />}>
 					Quay lại
+				</Button>
+				<Button type="primary" onClick={onValidateForm} loading={confirmLoading} icon={<CheckOutlined />}>
+					Xác nhận
 				</Button>
 			</Form.Item>
 		</Form>

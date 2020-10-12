@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Alert, message } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
 import { hanleLogin } from '../../services/login';
 import { useHistory } from 'react-router-dom';
 import './LoginForm.css';
@@ -34,8 +34,8 @@ export default function LoginForm(props) {
 				/>
 			</FormItem>
 
-			<FormItem>
-				<Button type="primary" htmlType="submit" className="login-form-button">
+			<FormItem className="portal-button">
+				<Button type="primary" htmlType="submit" className="login-form-button" icon={<LoginOutlined />}>
 					Đăng nhập
 				</Button>
 			</FormItem>

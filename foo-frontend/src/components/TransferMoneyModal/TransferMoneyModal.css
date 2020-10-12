@@ -12,6 +12,10 @@
   padding: 5px 20px;
 }
 
+.ant-modal-body{
+  padding: 0 10px;
+}
+
 .ant-modal-content {}
 
 .ant-modal-header {
@@ -26,9 +30,6 @@
   margin-left: 0;
 }
 
-.anticon-info-circle {
-  display: none;
-}
 
 .response-success-balance {
   font-size: 18px;

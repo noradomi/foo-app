@@ -1,11 +1,4 @@
-import {
-	AlertOutlined,
-	CommentOutlined,
-	DollarCircleOutlined,
-	MessageFilled,
-	WalletFilled,
-	FireFilled
-} from '@ant-design/icons';
+import { CommentOutlined, FireFilled, MessageFilled, WalletFilled } from '@ant-design/icons';
 import { Badge, Layout, Menu, Tooltip } from 'antd';
 import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
@@ -16,7 +9,6 @@ import MessageList from '../MessageList';
 import TransactionHistory from '../TransactionHistory';
 import UserWallet from '../UserWallet';
 import './Messenger.css';
-import { TransferFormSteps } from '../TransferFormSteps';
 
 const { Sider } = Layout;
 
@@ -84,7 +76,7 @@ function Messenger(props) {
 				>
 					{activeTabKey === '1' ? <ConversationList /> : <UserWallet />}
 				</Sider>
-				{activeTabKey === '1' ? <MessageList /> : <TransferFormSteps />}
+				{activeTabKey === '1' ? <MessageList /> : <TransactionHistory />}
 			</Layout>
 		</div>
 	);

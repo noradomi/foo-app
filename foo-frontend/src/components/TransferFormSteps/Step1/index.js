@@ -1,11 +1,20 @@
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import CustomAvatar from '../../CustomAvatar';
 import MoneyInput from '../MoneyInput';
-import { useDispatch } from 'react-redux';
+import './Step1.css';
+import { RightOutlined } from '@ant-design/icons';
 
-const { Option } = Select;
+const layout = {
+	labelCol: {
+		span: 5
+	},
+	wrapperCol: {
+		span: 19
+	}
+};
 
 const formItemLayout = {
 	labelCol: {
@@ -17,17 +26,23 @@ const formItemLayout = {
 };
 
 function Step1(props) {
+	const stepFormData = useSelector((state) => state.stepFormData);
+
+	const selectedUser = props.selectedUser;
+
 	const dispatch = useDispatch();
+
 	const [ form ] = Form.useForm();
 	const onValidateForm = () => {
-		console.log('Step 1: submite');
-		dispatch({
-			type: 'SAVE_CURRENT_STEP',
-			data: { payload: 'confirm' }
-		});
-		dispatch({
-			type: 'SAVE_STEP_FORM_DATA',
-			data: { amount: 10000, description: 'Test', receiver: 'Noradomi' }
+		form.validateFields().then((values) => {
+			dispatch({
+				type: 'SAVE_CURRENT_STEP',
+				data: { payload: 'confirm' }
+			});
+			dispatch({
+				type: 'SAVE_STEP_FORM_DATA',
+				data: { amount: values.money.number, description: values.description }
+			});
 		});
 	};
 
@@ -47,68 +62,61 @@ function Step1(props) {
 		}
 	};
 	return (
-		<Form
-			className="transfer-money-form"
-			form={form}
-			layout="vertical"
-			name="form_in_modal"
-			initialValues={{
-				money: {
-					number: 1000
-				},
-				description: `Chuyển tiền đến`
-			}}
-		>
-			<Form.Item
-				name="money"
-				label="Số tiền"
-				rules={[
-					{
-						required: true,
-						validator: checkPrice
-					}
-				]}
-			>
-				<MoneyInput />
-			</Form.Item>
-			<Form.Item name="description" label="Lời nhắn">
-				<TextArea
-					className="transfer-modal-description"
-					placeholder="Tối đa 120 kí tự"
-					allowClear
-					maxLength="120"
-					autoSize={{ minRows: 2, maxRows: 4 }}
-				/>
-			</Form.Item>
-			<Form.Item
-				name="confirmPassword"
-				label="Xác nhận mật khẩu"
-				rules={[
-					{
-						required: true,
-						message: 'Vui lòng nhập mật khẩu xác nhận'
-					}
-				]}
-			>
-				<Input.Password
-					placeholder="Nhập mật khẩu"
-					iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-				/>
-			</Form.Item>
-			<Form.Item
-				wrapperCol={{
-					xs: { span: 24, offset: 0 },
-					sm: {
-						span: formItemLayout.wrapperCol.span,
-						offset: formItemLayout.labelCol.span
-					}
+		<div style={{ margin: '40px auto 0' }}>
+			<div style={{ margin: '0 auto', textAlign: 'center' }}>
+				<CustomAvatar type="user-avatar" avatar={selectedUser.avatar} />
+				<p className="transfer-user-name">{selectedUser.name}</p>
+			</div>
+			<Form
+				{...layout}
+				className="step-one-form"
+				form={form}
+				layout="horizontal"
+				hideRequiredMark
+				name="form_in_modal"
+				initialValues={{
+					money: {
+						number: stepFormData.amount || 1000
+					},
+					description: stepFormData.description || `Chuyển tiền đến`
 				}}
 			>
-				<Button type="primary" onClick={onValidateForm}>
-					下一步
-				</Button>
-			</Form.Item>
-		</Form>
+				<Form.Item
+					name="money"
+					label="Số tiền"
+					rules={[
+						{
+							required: true,
+							validator: checkPrice
+						}
+					]}
+				>
+					<MoneyInput />
+				</Form.Item>
+				<Form.Item name="description" label="Lời nhắn">
+					<TextArea
+						className="transfer-modal-description"
+						placeholder="Tối đa 120 kí tự"
+						allowClear
+						maxLength="120"
+						autoSize={{ minRows: 4, maxRows: 6 }}
+					/>
+				</Form.Item>
+				<Form.Item
+					wrapperCol={{
+						xs: { span: 24, offset: 0 },
+						sm: {
+							span: formItemLayout.wrapperCol.span,
+							offset: formItemLayout.labelCol.span
+						}
+					}}
+				>
+					<Button type="primary" onClick={onValidateForm} icon={<RightOutlined />}>
+						Tiếp theo
+					</Button>
+				</Form.Item>
+			</Form>
+		</div>
 	);
 }
 

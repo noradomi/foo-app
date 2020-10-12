@@ -3,11 +3,13 @@ import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import TransferMoneyModal from '../TransferMoneyModal';
 import './Compose.css';
+import { useDispatch } from 'react-redux';
 
 const { TextArea } = Input;
 
 function Compose(props) {
 	const [ text, setText ] = useState('');
+	const dispatch = useDispatch();
 
 	const handleOnChange = (event) => {
 		const text = event.target.value;
@@ -76,6 +78,7 @@ function Compose(props) {
 				visible={visible}
 				onCreate={onCreate}
 				onCancel={() => {
+					dispatch({ type: 'RESET_STEP_FORM', data: {} });
 					setVisible(false);
 				}}
 			/>

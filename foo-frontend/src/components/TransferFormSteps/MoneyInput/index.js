@@ -31,15 +31,13 @@ const MoneyInput = ({ value = {}, onChange }) => {
 		});
 	};
 	return (
-		<span>
-			<Input
-				type="text"
-				value={`${value.number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || number}
-				onChange={onNumberChange}
-				placeholder="Input money"
-				suffix="VND"
-			/>
-		</span>
+		<Input
+			type="text"
+			value={`${value.number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || number}
+			onChange={onNumberChange}
+			placeholder="Input money"
+			suffix="VND"
+		/>
 	);
 };
 

@@ -36,8 +36,8 @@ let initialState = {
 	stepFormData: {
 		amount: null,
 		description: null,
-		receiver: null
-	}
+	},
+	transferCodeResponse: null
 };
 
 export default function appReducer(state = initialState, action) {
@@ -52,8 +52,20 @@ export default function appReducer(state = initialState, action) {
 				stepFormData: {
 					amount: data.amount,
 					description: data.description,
-					receiver: data.receiver
 				}
+			});
+		case 'SAVE_TRANSFER_CODE_RESPONSE':
+			return Object.assign({}, state, {
+				transferCodeResponse: data.payload
+			});
+		case 'RESET_STEP_FORM':
+			return Object.assign({}, state, {
+				currentStep: null,
+				stepFormData: {
+					amount: null,
+					description: null,
+				},
+				transferCodeResponse: null
 			});
 		case 'SET_ACTIVE_TAB_KEY':
 			return Object.assign({}, state, {

@@ -13,12 +13,12 @@ export default function Portal(props) {
 		return <Redirect to="/" />;
 	}
 	return (
-		<div id="portal-container">
+		<div id="portal-container" style={{ backgroundImage: 'url(wallpaper.svg)', backgroundSize: 'cover' }}>
 			<div className="logo">
 				<img src="logo.gif" alt="logo" />
 			</div>
 			<div id="authen-panel">
-				<Tabs className="portal-content" size={'default'} tabBarStyle={{ fontWeight: 600 }}>
+				<Tabs className="portal-content" size={'default'} tabBarStyle={{}}>
 					<TabPane tab="ĐĂNG NHẬP" key="1">
 						<LoginForm />
 					</TabPane>
