@@ -2,19 +2,22 @@ import { HistoryOutlined } from '@ant-design/icons';
 import React from 'react';
 import AddressBook from '../AddressBook';
 import './TransactionHistory.css';
+import { Card } from 'antd';
 
 TransactionHistory.propTypes = {};
 
 function TransactionHistory(props) {
 	return (
-		<div className="transaction-history">
+		<Card className="transaction-card">
 			<div className="transaction-history-header">
-				<HistoryOutlined className="history-icon" /> Lịch sử giao dịch
+				<HistoryOutlined className="history-icon" />Lịch sử giao dịch
 			</div>
-			<div className="transaction-list">
-				<AddressBook />
+			<div className="transaction-history">
+				<div className="transaction-list">
+					<AddressBook />
+				</div>
 			</div>
-		</div>
+		</Card>
 	);
 }
 
