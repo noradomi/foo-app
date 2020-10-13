@@ -149,26 +149,27 @@ function logOut(state) {
 		state.webSocket.webSocket.close();
 	}
 	return Object.assign({}, state, {
-		user: {
-			jwt: null,
-			userId: null
-		},
-		userList: [],
-		userMapHolder: {
-			userMap: new Map()
-		},
-		selectedUser: {
-			id: null,
-			name: null,
-			avatar: null
-		},
-		webSocket: {
-			webSocket: null,
-			send: null
-		},
-		chatMessagesHolder: {
-			chatMessages: new Map()
-		}
+		// user: {
+		// 	jwt: null,
+		// 	userId: null
+		// },
+		// userList: [],
+		// userMapHolder: {
+		// 	userMap: new Map()
+		// },
+		// selectedUser: {
+		// 	id: null,
+		// 	name: null,
+		// 	avatar: null
+		// },
+		// webSocket: {
+		// 	webSocket: null,
+		// 	send: null
+		// },
+		// chatMessagesHolder: {
+		// 	chatMessages: new Map()
+		// }
+		...initialState
 	});
 }
 

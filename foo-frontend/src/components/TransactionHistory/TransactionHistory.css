@@ -7,8 +7,8 @@
 .transaction-list {
   /* padding: 10px; */
   width: 100%;
-  height: calc(100vh - 180px);
-  background-color: rgb(250, 250, 252);
+  height: calc(100vh - 175px);
+
   /* height: 300px; */
 }
 
