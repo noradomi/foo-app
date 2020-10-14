@@ -78,7 +78,7 @@ function Step1(props) {
 					money: {
 						number: stepFormData.amount || 1000
 					},
-					description: stepFormData.description || `Chuyển tiền đến`
+					description: stepFormData.description || `Chuyển tiền đến ${selectedUser.name}`
 				}}
 			>
 				<Form.Item

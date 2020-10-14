@@ -60,7 +60,6 @@ export function sendMessageAction(message) {
 
 export function loadMessageListAction(data, friendId) {
 	data.friendId = friendId;
-	console.log('Action: load messages');
 	return {
 		type: 'MESSAGE_LIST_FETCHED',
 		data: data
@@ -142,10 +141,17 @@ export function setActiveTabKeyAction(key) {
 	};
 }
 
-export function setHavingUnseenChatAction(status) {
+export function setNewUnseenChatUserAction(userId) {
 	return {
-		type: 'SET_HAVING_UNSEEN_CHAT',
-		data: { status }
+		type: 'SET_NEW_UNSEEN_CHAT_USER',
+		data: { userId }
+	};
+}
+
+export function updateUnseenChatUsersAction(userId) {
+	return {
+		type: 'UPDATE_UNEEN_CHAT_USERS',
+		data: { userId }
 	};
 }
 

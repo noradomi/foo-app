@@ -37,8 +37,6 @@ function MessageList(props) {
 			messageType: item.messageType
 		};
 	});
-	console.log('Messages:');
-	console.log(messages);
 
 	const renderMessages = () => {
 		let i = 0;

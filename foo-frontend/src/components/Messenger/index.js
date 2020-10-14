@@ -1,36 +1,33 @@
-import { CommentOutlined, FireFilled, MessageFilled, WalletFilled, LogoutOutlined } from '@ant-design/icons';
-import { Badge, Layout, Menu, Tooltip, Row, Col, Card, Dropdown } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
+import { GridContent } from '@ant-design/pro-layout';
+import { Col, Layout, Menu, Row, Tooltip } from 'antd';
 import React from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { setActiveTabKeyAction, setHavingUnseenTransferAction } from '../../actions/fooAction';
+import { hanldeLogout } from '../../services/logout';
+import ChatTab from '../ChatTab';
 import ConversationList from '../ConversationList';
 import CustomAvatar from '../CustomAvatar';
 import MessageList from '../MessageList';
 import TransactionHistory from '../TransactionHistory';
 import UserWallet from '../UserWallet';
-import { GridContent } from '@ant-design/pro-layout';
-import './Messenger.css';
+import WalletTab from '../WalletTab';
 import WallTransferList from '../WallTransferList';
-import { hanldeLogout } from '../../services/logout';
-import { useHistory } from 'react-router-dom';
+import './Messenger.css';
 
 const { Sider, Header, Content } = Layout;
 
 function Messenger(props) {
 	const activeTabKey = useSelector((state) => state.activeTabKey);
-	const unseenChat = useSelector((state) => state.unseenChat);
-	const unseenTransfer = useSelector((state) => state.unseenTransfer);
-	console.log('Transfer status: ', unseenTransfer);
   const dispatch = useDispatch();
   const history = useHistory();
 
 	const handleSideBarChange = (e) => {
     if(e.key === '3') {
-      
       hanldeLogout().then(() => {
         console.log("Dang xuat");
         history.push('/login')});
-      
     } else{
       dispatch(setActiveTabKeyAction(e.key));
       if (e.key === '2') dispatch(setHavingUnseenTransferAction(false));
@@ -49,7 +46,9 @@ function Messenger(props) {
 					width="75"
 					id="main-side-menu"
 				>
-          <CustomAvatar type="user-avatar" style={{margin: "5px 0 0 5px"}} avatar={props.user.name || ''} />
+          <div className="tab-avatar">
+          <CustomAvatar type="user-avatar"  avatar={props.user.name || ''} />
+          </div>
 					
 					<div className="menu-separation" />
 					<Menu
@@ -62,29 +61,13 @@ function Messenger(props) {
 						<Menu.Item
 							key="1"
 							icon={
-								<Tooltip placement="topLeft" title="Nhắn tin">
-									{unseenChat ? (
-										<Badge count={<FireFilled style={{ color: '#f5222d', fontSize: '15px' }} />}>
-											<MessageFilled style={{ fontSize: 25 }} />
-										</Badge>
-									) : (
-										<CommentOutlined style={{ fontSize: 25 }} />
-									)}
-								</Tooltip>
+								<ChatTab/>
 							}
 						/>
 						<Menu.Item
 							key="2"
 							icon={
-								<Tooltip placement="topLeft" title="Ví">
-									{unseenTransfer === 'true' ? (
-										<Badge count={<FireFilled style={{ color: '#f5222d', fontSize: '15px' }} />}>
-											<WalletFilled style={{ fontSize: 25 }} />
-										</Badge>
-									) : (
-										<WalletFilled style={{ fontSize: 25 }} />
-									)}
-								</Tooltip>
+								<WalletTab/>
 							}
 						/>
             <Menu.Item
@@ -144,20 +127,3 @@ let mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, null)(Messenger);
-
-{
-	/* <MessageList />
-        
-        /* <Sider
-					breakpoint="lg"
-					collapsedWidth="0"
-					theme="light"
-					onBreakpoint={(broken) => {}}
-					onCollapse={(collapsed, type) => {}}
-					width="350"
-					id="sub-side-menu"
-				>
-					{activeTabKey === '1' ? <ConversationList /> : <UserWallet />}
-				</Sider>
-				{activeTabKey === '1' ? <MessageList /> : <TransactionHistory /> */
-}

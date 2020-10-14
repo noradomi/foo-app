@@ -1,5 +1,5 @@
 import { DollarCircleFilled, FieldTimeOutlined } from '@ant-design/icons';
-import { Badge, Card, Statistic } from 'antd';
+import { Card, Statistic } from 'antd';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import Ravatar from 'react-avatar';

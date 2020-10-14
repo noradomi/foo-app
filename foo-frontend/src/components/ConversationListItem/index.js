@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import shave from 'shave';
-import { setSelectedUserAction, setUnseenMessages } from '../../actions/fooAction';
+import { setSelectedUserAction, setUnseenMessages, updateUnseenChatUsersAction } from '../../actions/fooAction';
 import { resetUnseen } from '../../services/reset-unseen';
 import CustomAvatar from '../CustomAvatar/index';
 import './ConversationListItem.css';
 
 function ConversationListItem(props) {
-	console.log('Rerender conversation list item');
 	useEffect(() => {
 		shave('.history-message', 20);
 	});
@@ -34,6 +33,7 @@ function ConversationListItem(props) {
 		props.setActiveItem(selectedUser);
 		if (unreadMessages > 0) {
 			props.resetUnseenMessges(id);
+			props.updateUnseenChatUsers(id);
 			resetUnseen(id);
 		}
 	};
@@ -63,7 +63,8 @@ function mapStateToProps(state) {
 function mapDispathToProps(dispatch) {
 	return {
 		setActiveItem: (user) => dispatch(setSelectedUserAction(user)),
-		resetUnseenMessges: (userId) => dispatch(setUnseenMessages(userId, 0))
+		resetUnseenMessges: (userId) => dispatch(setUnseenMessages(userId, 0)),
+		updateUnseenChatUsers: (userId) => dispatch(updateUnseenChatUsersAction(userId))
 	};
 }
 

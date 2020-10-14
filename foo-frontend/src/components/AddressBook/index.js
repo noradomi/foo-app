@@ -16,11 +16,9 @@ function AddressBook(props) {
 	let nextPageToken = useRef(0);
 
 	let data = useSelector((state) => state.transactionHistory);
-	console.log('Data: ', data);
 
 	useEffect(() => {
 		loadTransactionHistory(20, 0).then((x) => {
-			console.log(' next token: ', x);
 			nextPageToken.current = x;
 			if (x === 0) {
 				message.warning('Bạn chưa có lịch sử giao dịch nào');
@@ -52,7 +50,6 @@ function AddressBook(props) {
 
 	const handleInfiniteOnLoad = () => {
 		loadTransactionHistory(20, nextPageToken.current).then((x) => {
-			console.log(' next token: ', x);
 			nextPageToken.current = x;
 			if (x === 0) {
 				message.warning('Đã tải hết lịch sử giao dịch');
@@ -70,7 +67,6 @@ function AddressBook(props) {
 				initialLoad={false}
 				pageStart={0}
 				loadMore={() => {
-					console.log('Load more');
 					handleInfiniteOnLoad();
 				}}
 				hasMore={!loading && hasMore}

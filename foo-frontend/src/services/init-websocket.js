@@ -4,8 +4,8 @@ import {
 	appendTranctionHistoryAction,
 	receiveMessageAction,
 	sendMessageAction,
-	setHavingUnseenChatAction,
 	setHavingUnseenTransferAction,
+	setNewUnseenChatUserAction,
 	setUnseenMessages,
 	setUserStatusAction,
 	setWalletAction,
@@ -41,17 +41,16 @@ export function initialWebSocket() {
 
 				case 'SEND': {
 					const selectedId = store.getState().selectedUser.id;
-					const activeTabKey = store.getState().activeTabKey;
 
 					if (selectedId === jsonMessage.senderId) {
 						resetUnseen(jsonMessage.senderId);
 					} else {
 						store.dispatch(setUnseenMessages(jsonMessage.senderId, 1));
+						store.dispatch(setNewUnseenChatUserAction(jsonMessage.senderId));
 					}
 
 					store.dispatch(receiveMessageAction(jsonMessage));
 					store.dispatch(updateLastMessage(jsonMessage.senderId, jsonMessage.message));
-					if (activeTabKey !== '1') store.dispatch(setHavingUnseenChatAction(true));
 					break;
 				}
 				case 'FETCH': {
@@ -96,6 +95,16 @@ export function initialWebSocket() {
 						createTime: item.recordedTime,
 						messageType: 1
 					};
+
+					const selectedId = store.getState().selectedUser.id;
+
+					if (selectedId === transacion.userId_) {
+						resetUnseen(transacion.userId_);
+					} else {
+						store.dispatch(setUnseenMessages(transacion.userId_, 1));
+						store.dispatch(setNewUnseenChatUserAction(transacion.userId_));
+					}
+
 					store.dispatch(receiveMessageAction(transferMessage));
 					store.dispatch(setWalletAction(newBalance, lastUpdated));
 					store.dispatch(appendTranctionHistoryAction(item));

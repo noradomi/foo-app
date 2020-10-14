@@ -1,29 +1,17 @@
 import { SwapOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import React, { useState } from 'react';
-import grpcApi from '../../services/grpcApi';
+import { useDispatch } from 'react-redux';
 import CustomAvatar from '../CustomAvatar';
 import TransferMoneyModal from '../TransferMoneyModal';
 import './WalletTransferListItem.css';
 
 function WalletTransferListItem(props) {
-	const { id, name, avatar } = props.data;
-	const [ btnVisbale, setBtnVisible ] = useState('visible');
-	const [ loadings, setLoadings ] = useState([]);
+	const { name, avatar } = props.data;
 	const [ visible, setVisible ] = useState(false);
+	const dispatch = useDispatch();
 
 	const onCreate = (values) => {
-		console.log('Received values of form: ', values);
-
-		const request = {
-			receiver: values.receiver,
-			amount: values.money.number,
-			description: values.description,
-			confirmPassword: values.confirmPassword
-		};
-		grpcApi.transferMoney(request, (err, response) => {
-			const code = response.getStatus().getCode();
-		});
 		setVisible(false);
 	};
 	return (
@@ -42,6 +30,7 @@ function WalletTransferListItem(props) {
 				visible={visible}
 				onCreate={onCreate}
 				onCancel={() => {
+					dispatch({ type: 'RESET_STEP_FORM', data: {} });
 					setVisible(false);
 				}}
 			/>

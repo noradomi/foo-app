@@ -2,8 +2,8 @@ import { getJwtFromStorage, getUserIdFromStorage, getUserFullNameToStorage } fro
 
 let initialState = {
 	activeTabKey: '1',
-	unseenChat: true,
-	unseenTransfer: sessionStorage.getItem('unseenTransfer'),
+	unseenChat: new Set(),
+	unseenTransfer: sessionStorage.getItem('unseenTransfer') === 'true',
 	user: {
 		jwt: getJwtFromStorage(),
 		userId: getUserIdFromStorage(),
@@ -72,10 +72,25 @@ export default function appReducer(state = initialState, action) {
 				activeTabKey: data.key,
 				transactionHistory: []
 			});
-		case 'SET_HAVING_UNSEEN_CHAT':
+		case 'SET_NEW_UNSEEN_CHAT_USER': {
+			let unseenChat = new Set();
+			state.unseenChat.forEach((userId) => unseenChat.add(userId));
+			unseenChat.add(data.userId);
 			return Object.assign({}, state, {
-				unseenChat: data.status
+				unseenChat
 			});
+		}
+		case 'UPDATE_UNEEN_CHAT_USERS': {
+			let unseenChat = new Set();
+			state.unseenChat.forEach((userId) => unseenChat.add(userId));
+			if (unseenChat.has(data.userId)) {
+				unseenChat.delete(data.userId);
+			}
+			return Object.assign({}, state, {
+				unseenChat
+			});
+		}
+
 		case 'SET_HAVING_UNSEEN_TRANSFER': {
 			sessionStorage.setItem('unseenTransfer', data.status);
 			return Object.assign({}, state, {
@@ -191,14 +206,20 @@ function userListFetched(state, userList) {
 
 function friendListFetched(state, friendList) {
 	let userMap = new Map();
+	let unseenChat = new Set();
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	for (let user of friendList) {
 		userMap.set(user.userId, user);
 		if (!chatMessages.has(user.userId)) {
 			chatMessages.set(user.userId, []);
 		}
+		if (user.unreadMessages > 0) {
+			unseenChat.add(user.userId);
+		}
 	}
+
 	return Object.assign({}, state, {
+		unseenChat,
 		friendList,
 		userMapHolder: {
 			userMap
@@ -294,7 +315,6 @@ function setUnseenMessages(state, data) {
 	if (user === undefined) return state;
 	const value = user.unreadMessages;
 	user.unreadMessages = data.type === 0 ? 0 : value + 1;
-	console.log(typeof user.unreadMessages);
 	userMap.set(data.userId, user);
 	return Object.assign({}, state, {
 		userMapHolder: {
@@ -313,7 +333,6 @@ function addNewFriend(state, data) {
 	if (!chatMessages.has(newFriend.userId)) {
 		chatMessages.set(newFriend.userId, []);
 	}
-	console.log(friendList);
 	return Object.assign({}, state, {
 		friendList: friendList,
 		userMapHolder: {
@@ -335,7 +354,6 @@ function setWallet(state, data) {
 }
 
 function loadTransactionHistory(state, data) {
-	console.log('reducers load history', data.items);
 	let transactionHistory = state.transactionHistory;
 	const newTransactionHistory = [ ...transactionHistory, ...data.items ];
 	return Object.assign({}, state, {

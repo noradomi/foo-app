@@ -64,10 +64,11 @@
   margin-top: 40px;
 }
 
-.main-avatar {
+.tab-avatar {
   margin: auto;
-  margin-top: 20px;
+  margin-top: 6px;
   display: block;
+  margin-left: 6px;
 }
 
 #side-menu {

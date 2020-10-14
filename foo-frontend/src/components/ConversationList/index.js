@@ -9,14 +9,12 @@ import './ConversationList.css';
 import { Divider } from 'antd';
 
 function ConversationList(props) {
-	console.log('Rerender conversation list');
 	const webSocket = useSelector((state) => state.webSocket);
 
 	if (webSocket.webSocket === null) {
 		wsConnect();
 	}
 
-	// Init user list
 	useEffect(() => {
 		getFriendList();
 	}, []);

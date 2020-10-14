@@ -1,13 +1,12 @@
-import { Card, Divider } from 'antd';
+import { ProfileFilled } from '@ant-design/icons';
+import { Card } from 'antd';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getFriendList } from '../../services/load-friend-list';
 import WalletTransferListItem from '../WalletTransferListItem';
 import './WalletTransferList.css';
-import { ProfileFilled } from '@ant-design/icons';
 
 function WalletTransferList(props) {
-	// Init user list
 	useEffect(() => {
 		getFriendList();
 	}, []);

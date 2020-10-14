@@ -29,7 +29,6 @@ export default {
 	},
 
 	getHistory: (pageSize, pageToken, callback) => {
-		console.log('Get history');
 		const getHistoryRequest = new GetHistoryRequest();
 		getHistoryRequest.setPageSize(pageSize);
 		getHistoryRequest.setPageToken(pageToken);
@@ -37,19 +36,16 @@ export default {
 	},
 
 	getFriendList: (callback) => {
-		console.log('Get friendlist');
 		const getFriendListRequest = new GetFriendListRequest();
 		client.getFriendList(getFriendListRequest, prepareMetadata(), callback);
 	},
 
 	resetUnseen: (userId, callback) => {
-		console.log('Reset unseen');
 		const resetUnseenRequest = new ResetUnseenRequest();
 		resetUnseenRequest.setUserId(userId);
 		client.resetUnseen(resetUnseenRequest, prepareMetadata(), callback);
 	},
 	addFriend: (userId, callback) => {
-		console.log('Reset unseen');
 		const addFriendRequest = new AddFriendRequest();
 		addFriendRequest.setUserId(userId);
 		client.addFriend(addFriendRequest, prepareMetadata(), callback);
