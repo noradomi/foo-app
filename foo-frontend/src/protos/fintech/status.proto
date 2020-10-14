@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package fintech;
+
+// option java_package = "vn.zalopay.phucvt.fooapp.fintech";
+// option java_multiple_files = true;
+
+import "fintech/code.proto";
+
+message Status {
+  Code code = 1;
+  string message = 2;
+  map<string, string> extra = 3;
+}

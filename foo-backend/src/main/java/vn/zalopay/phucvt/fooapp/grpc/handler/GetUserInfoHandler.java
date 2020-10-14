@@ -13,35 +13,35 @@ import vn.zalopay.phucvt.fooapp.model.User;
 public class GetUserInfoHandler {
   private final UserDA userDA;
 
-  public void handle(
-      GetUserInfoRequest request, StreamObserver<GetUserInfoResponse> responseObserver) {
-    String userId = AuthInterceptor.USER_ID.get();
-    log.info("gRPC call markRead from userId={}", userId);
-    String retrivedUserId = request.getUserId();
-    userDA
-        .selectUserById(retrivedUserId)
-        .setHandler(
-            ayncResult -> {
-              GetUserInfoResponse response;
-              if (ayncResult.succeeded()) {
-                User u = ayncResult.result();
-                UserInfo user =
-                    UserInfo.newBuilder().setUserId(u.getUserId()).setName(u.getName()).build();
-                GetUserInfoResponse.Data data =
-                    GetUserInfoResponse.Data.newBuilder().setUser(user).build();
-                response =
-                    GetUserInfoResponse.newBuilder()
-                        .setData(data)
-                        .setStatus(Status.newBuilder().setCode(Code.OK).build())
-                        .build();
-              } else {
-                response =
-                    GetUserInfoResponse.newBuilder()
-                        .setStatus(Status.newBuilder().setCode(Code.INTERNAL).build())
-                        .build();
-              }
-              responseObserver.onNext(response);
-              responseObserver.onCompleted();
-            });
-  }
+//  public void handle(
+//      GetUserInfoRequest request, StreamObserver<GetUserInfoResponse> responseObserver) {
+//    String userId = AuthInterceptor.USER_ID.get();
+//    log.info("gRPC call markRead from userId={}", userId);
+//    String retrivedUserId = request.getUserId();
+//    userDA
+//        .selectUserById(retrivedUserId)
+//        .setHandler(
+//            ayncResult -> {
+//              GetUserInfoResponse response;
+//              if (ayncResult.succeeded()) {
+//                User u = ayncResult.result();
+//                UserInfo user =
+//                    UserInfo.newBuilder().setUserId(u.getUserId()).setName(u.getName()).build();
+//                GetUserInfoResponse.Data data =
+//                    GetUserInfoResponse.Data.newBuilder().setUser(user).build();
+//                response =
+//                    GetUserInfoResponse.newBuilder()
+//                        .setData(data)
+//                        .setStatus(Status.newBuilder().setCode(Code.OK).build())
+//                        .build();
+//              } else {
+//                response =
+//                    GetUserInfoResponse.newBuilder()
+//                        .setStatus(Status.newBuilder().setCode(Code.INTERNAL).build())
+//                        .build();
+//              }
+//              responseObserver.onNext(response);
+//              responseObserver.onCompleted();
+//            });
+//  }
 }

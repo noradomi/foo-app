@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package fintech;
+
+// option java_package = "vn.zalopay.phucvt.fooapp.fintech";
+// option java_multiple_files = true;
+
+enum Code {
+  OK = 0;
+  NOT_ENOUGH_MONEY = 1;
+  INVALID_PASSWORD = 2;
+  FAILED_PRECONDITION = 3; // missing jwt
+  INTERNAL = 4;
+  INVALID_INPUT_MONEY = 5;
+  USER_ID_NOT_FOUND = 6;
+}

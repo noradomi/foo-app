@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package fintech;
+
+option java_package = "vn.zalopay.phucvt.fooapp.fintech";
+option java_multiple_files = true;
+
+import "fintech/code.proto";
+import "fintech/status.proto";
+
+message UserInfo {
+  string user_id = 1;
+  string name = 2;
+  int32 unread_messages = 3;
+  string last_message = 4;
+  bool is_online = 5;
+}
+
+// add friend
+
+message AddFriendRequest{
+  string user_id = 1;
+}
+
+message AddFriendResponse {
+  message Data {
+    UserInfo user = 1;
+  }
+
+  Data data = 1;
+  Status status = 2;
+}
+
+// reset unseen
+
+message ResetUnseenRequest {
+  string user_id = 1;
+}
+
+message ResetUnseenResponse {
+  Status status = 1;
+}
+
+// get friend list
+
+message GetFriendListRequest {
+}
+
+message GetFriendListResponse {
+  message Data {
+    repeated UserInfo items = 1;
+  }
+  Data data = 1;
+  Status status = 2;
+}
+
+service ChatService {
+  rpc AddFriend(AddFriendRequest) returns (AddFriendResponse) {};
+
+  rpc ResetUnseen (ResetUnseenRequest) returns (ResetUnseenResponse) {};
+
+  rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse) {};
+}

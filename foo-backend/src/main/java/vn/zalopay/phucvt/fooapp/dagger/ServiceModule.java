@@ -15,9 +15,15 @@ import vn.zalopay.phucvt.fooapp.cache.*;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
-import vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl;
 import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
-import vn.zalopay.phucvt.fooapp.grpc.handler.*;
+import vn.zalopay.phucvt.fooapp.grpc.handler.chat.AddFriendHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.chat.GetFriendListHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.chat.ResetUnseenHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.fintech.GetBalanceHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.fintech.GetHistoryHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.fintech.TransferMoneyHandler;
+import vn.zalopay.phucvt.fooapp.grpc.service.ChatServiceImpl;
+import vn.zalopay.phucvt.fooapp.grpc.service.FintechServiceImpl;
 import vn.zalopay.phucvt.fooapp.handler.*;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
@@ -106,14 +112,21 @@ public class ServiceModule {
   FintechServiceImpl provideFintechServiceImpl(
       GetBalanceHandler getBalanceHandler,
       TransferMoneyHandler transferMoneyHandler,
-      GetHistoryHandler getHistoryHandler,
-      AddFriendHandler addFriendHandler,
-      GetFriendListHandler getFriendListHandler,
-      ResetUnseenHandler resetUnseenHandler) {
+      GetHistoryHandler getHistoryHandler) {
     return FintechServiceImpl.builder()
         .getBalanceHandler(getBalanceHandler)
         .transferMoneyHandler(transferMoneyHandler)
         .getHistoryHandler(getHistoryHandler)
+        .build();
+  }
+
+  @Provides
+  @Singleton
+  ChatServiceImpl provideChatServiceImpl(
+      AddFriendHandler addFriendHandler,
+      GetFriendListHandler getFriendListHandler,
+      ResetUnseenHandler resetUnseenHandler) {
+    return ChatServiceImpl.builder()
         .addFriendHandler(addFriendHandler)
         .getFriendListHandler(getFriendListHandler)
         .resetUnseenHandler(resetUnseenHandler)
@@ -131,11 +144,15 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  gRPCServer provideGRPCServer(FintechServiceImpl fintechService, AuthInterceptor authInterceptor) {
+  gRPCServer provideGRPCServer(
+      FintechServiceImpl fintechService,
+      ChatServiceImpl chatService,
+      AuthInterceptor authInterceptor) {
     return gRPCServer
         .builder()
         .port(serviceConfig.getGrpcPort())
         .fintechService(fintechService)
+        .chatService(chatService)
         .authInterceptor(authInterceptor)
         .build();
   }
