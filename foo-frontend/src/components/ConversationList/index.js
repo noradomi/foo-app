@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { wsConnect, getMessageList } from '../../services/chat-single';
-import { getUserList } from '../../services/view-user-list';
+import { wsConnect } from '../../services/chat-single';
+import { getFriendList } from '../../services/load-friend-list';
+import AddFriendModal from '../AddFriend';
 import ConversationListItem from '../ConversationListItem';
 import ConversationSearch from '../ConversationSearch';
 import './ConversationList.css';
-import { loadMessageListAction } from '../../actions/fooAction';
+import { Divider } from 'antd';
 
 function ConversationList(props) {
 	const webSocket = useSelector((state) => state.webSocket);
@@ -14,17 +15,15 @@ function ConversationList(props) {
 		wsConnect();
 	}
 
-	// Init user list
 	useEffect(() => {
-		getUserList();
+		getFriendList();
 	}, []);
 
-	const conversations = props.userList.map((res) => {
-		const { name, userId, avatar, online } = res;
-
+	const conversations = props.friendList.map((res) => {
+		const { name, userId, avatar, online, lastMessage } = res;
 		return {
 			name: name,
-			text: 'lastMessage',
+			text: lastMessage,
 			id: userId,
 			avatar: avatar,
 			online: online
@@ -35,8 +34,11 @@ function ConversationList(props) {
 		<div className="conversation-list">
 			<div className="profile">FooApp - {props.user.name}</div>
 			<ConversationSearch />
+			<AddFriendModal />
 			<div className="conversation-list-scroll">
-				<div className="user-list-title">Users ({conversations.length})</div>
+				<Divider className="user-list-title" orientation="left" plain style={{ color: 'rgb(122, 134, 154)' }}>
+					Bạn ({conversations.length})
+				</Divider>
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => (
 						<ConversationListItem key={conversation.id} data={conversation} />
@@ -51,18 +53,11 @@ function ConversationList(props) {
 
 function mapStateToProps(state) {
 	return {
-		userList: state.userList,
+		friendList: state.friendList,
 		user: state.user,
-		websocket: state.webSocket
+		websocket: state.webSocket,
+		userMapHolder: state.userMapHolder
 	};
 }
 
-let mapDispatchToProps = (dispatch) => {
-	return {
-		updateMsgListOnStore: (data, friendId) => {
-			dispatch(loadMessageListAction(data, friendId));
-		}
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ConversationList);
+export default connect(mapStateToProps, null)(ConversationList);

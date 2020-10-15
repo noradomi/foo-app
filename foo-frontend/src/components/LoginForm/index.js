@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Button, Form, Input, Alert } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { hanleLogin } from '../../services/login';
+import { LockOutlined, LoginOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Form, Input, message } from 'antd';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { hanleLogin } from '../../services/login';
 import './LoginForm.css';
 
 export default function LoginForm(props) {
@@ -10,51 +10,33 @@ export default function LoginForm(props) {
 	let [ form ] = Form.useForm();
 	let history = useHistory();
 
-	let [ message, setMessage ] = useState(false);
-
 	let handleSubmit = (data) => {
 		hanleLogin(data.username, data.password)
 			.then(() => {
 				history.push('/');
 			})
 			.catch(() => {
-				setMessage(true);
-				// form.resetFields();
+				message.error('Tên đăng nhập hoặc mật khẩu không đúng !');
 			});
 	};
 
-	let cleanMessage = (event) => {
-		setMessage(false);
-	};
-
-	let alert = null;
-	if (message) {
-		alert = (
-			<FormItem>
-				<Alert message="Invalid username or password" type="error" showIcon />
-			</FormItem>
-		);
-	}
-
 	return (
-		<Form onFinish={handleSubmit} className="login-form" onFieldsChange={cleanMessage} form={form}>
-			<FormItem name="username" rules={[ { required: true, message: 'Please input your username!' } ]}>
-				<Input prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+		<Form onFinish={handleSubmit} className="login-form" form={form}>
+			<FormItem name="username" rules={[ { required: true, message: '(*) Vui lòng nhập tên đăng nhập !' } ]}>
+				<Input prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Tên đăng nhập" />
 			</FormItem>
 
-			<FormItem name="password" rules={[ { required: true, message: 'Please input your password!' } ]}>
+			<FormItem name="password" rules={[ { required: true, message: '(*) Vui lòng nhập mật khẩu !' } ]}>
 				<Input
 					prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
 					type="password"
-					placeholder="Password"
+					placeholder="Mật khẩu"
 				/>
 			</FormItem>
 
-			{alert}
-
-			<FormItem>
-				<Button type="primary" htmlType="submit" className="login-form-button">
-					Log in
+			<FormItem className="portal-button">
+				<Button type="primary" htmlType="submit" className="login-form-button" icon={<LoginOutlined />}>
+					Đăng nhập
 				</Button>
 			</FormItem>
 		</Form>

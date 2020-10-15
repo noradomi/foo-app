@@ -22,7 +22,6 @@ function MessageList(props) {
 	}
 
 	let receiverId = props.selectedUser.id;
-	console.log('Selected user id: ' + receiverId);
 	let receiver = props.userMapHolder.userMap.get(receiverId);
 
 	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId);
@@ -34,7 +33,8 @@ function MessageList(props) {
 			id: item.createTime,
 			message: item.message,
 			author: item.senderId,
-			timestamp: item.createTime * 1000
+			timestamp: item.createTime * 1000,
+			messageType: item.messageType
 		};
 	});
 
@@ -82,6 +82,7 @@ function MessageList(props) {
 			tempMessages.push(
 				<Message
 					key={i}
+					isTransfer={messages[i].messageType === 1}
 					isMine={isMine}
 					startsSequence={startsSequence}
 					endsSequence={endsSequence}
@@ -90,7 +91,7 @@ function MessageList(props) {
 				/>
 			);
 
-			// Proceed to the next message.
+			// Proceed to the next message.createTime
 			i += 1;
 		}
 
@@ -116,9 +117,6 @@ function MessageList(props) {
 	useEffect(
 		() => {
 			endOfMsgList.current.scrollIntoView({ behavior: 'smooth' });
-			// return function cleanup() {
-			// 	console.log('clean up component 2');
-			// };
 		},
 		[ props.scrollFlag, props.selectedUser.id ]
 	);

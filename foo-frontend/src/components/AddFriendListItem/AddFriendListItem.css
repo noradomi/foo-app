@@ -1,0 +1,59 @@
+.addfriend-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  margin: 3px 3px;
+  border-radius: 8px;
+  border: 1px solid #f0eff5 !important;
+  margin-bottom: .5rem !important;
+}
+
+.addfriend-list-item:hover {
+
+  background: rgb(245, 245, 245);
+  cursor: pointer;
+}
+
+
+.addfriend-title {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.addfriend-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: rgb(17, 17, 17);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 8px;
+  margin-left: 5px;
+}
+
+.addfriend-list-item button {
+  flex-shrink: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  color: #0068ff;
+  border: 1px solid #0068ff;
+  /* padding: 5px; */
+  border-radius: 2px;
+  font-size: 14px;
+  min-width: 55px;
+}
+
+.addfriend-list-item button:hover {
+  background: #0068ff;
+  color: white;
+}
+
+.addfriend-list-item button span {
+  font-size: 13px;
+}

@@ -12,6 +12,14 @@ public class CacheKey {
     return PREFIX_USER_INFO + userId + ":INFO";
   }
 
+  public static String getFriendListKey(String userId) {
+    return PREFIX_USER_INFO + userId + ":FRIENDS";
+  }
+
+  public static String getTrasactionHistoryListKey(String userId) {
+    return PREFIX_USER_INFO + userId + ":TRANSACTIONHISTORY";
+  }
+
   public static String getBlacklistKey(String token) {
     return PREFIX_BLACKLIST + token;
   }

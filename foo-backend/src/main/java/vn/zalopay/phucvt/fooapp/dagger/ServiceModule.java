@@ -15,11 +15,15 @@ import vn.zalopay.phucvt.fooapp.cache.*;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
 import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
-import vn.zalopay.phucvt.fooapp.grpc.FintechServiceImpl;
 import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
-import vn.zalopay.phucvt.fooapp.grpc.handler.GetBalanceHandler;
-import vn.zalopay.phucvt.fooapp.grpc.handler.GetHistoryHandler;
-import vn.zalopay.phucvt.fooapp.grpc.handler.TransferMoneyHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.chat.AddFriendHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.chat.GetFriendListHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.chat.ResetUnseenHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.fintech.GetBalanceHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.fintech.GetHistoryHandler;
+import vn.zalopay.phucvt.fooapp.grpc.handler.fintech.TransferMoneyHandler;
+import vn.zalopay.phucvt.fooapp.grpc.service.ChatServiceImpl;
+import vn.zalopay.phucvt.fooapp.grpc.service.FintechServiceImpl;
 import vn.zalopay.phucvt.fooapp.handler.*;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
@@ -44,6 +48,34 @@ public class ServiceModule {
 
   @Provides
   @Singleton
+  AddFriendHandler provideAddFriendHandler(
+      UserDA userDA, UserCache userCache, WSHandler wsHandler) {
+    return AddFriendHandler.builder()
+        .userDA(userDA)
+        .userCache(userCache)
+        .wsHandler(wsHandler)
+        .build();
+  }
+
+  @Provides
+  @Singleton
+  GetFriendListHandler provideGetFriendListHandler(
+      UserDA userDA, UserCache userCache, WSHandler wsHandler) {
+    return GetFriendListHandler.builder()
+        .userDA(userDA)
+        .userCache(userCache)
+        .wsHandler(wsHandler)
+        .build();
+  }
+
+  @Provides
+  @Singleton
+  ResetUnseenHandler provideResetUnseenHandler(UserDA userDA) {
+    return ResetUnseenHandler.builder().userDA(userDA).build();
+  }
+
+  @Provides
+  @Singleton
   GetBalanceHandler provideGetBalanceHandler(UserDA userDA) {
     return GetBalanceHandler.builder().userDA(userDA).build();
   }
@@ -51,18 +83,28 @@ public class ServiceModule {
   @Provides
   @Singleton
   TransferMoneyHandler provideTransferMoneyHandler(
-      UserDA userDA, FintechDA fintechDA, TransactionProvider transactionProvider) {
+      UserDA userDA,
+      FintechDA fintechDA,
+      FintechCache fintechCache,
+      ChatDA chatDA,
+      ChatCache chatCache,
+      WSHandler wsHandler,
+      TransactionProvider transactionProvider) {
     return TransferMoneyHandler.builder()
         .userDA(userDA)
         .fintechDA(fintechDA)
+        .fintechCache(fintechCache)
+        .chatDA(chatDA)
+        .chatCache(chatCache)
+        .wsHandler(wsHandler)
         .transactionProvider(transactionProvider)
         .build();
   }
 
   @Provides
   @Singleton
-  GetHistoryHandler provideGetHistory(FintechDA fintechDA) {
-    return GetHistoryHandler.builder().fintechDA(fintechDA).build();
+  GetHistoryHandler provideGetHistory(FintechDA fintechDA, FintechCache fintechCache) {
+    return GetHistoryHandler.builder().fintechDA(fintechDA).fintechCache(fintechCache).build();
   }
 
   @Provides
@@ -80,6 +122,19 @@ public class ServiceModule {
 
   @Provides
   @Singleton
+  ChatServiceImpl provideChatServiceImpl(
+      AddFriendHandler addFriendHandler,
+      GetFriendListHandler getFriendListHandler,
+      ResetUnseenHandler resetUnseenHandler) {
+    return ChatServiceImpl.builder()
+        .addFriendHandler(addFriendHandler)
+        .getFriendListHandler(getFriendListHandler)
+        .resetUnseenHandler(resetUnseenHandler)
+        .build();
+  }
+
+  @Provides
+  @Singleton
   FintechDA provideFintechDA(DataSourceProvider dataSourceProvider, AsyncHandler asyncHandler) {
     return FintechDAImpl.builder()
         .dataSource(dataSourceProvider.getDataSource(serviceConfig.getMySQLConfig()))
@@ -89,11 +144,15 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  gRPCServer provideGRPCServer(FintechServiceImpl fintechService, AuthInterceptor authInterceptor) {
+  gRPCServer provideGRPCServer(
+      FintechServiceImpl fintechService,
+      ChatServiceImpl chatService,
+      AuthInterceptor authInterceptor) {
     return gRPCServer
         .builder()
         .port(serviceConfig.getGrpcPort())
         .fintechService(fintechService)
+        .chatService(chatService)
         .authInterceptor(authInterceptor)
         .build();
   }
@@ -131,6 +190,16 @@ public class ServiceModule {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Provides
+  @Singleton
+  FintechCache provideFintechCache(RedisCache redisCache, AsyncHandler asyncHandler) {
+    return FintechCacheImpl.builder()
+        .redisCache(redisCache)
+        .asyncHandler(asyncHandler)
+        .cacheConfig(serviceConfig.getCacheConfig())
+        .build();
   }
 
   @Provides
@@ -299,8 +368,9 @@ public class ServiceModule {
 
   @Provides
   @Singleton
-  WSHandler provideWSHandler(ChatDA chatDA, ChatCache chatCache) {
+  WSHandler provideWSHandler(UserDA userDA, ChatDA chatDA, ChatCache chatCache) {
     return WSHandler.builder()
+        .userDA(userDA)
         .chatCache(chatCache)
         .chatDA(chatDA)
         .clients(new ConcurrentHashMap<>())

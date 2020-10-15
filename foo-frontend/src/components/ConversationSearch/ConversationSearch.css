@@ -6,15 +6,12 @@
 }
 
 .conversation-search-input input {
-  background: rgb(230, 235, 245);
-  /* padding: 8px 10px;
-  border-radius: 10px;
-  border: none;
-  font-size: 14px; */
+  /* background: rgb(245, 245, 245); */
 }
 
 .conversation-search-input::placeholder {
   text-align: center;
+
 }
 
 .conversation-search-input:focus::placeholder {

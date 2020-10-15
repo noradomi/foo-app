@@ -1,0 +1,25 @@
+.addfriend-list {
+  display: flex;
+  flex-direction: column;
+  /* background-color: rgb(245, 247, 251); */
+  background-color: white;
+  padding: 5px;
+  box-sizing: border-box;
+
+}
+
+.addfriend-list-scroll {
+  height: 350px;
+  overflow-y: auto;
+  /* border: 1px solid #e8e8e8; */
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.addfriend-user-list-title {
+  font-size: 15px;
+  font-weight: 500;
+  padding-left: 10px;
+  margin: 5px 0 10px 10px;
+  color: #72808e;
+}

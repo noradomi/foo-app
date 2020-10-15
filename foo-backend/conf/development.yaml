@@ -12,6 +12,7 @@ cacheConfig:
   maxMessagesSize: 20
   expireMessages: 10
   expireUserList: 10
+  expireTransactionHistory: 10
 jwtConfig:
   expireToken: 174600
   publicKey: "dragon"

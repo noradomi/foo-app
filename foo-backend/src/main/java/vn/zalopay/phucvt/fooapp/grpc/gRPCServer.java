@@ -4,6 +4,8 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
+import vn.zalopay.phucvt.fooapp.grpc.service.ChatServiceImpl;
+import vn.zalopay.phucvt.fooapp.grpc.service.FintechServiceImpl;
 
 import java.io.IOException;
 
@@ -12,13 +14,19 @@ import java.io.IOException;
 public class gRPCServer {
   private final int port;
   private final FintechServiceImpl fintechService;
+  private final ChatServiceImpl chatService;
   private final AuthInterceptor authInterceptor;
   private Server server;
 
   public void start() throws IOException, InterruptedException {
     log.info("gRPC server start successfully !, port {}", port);
     server =
-        ServerBuilder.forPort(port).addService(fintechService).intercept(authInterceptor).build();
+        ServerBuilder.forPort(port)
+            .addService(fintechService)
+            .addService(chatService)
+            .intercept(authInterceptor)
+            //            .addService(new GreetServiceImpl())
+            .build();
     server.start();
     Runtime.getRuntime()
         .addShutdownHook(

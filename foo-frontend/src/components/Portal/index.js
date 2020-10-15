@@ -4,7 +4,7 @@ import LoginForm from '../LoginForm/index';
 import RegisterForm from '../RegisterForm/index';
 import { isAuthenticated } from '../../utils/utils';
 import { Redirect } from 'react-router-dom';
-import './Portal.css'
+import './Portal.css';
 
 export default function Portal(props) {
 	const TabPane = Tabs.TabPane;
@@ -13,14 +13,16 @@ export default function Portal(props) {
 		return <Redirect to="/" />;
 	}
 	return (
-		<div id="portal-container">
-			<div className="logo" ><img src="logo.gif" alt="logo"/></div>
+		<div id="portal-container" style={{ backgroundImage: 'url(wallpaper.svg)', backgroundSize: 'cover' }}>
+			<div className="logo">
+				<img src="logo.gif" alt="logo" />
+			</div>
 			<div id="authen-panel">
-				<Tabs>
-					<TabPane tab="Login" key="1">
+				<Tabs className="portal-content" size={'default'} tabBarStyle={{}}>
+					<TabPane tab="ĐĂNG NHẬP" key="1">
 						<LoginForm />
 					</TabPane>
-					<TabPane tab="Register" key="2">
+					<TabPane tab="ĐĂNG KÍ" key="2">
 						<RegisterForm />
 					</TabPane>
 				</Tabs>

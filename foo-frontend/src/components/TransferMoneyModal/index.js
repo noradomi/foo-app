@@ -1,128 +1,41 @@
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Form, Input, Modal } from 'antd';
+import { CloseOutlined, SwapOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
 import 'antd/dist/antd.css';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import CustomAvatar from '../CustomAvatar';
+import { TransferFormSteps } from '../TransferFormSteps';
 import './TransferMoneyModal.css';
-const { TextArea } = Input;
 
-const MoneyInput = ({ value = {}, onChange }) => {
-	const [ number, setNumber ] = useState(0);
+const TransferMoneyModal = ({ userInfo, visible, onCancel }) => {
+	let selectedUser = null;
+	if (userInfo !== null) {
+		selectedUser = userInfo;
+	} else {
+		selectedUser = useSelector((state) => state.selectedUser);
+	}
 
-	const triggerChange = (changedValue) => {
-		if (onChange) {
-			onChange({
-				number,
-				...value,
-				...changedValue
-			});
-		}
-	};
-
-	const onNumberChange = (e) => {
-		const newNumber = parseInt(e.target.value.replace(/\$\s?|(,*)/g, '') || 0, 10);
-
-		if (Number.isNaN(number)) {
-			return;
-		}
-
-		if (!('number' in value)) {
-			setNumber(newNumber);
-		}
-
-		triggerChange({
-			number: newNumber
-		});
-	};
-	return (
-		<span>
-			<Input
-				type="text"
-				value={`${value.number}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') || number}
-				onChange={onNumberChange}
-				placeholder="Input money"
-				suffix="VND"
-			/>
-		</span>
-	);
-};
-
-const TransferMoneyModal = ({ visible, onCreate, onCancel }) => {
-	const selectedUser = useSelector((state) => state.selectedUser);
-	const [ form ] = Form.useForm();
-	const checkPrice = (rule, value) => {
-		if (value.number > 0) {
-			return Promise.resolve();
-		}
-
-		return Promise.reject('Money transfer must be greater than zero!');
-	};
 	return (
 		<Modal
 			visible={visible}
 			destroyOnClose={true}
-			title="Transfer Money"
-			okText="Submit"
-			cancelText="Cancel"
+			title={
+				<div style={{ textAlign: 'center' }}>
+					<span style={{ fontSize: '23px' }}>
+						{' '}
+						<SwapOutlined style={{ fontSize: '30px', color: 'rgb(103, 174, 63)' }} /> Chuyển tiền
+					</span>
+				</div>
+			}
+			footer=""
+			cancelText={
+				<span>
+					<CloseOutlined /> Đóng
+				</span>
+			}
 			onCancel={onCancel}
-			onOk={() => {
-				form
-					.validateFields()
-					.then((values) => {
-						console.log(values);
-
-						form.resetFields();
-						values.receiver = selectedUser.id;
-						onCreate(values);
-					})
-					.catch((info) => {
-						console.log('Validate Failed:', info);
-					});
-			}}
+			width={600}
 		>
-			<div style={{ margin: '0 auto', textAlign: 'center' }}>
-				<CustomAvatar type="user-avatar" avatar={selectedUser.avatar} />
-				<p>{selectedUser.name}</p>
-			</div>
-			<Form
-				form={form}
-				layout="vertical"
-				name="form_in_modal"
-				initialValues={{
-					money: {
-						number: 0
-					},
-					description: ''
-				}}
-			>
-				<Form.Item
-					name="money"
-					label="Money"
-					rules={[
-						{
-							validator: checkPrice
-						}
-					]}
-				>
-					<MoneyInput />
-				</Form.Item>
-				<Form.Item name="description" label="Message">
-					<TextArea
-						className="transfer-modal-description"
-						placeholder="Less equal than 120 characters"
-						allowClear
-						maxLength="120"
-						autoSize={{ minRows: 2, maxRows: 4 }}
-					/>
-				</Form.Item>
-				<Form.Item name="confirmPassword" label="Confirm password">
-					<Input.Password
-						placeholder="input password"
-						iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-					/>
-				</Form.Item>
-			</Form>
+			<TransferFormSteps selectedUser={selectedUser} />
 		</Modal>
 	);
 };

@@ -1,21 +1,30 @@
-#portal-container{
-    padding-top: 50px;
+#portal-container {
+  padding-top: 50px;
+  height: 100vh;
 }
 
 #portal-container .logo {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #portal-container .logo img {
-    display: flex;
-    justify-content: center;
-    width: 200px;
-    height: 200px;
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
 }
 
 #authen-panel {
-    max-width: 300px;
-    margin: auto;
-    margin-top: 20px;
+  max-width: 400px;
+  margin: auto;
+  margin-top: 20px;
+  box-shadow: 0 8px 24px rgba(21, 48, 142, 0.14);
+}
+
+.portal-content {
+  background-color: #ffffff;
+  padding: 30px 45px;
+  box-shadow: 0 8px 24px rgba(21, 48, 142, 0.14);
+  border-radius: 2px;
 }

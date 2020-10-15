@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.cache.ChatCache;
 import vn.zalopay.phucvt.fooapp.da.ChatDA;
+import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Builder
 @Log4j2
 public class WSHandler {
+  private final UserDA userDA;
   private final ChatDA chatDA;
   private final ChatCache chatCache;
   private Map<String, Set<ServerWebSocket>> clients;
@@ -45,6 +47,7 @@ public class WSHandler {
     message.setSenderId(userId);
     message.setCreateTime(Instant.now().getEpochSecond());
     message.setId(GenerationUtils.generateId());
+    message.setMessageType(0);
     chatDA
         .insert(message)
         .setHandler(
@@ -63,6 +66,11 @@ public class WSHandler {
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
+                String receiverId = message.getReceiverId();
+                //                update last messages between 2 user
+                userDA.updateLastMessage("Bạn: " + message.getMessage(), userId, receiverId);
+                userDA.updateLastMessage(message.getMessage(), receiverId, userId);
+                userDA.increaseUnseenMessages(receiverId, userId);
                 handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
                 handleSendMessage(message, message.getReceiverId());
               } else {
@@ -86,6 +94,28 @@ public class WSHandler {
       client.forEach(
           conn -> {
             conn.writeTextMessage(JsonProtoUtils.printGson(notifyMessage));
+          });
+    }
+  }
+
+  public void notifyAddFriend(WsMessage addFriendMessage) {
+    String receiverId = addFriendMessage.getReceiverId();
+    if (clients.containsKey(receiverId)) {
+      Set<ServerWebSocket> receiverCon = clients.get(receiverId);
+      receiverCon.forEach(
+          conn -> {
+            conn.writeTextMessage(JsonProtoUtils.printGson(addFriendMessage));
+          });
+    }
+  }
+
+  public void notifyTransferMoney(WsMessage transferMoneyMessage) {
+    String receiverId = transferMoneyMessage.getReceiverId();
+    if (clients.containsKey(receiverId)) {
+      Set<ServerWebSocket> receiverCon = clients.get(receiverId);
+      receiverCon.forEach(
+          conn -> {
+            conn.writeTextMessage(JsonProtoUtils.printGson(transferMoneyMessage));
           });
     }
   }

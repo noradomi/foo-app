@@ -1,22 +1,28 @@
 import React, { useEffect } from 'react';
-import shave from 'shave';
-import CustomAvatar from '../CustomAvatar/index';
-import { setSelectedUserAction } from '../../actions/fooAction';
-import './ConversationListItem.css';
 import { connect } from 'react-redux';
+import shave from 'shave';
+import { setSelectedUserAction, setUnseenMessages, updateUnseenChatUsersAction } from '../../actions/fooAction';
+import { resetUnseen } from '../../services/reset-unseen';
+import CustomAvatar from '../CustomAvatar/index';
+import './ConversationListItem.css';
 
 function ConversationListItem(props) {
 	useEffect(() => {
-		shave('.conversation-snippet', 20);
+		shave('.history-message', 20);
 	});
 
 	let selectedItemStyle = {};
 
-	const { name, avatar, id, text } = props.data;
+	const { name, avatar, id } = props.data;
 
 	if (props.selectedUser.id === id) {
-		selectedItemStyle.backgroundColor = 'rgb(230, 235, 245)';
+		selectedItemStyle.backgroundColor = 'rgb(245, 245, 245)';
 	}
+
+	const userInfo = props.userMapHolder.userMap.get(id);
+	const status = userInfo.online;
+	const lastMessage = userInfo.lastMessage || 'No message';
+	const unreadMessages = userInfo.unreadMessages;
 
 	let clickHandle = () => {
 		const selectedUser = {
@@ -25,9 +31,12 @@ function ConversationListItem(props) {
 			avatar: avatar
 		};
 		props.setActiveItem(selectedUser);
+		if (unreadMessages > 0) {
+			props.resetUnseenMessges(id);
+			props.updateUnseenChatUsers(id);
+			resetUnseen(id);
+		}
 	};
-
-	let status = props.userMapHolder.userMap.get(id).online;
 
 	return (
 		<div className="conversation-list-item" onClick={clickHandle} style={selectedItemStyle}>
@@ -37,8 +46,9 @@ function ConversationListItem(props) {
 			{status ? <div className="status-point online" /> : <div className="status-point offline" />}
 			<div className="conversation-info" style={{ paddingLeft: '10px', overflow: 'hidden', paddingTop: 5 }}>
 				<div className="user-name">{name}</div>
-				<div className="history-message">{text}</div>
+				<div className="history-message">{lastMessage}</div>
 			</div>
+			{unreadMessages > 0 ? <div className="unread">{unreadMessages}</div> : ''}
 		</div>
 	);
 }
@@ -52,7 +62,9 @@ function mapStateToProps(state) {
 
 function mapDispathToProps(dispatch) {
 	return {
-		setActiveItem: (user) => dispatch(setSelectedUserAction(user))
+		setActiveItem: (user) => dispatch(setSelectedUserAction(user)),
+		resetUnseenMessges: (userId) => dispatch(setUnseenMessages(userId, 0)),
+		updateUnseenChatUsers: (userId) => dispatch(updateUnseenChatUsersAction(userId))
 	};
 }
 

@@ -1,14 +1,15 @@
-import { MoneyCollectOutlined, NotificationOutlined, SendOutlined } from '@ant-design/icons';
+import { DollarOutlined, NotificationOutlined, SendOutlined } from '@ant-design/icons';
 import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import TransferMoneyModal from '../TransferMoneyModal';
-import grpcApi from '../../services/grpcApi';
 import './Compose.css';
 
 const { TextArea } = Input;
 
 function Compose(props) {
 	const [ text, setText ] = useState('');
+	const dispatch = useDispatch();
 
 	const handleOnChange = (event) => {
 		const text = event.target.value;
@@ -29,18 +30,6 @@ function Compose(props) {
 	const [ visible, setVisible ] = useState(false);
 
 	const onCreate = (values) => {
-		console.log('Received values of form: ', values);
-
-		const request = {
-			receiver: values.receiver,
-			amount: values.money.number,
-			description: values.description,
-			confirmPassword: values.confirmPassword
-		};
-		grpcApi.transferMoney(request, (err, response) => {
-			const code = response.getStatus().getCode();
-			console.log('Code = ' + code);
-		});
 		setVisible(false);
 	};
 
@@ -48,7 +37,7 @@ function Compose(props) {
 		<div className="compose">
 			<TextArea
 				value={text}
-				placeholder="Write a message ..."
+				placeholder="Nhập @, tin nhắn ..."
 				onKeyPress={handleKeyPress}
 				onChange={handleOnChange}
 				autoSize={{ minRows: 1, maxRows: 4 }}
@@ -63,12 +52,12 @@ function Compose(props) {
 					size={'large'}
 				/>
 			</Tooltip>
-			<Tooltip placement="topLeft" title={'Transfer money'}>
+			<Tooltip placement="topLeft" title={'Chuyển tiền'}>
 				<Button
 					className="compose-button"
 					type="primary"
 					shape="circle"
-					icon={<MoneyCollectOutlined />}
+					icon={<DollarOutlined />}
 					size={'large'}
 					onClick={() => {
 						setVisible(true);
@@ -85,9 +74,11 @@ function Compose(props) {
 				/>
 			</Tooltip>
 			<TransferMoneyModal
+				userInfo={null}
 				visible={visible}
 				onCreate={onCreate}
 				onCancel={() => {
+					dispatch({ type: 'RESET_STEP_FORM', data: {} });
 					setVisible(false);
 				}}
 			/>

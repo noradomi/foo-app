@@ -1,9 +1,12 @@
-import React from 'react';
+import { DollarCircleFilled } from '@ant-design/icons';
+import { Card } from 'antd';
+import Meta from 'antd/lib/card/Meta';
 import moment from 'moment';
+import React from 'react';
 import './Message.css';
 
 export default function Message(props) {
-	const { data, isMine, startsSequence, endsSequence, showTimestamp } = props;
+	const { data, isTransfer, isMine, startsSequence, endsSequence, showTimestamp } = props;
 
 	const friendlyTimestamp = moment(data.timestamp).format('LLLL');
 	return (
@@ -12,16 +15,35 @@ export default function Message(props) {
 				'message',
 				`${isMine ? 'mine' : ''}`,
 				`${startsSequence ? 'start' : ''}`,
-				`${endsSequence ? 'end' : ''}`
+				`${endsSequence ? 'end' : ''}`,
+				`${isTransfer ? 'transfer' : ''}`
 			].join(' ')}
 			style={{ wordWrap: 'break-word' }}
 		>
 			{showTimestamp && <div className="timestamp">{friendlyTimestamp}</div>}
 
 			<div className="bubble-container">
-				<div className="bubble" title={friendlyTimestamp}>
-					{data.message}
-				</div>
+				{isTransfer ? (
+					<Card style={{ borderRadius: '15px' }} actions={[ <span>Chạm để xem</span> ]}>
+						<Meta
+							avatar={
+								<DollarCircleFilled
+									className={[ 'transfer-message-icon', `${isMine ? 'mine' : ''}` ].join(' ')}
+								/>
+							}
+							title={
+								<div className="transfer-message-amount">
+									{isMine ? 'Chuyển' : 'Nhận'}{' '}
+									{`${data.message}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
+								</div>
+							}
+						/>
+					</Card>
+				) : (
+					<div className="bubble" title={friendlyTimestamp}>
+						{data.message}
+					</div>
+				)}
 			</div>
 		</div>
 	);

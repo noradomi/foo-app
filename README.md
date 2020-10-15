@@ -44,9 +44,11 @@ docker-compose up --build
 
 ## 4. References
 
-- [Sequence diagrams](documents/sequence-diagrams.md)
+- [Sequence diagrams & Database model](documents/sequence-diagrams.md)
 
 - [Database model](documents/database-model.md)
+
+- [Database DDL script](documents/scripts.sql)
 
 - [gRPC API](documents/grpc-api/fintech.proto)
 

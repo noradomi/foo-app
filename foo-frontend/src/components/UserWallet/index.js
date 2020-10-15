@@ -1,67 +1,51 @@
-import { FieldTimeOutlined, MoneyCollectOutlined } from '@ant-design/icons';
-import { Card, Col, Row, Statistic } from 'antd';
-import React, { useEffect, useState } from 'react';
-import grpcApi from '../../services/grpcApi';
-import CustomAvatar from '../CustomAvatar';
+import { DollarCircleFilled, FieldTimeOutlined } from '@ant-design/icons';
+import { Card, Statistic } from 'antd';
+import moment from 'moment';
+import React, { useEffect } from 'react';
+import Ravatar from 'react-avatar';
+import { useSelector } from 'react-redux';
+import { getBalace } from '../../services/get-balace';
+import './Wallet.css';
 
 function UserWallet(props) {
-	const [ wallet, setWallet ] = useState({
-		balance: 0,
-		lastUpdated: 0
-	});
+	const wallet = useSelector((state) => state.wallet);
+	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
-		grpcApi.getBalance('Phuc', (err, response) => {
-			const dataResponse = response.getData();
-			const balance = dataResponse.getBalance();
-			const lastUpdated = dataResponse.getLastUpdated();
-			setWallet({ balance, lastUpdated });
-		});
-		grpcApi.getHistory((err, response) => {
-			const rs = response.getData().getHistoriesList();
-			rs.forEach((x) => {
-				console.log(x.getDescription());
-			});
-		});
+		getBalace();
 	}, []);
+
 	return (
-		<div className="conversation-list">
-			<div className="profile">FooApp Wallet</div>
-			<div style={{ margin: '0 auto', textAlign: 'center' }}>
-				<CustomAvatar type="user-avatar" avatar={'Noradomi'} />
-				<p>Noradomi</p>
+		<Card bordered={false} className="wallet-info">
+			<div className="wallet-user">
+				<Ravatar name={user.name} className="custom-avatar" size="90" />
+				<h5 className="wallet-username">{user.name}</h5>
 			</div>
-			<div style={{ width: '100%' }}>
-				<Row justify="center">
-					<Col>
-						<Card>
-							<Statistic
-								title="Balance"
-								value={wallet.balance}
-								precision={0}
-								valueStyle={{ color: '#3f8600' }}
-								prefix={<MoneyCollectOutlined />}
-								suffix="VND"
-							/>
-						</Card>
-					</Col>
-				</Row>
-				<Row justify="center">
-					<Col>
-						<Card>
-							<Statistic
-								title="Last updated"
-								value={wallet.lastUpdated}
-								precision={0}
-								valueStyle={{ color: '#cf1322' }}
-								prefix={<FieldTimeOutlined />}
-								// suffix="%"
-							/>
-						</Card>
-					</Col>
-				</Row>
+			<div className="wallet-balance-card">
+				<div className="wallet-balance">
+					<div className="wallet-balance-icon">
+						<DollarCircleFilled style={{ color: '#fff', fontSize: '30px' }} />
+					</div>
+					<p className="wallet-balance-title">Số dư</p>
+					<h3 className="wallet-balance-number">
+						<Statistic
+							className="wallet-balance"
+							value={wallet.balance}
+							precision={0}
+							valueStyle={{ color: '#3f8600' }}
+							suffix="VND"
+						/>
+					</h3>
+				</div>
+				<div className="wallet-time">
+					<span>
+						<FieldTimeOutlined />
+						{'   '}
+						{moment(wallet.lastUpdated * 1000).format('hh:mm A - DD/MM/YYYY')}
+					</span>
+				</div>
 			</div>
-		</div>
+		</Card>
 	);
 }
 

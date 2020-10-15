@@ -2,6 +2,7 @@ package vn.zalopay.phucvt.fooapp.model;
 
 import lombok.*;
 import vn.zalopay.phucvt.fooapp.common.mapper.DBTable;
+import vn.zalopay.phucvt.fooapp.fintech.UserInfo;
 
 @Builder(toBuilder = true)
 @Getter
@@ -25,4 +26,11 @@ public class WsMessage {
 
   @DBTable(columnName = "create_time")
   private long createTime;
+
+  @DBTable(columnName = "message_type")
+  private long messageType;
+
+  private UserInfo userInfo; // return when added friend
+
+  private Object transferMoneyData;
 }

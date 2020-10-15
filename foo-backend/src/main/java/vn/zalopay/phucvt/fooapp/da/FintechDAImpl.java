@@ -4,7 +4,6 @@ import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.common.mapper.EntityMapper;
-import vn.zalopay.phucvt.fooapp.fintech.TransactionHistory;
 import vn.zalopay.phucvt.fooapp.model.AccountLog;
 import vn.zalopay.phucvt.fooapp.model.HistoryItem;
 import vn.zalopay.phucvt.fooapp.model.Transfer;
@@ -34,9 +33,9 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
       "INSERT INTO account_logs (`id`, `user_id`, `transfer_id`,`balance`,`transfer_type`,recorded_time) "
           + "VALUES (?,?,?,?,?,?)";
 
-  private static final String SELECT_TRANSACTION_HISTORIES_STATEMENT =
-      "select a.recorded_time , a.transfer_type , t.amount ,t.description ,t.receiver as user_id from account_logs a "
-          + "join transfers t on a.transfer_id = t.id where a.user_id = ?";
+  private static final String SELECT_TRANSACTION_HISTORY_STATEMENT =
+      "select a.recorded_time , a.transfer_type , t.amount ,t.description ,t.sender as sender_id, t.receiver as receiver_id from account_logs a "
+          + "join transfers t on a.transfer_id = t.id where a.user_id = ? order by a.recorded_time desc limit ?,? ";
 
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;
@@ -143,15 +142,15 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
   }
 
   @Override
-  public Future<List<HistoryItem>> getHistories(String userId) {
+  public Future<List<HistoryItem>> getHistory(String userId, int pageSize, int pageToken) {
     Future<List<HistoryItem>> future = Future.future();
     asyncHandler.run(
         () -> {
-          Object[] params = {userId};
+          Object[] params = {userId, pageToken, pageSize};
           queryEntity(
-              "queryHistories",
+              "queryHistory",
               future,
-              SELECT_TRANSACTION_HISTORIES_STATEMENT,
+              SELECT_TRANSACTION_HISTORY_STATEMENT,
               params,
               this::mapRs2EntityListHistoryItem,
               dataSource::getConnection,
@@ -161,13 +160,13 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
   }
 
   private List<HistoryItem> mapRs2EntityListHistoryItem(ResultSet resultSet) throws Exception {
-    List<HistoryItem> histories = new ArrayList<>();
+    List<HistoryItem> historyItemList = new ArrayList<>();
     while (resultSet.next()) {
-      HistoryItem history = new HistoryItem();
-      EntityMapper.getInstance().loadResultSetIntoObject(resultSet, history);
-      histories.add(history);
+      HistoryItem historyItem = new HistoryItem();
+      EntityMapper.getInstance().loadResultSetIntoObject(resultSet, historyItem);
+      historyItemList.add(historyItem);
     }
-    return histories;
+    return historyItemList;
   }
 
   private User mapRs2EntityUser(ResultSet resultSet) throws Exception {

@@ -1,3 +1,41 @@
 .transfer-modal-description textarea {
   resize: none;
 }
+
+.transfer-user-name {
+  padding-top: 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.transfer-money-form {
+  padding: 5px 20px;
+}
+
+.ant-modal-body{
+  padding: 0 10px;
+}
+
+.ant-modal-content {}
+
+.ant-modal-header {
+  background-color: rgb(245, 245, 245);
+}
+
+.ant-modal-footer {
+  background-color: rgb(245, 245, 245);
+}
+
+.ant-modal-confirm-body>.anticon+.ant-modal-confirm-title+.ant-modal-confirm-content {
+  margin-left: 0;
+}
+
+
+.response-success-balance {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.ant-result {
+  padding: 20px 20px;
+}
