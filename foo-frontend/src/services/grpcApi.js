@@ -17,7 +17,7 @@ export default {
 
 	transferMoney: (request, callback) => {
 		const transferMoneyRequest = new TransferMoneyRequest();
-		transferMoneyRequest.setReceiver(request.receiver);
+		transferMoneyRequest.setReceiverId(request.receiver);
 		transferMoneyRequest.setAmount(request.amount);
 		transferMoneyRequest.setDescription(request.description);
 		transferMoneyRequest.setConfirmPassword(request.confirmPassword);

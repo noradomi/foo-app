@@ -22,17 +22,17 @@ public class GetHistoryHandler {
     String userId = AuthInterceptor.USER_ID.get();
     int pageSize = request.getPageSize();
     int pageToken = request.getPageToken();
-    log.info("gRPC call getHistory from userId={} with {}-{}", userId, pageSize, pageToken);
+    log.info("gRPC call: getHistory from userId={} with {}-{}", userId, pageSize, pageToken);
     if (pageToken == 0) {
       fintechCache
           .getTransactionHistory(userId)
           .setHandler(
               listAsyncResult -> {
+                GetHistoryResponse response;
                 if (listAsyncResult.succeeded()) {
                   log.info("get transaction list of user={}, cache hit", userId);
                   List<HistoryItem> historyList = listAsyncResult.result();
-                  GetHistoryResponse response =
-                      handleSuccessResponse(historyList, historyList.size(), pageToken);
+                  response = buildSuccessResponse(historyList, historyList.size(), pageToken);
                   responseObserver.onNext(response);
                   responseObserver.onCompleted();
                 } else {
@@ -59,8 +59,8 @@ public class GetHistoryHandler {
                 fintechCache.setTransactionHistory(historyList, userId);
                 response =
                     historyList.size() == 0
-                        ? handleSuccessResponse(historyList, 0, 0)
-                        : handleSuccessResponse(historyList, historyList.size(), pageToken);
+                        ? buildSuccessResponse(historyList, 0, 0)
+                        : buildSuccessResponse(historyList, historyList.size(), pageToken);
               } else {
                 log.error("get transaction history failed, cause=", listAsyncResult.cause());
                 response =
@@ -73,7 +73,7 @@ public class GetHistoryHandler {
             });
   }
 
-  private GetHistoryResponse handleSuccessResponse(
+  public GetHistoryResponse buildSuccessResponse(
       List<HistoryItem> historyList, int size, int pageToken) {
     GetHistoryResponse.Data.Builder builder = GetHistoryResponse.Data.newBuilder();
     historyList.forEach(x -> builder.addItems(mapToTransactionHistory(x)));
