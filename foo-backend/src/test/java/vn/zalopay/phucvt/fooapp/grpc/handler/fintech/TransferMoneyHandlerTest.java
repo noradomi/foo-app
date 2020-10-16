@@ -1,19 +1,22 @@
 package vn.zalopay.phucvt.fooapp.grpc.handler.fintech;
 
 import io.vertx.core.Future;
+import io.vertx.ext.unit.Async;
+import io.vertx.ext.unit.TestContext;
+import io.vertx.ext.unit.junit.VertxUnitRunner;
 import org.hamcrest.core.Is;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mindrot.jbcrypt.BCrypt;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import vn.zalopay.phucvt.fooapp.cache.ChatCache;
 import vn.zalopay.phucvt.fooapp.cache.FintechCache;
-import vn.zalopay.phucvt.fooapp.da.ChatDA;
-import vn.zalopay.phucvt.fooapp.da.FintechDA;
-import vn.zalopay.phucvt.fooapp.da.TransactionProvider;
-import vn.zalopay.phucvt.fooapp.da.UserDA;
+import vn.zalopay.phucvt.fooapp.da.*;
 import vn.zalopay.phucvt.fooapp.fintech.Code;
 import vn.zalopay.phucvt.fooapp.fintech.TransferMoneyRequest;
 import vn.zalopay.phucvt.fooapp.grpc.exceptions.TransferMoneyException;
@@ -21,17 +24,22 @@ import vn.zalopay.phucvt.fooapp.handler.WSHandler;
 import vn.zalopay.phucvt.fooapp.model.TransferMoneyHolder;
 import vn.zalopay.phucvt.fooapp.model.User;
 
+import java.sql.SQLException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(VertxUnitRunner.class)
 public class TransferMoneyHandlerTest {
   @InjectMocks TransferMoneyHandler transferMoneyHandler;
   @Mock private UserDA userDA;
   @Mock private FintechDA fintechDA;
   @Mock private FintechCache fintechCache;
+
+  @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
+
   private ChatDA chatDA;
   private ChatCache chatCache;
   private WSHandler wsHandler;
@@ -129,7 +137,8 @@ public class TransferMoneyHandlerTest {
   }
 
   @Test
-  public void testCheckBalance_whenBalanceEnoughMoney() {
+  public void testCheckBalance_whenBalanceEnoughMoney(TestContext context) {
+    final Async async = context.async();
     User user = User.builder().userId("123").balance(1000).build();
     TransferMoneyRequest request =
         TransferMoneyRequest.newBuilder().setAmount(1000).build(); // equal balance
@@ -141,15 +150,24 @@ public class TransferMoneyHandlerTest {
     holder.setSender(user);
 
     Future<TransferMoneyHolder> future = transferMoneyHandler.checkBalance(holder);
-    TransferMoneyHolder successHolder = future.result();
-    assertThat(1000L, is(successHolder.getSender().getBalance()));
+    future.setHandler(
+        asyncResult -> {
+          if (asyncResult.succeeded()) {
+            TransferMoneyHolder successHolder = asyncResult.result();
+            context.assertEquals(1000L, successHolder.getSender().getBalance());
+          } else {
+            context.fail(asyncResult.cause());
+          }
+          async.complete();
+        });
   }
 
   @Test
-  public void testCheckBalance_whenBalanceLessThanAmount() {
+  public void testCheckBalance_whenBalanceLessThanAmount(TestContext context) {
+    final Async async = context.async();
     User user = User.builder().userId("123").balance(1000).build();
     TransferMoneyRequest request =
-            TransferMoneyRequest.newBuilder().setAmount(2000).build(); // greater than balance
+        TransferMoneyRequest.newBuilder().setAmount(2000).build(); // greater than balance
 
     when(fintechDA.selectUserForUpdate(any())).thenReturn(Future.succeededFuture(user));
 
@@ -158,16 +176,19 @@ public class TransferMoneyHandlerTest {
     holder.setSender(user);
 
     Future<TransferMoneyHolder> future = transferMoneyHandler.checkBalance(holder);
-    assertThat(true,is(future.failed()));
-    TransferMoneyException transferMoneyException = (TransferMoneyException)future.cause();
-    assertThat(Code.NOT_ENOUGH_MONEY, is(transferMoneyException.getCode()));
+    future.setHandler(
+        asyncResult -> {
+          TransferMoneyException transferMoneyException = (TransferMoneyException) future.cause();
+          context.assertEquals(Code.NOT_ENOUGH_MONEY, transferMoneyException.getCode());
+          async.complete();
+        });
   }
 
   @Test
-  public void testCheckBalance_whenSelectUserForUpdateFromDBFailed() {
+  public void testCheckBalance_whenSelectUserForUpdateFromDBFailed(TestContext context) {
+    final Async async = context.async();
     User user = User.builder().userId("123").balance(1000).build();
-    TransferMoneyRequest request =
-            TransferMoneyRequest.newBuilder().setAmount(2000).build();
+    TransferMoneyRequest request = TransferMoneyRequest.newBuilder().setAmount(2000).build();
 
     when(fintechDA.selectUserForUpdate(any())).thenReturn(Future.failedFuture(new Exception()));
 
@@ -176,7 +197,228 @@ public class TransferMoneyHandlerTest {
     holder.setSender(user);
 
     Future<TransferMoneyHolder> future = transferMoneyHandler.checkBalance(holder);
-    assertThat(true,is(future.failed()));
-    assertThat(true, is(future.cause() instanceof Exception));
+    future.setHandler(
+        asyncResult -> {
+          assertThat(true, is(future.cause() instanceof Exception));
+          async.complete();
+        });
+  }
+
+  @Test
+  public void testDebit_whenSuccess(TestContext context) {
+    final Async async = context.async();
+    User user = User.builder().userId("123").balance(1000).build();
+    TransferMoneyRequest request = TransferMoneyRequest.newBuilder().setAmount(1000).build();
+
+    Transaction transaction = Mockito.mock(Transaction.class);
+
+    when(transaction.execute(any())).thenReturn(Future.succeededFuture());
+
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
+    holder.setSender(user);
+    holder.setTransaction(transaction);
+    holder.setReceiver(user);
+
+    Future<TransferMoneyHolder> future = transferMoneyHandler.debit(holder);
+    future.setHandler(
+        asyncResult -> {
+          TransferMoneyHolder resultHolder = asyncResult.result();
+          context.assertEquals(0L, resultHolder.getSender().getBalance());
+          async.complete();
+        });
+  }
+
+  @Test
+  public void testDebit_whenFailed(TestContext context) {
+    final Async async = context.async();
+    User user = User.builder().userId("123").balance(1000).build();
+    TransferMoneyRequest request = TransferMoneyRequest.newBuilder().setAmount(1000).build();
+
+    Transaction transaction = Mockito.mock(Transaction.class);
+
+    when(transaction.execute(any())).thenReturn(Future.failedFuture(new SQLException()));
+
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
+    holder.setSender(user);
+    holder.setTransaction(transaction);
+    holder.setReceiver(user);
+
+    Future<TransferMoneyHolder> future = transferMoneyHandler.debit(holder);
+    future.setHandler(
+        asyncResult -> {
+          context.assertEquals(true, asyncResult.failed());
+          async.complete();
+        });
+  }
+
+  @Test
+  public void testCredit_whenSuccess(TestContext context) {
+    final Async async = context.async();
+    User user = User.builder().userId("123").balance(1000).build();
+    TransferMoneyRequest request = TransferMoneyRequest.newBuilder().setAmount(1000).build();
+
+    Transaction transaction = Mockito.mock(Transaction.class);
+
+    when(transaction.execute(any())).thenReturn(Future.succeededFuture());
+
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
+    holder.setSender(user);
+    holder.setTransaction(transaction);
+    holder.setReceiver(user);
+
+    Future<TransferMoneyHolder> future = transferMoneyHandler.credit(holder);
+    future.setHandler(
+        asyncResult -> {
+          TransferMoneyHolder resultHolder = asyncResult.result();
+          context.assertEquals(2000L, resultHolder.getReceiver().getBalance());
+          async.complete();
+        });
+  }
+
+  @Test
+  public void testCredit_whenFailed(TestContext context) {
+    final Async async = context.async();
+    User user = User.builder().userId("123").balance(1000).build();
+    TransferMoneyRequest request = TransferMoneyRequest.newBuilder().setAmount(1000).build();
+
+    Transaction transaction = Mockito.mock(Transaction.class);
+
+    when(transaction.execute(any())).thenReturn(Future.failedFuture(new SQLException()));
+
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
+    holder.setSender(user);
+    holder.setTransaction(transaction);
+    holder.setReceiver(user);
+
+    Future<TransferMoneyHolder> future = transferMoneyHandler.credit(holder);
+    future.setHandler(
+        asyncResult -> {
+          context.assertEquals(true, asyncResult.failed());
+          async.complete();
+        });
+  }
+
+  @Test
+  public void testWriteTransferLog_whenSuccess(TestContext context) {
+    final Async async = context.async();
+
+    User user = User.builder().userId("123").balance(1000).build();
+    TransferMoneyRequest request =
+        TransferMoneyRequest.newBuilder()
+            .setReceiverId("123")
+            .setDescription("abc")
+            .setAmount(1000)
+            .build();
+
+    Transaction transaction = Mockito.mock(Transaction.class);
+
+    when(transaction.execute(any())).thenReturn(Future.succeededFuture());
+
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
+    holder.setSender(user);
+    holder.setTransaction(transaction);
+    holder.setReceiver(user);
+
+    Future<TransferMoneyHolder> future = transferMoneyHandler.writeTransferLog(holder);
+    future.setHandler(
+        asyncResult -> {
+          context.assertEquals(true, asyncResult.succeeded());
+          async.complete();
+        });
+  }
+
+  @Test
+  public void testWriteTransferLog_whenFailed(TestContext context) {
+    final Async async = context.async();
+
+    User user = User.builder().userId("123").balance(1000).build();
+    TransferMoneyRequest request =
+        TransferMoneyRequest.newBuilder()
+            .setReceiverId("123")
+            .setDescription("abc")
+            .setAmount(1000)
+            .build();
+
+    Transaction transaction = Mockito.mock(Transaction.class);
+
+    when(transaction.execute(any())).thenReturn(Future.failedFuture(new SQLException()));
+
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
+    holder.setSender(user);
+    holder.setTransaction(transaction);
+    holder.setReceiver(user);
+
+    Future<TransferMoneyHolder> future = transferMoneyHandler.writeTransferLog(holder);
+    future.setHandler(
+        asyncResult -> {
+          context.assertEquals(true, asyncResult.failed());
+          async.complete();
+        });
+  }
+
+  @Test
+  public void testWriteAccountLog_whenSuccess(TestContext context) {
+    final Async async = context.async();
+
+    User user = User.builder().userId("123").balance(1000).build();
+    TransferMoneyRequest request =
+            TransferMoneyRequest.newBuilder()
+                    .setReceiverId("123")
+                    .setDescription("abc")
+                    .setAmount(1000)
+                    .build();
+
+    Transaction transaction = Mockito.mock(Transaction.class);
+
+    when(transaction.execute(any())).thenReturn(Future.succeededFuture());
+
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
+    holder.setSender(user);
+    holder.setTransaction(transaction);
+    holder.setReceiver(user);
+
+    Future<TransferMoneyHolder> future = transferMoneyHandler.writeAccountLog(holder,0);
+    future.setHandler(
+            asyncResult -> {
+              context.assertEquals(true, asyncResult.succeeded());
+              async.complete();
+            });
+  }
+
+  @Test
+  public void testWriteAccountLog_whenFailed(TestContext context) {
+    final Async async = context.async();
+
+    User user = User.builder().userId("123").balance(1000).build();
+    TransferMoneyRequest request =
+            TransferMoneyRequest.newBuilder()
+                    .setReceiverId("123")
+                    .setDescription("abc")
+                    .setAmount(1000)
+                    .build();
+
+    Transaction transaction = Mockito.mock(Transaction.class);
+
+    when(transaction.execute(any())).thenReturn(Future.failedFuture(new SQLException()));
+
+    TransferMoneyHolder holder = new TransferMoneyHolder();
+    holder.setRequest(request);
+    holder.setSender(user);
+    holder.setTransaction(transaction);
+    holder.setReceiver(user);
+
+    Future<TransferMoneyHolder> future = transferMoneyHandler.writeAccountLog(holder,0);
+    future.setHandler(
+            asyncResult -> {
+              context.assertEquals(true, asyncResult.failed());
+              async.complete();
+            });
   }
 }

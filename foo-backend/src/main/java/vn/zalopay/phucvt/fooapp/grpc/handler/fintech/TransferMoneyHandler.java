@@ -72,9 +72,9 @@ public class TransferMoneyHandler {
         .compose(next -> checkBalance(validatedHolder))
         .compose(this::debit)
         .compose(this::credit)
-        .compose(this::logTransfer)
-        .compose(this::logSenderAccountLog)
-        .compose(this::logReceiverAccountLog)
+        .compose(this::writeTransferLog)
+        .compose(this::writeAccountLogSender)
+        .compose(this::writeAccountLogReceiver)
         .compose(this::logTransferMessage)
         .setHandler(
             holderAsyncResult -> {
@@ -252,7 +252,7 @@ public class TransferMoneyHandler {
     return future;
   }
 
-  private Future<TransferMoneyHolder> debit(TransferMoneyHolder holder) {
+  public Future<TransferMoneyHolder> debit(TransferMoneyHolder holder) {
     log.info(
         "transaction {}-{}, step: debit sender's balance",
         holder.getSender().getUserId(),
@@ -262,24 +262,26 @@ public class TransferMoneyHandler {
     String userId = holder.getSender().getUserId();
     long amount = holder.getRequest().getAmount();
     long newBalance = holder.getSender().getBalance() - amount;
-    holder.getSender().setBalance(newBalance);
-    holder.setRecordedTime(Instant.now().getEpochSecond());
     transaction
         .execute(fintechDA.updateBalance(userId, newBalance, holder.getRecordedTime()))
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
+                holder.getSender().setBalance(newBalance);
+                holder.setRecordedTime(Instant.now().getEpochSecond());
                 future.complete(holder);
               } else {
-                future.fail(new Exception("debit failed"));
+                future.fail(asyncResult.cause());
                 log.error(
-                    "debit balance of user={} failed, cause={}",userId, ExceptionUtil.getDetail(asyncResult.cause()));
+                    "debit balance of user={} failed, cause={}",
+                    userId,
+                    ExceptionUtil.getDetail(asyncResult.cause()));
               }
             });
     return future;
   }
 
-  private Future<TransferMoneyHolder> credit(TransferMoneyHolder holder) {
+  public Future<TransferMoneyHolder> credit(TransferMoneyHolder holder) {
     log.info(
         "deposit userId={} with amount={}",
         holder.getRequest().getReceiverId(),
@@ -305,20 +307,12 @@ public class TransferMoneyHandler {
     return future;
   }
 
-  private Future<TransferMoneyHolder> logTransfer(TransferMoneyHolder holder) {
+  public Future<TransferMoneyHolder> writeTransferLog(TransferMoneyHolder holder) {
     log.info(
         "log transfer {}={}", holder.getSender().getUserId(), holder.getRequest().getReceiverId());
     Future<TransferMoneyHolder> future = Future.future();
     Transaction transaction = holder.getTransaction();
-    Transfer transfer =
-        Transfer.builder()
-            .transferId(GenerationUtils.generateId())
-            .amount(holder.getRequest().getAmount())
-            .sender(holder.getSender().getUserId())
-            .receiver(holder.getRequest().getReceiverId())
-            .description(holder.getRequest().getDescription())
-            .recordedTime(holder.getRecordedTime()) // now
-            .build();
+    Transfer transfer = buildTransferModel(holder);
     transaction
         .execute(fintechDA.insertTransferLog(transfer))
         .setHandler(
@@ -327,58 +321,46 @@ public class TransferMoneyHandler {
                 holder.setTransferId(transfer.getTransferId());
                 future.complete(holder);
               } else {
-                future.fail("Log transfer failed");
+                future.fail(asyncResult.cause());
                 log.error(
-                    "log transfer failed, cause={}", ExceptionUtil.getDetail(asyncResult.cause()));
+                    "log transfer {}-{} failed, cause={}",
+                    holder.getSender().getUserId(),
+                    holder.getReceiver().getUserId(),
+                    ExceptionUtil.getDetail(asyncResult.cause()));
               }
             });
     return future;
   }
 
-  private Future<TransferMoneyHolder> logSenderAccountLog(TransferMoneyHolder holder) {
+  private Transfer buildTransferModel(TransferMoneyHolder holder) {
+    return Transfer.builder()
+        .transferId(GenerationUtils.generateId())
+        .amount(holder.getRequest().getAmount())
+        .sender(holder.getSender().getUserId())
+        .receiver(holder.getRequest().getReceiverId())
+        .description(holder.getRequest().getDescription())
+        .recordedTime(holder.getRecordedTime())
+        .build();
+  }
+
+  private Future<TransferMoneyHolder> writeAccountLogSender(TransferMoneyHolder holder) {
     log.info("log account_log userId={}", holder.getSender().getUserId());
-    Future<TransferMoneyHolder> future = Future.future();
-    Transaction transaction = holder.getTransaction();
-    logAccountLog(
-        holder,
-        future,
-        transaction,
-        holder.getSender().getUserId(),
-        holder.getSender().getBalance(),
-        0);
+    Future<TransferMoneyHolder> future;
+    future = writeAccountLog(holder, 0);
     return future;
   }
 
-  private Future<TransferMoneyHolder> logReceiverAccountLog(TransferMoneyHolder holder) {
+  private Future<TransferMoneyHolder> writeAccountLogReceiver(TransferMoneyHolder holder) {
     log.info("log account_log userId={}", holder.getRequest().getReceiverId());
-    Future<TransferMoneyHolder> future = Future.future();
-    Transaction transaction = holder.getTransaction();
-    logAccountLog(
-        holder,
-        future,
-        transaction,
-        holder.getRequest().getReceiverId(),
-        holder.getReceiver().getBalance(),
-        1);
+    Future<TransferMoneyHolder> future;
+    future = writeAccountLog(holder, 1);
     return future;
   }
 
-  private void logAccountLog(
-      TransferMoneyHolder holder,
-      Future<TransferMoneyHolder> future,
-      Transaction transaction,
-      String userId,
-      long balance,
-      int transferType) {
-    AccountLog accountLog =
-        AccountLog.builder()
-            .id(GenerationUtils.generateId())
-            .transferType(transferType)
-            .userId(userId)
-            .transferId(holder.getTransferId())
-            .balance(balance)
-            .recordedTime(holder.getRecordedTime())
-            .build();
+  public Future<TransferMoneyHolder> writeAccountLog(TransferMoneyHolder holder, int transferType) {
+    Future<TransferMoneyHolder> future = Future.future();
+    Transaction transaction = holder.getTransaction();
+    AccountLog accountLog = buildAccountLogModel(holder, transferType);
     transaction
         .execute(fintechDA.insertAccountLog(accountLog))
         .setHandler(
@@ -386,12 +368,30 @@ public class TransferMoneyHandler {
               if (asyncResult.succeeded()) {
                 future.complete(holder);
               } else {
-                future.fail("Log sender account log failed");
+                future.fail(asyncResult.cause());
                 log.error(
-                    "log account_log failed, cause={}",
+                    "write account_log failed, cause={}",
                     ExceptionUtil.getDetail(asyncResult.cause()));
               }
             });
+    return future;
+  }
+
+  private AccountLog buildAccountLogModel(TransferMoneyHolder holder, int transferType) {
+    return AccountLog.builder()
+        .id(GenerationUtils.generateId())
+        .transferType(transferType)
+        .userId(
+            transferType == 0
+                ? holder.getSender().getUserId()
+                : holder.getReceiver().getUserId())
+        .transferId(holder.getTransferId())
+        .balance(
+            transferType == 0
+                ? holder.getSender().getBalance()
+                : holder.getReceiver().getBalance())
+        .recordedTime(holder.getRecordedTime())
+        .build();
   }
 
   private Future<TransferMoneyHolder> logTransferMessage(TransferMoneyHolder holder) {
@@ -414,10 +414,10 @@ public class TransferMoneyHandler {
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
-                chatCache.addToList(wsMessage); // temp code
+                chatCache.addToList(wsMessage);
                 future.complete(holder);
               } else {
-                future.fail("log transfer message  failed");
+                future.fail(asyncResult.cause());
                 log.error(
                     "log transfer message failed, cause={}",
                     ExceptionUtil.getDetail(asyncResult.cause()));
