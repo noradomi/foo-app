@@ -16,8 +16,7 @@ public class GetBalanceHandlerTest {
 
   @Mock private UserDA userDA;
 
-  @InjectMocks
-  private GetBalanceHandler getBalanceHandler;
+  @InjectMocks private GetBalanceHandler getBalanceHandler;
 
   @Test
   public void handle() {

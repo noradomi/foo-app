@@ -1,7 +1,6 @@
 package vn.zalopay.phucvt.fooapp.grpc.handler.fintech;
 
 import io.grpc.stub.StreamObserver;
-import io.netty.util.concurrent.SucceededFuture;
 import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
@@ -20,23 +19,21 @@ public class GetBalanceHandler {
 
   public void handle(
       GetBalanceRequest request, StreamObserver<GetBalanceResponse> responseObserver) {
-    String userId = AuthInterceptor.USER_ID.get(); // mock
+    String userId = AuthInterceptor.USER_ID.get();
     log.info("gRPC call getBalance from userId={}", userId);
     Future<User> userAuth = userDA.selectUserById(userId);
-    User.builder().build();
     userAuth.setHandler(
         userAsyncResult -> {
           if (userAsyncResult.succeeded()) {
             User user = userAsyncResult.result();
             GetBalanceResponse getBalanceResponse = buildResponse(user);
             responseObserver.onNext(getBalanceResponse);
-            responseObserver.onCompleted();
           } else {
             Status status = Status.newBuilder().setCode(Code.INTERNAL).build();
             GetBalanceResponse response = GetBalanceResponse.newBuilder().setStatus(status).build();
             responseObserver.onNext(response);
-            responseObserver.onCompleted();
           }
+          responseObserver.onCompleted();
         });
   }
 

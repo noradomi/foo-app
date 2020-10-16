@@ -68,7 +68,12 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
           };
           try {
             executeWithParams(
-                future, dataSource.getConnection(), INSERT_USER_STATEMENT, params, "insertUser");
+                future,
+                dataSource.getConnection(),
+                INSERT_USER_STATEMENT,
+                params,
+                "insertUser",
+                false);
           } catch (SQLException e) {
             log.error(
                 "insert user={} to db fail caused={}",
@@ -93,7 +98,8 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             friend.getLastMessage()
           };
           try {
-            executeWithParams(future, dataSource.getConnection(), ADD_FRIEND, params, "addFriend");
+            executeWithParams(
+                future, dataSource.getConnection(), ADD_FRIEND, params, "addFriend", false);
           } catch (SQLException e) {
             log.error(
                 "add friend failed {}--{}, caused={}",
@@ -137,7 +143,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
           Object[] params = {userId, friendId};
           try {
             executeWithParams(
-                future, dataSource.getConnection(), RESET_UNSEEN, params, "resetUnseen");
+                future, dataSource.getConnection(), RESET_UNSEEN, params, "resetUnseen", false);
           } catch (SQLException e) {
             log.error(
                 "reset unseen failed {}--{}, caused={}",
@@ -162,7 +168,8 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
                 dataSource.getConnection(),
                 INSCREASE_UNSEEN_MESSAGES,
                 params,
-                "increaseUnseenMessages");
+                "increaseUnseenMessages",
+                false);
           } catch (SQLException e) {
             log.error(
                 "increase unseen messages failed {}--{}, caused={}",
@@ -186,7 +193,8 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
                 dataSource.getConnection(),
                 UPDATE_LAST_MESSAGE,
                 params,
-                "updateLastMessage");
+                "updateLastMessage",
+                false);
           } catch (SQLException e) {
             log.error(
                 "update last messages failed {}--{}, caused={}",

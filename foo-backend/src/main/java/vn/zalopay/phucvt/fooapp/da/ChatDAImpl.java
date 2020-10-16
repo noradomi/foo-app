@@ -50,7 +50,8 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
                 dataSource.getConnection(),
                 INSERT_MESSAGE_STATEMENT,
                 params,
-                "insertMessage");
+                "insertMessage",
+                false);
           } catch (SQLException e) {
             log.error("insert message to db failed caused by {}", ExceptionUtil.getDetail(e));
             future.fail(e);

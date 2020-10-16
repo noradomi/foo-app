@@ -28,6 +28,7 @@ public class FintechCacheImpl implements FintechCache {
                 redisCache
                     .getRedissonClient()
                     .getDeque(CacheKey.getTrasactionHistoryListKey(userId));
+            historySet.clear();
             historySet.addAll(items);
             historySet.expire(cacheConfig.getExpireTransactionHistory(), TimeUnit.MINUTES);
           } catch (Exception e) {
@@ -72,11 +73,7 @@ public class FintechCacheImpl implements FintechCache {
                 redisCache
                     .getRedissonClient()
                     .getDeque(CacheKey.getTrasactionHistoryListKey(userId));
-            if (historySet.isEmpty()) {
-              future.fail("transaction history cache empty, user=" + userId);
-            } else {
-              future.complete(historySet.readAll());
-            }
+            future.complete(historySet.readAll());
           } catch (Exception e) {
             log.error(
                 "get transaction history of user={} in cache failed cause={}",

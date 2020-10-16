@@ -18,10 +18,9 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GetHistoryHandlerTest {
-  @Mock private FintechDA fintechDA;
-  private FintechCache fintechCache;
-
   @InjectMocks GetHistoryHandler getHistoryHandler;
+  @Mock private FintechDA fintechDA;
+  @Mock private FintechCache fintechCache;
 
   @Test
   public void buildSuccessResponse() {
@@ -42,7 +41,7 @@ public class GetHistoryHandlerTest {
     GetHistoryResponse response = getHistoryHandler.buildSuccessResponse(historyItemList, 20, 0);
     int nextPageToken = response.getData().getNextPageToken();
 
-//    assertThat(nextPageToken, Is.is(20));
-    assertThat(response.getData().getItemsList().size(),Is.is(20));
+    assertThat(nextPageToken, Is.is(20));
+    assertThat(response.getData().getItemsList().size(), Is.is(20));
   }
 }

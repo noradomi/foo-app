@@ -1,7 +1,6 @@
 package vn.zalopay.phucvt.fooapp.grpc.handler.fintech;
 
 import io.grpc.stub.StreamObserver;
-import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
@@ -18,7 +17,6 @@ import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -51,7 +49,7 @@ public class TransferMoneyHandler {
             asyncResult -> {
               if (asyncResult.succeeded()) {
                 TransferMoneyHolder validatedHolder = asyncResult.result();
-                log.info("validated password, now start transaction");
+                //                log.info("validated password, now start transaction");
                 transferMoneyTransaction(responseObserver, validatedHolder);
               } else {
                 log.error(
@@ -79,40 +77,50 @@ public class TransferMoneyHandler {
         .setHandler(
             holderAsyncResult -> {
               if (holderAsyncResult.succeeded()) {
-                log.debug("Transaction successfully");
-                transaction.commit();
                 TransferMoneyHolder holder = holderAsyncResult.result();
+                transaction.commit();
+                transaction.close();
+                notifyTransferMoney(holder);
+                appendToTransactionHistoryCache(holder);
+                updateLastMessage(holder);
+                userDA.increaseUnseenMessages(
+                    holder.getRequest().getReceiverId(), holder.getSender().getUserId());
                 TransferMoneyResponse response = buildSuccessTransferMoneyResponse(holder);
                 responseObserver.onNext(response);
                 responseObserver.onCompleted();
-                notifyTransferMoney(holder);
-                appendToTransactionHistoryCache(holder);
-                userDA.updateLastMessage(
-                    "Bạn: [Chuyển tiền] cho "
-                        + holder.getReceiver().getName()
-                        + " "
-                        + holder.getRequest().getAmount()
-                        + " VND",
+                log.info(
+                    "Transfer money successfully (sender={}, receiver={}, amount={}",
                     holder.getSender().getUserId(),
-                    holder.getRequest().getReceiverId());
-                userDA.updateLastMessage(
-                    "[Nhận tiền] từ "
-                        + holder.getSender().getName()
-                        + " "
-                        + holder.getRequest().getAmount()
-                        + " VND",
-                    holder.getRequest().getReceiverId(),
-                    holder.getSender().getUserId());
-                userDA.increaseUnseenMessages(
-                    holder.getRequest().getReceiverId(), holder.getSender().getUserId());
+                    holder.getReceiver().getUserId(),
+                    holder.getRequest().getAmount());
               } else {
                 transaction.rollback();
+                transaction.close();
                 log.error(
                     "transfer money transaction failed, cause={}",
                     ExceptionUtil.getDetail(holderAsyncResult.cause()));
                 handleExceptionResponse(holderAsyncResult.cause(), responseObserver);
               }
             });
+  }
+
+  private void updateLastMessage(TransferMoneyHolder holder) {
+    userDA.updateLastMessage(
+        "Bạn: [Chuyển tiền] cho "
+            + holder.getReceiver().getName()
+            + " "
+            + holder.getRequest().getAmount()
+            + " VND",
+        holder.getSender().getUserId(),
+        holder.getRequest().getReceiverId());
+    userDA.updateLastMessage(
+        "[Nhận tiền] từ "
+            + holder.getSender().getName()
+            + " "
+            + holder.getRequest().getAmount()
+            + " VND",
+        holder.getRequest().getReceiverId(),
+        holder.getSender().getUserId());
   }
 
   private TransferMoneyResponse buildSuccessTransferMoneyResponse(TransferMoneyHolder holder) {
@@ -148,7 +156,7 @@ public class TransferMoneyHandler {
   }
 
   private Future<TransferMoneyHolder> getUserAuth(String userId, TransferMoneyHolder holder) {
-    log.info("get user auth for userId={}", userId);
+    //    log.info("get user auth for userId={}", userId);
     Future<TransferMoneyHolder> future = Future.future();
     userDA
         .selectUserById(userId)
@@ -169,7 +177,7 @@ public class TransferMoneyHandler {
   }
 
   public Future<TransferMoneyHolder> validateReceiverId(TransferMoneyHolder holder) {
-    log.info("validate receiver id");
+    //    log.info("validate receiver id");
     Future<TransferMoneyHolder> future = Future.future();
     userDA
         .selectUserById(holder.getRequest().getReceiverId())
@@ -195,7 +203,7 @@ public class TransferMoneyHandler {
   }
 
   public Future<TransferMoneyHolder> validateAmountTransfer(TransferMoneyHolder holder) {
-    log.info("validate amount transfer");
+    //    log.info("validate amount transfer");
     Future<TransferMoneyHolder> future = Future.future();
     long amount = holder.getRequest().getAmount();
     if (amount < 1000 || amount > 20000000 || amount % 1000 != 0) {
@@ -207,7 +215,7 @@ public class TransferMoneyHandler {
   }
 
   public Future<TransferMoneyHolder> validatePassword(TransferMoneyHolder holder) {
-    log.info("validate password");
+    //    log.info("validate password");
     Future<TransferMoneyHolder> future = Future.future();
     User userAuth = holder.getSender();
     String confirmPassword = holder.getRequest().getConfirmPassword();
@@ -224,31 +232,63 @@ public class TransferMoneyHandler {
     String userId = holder.getSender().getUserId();
     log.info(
         "transaction {}-{} , step : check balance", userId, holder.getRequest().getReceiverId());
-    List<Future> selectedUserBalanceList = new ArrayList<>();
-    selectedUserBalanceList.add(fintechDA.selectUserForUpdate(userId));
-    selectedUserBalanceList.add(fintechDA.selectUserForUpdate(holder.getRequest().getReceiverId()));
-    CompositeFuture compositeFuture = CompositeFuture.all(selectedUserBalanceList);
-    compositeFuture.setHandler(
-        cpFutureAsyncResult -> {
-          if (cpFutureAsyncResult.succeeded()) {
-            User sender = compositeFuture.resultAt(0);
-            User receiver = compositeFuture.resultAt(1);
-            if (sender.getBalance() >= holder.getRequest().getAmount()) {
-              holder.getSender().setBalance(sender.getBalance());
-              holder.setReceiver(receiver);
-              future.complete(holder);
-            } else {
-              future.fail(
-                  new TransferMoneyException(
-                      "sender balance less than transferred amount", Code.NOT_ENOUGH_MONEY));
-            }
-          } else {
-            future.fail(cpFutureAsyncResult.cause());
-            log.error(
-                "get user balance failed, cause={}",
-                ExceptionUtil.getDetail(cpFutureAsyncResult.cause()));
-          }
-        });
+    //    List<Future> selectedUserBalanceList = new ArrayList<>();
+    //    selectedUserBalanceList.add(fintechDA.selectUserForUpdate(userId));
+    //
+    // selectedUserBalanceList.add(fintechDA.selectUserForUpdate(holder.getRequest().getReceiverId()));
+    //    CompositeFuture compositeFuture = CompositeFuture.all(selectedUserBalanceList);
+    //    compositeFuture.setHandler(
+    //        cpFutureAsyncResult -> {
+    //          if (cpFutureAsyncResult.succeeded()) {
+    //            User sender = compositeFuture.resultAt(0);
+    //            User receiver = compositeFuture.resultAt(1);
+    //            if (sender.getBalance() >= holder.getRequest().getAmount()) {
+    //              holder.getSender().setBalance(sender.getBalance());
+    //              holder.setReceiver(receiver);
+    //              future.complete(holder);
+    //            } else {
+    //              future.fail(
+    //                  new TransferMoneyException(
+    //                      "sender balance less than transferred amount", Code.NOT_ENOUGH_MONEY));
+    //            }
+    //          } else {
+    //            future.fail(cpFutureAsyncResult.cause());
+    //            log.error(
+    //                "get user balance failed, cause={}",
+    //                ExceptionUtil.getDetail(cpFutureAsyncResult.cause()));
+    //          }
+    //        });
+    //    return future;
+    fintechDA
+        .selectUsersForUpdate(userId, holder.getRequest().getReceiverId())
+        .setHandler(
+            listAsyncResult -> {
+              if (listAsyncResult.succeeded()) {
+                List<User> userList = listAsyncResult.result();
+                User sender, receiver;
+                if (userId.equals(userList.get(0).getUserId())) {
+                  sender = userList.get(0);
+                  receiver = userList.get(1);
+                } else {
+                  sender = userList.get(1);
+                  receiver = userList.get(0);
+                }
+                if (sender.getBalance() >= holder.getRequest().getAmount()) {
+                  holder.getSender().setBalance(sender.getBalance());
+                  holder.setReceiver(receiver);
+                  future.complete(holder);
+                } else {
+                  future.fail(
+                      new TransferMoneyException(
+                          "sender balance less than transferred amount", Code.NOT_ENOUGH_MONEY));
+                }
+              } else {
+                future.fail(listAsyncResult.cause());
+                log.error(
+                    "get user balance failed, cause={}",
+                    ExceptionUtil.getDetail(listAsyncResult.cause()));
+              }
+            });
     return future;
   }
 
@@ -262,13 +302,14 @@ public class TransferMoneyHandler {
     String userId = holder.getSender().getUserId();
     long amount = holder.getRequest().getAmount();
     long newBalance = holder.getSender().getBalance() - amount;
+    long now = Instant.now().getEpochSecond();
     transaction
-        .execute(fintechDA.updateBalance(userId, newBalance, holder.getRecordedTime()))
+        .execute(fintechDA.updateBalance(userId, newBalance, now))
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
                 holder.getSender().setBalance(newBalance);
-                holder.setRecordedTime(Instant.now().getEpochSecond());
+                holder.setRecordedTime(now);
                 future.complete(holder);
               } else {
                 future.fail(asyncResult.cause());
@@ -282,22 +323,23 @@ public class TransferMoneyHandler {
   }
 
   public Future<TransferMoneyHolder> credit(TransferMoneyHolder holder) {
-    log.info(
-        "deposit userId={} with amount={}",
-        holder.getRequest().getReceiverId(),
-        holder.getRequest().getAmount());
+    //    log.info(
+    //        "deposit userId={} with amount={}",
+    //        holder.getRequest().getReceiverId(),
+    //        holder.getRequest().getAmount());
     Future<TransferMoneyHolder> future = Future.future();
     Transaction transaction = holder.getTransaction();
     String receiverId = holder.getRequest().getReceiverId();
     long amount = holder.getRequest().getAmount();
     long newBalance = holder.getReceiver().getBalance() + amount;
-    holder.getReceiver().setBalance(newBalance);
-    holder.setRecordedTime(Instant.now().getEpochSecond());
+    long now = Instant.now().getEpochSecond();
     transaction
-        .execute(fintechDA.updateBalance(receiverId, newBalance, holder.getRecordedTime()))
+        .execute(fintechDA.updateBalance(receiverId, newBalance, now))
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
+                holder.getReceiver().setBalance(newBalance);
+                holder.setRecordedTime(Instant.now().getEpochSecond());
                 future.complete(holder);
               } else {
                 future.fail("Deposit userId=" + receiverId + " failed");
@@ -308,8 +350,9 @@ public class TransferMoneyHandler {
   }
 
   public Future<TransferMoneyHolder> writeTransferLog(TransferMoneyHolder holder) {
-    log.info(
-        "log transfer {}={}", holder.getSender().getUserId(), holder.getRequest().getReceiverId());
+    //    log.info(
+    //        "log transfer {}={}", holder.getSender().getUserId(),
+    // holder.getRequest().getReceiverId());
     Future<TransferMoneyHolder> future = Future.future();
     Transaction transaction = holder.getTransaction();
     Transfer transfer = buildTransferModel(holder);
@@ -344,14 +387,14 @@ public class TransferMoneyHandler {
   }
 
   private Future<TransferMoneyHolder> writeAccountLogSender(TransferMoneyHolder holder) {
-    log.info("log account_log userId={}", holder.getSender().getUserId());
+    //    log.info("log account_log userId={}", holder.getSender().getUserId());
     Future<TransferMoneyHolder> future;
     future = writeAccountLog(holder, 0);
     return future;
   }
 
   private Future<TransferMoneyHolder> writeAccountLogReceiver(TransferMoneyHolder holder) {
-    log.info("log account_log userId={}", holder.getRequest().getReceiverId());
+    //    log.info("log account_log userId={}", holder.getRequest().getReceiverId());
     Future<TransferMoneyHolder> future;
     future = writeAccountLog(holder, 1);
     return future;
@@ -382,23 +425,19 @@ public class TransferMoneyHandler {
         .id(GenerationUtils.generateId())
         .transferType(transferType)
         .userId(
-            transferType == 0
-                ? holder.getSender().getUserId()
-                : holder.getReceiver().getUserId())
+            transferType == 0 ? holder.getSender().getUserId() : holder.getReceiver().getUserId())
         .transferId(holder.getTransferId())
         .balance(
-            transferType == 0
-                ? holder.getSender().getBalance()
-                : holder.getReceiver().getBalance())
+            transferType == 0 ? holder.getSender().getBalance() : holder.getReceiver().getBalance())
         .recordedTime(holder.getRecordedTime())
         .build();
   }
 
   private Future<TransferMoneyHolder> logTransferMessage(TransferMoneyHolder holder) {
-    log.info(
-        "insert to messages as transfer message, {}-{}",
-        holder.getSender().getUserId(),
-        holder.getRequest().getReceiverId());
+    //    log.info(
+    //        "insert to messages as transfer message, {}-{}",
+    //        holder.getSender().getUserId(),
+    //        holder.getRequest().getReceiverId());
     Future<TransferMoneyHolder> future = Future.future();
     WsMessage wsMessage =
         WsMessage.builder()
@@ -427,28 +466,21 @@ public class TransferMoneyHandler {
   }
 
   private void appendToTransactionHistoryCache(TransferMoneyHolder holder) {
-    HistoryItem historySender =
-        HistoryItem.builder()
-            .senderId(holder.getSender().getUserId())
-            .receiverId(holder.getRequest().getReceiverId())
-            .amount(holder.getRequest().getAmount())
-            .description(holder.getRequest().getDescription())
-            .recordedTime(holder.getRecordedTime())
-            .transferType(0)
-            .build();
+    fintechCache.appendToTransactionHistory(
+        buildHistoryItemCache(holder, 0), holder.getSender().getUserId());
+    fintechCache.appendToTransactionHistory(
+        buildHistoryItemCache(holder, 1), holder.getRequest().getReceiverId());
+  }
 
-    HistoryItem historyReceiver =
-        HistoryItem.builder()
-            .senderId(holder.getSender().getUserId())
-            .receiverId(holder.getRequest().getReceiverId())
-            .amount(holder.getRequest().getAmount())
-            .description(holder.getRequest().getDescription())
-            .recordedTime(holder.getRecordedTime())
-            .transferType(1)
-            .build();
-
-    fintechCache.appendToTransactionHistory(historySender, holder.getSender().getUserId());
-    fintechCache.appendToTransactionHistory(historyReceiver, holder.getRequest().getReceiverId());
+  private HistoryItem buildHistoryItemCache(TransferMoneyHolder holder, int i) {
+    return HistoryItem.builder()
+        .senderId(holder.getSender().getUserId())
+        .receiverId(holder.getRequest().getReceiverId())
+        .amount(holder.getRequest().getAmount())
+        .description(holder.getRequest().getDescription())
+        .recordedTime(holder.getRecordedTime())
+        .transferType(i)
+        .build();
   }
 
   private void notifyTransferMoney(TransferMoneyHolder holder) {

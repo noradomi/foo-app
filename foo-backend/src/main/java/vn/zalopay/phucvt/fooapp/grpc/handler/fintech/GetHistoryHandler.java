@@ -24,31 +24,46 @@ public class GetHistoryHandler {
     int pageToken = request.getPageToken();
     log.info("gRPC call: getHistory from userId={} with {}-{}", userId, pageSize, pageToken);
     if (pageToken == 0) {
-      fintechCache
-          .getTransactionHistory(userId)
-          .setHandler(
-              listAsyncResult -> {
-                GetHistoryResponse response;
-                if (listAsyncResult.succeeded()) {
+      getTransactionHistoryFromCache(responseObserver, userId, pageSize, pageToken);
+    } else {
+      getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver, false);
+    }
+  }
+
+  private void getTransactionHistoryFromCache(
+      StreamObserver<GetHistoryResponse> responseObserver,
+      String userId,
+      int pageSize,
+      int pageToken) {
+    fintechCache
+        .getTransactionHistory(userId)
+        .setHandler(
+            listAsyncResult -> {
+              GetHistoryResponse response;
+              if (listAsyncResult.succeeded()) {
+                List<HistoryItem> historyList = listAsyncResult.result();
+                if (historyList.size() > 0) {
                   log.info("get transaction list of user={}, cache hit", userId);
-                  List<HistoryItem> historyList = listAsyncResult.result();
                   response = buildSuccessResponse(historyList, historyList.size(), pageToken);
                   responseObserver.onNext(response);
                   responseObserver.onCompleted();
                 } else {
-                  getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver);
+                  getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver, true);
                 }
-              });
-    } else {
-      getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver);
-    }
+              } else {
+                log.error(
+                    "get transaction history from cache failed, cause=", listAsyncResult.cause());
+                getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver, true);
+              }
+            });
   }
 
   private void getTransactionHistoryFromDB(
       String userId,
       int pageSize,
       int pageToken,
-      StreamObserver<GetHistoryResponse> responseObserver) {
+      StreamObserver<GetHistoryResponse> responseObserver,
+      boolean initCache) {
     fintechDA
         .getHistory(userId, pageSize, pageToken)
         .setHandler(
@@ -56,13 +71,14 @@ public class GetHistoryHandler {
               GetHistoryResponse response;
               if (listAsyncResult.succeeded()) {
                 List<HistoryItem> historyList = listAsyncResult.result();
-                fintechCache.setTransactionHistory(historyList, userId);
+                if (initCache) fintechCache.setTransactionHistory(historyList, userId);
                 response =
                     historyList.size() == 0
                         ? buildSuccessResponse(historyList, 0, 0)
                         : buildSuccessResponse(historyList, historyList.size(), pageToken);
               } else {
-                log.error("get transaction history failed, cause=", listAsyncResult.cause());
+                log.error(
+                    "get transaction history from db failed, cause=", listAsyncResult.cause());
                 response =
                     GetHistoryResponse.newBuilder()
                         .setStatus(Status.newBuilder().setCode(Code.INTERNAL).build())
