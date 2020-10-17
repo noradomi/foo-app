@@ -9,7 +9,8 @@ import vn.zalopay.phucvt.fooapp.model.User;
 import java.util.List;
 
 public interface FintechDA {
-    Future<User> selectUserForUpdate(String userId);
+  Future<User> selectUserForUpdate(String userId);
+
   Future<List<User>> selectUsersForUpdate(String senderId, String receiverId);
 
   Executable<Void> updateBalance(String userId, long newBalance, long lastUpdated);

@@ -31,7 +31,12 @@ public class BaseTransactionDA extends BaseDA {
   }
 
   protected <T> void executeWithParams(
-      Future<T> result, Connection connection, String stm, Object[] params, String method, boolean isTransaction)
+      Future<T> result,
+      Connection connection,
+      String stm,
+      Object[] params,
+      String method,
+      boolean isTransaction)
       throws SQLException {
 
     PreparedStatement preparedStatement = null;

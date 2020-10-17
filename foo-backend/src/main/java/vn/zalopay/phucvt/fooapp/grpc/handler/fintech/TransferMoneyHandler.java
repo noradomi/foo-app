@@ -238,8 +238,9 @@ public class TransferMoneyHandler {
   public Future<TransferMoneyHolder> checkBalance(TransferMoneyHolder holder) {
     Future<TransferMoneyHolder> future = Future.future();
     String userId = holder.getSender().getUserId();
-//    log.info(
-//        "transaction {}-{} , step : check balance", userId, holder.getRequest().getReceiverId());
+    //    log.info(
+    //        "transaction {}-{} , step : check balance", userId,
+    // holder.getRequest().getReceiverId());
     fintechDA
         .selectUsersForUpdate(userId, holder.getRequest().getReceiverId())
         .setHandler(
@@ -274,10 +275,10 @@ public class TransferMoneyHandler {
   }
 
   public Future<TransferMoneyHolder> debit(TransferMoneyHolder holder) {
-//    log.info(
-//        "transaction {}-{}, step: debit sender's balance",
-//        holder.getSender().getUserId(),
-//        holder.getReceiver().getUserId());
+    //    log.info(
+    //        "transaction {}-{}, step: debit sender's balance",
+    //        holder.getSender().getUserId(),
+    //        holder.getReceiver().getUserId());
     Future<TransferMoneyHolder> future = Future.future();
     Transaction transaction = holder.getTransaction();
     String userId = holder.getSender().getUserId();
@@ -304,10 +305,10 @@ public class TransferMoneyHandler {
   }
 
   public Future<TransferMoneyHolder> credit(TransferMoneyHolder holder) {
-//    log.info(
-//        "transaction {}-{}, step: credit sender's balance",
-//        holder.getSender().getUserId(),
-//        holder.getReceiver().getUserId());
+    //    log.info(
+    //        "transaction {}-{}, step: credit sender's balance",
+    //        holder.getSender().getUserId(),
+    //        holder.getReceiver().getUserId());
     Future<TransferMoneyHolder> future = Future.future();
     Transaction transaction = holder.getTransaction();
     String receiverId = holder.getRequest().getReceiverId();
@@ -331,10 +332,10 @@ public class TransferMoneyHandler {
   }
 
   public Future<TransferMoneyHolder> writeTransferLog(TransferMoneyHolder holder) {
-//    log.info(
-//        "transaction {}-{}, step: write to transfer log",
-//        holder.getSender().getUserId(),
-//        holder.getReceiver().getUserId());
+    //    log.info(
+    //        "transaction {}-{}, step: write to transfer log",
+    //        holder.getSender().getUserId(),
+    //        holder.getReceiver().getUserId());
     Future<TransferMoneyHolder> future = Future.future();
     Transaction transaction = holder.getTransaction();
     Transfer transfer = buildTransferModel(holder);
@@ -369,20 +370,20 @@ public class TransferMoneyHandler {
   }
 
   private Future<TransferMoneyHolder> writeAccountLogSender(TransferMoneyHolder holder) {
-//    log.info(
-//        "transaction {}-{}, step: write account log of sender",
-//        holder.getSender().getUserId(),
-//        holder.getReceiver().getUserId());
+    //    log.info(
+    //        "transaction {}-{}, step: write account log of sender",
+    //        holder.getSender().getUserId(),
+    //        holder.getReceiver().getUserId());
     Future<TransferMoneyHolder> future;
     future = writeAccountLog(holder, 0);
     return future;
   }
 
   private Future<TransferMoneyHolder> writeAccountLogReceiver(TransferMoneyHolder holder) {
-//    log.info(
-//        "transaction {}-{}, step: write account log of receiver",
-//        holder.getSender().getUserId(),
-//        holder.getReceiver().getUserId());
+    //    log.info(
+    //        "transaction {}-{}, step: write account log of receiver",
+    //        holder.getSender().getUserId(),
+    //        holder.getReceiver().getUserId());
     Future<TransferMoneyHolder> future;
     future = writeAccountLog(holder, 1);
     return future;
