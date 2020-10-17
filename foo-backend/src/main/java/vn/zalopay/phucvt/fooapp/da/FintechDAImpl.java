@@ -23,7 +23,7 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
       "SELECT * FROM users WHERE id = ? FOR UPDATE";
 
   private static final String SELECT_USERS_FOR_UPDATE_STATEMENT =
-      "SELECT * FROM users WHERE id = ? OR id = ?";
+      "SELECT * FROM users WHERE id = ? OR id = ? FOR UPDATE";
 
   private static final String UPDATE_USER_BALANCE_STATEMENT =
       "UPDATE users SET balance = ?, last_updated = ? WHERE id = ?";
