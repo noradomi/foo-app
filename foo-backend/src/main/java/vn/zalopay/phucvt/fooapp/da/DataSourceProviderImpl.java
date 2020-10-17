@@ -36,6 +36,8 @@ public class DataSourceProviderImpl implements DataSourceProvider {
     hikariConfig.addDataSourceProperty(
         "prepStmtCacheSqlLimit", "" + config.getPrepStmtCacheSqlLimit());
     hikariConfig.addDataSourceProperty("maxLifetime", "" + config.getMaxLifetimeMillis());
+    hikariConfig.setLeakDetectionThreshold(30000);
+    hikariConfig.setConnectionTimeout(30000);
     //    hikariConfig.setMetricRegistry(Tracker.getMeterRegistry());
     return new HikariDataSource(hikariConfig);
   }

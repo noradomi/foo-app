@@ -1,12 +1,10 @@
-DROP DATABASE IF EXISTS `fooapp`;
 CREATE DATABASE `fooapp`;
 USE `fooapp`;
 
 -- -----------------------------------------------------
 -- Table `fooapp`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fooapp`.`users` ;
-CREATE TABLE IF NOT EXISTS `fooapp`.`users`
+CREATE TABLE `fooapp`.`users`
 (
   `id` CHAR(36) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
   `username` VARCHAR(30) NOT NULL,
@@ -22,15 +20,15 @@ CREATE TABLE IF NOT EXISTS `fooapp`.`users`
 -- -----------------------------------------------------
 -- Table `fooapp`.`messages`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fooapp`.`messages` ;
-CREATE TABLE IF NOT EXISTS `fooapp`.`messages`
+CREATE TABLE `fooapp`.`messages`
 (
   `id` CHAR (36) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
   `sender` CHAR (36) NOT NULL,
   `receiver` CHAR (36) NOT NULL,
   `message` TEXT COLLATE utf8mb4_unicode_ci NOT NULL,
   `create_time` BIGINT NOT NULL,
-  PRIMARY KEY(`id`)
+  `message_type` INT DEFAULT 0,
+  PRIMARY KEY(`id`),
   INDEX `conversation` (`sender`,`receiver`)
 ) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
@@ -38,9 +36,7 @@ CREATE TABLE IF NOT EXISTS `fooapp`.`messages`
 -- -----------------------------------------------------
 -- Table `fooapp`.`transfers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fooapp`.`transfers` ;
-CREATE TABLE
-IF NOT EXISTS `fooapp`.`transfers`
+CREATE TABLE `fooapp`.`transfers`
 (
   `id` CHAR(36) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
   `sender` CHAR(36) NOT NULL,
@@ -59,8 +55,7 @@ IF NOT EXISTS `fooapp`.`transfers`
 -- -----------------------------------------------------
 -- Table `fooapp`.`account_logs`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fooapp`.`account_logs` ;
-CREATE TABLE IF NOT EXISTS `fooapp`.`account_logs`
+CREATE TABLE `fooapp`.`account_logs`
 (
   `id` CHAR(36) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
   `user_id` CHAR(36) NOT NULL,
@@ -79,8 +74,7 @@ CREATE TABLE IF NOT EXISTS `fooapp`.`account_logs`
 -- -----------------------------------------------------
 -- Table `fooapp`.`notifications`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fooapp`.`notifications` ;
-CREATE TABLE IF NOT EXISTS `fooapp`.`notifications`
+CREATE TABLE `fooapp`.`notifications`
 (
   `id` CHAR(36) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
   `user_id` CHAR(36) NOT NULL,
@@ -99,11 +93,10 @@ CREATE TABLE IF NOT EXISTS `fooapp`.`notifications`
 -- -----------------------------------------------------
 -- Table `fooapp`.`friends`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fooapp`.`friends` ;
-CREATE TABLE IF NOT EXISTS `fooapp`.`friends`
+CREATE TABLE `fooapp`.`friends`
 (
   `id` CHAR(36) CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci' NOT NULL,
-  `users_id` CHAR(36) NOT NULL,
+  `user_id` CHAR(36) NOT NULL,
   `friend_id` CHAR(36) NOT NULL,
   `unread_messages` INT NULL,
   `last_message` TEXT NULL,

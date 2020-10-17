@@ -2,6 +2,7 @@ package vn.zalopay.phucvt.fooapp.da;
 
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;
+import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@Log4j2
 public class BaseTransactionDA extends BaseDA {
   protected static final Object[] EMPTY_PARAMS = {};
   protected static final SQLException EXCEPTION_CONNECTION_NULL =

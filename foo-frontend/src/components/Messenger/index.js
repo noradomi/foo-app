@@ -83,7 +83,7 @@ function Messenger(props) {
 
 				{activeTabKey !== '1' ? (
 					<Layout>
-						<Header className="site-layout-background" style={{ position: 'fixed', width: '100%' }} />
+						{/* <Header className="site-layout-background" style={{ position: 'fixed', width: '100%' }} /> */}
 						<Content>
 							{' '}
 							<GridContent style={{ width: '100%' }}>

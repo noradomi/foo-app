@@ -23,7 +23,7 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
       "SELECT * FROM users WHERE id = ? FOR UPDATE";
 
   private static final String SELECT_USERS_FOR_UPDATE_STATEMENT =
-      "SELECT * FROM users WHERE id = ? OR id = ? FOR UPDATE";
+      "SELECT * FROM users WHERE id = ? OR id = ?";
 
   private static final String UPDATE_USER_BALANCE_STATEMENT =
       "UPDATE users SET balance = ?, last_updated = ? WHERE id = ?";
@@ -43,23 +43,23 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;
 
-//  @Override
-//  public Future<User> selectUserForUpdate(String id) {
-//    Future<User> future = Future.future();
-//    asyncHandler.run(
-//        () -> {
-//          Object[] params = {id};
-//          queryEntity(
-//              "selectUserForUpdate",
-//              future,
-//              SELECT_USER_FOR_UPDATE_STATEMENT,
-//              params,
-//              this::mapRs2EntityUser,
-//              dataSource::getConnection,
-//              false);
-//        });
-//    return future;
-//  }
+  @Override
+  public Future<User> selectUserForUpdate(String id) {
+    Future<User> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          Object[] params = {id};
+          queryEntity(
+              "selectUserForUpdate",
+              future,
+              SELECT_USER_FOR_UPDATE_STATEMENT,
+              params,
+              this::mapRs2EntityUser,
+              dataSource::getConnection,
+              true);
+        });
+    return future;
+  }
 
   @Override
   public Future<List<User>> selectUsersForUpdate(String senderId, String receiverId) {

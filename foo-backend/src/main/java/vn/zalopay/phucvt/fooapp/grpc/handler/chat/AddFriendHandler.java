@@ -29,22 +29,8 @@ public class AddFriendHandler {
     String userId = AuthInterceptor.USER_ID.get();
     String friendId = request.getUserId();
     log.info("gRPC call addFriend {}--{}", userId, friendId);
-    Friend friendModelRequest =
-        Friend.builder()
-            .id(GenerationUtils.generateId())
-            .userId(userId)
-            .friendId(friendId)
-            .unreadMessages(0)
-            .lastMessage("")
-            .build();
-    Friend friendModelApprove =
-        Friend.builder()
-            .id(GenerationUtils.generateId())
-            .userId(friendId)
-            .friendId(userId)
-            .unreadMessages(0)
-            .lastMessage("")
-            .build();
+    Friend friendModelRequest = buildFriendModel(friendId, userId);
+    Friend friendModelApprove = buildFriendModel(userId, friendId);
     userDA
         .addFriend(friendModelRequest)
         .compose(next -> userDA.addFriend(friendModelApprove))
@@ -58,17 +44,7 @@ public class AddFriendHandler {
                     ar -> {
                       AddFriendResponse response;
                       if (ar.succeeded()) {
-                        UserInfo user = mapToUserInfo(cp.resultAt(0));
-                        UserInfo newFriend = mapToUserInfo(cp.resultAt(1));
-                        userCache.appendFriendList(
-                            UserFriendItem.builder()
-                                .id(newFriend.getUserId())
-                                .name(newFriend.getName())
-                                .unreadMessages(newFriend.getUnreadMessages())
-                                .lastMessage(newFriend.getLastMessage())
-                                .build(),
-                            userId);
-                        response = buildSuccessResponse(userId, friendId, user, newFriend);
+                        response = handleSuccessAddFriend(userId, friendId, cp);
                       } else {
                         log.error(
                             "insert to friend table failed, cause={}",
@@ -81,6 +57,33 @@ public class AddFriendHandler {
                     });
               }
             });
+  }
+
+  private AddFriendResponse handleSuccessAddFriend(
+      String userId, String friendId, CompositeFuture cp) {
+    AddFriendResponse response;
+    UserInfo user = mapToUserInfo(cp.resultAt(0));
+    UserInfo newFriend = mapToUserInfo(cp.resultAt(1));
+    userCache.appendFriendList(
+        UserFriendItem.builder()
+            .id(newFriend.getUserId())
+            .name(newFriend.getName())
+            .unreadMessages(newFriend.getUnreadMessages())
+            .lastMessage(newFriend.getLastMessage())
+            .build(),
+        userId);
+    response = buildSuccessResponse(userId, friendId, user, newFriend);
+    return response;
+  }
+
+  private Friend buildFriendModel(String userId, String friendId) {
+    return Friend.builder()
+        .id(GenerationUtils.generateId())
+        .userId(friendId)
+        .friendId(userId)
+        .unreadMessages(0)
+        .lastMessage("")
+        .build();
   }
 
   private AddFriendResponse buildSuccessResponse(
