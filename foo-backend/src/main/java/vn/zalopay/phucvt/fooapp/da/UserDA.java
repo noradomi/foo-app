@@ -22,11 +22,11 @@ public interface UserDA {
 
   Future<List<UserFriendItem>> getFriendList(String userId);
 
-  Future<List<User>> getStrangerList(String userId);
-
   Future<Void> resetUnseen(String userId, String friendId);
 
-  void increaseUnseenMessages(String userId, String friendId);
+  Future<Void> increaseUnseenMessages(String userId, String friendId);
 
-  void updateLastMessage(String message, String userId, String friendId);
+  Future<Void> updateLastMessage(String message, String userId, String friendId);
+
+  Future<Void> updateLastMessageAndUnseenMessages(String message, String userId, String friendId);
 }

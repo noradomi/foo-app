@@ -36,6 +36,41 @@ Status code distribution:
   [DeadlineExceeded]   30 responses   
 ```
 
+```
+Summary:
+  Count:        2000
+  Total:        43.60 s
+  Slowest:      2.05 s
+  Fastest:      25.58 ms
+  Average:      1.08 s
+  Requests/sec: 45.88
+
+Response time histogram:
+  25.583 [1]    |
+  227.559 [11]  |∎
+  429.535 [13]  |∎
+  631.511 [13]  |∎
+  833.487 [372] |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  1035.463 [673]        |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  1237.439 [517]        |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  1439.415 [172]        |∎∎∎∎∎∎∎∎∎∎
+  1641.391 [91] |∎∎∎∎∎
+  1843.367 [103]        |∎∎∎∎∎∎
+  2045.343 [34] |∎∎
+
+Latency distribution:
+  10 % in 775.08 ms 
+  25 % in 881.81 ms 
+  50 % in 1.01 s 
+  75 % in 1.17 s 
+  90 % in 1.52 s 
+  95 % in 1.74 s 
+  99 % in 1.94 s 
+
+Status code distribution:
+  [OK]   2000 responses 
+```
+
 ### Get balance
 ```$xslt
 Summary:

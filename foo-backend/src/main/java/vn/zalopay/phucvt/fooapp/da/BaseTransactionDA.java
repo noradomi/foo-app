@@ -61,6 +61,7 @@ public class BaseTransactionDA extends BaseDA {
       }
     } finally {
       if (!isTransaction) {
+        log.info(method + " closed connection.");
         closeResource(LOGGER, preparedStatement, connection);
       } else {
         closeResource(LOGGER, preparedStatement);
@@ -131,6 +132,37 @@ public class BaseTransactionDA extends BaseDA {
       preparedStatement = connection.prepareStatement(query);
       preparedStatement.setQueryTimeout(statementTimeoutSec);
       setParamsFromJsonArray(preparedStatement, params);
+      resultSet = preparedStatement.executeQuery();
+
+      T data = mapper.apply(resultSet);
+
+      result.complete(data);
+    } catch (Exception e) {
+      LOGGER.warn("Failed execute cause={}", ExceptionUtil.getDetail(e));
+      result.fail(e);
+    } finally {
+      if (!isTransaction) {
+        closeResource(LOGGER, resultSet, preparedStatement, connection);
+      } else {
+        closeResource(LOGGER, resultSet, preparedStatement);
+      }
+    }
+  }
+
+  //  It's mine
+  protected <T> void queryEntity(
+      Future<T> result,
+      String query,
+      Object[] params,
+      FunctionEx<ResultSet, T> mapper,
+      Connection connection,
+      boolean isTransaction) {
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    try {
+      preparedStatement = connection.prepareStatement(query);
+      preparedStatement.setQueryTimeout(statementTimeoutSec);
+      setParamsFromArray(preparedStatement, params);
       resultSet = preparedStatement.executeQuery();
 
       T data = mapper.apply(resultSet);

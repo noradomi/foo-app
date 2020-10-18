@@ -62,21 +62,22 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
   }
 
   @Override
-  public Future<List<User>> selectUsersForUpdate(String senderId, String receiverId) {
-    Future<List<User>> future = Future.future();
-    asyncHandler.run(
-        () -> {
-          Object[] params = {senderId, receiverId};
-          queryEntity(
-              "selectUsersForUpdate",
-              future,
-              SELECT_USERS_FOR_UPDATE_STATEMENT,
-              params,
-              this::mapRs2EntityListUser,
-              dataSource::getConnection,
-              true);
-        });
-    return future;
+  public Executable<List<User>> selectUsersForUpdate(String senderId, String receiverId) {
+    return connection -> {
+      Future<List<User>> future = Future.future();
+      asyncHandler.run(
+          () -> {
+            Object[] params = {senderId, receiverId};
+            queryEntity(
+                future,
+                SELECT_USERS_FOR_UPDATE_STATEMENT,
+                params,
+                this::mapRs2EntityListUser,
+                connection.unwrap(),
+                true);
+          });
+      return future;
+    };
   }
 
   @Override

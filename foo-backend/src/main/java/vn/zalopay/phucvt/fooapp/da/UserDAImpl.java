@@ -34,7 +34,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   private static final String RESET_UNSEEN =
       "update friends set unread_messages = 0 where user_id = ? and friend_id = ?";
 
-  private static final String INSCREASE_UNSEEN_MESSAGES =
+  private static final String INCREASE_UNSEEN_MESSAGES =
       "update friends set unread_messages = unread_messages + 1 where user_id = ? and friend_id = ?";
 
   private static final String SELECT_FRIEND_LIST =
@@ -43,7 +43,10 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
 
   private static final String UPDATE_LAST_MESSAGE =
       "update friends set last_message = ? where user_id = ? and friend_id = ?";
-  private static final String GET_STRANGER_LIST = "";
+
+  private static final String UPDATE_LAST_MESSAGE_AND_UNSEEN_MESSAGES =
+      "update friends set last_message = ?, unread_messages = unread_messages + 1 where user_id = ? and friend_id = ?";
+
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;
 
@@ -113,11 +116,6 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   }
 
   @Override
-  public Future<List<User>> getStrangerList(String userId) {
-    return null;
-  }
-
-  @Override
   public Future<List<UserFriendItem>> getFriendList(String userId) {
     Future<List<UserFriendItem>> future = Future.future();
     asyncHandler.run(
@@ -157,7 +155,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   }
 
   @Override
-  public void increaseUnseenMessages(String userId, String friendId) {
+  public Future<Void> increaseUnseenMessages(String userId, String friendId) {
     Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -166,7 +164,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             executeWithParams(
                 future,
                 dataSource.getConnection(),
-                INSCREASE_UNSEEN_MESSAGES,
+                INCREASE_UNSEEN_MESSAGES,
                 params,
                 "increaseUnseenMessages",
                 false);
@@ -179,10 +177,11 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             future.fail(e);
           }
         });
+    return future;
   }
 
   @Override
-  public void updateLastMessage(String message, String userId, String friendId) {
+  public Future<Void> updateLastMessage(String message, String userId, String friendId) {
     Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -204,6 +203,34 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             future.fail(e);
           }
         });
+    return future;
+  }
+
+  @Override
+  public Future<Void> updateLastMessageAndUnseenMessages(
+      String message, String userId, String friendId) {
+    Future<Void> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          Object[] params = {message, userId, friendId};
+          try {
+            executeWithParams(
+                future,
+                dataSource.getConnection(),
+                UPDATE_LAST_MESSAGE_AND_UNSEEN_MESSAGES,
+                params,
+                "updateLastMessageAndUnseensMessages",
+                false);
+          } catch (SQLException e) {
+            log.error(
+                "updateLastMessageAndUnseenMessages failed {}--{}, caused={}",
+                userId,
+                friendId,
+                ExceptionUtil.getDetail(e));
+            future.fail(e);
+          }
+        });
+    return future;
   }
 
   @Override

@@ -5,10 +5,11 @@
 ./ghz --insecure \
   --proto fintech/fintech.proto \
   --call fintech.FintechService.TransferMoney \
-  -d '{"confirm_password": "123", "receiver_id": "eb26abc2-4a06-401f-84e2-c52dff1b4688","amount": 1000,"description": "Foo"}' \
+  -d '{"confirm_password": "123", "receiver_id": "8bf394d7-dd8f-4901-9c46-c877324e320f","amount": 1000,"description": "Foo"}' \
   -i . \
   -n 50  \
-  -m '{"jwt":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjNzQ2Mjg4Zi1iY2Q3LTRkMGUtOGUyMS0yYWU3MDFjM2IzODMiLCJpYXQiOjE2MDI5MTc3NjEsImV4cCI6MTYwMzA5MjM2MX0.7NafxldOtHPZy2_M1uYCTOcJP5kaN8VjE7Ny8pQW6fo"}' \
+  -m '{"jwt":
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJkYjY0MGIzOC1lNGViLTQ4NjAtYjVmMS03ZTQ0ZTQ0ZTlkYWQiLCJpYXQiOjE2MDMwMzU2MDQsImV4cCI6MTYwMzIxMDIwNH0._GqxIvIgwlqLMfRo_MbQbnrZkCcEWYmDxbIJwoodtYA"}' \
   0.0.0.0:5001
 
 

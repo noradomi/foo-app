@@ -8,7 +8,7 @@ import java.util.List;
 public interface FintechCache {
   void setTransactionHistory(List<HistoryItem> items, String userId);
 
-  void appendToTransactionHistory(HistoryItem item, String userId);
+  Future<Void> appendToTransactionHistory(HistoryItem item, String userId);
 
   Future<List<HistoryItem>> getTransactionHistory(String userId);
 }

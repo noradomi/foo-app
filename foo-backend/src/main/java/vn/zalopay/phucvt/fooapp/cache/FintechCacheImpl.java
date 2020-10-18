@@ -41,7 +41,8 @@ public class FintechCacheImpl implements FintechCache {
   }
 
   @Override
-  public void appendToTransactionHistory(HistoryItem item, String userId) {
+  public Future<Void> appendToTransactionHistory(HistoryItem item, String userId) {
+    Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
           try {
@@ -54,13 +55,16 @@ public class FintechCacheImpl implements FintechCache {
               historySet.pollLast();
             }
             historySet.expire(cacheConfig.getExpireTransactionHistory(), TimeUnit.MINUTES);
+            future.complete();
           } catch (Exception e) {
             log.error(
                 "append to transaction history of user={} cache failed, cause={}",
                 userId,
                 ExceptionUtil.getDetail(e));
+            future.fail(e);
           }
         });
+    return future;
   }
 
   @Override

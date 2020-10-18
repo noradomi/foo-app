@@ -1,8 +1,13 @@
 package vn.zalopay.phucvt.fooapp;
 
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.config.MeterFilter;
+import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
+import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.VertxOptions;
+import io.vertx.micrometer.backends.BackendRegistries;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.config.FileConfigLoader;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
@@ -13,6 +18,7 @@ import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.io.IOException;
 
@@ -24,6 +30,8 @@ public class Runner {
       ServiceConfig serviceConfig =
           FileConfigLoader.loadFromEnv("service.conf", ServiceConfig.class);
 
+      Tracker.initialize("Foo-app");
+
       ServiceModule module = ServiceModule.builder().serviceConfig(serviceConfig).build();
       ServiceComponent component = DaggerServiceComponent.builder().serviceModule(module).build();
 
@@ -33,6 +41,22 @@ public class Runner {
       RestfulAPI restfulAPI = component.getRestfulAPI();
       WebSocketServer webSocketServer = component.getWebSocketServer();
       gRPCServer gRPCServer = component.getGRPCServer();
+
+      PrometheusMeterRegistry registry =
+          (PrometheusMeterRegistry) BackendRegistries.getDefaultNow();
+      registry
+          .config()
+          .meterFilter(
+              new MeterFilter() {
+                @Override
+                public DistributionStatisticConfig configure(
+                    Meter.Id id, DistributionStatisticConfig config) {
+                  return DistributionStatisticConfig.builder()
+                      .percentilesHistogram(true)
+                      .build()
+                      .merge(config);
+                }
+              });
 
       component
           .getVertx()
