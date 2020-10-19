@@ -11,14 +11,21 @@ import vn.zalopay.phucvt.fooapp.fintech.GetBalanceResponse;
 import vn.zalopay.phucvt.fooapp.fintech.Status;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.model.User;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 @Builder
 @Log4j2
 public class GetBalanceHandler {
+  private static final String METRIC = "GetBalanceHandler";
   private final UserDA userDA;
 
   public void handle(
       GetBalanceRequest request, StreamObserver<GetBalanceResponse> responseObserver) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
+
+    long startTime = System.nanoTime();
+
     String userId = AuthInterceptor.USER_ID.get();
     log.info("gRPC call getBalance from userId={}", userId);
     Future<User> userAuth = userDA.selectUserById(userId);
@@ -28,6 +35,11 @@ public class GetBalanceHandler {
             User user = userAsyncResult.result();
             GetBalanceResponse getBalanceResponse = buildResponse(user);
             responseObserver.onNext(getBalanceResponse);
+            tracker.step("handle").code("ok").build().record();
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime);
+            log.info(
+                "Time execute a transfer money transaction: " + duration ); // for debug
           } else {
             Status status = Status.newBuilder().setCode(Code.INTERNAL).build();
             GetBalanceResponse response = GetBalanceResponse.newBuilder().setStatus(status).build();

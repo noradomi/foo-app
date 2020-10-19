@@ -61,7 +61,6 @@ public class BaseTransactionDA extends BaseDA {
       }
     } finally {
       if (!isTransaction) {
-        log.info(method + " closed connection.");
         closeResource(LOGGER, preparedStatement, connection);
       } else {
         closeResource(LOGGER, preparedStatement);

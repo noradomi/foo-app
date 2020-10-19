@@ -68,8 +68,8 @@ public class WSHandler {
               if (asyncResult.succeeded()) {
                 String receiverId = message.getReceiverId();
                 //                update last messages between 2 user
-                userDA.updateLastMessage("Bạn: " + message.getMessage(), userId, receiverId);
-                userDA.updateLastMessage(message.getMessage(), receiverId, userId);
+                userDA.updateLastMessage("Bạn: " + message.getMessage(), userId, receiverId, null);
+                userDA.updateLastMessage(message.getMessage(), receiverId, userId, null);
                 userDA.increaseUnseenMessages(receiverId, userId);
                 handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
                 handleSendMessage(message, message.getReceiverId());

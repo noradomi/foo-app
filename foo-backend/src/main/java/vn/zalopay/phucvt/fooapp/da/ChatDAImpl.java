@@ -10,6 +10,7 @@ import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,6 +53,30 @@ public class ChatDAImpl extends BaseTransactionDA implements ChatDA {
                 params,
                 "insertMessage",
                 false);
+          } catch (SQLException e) {
+            log.error("insert message to db failed caused by {}", ExceptionUtil.getDetail(e));
+            future.fail(e);
+          }
+        });
+    return future;
+  }
+
+  @Override
+  public Future<Void> insertWithConnParam(WsMessage message, Connection connection) {
+    Future<Void> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          Object[] params = {
+            message.getId(),
+            message.getSenderId(),
+            message.getReceiverId(),
+            message.getMessage(),
+            message.getCreateTime(),
+            message.getMessageType()
+          };
+          try {
+            executeWithParams(
+                future, connection, INSERT_MESSAGE_STATEMENT, params, "insertMessage", true);
           } catch (SQLException e) {
             log.error("insert message to db failed caused by {}", ExceptionUtil.getDetail(e));
             future.fail(e);

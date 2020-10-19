@@ -8,25 +8,29 @@ import vn.zalopay.phucvt.fooapp.da.FintechDA;
 import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.model.HistoryItem;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.util.List;
 
 @Builder
 @Log4j2
 public class GetHistoryHandler {
+  private static final String METRIC = "GetHistoryHandler";
   private final FintechDA fintechDA;
   private final FintechCache fintechCache;
 
   public void handle(
       GetHistoryRequest request, StreamObserver<GetHistoryResponse> responseObserver) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     String userId = AuthInterceptor.USER_ID.get();
     int pageSize = request.getPageSize();
     int pageToken = request.getPageToken();
     log.info("gRPC call: getHistory from userId={} with {}-{}", userId, pageSize, pageToken);
     if (pageToken == 0) {
-      getTransactionHistoryFromCache(responseObserver, userId, pageSize, pageToken);
+      getTransactionHistoryFromCache(responseObserver, userId, pageSize, pageToken, tracker);
     } else {
-      getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver, false);
+      getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver, false, tracker);
     }
   }
 
@@ -34,7 +38,8 @@ public class GetHistoryHandler {
       StreamObserver<GetHistoryResponse> responseObserver,
       String userId,
       int pageSize,
-      int pageToken) {
+      int pageToken,
+      Tracker.TrackerBuilder tracker) {
     fintechCache
         .getTransactionHistory(userId)
         .setHandler(
@@ -47,13 +52,16 @@ public class GetHistoryHandler {
                   response = buildSuccessResponse(historyList, historyList.size(), pageToken);
                   responseObserver.onNext(response);
                   responseObserver.onCompleted();
+                  tracker.code("ok").build().record();
                 } else {
-                  getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver, true);
+                  getTransactionHistoryFromDB(
+                      userId, pageSize, pageToken, responseObserver, true, tracker);
                 }
               } else {
                 log.error(
                     "get transaction history from cache failed, cause=", listAsyncResult.cause());
-                getTransactionHistoryFromDB(userId, pageSize, pageToken, responseObserver, true);
+                getTransactionHistoryFromDB(
+                    userId, pageSize, pageToken, responseObserver, true, tracker);
               }
             });
   }
@@ -63,7 +71,8 @@ public class GetHistoryHandler {
       int pageSize,
       int pageToken,
       StreamObserver<GetHistoryResponse> responseObserver,
-      boolean initCache) {
+      boolean initCache,
+      Tracker.TrackerBuilder tracker) {
     fintechDA
         .getHistory(userId, pageSize, pageToken)
         .setHandler(
@@ -86,6 +95,7 @@ public class GetHistoryHandler {
               }
               responseObserver.onNext(response);
               responseObserver.onCompleted();
+              tracker.code("ok").build().record();
             });
   }
 

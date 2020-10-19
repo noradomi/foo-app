@@ -10,6 +10,7 @@ import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -181,7 +182,8 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   }
 
   @Override
-  public Future<Void> updateLastMessage(String message, String userId, String friendId) {
+  public Future<Void> updateLastMessage(
+      String message, String userId, String friendId, Connection connection) {
     Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -189,11 +191,11 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
           try {
             executeWithParams(
                 future,
-                dataSource.getConnection(),
+                connection != null ? connection : dataSource.getConnection(),
                 UPDATE_LAST_MESSAGE,
                 params,
                 "updateLastMessage",
-                false);
+                connection != null);
           } catch (SQLException e) {
             log.error(
                 "update last messages failed {}--{}, caused={}",
@@ -208,7 +210,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
 
   @Override
   public Future<Void> updateLastMessageAndUnseenMessages(
-      String message, String userId, String friendId) {
+      String message, String userId, String friendId, Connection connection) {
     Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -216,11 +218,11 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
           try {
             executeWithParams(
                 future,
-                dataSource.getConnection(),
+                connection != null ? connection : dataSource.getConnection(),
                 UPDATE_LAST_MESSAGE_AND_UNSEEN_MESSAGES,
                 params,
                 "updateLastMessageAndUnseensMessages",
-                false);
+                connection != null);
           } catch (SQLException e) {
             log.error(
                 "updateLastMessageAndUnseenMessages failed {}--{}, caused={}",
