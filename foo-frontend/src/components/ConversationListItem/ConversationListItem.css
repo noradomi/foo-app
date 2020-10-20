@@ -3,15 +3,19 @@
   align-items: center;
   padding: 10px;
   position: relative;
-  border-radius: 10px;
-  margin: 3px 10px;
+  /* border-radius: 10px; */
+  margin: 3px 0;
+
 }
 
 .conversation-list-item:hover {
   /* background: #eeeef1; */
 
-  background: rgb(245, 245, 245);
+  /* background: rgb(245, 245, 245); */
+  background: #f2f5fa;
   cursor: pointer;
+  border-right: 2px solid #1990FE;
+
 }
 
 .conversation-title {
@@ -45,10 +49,6 @@
   text-overflow: ellipsis;
   padding-bottom: 5px;
 }
-
-/* .conversation-avatar{
-  position: absolute;
-} */
 
 .status-point {
   z-index: 10;

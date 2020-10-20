@@ -1,6 +1,5 @@
 package vn.zalopay.phucvt.fooapp.model;
 
-import io.vertx.ext.sql.SQLConnection;
 import lombok.Getter;
 import lombok.Setter;
 import vn.zalopay.phucvt.fooapp.da.Transaction;

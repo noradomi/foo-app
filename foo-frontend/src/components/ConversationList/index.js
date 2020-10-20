@@ -1,12 +1,11 @@
+import { Divider, Empty } from 'antd';
 import React, { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { wsConnect } from '../../services/chat-single';
 import { getFriendList } from '../../services/load-friend-list';
 import AddFriendModal from '../AddFriend';
 import ConversationListItem from '../ConversationListItem';
-import ConversationSearch from '../ConversationSearch';
 import './ConversationList.css';
-import { Divider } from 'antd';
 
 function ConversationList(props) {
 	const webSocket = useSelector((state) => state.webSocket);
@@ -32,8 +31,7 @@ function ConversationList(props) {
 
 	return (
 		<div className="conversation-list">
-			<div className="profile">FooApp - {props.user.name}</div>
-			<ConversationSearch />
+			<div className="profile">FooApp - Chào {props.user.name} !</div>
 			<AddFriendModal />
 			<div className="conversation-list-scroll">
 				<Divider className="user-list-title" orientation="left" plain style={{ color: 'rgb(122, 134, 154)' }}>
@@ -44,7 +42,7 @@ function ConversationList(props) {
 						<ConversationListItem key={conversation.id} data={conversation} />
 					))
 				) : (
-					''
+					<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<span>Bạn chưa kết bạn với ai cả</span>} />
 				)}
 			</div>
 		</div>

@@ -11,6 +11,7 @@ import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.time.Instant;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Builder
 @Log4j2
 public class WSHandler {
+  private static final String METRIC = "WebSocket";
   private final UserDA userDA;
   private final ChatDA chatDA;
   private final ChatCache chatCache;
@@ -31,14 +33,18 @@ public class WSHandler {
       Set<ServerWebSocket> client = new ConcurrentHashSet<>();
       client.add(webSocket);
       clients.put(userId, client);
+      Tracker.getMeterRegistry().gauge("web_socket_connections", clients.size());
     }
   }
 
   public void removeClient(ServerWebSocket webSocket, String userId) {
     if (clients.containsKey(userId)) {
+      Tracker.TrackerBuilder tracker =
+          Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
       Set<ServerWebSocket> removedClient = clients.get(userId);
       removedClient.remove(webSocket);
       if (removedClient.isEmpty()) clients.remove(userId);
+      Tracker.getMeterRegistry().gauge("web_socket_connections", clients.size());
     }
   }
 

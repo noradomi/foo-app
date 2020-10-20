@@ -48,7 +48,7 @@ public class GetHistoryHandler {
               if (listAsyncResult.succeeded()) {
                 List<HistoryItem> historyList = listAsyncResult.result();
                 if (historyList.size() > 0) {
-                  log.info("get transaction list of user={}, cache hit", userId);
+                  log.info("get history list of user={}, cache hit", userId);
                   response = buildSuccessResponse(historyList, historyList.size(), pageToken);
                   responseObserver.onNext(response);
                   responseObserver.onCompleted();

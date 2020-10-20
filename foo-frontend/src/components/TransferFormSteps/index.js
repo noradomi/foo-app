@@ -1,8 +1,8 @@
 import { Card, Steps } from 'antd';
 import React, { useEffect, useState } from 'react';
-import Step3 from './Step3';
-import Step1 from './Step1';
-import Step2 from './Step2';
+import ResultStep from './ResultStep';
+import InputStep from './InputStep';
+import ValidateStep from './ValidateStep';
 import { useSelector } from 'react-redux';
 
 import './TransferFormSteps.css'
@@ -11,7 +11,7 @@ const { Step } = Steps;
 
 export function TransferFormSteps(props){
   const selectedUser = props.selectedUser;
-  const [stepComponent, setStepComponent] = useState(<Step1 selectedUser={selectedUser}/>);
+  const [stepComponent, setStepComponent] = useState(<InputStep selectedUser={selectedUser}/>);
   const [currentStep, setCurrentStep] = useState(0);
   
   const current = useSelector(state => state.currentStep);
@@ -19,12 +19,12 @@ export function TransferFormSteps(props){
   const getCurrentStepAndComponent = (current) => {
     switch (current) {
       case 'confirm':
-        return { step: 1, component: <Step2 selectedUser={selectedUser}/> };
+        return { step: 1, component: <ValidateStep selectedUser={selectedUser}/> };
       case 'result':
-        return { step: 2, component: <Step3 selectedUser={selectedUser}/> };
+        return { step: 2, component: <ResultStep selectedUser={selectedUser}/> };
       case 'info':
       default:
-        return { step: 0, component: <Step1 selectedUser={selectedUser}/> };
+        return { step: 0, component: <InputStep selectedUser={selectedUser}/> };
     }
   };
 
@@ -35,7 +35,7 @@ export function TransferFormSteps(props){
   }, [current]);
 
   return (
-    <Card bordered={false} style={{width: "100%"}}>
+    <Card bordered={false} className="transfer-form-steps-card">
         <>
           <Steps current={currentStep} className="transfer-step">
             <Step title="Nhập thông tin" />

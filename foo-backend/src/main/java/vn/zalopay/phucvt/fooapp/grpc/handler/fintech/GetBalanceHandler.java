@@ -35,17 +35,16 @@ public class GetBalanceHandler {
             User user = userAsyncResult.result();
             GetBalanceResponse getBalanceResponse = buildResponse(user);
             responseObserver.onNext(getBalanceResponse);
-            tracker.step("handle").code("ok").build().record();
             long endTime = System.nanoTime();
             long duration = (endTime - startTime);
-            log.info(
-                "Time execute a transfer money transaction: " + duration ); // for debug
+            log.info("Time execute a transfer money transaction: " + duration); // for debug
           } else {
             Status status = Status.newBuilder().setCode(Code.INTERNAL).build();
             GetBalanceResponse response = GetBalanceResponse.newBuilder().setStatus(status).build();
             responseObserver.onNext(response);
           }
           responseObserver.onCompleted();
+          tracker.step("handle").code("ok").build().record();
         });
   }
 

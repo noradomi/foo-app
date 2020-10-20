@@ -16,7 +16,7 @@ function ChatHeader(props) {
 
 	return (
 		<div className="chat-header">
-			<div style={{ width: 40 }}>
+			<div style={{ width: 45 }}>
 				<CustomAvatar type="panel-avatar" avatar={user.avatar} />
 			</div>
 			<div style={{ overflow: 'hidden', paddingTop: 5 }}>

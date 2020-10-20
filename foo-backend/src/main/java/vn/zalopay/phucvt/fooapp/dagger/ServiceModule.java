@@ -318,7 +318,7 @@ public class ServiceModule {
             .setMetricsOptions(
                 new MicrometerMetricsOptions()
                     .setMicrometerRegistry(Tracker.getMeterRegistry())
-                    //                    .setJvmMetricsEnabled(true)
+                    .setJvmMetricsEnabled(true)
                     .setPrometheusOptions(
                         new VertxPrometheusOptions()
                             .setEnabled(true)

@@ -18,7 +18,7 @@ import java.sql.SQLException;
 @Getter
 @Log4j2
 public class TransactionImpl implements Transaction {
-  private static final String SYSTEM_METRIC_NAME = "DB";
+  private static final String SYSTEM_METRIC_NAME = "DBTransaction";
   // For blocking operation
   private final SQLClient dataSource;
 

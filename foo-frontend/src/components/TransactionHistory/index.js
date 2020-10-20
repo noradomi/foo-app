@@ -1,6 +1,6 @@
 import { HistoryOutlined } from '@ant-design/icons';
 import React from 'react';
-import AddressBook from '../AddressBook';
+import TransactionHistoryList from '../TransactionHistoryList';
 import './TransactionHistory.css';
 import { Card } from 'antd';
 
@@ -14,7 +14,7 @@ function TransactionHistory(props) {
 			</div>
 			<div className="transaction-history">
 				<div className="transaction-list">
-					<AddressBook />
+					<TransactionHistoryList />
 				</div>
 			</div>
 		</Card>

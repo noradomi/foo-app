@@ -1,10 +1,11 @@
 import { DollarCircleFilled } from '@ant-design/icons';
-import { Card } from 'antd';
+import { Card, Divider } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import moment from 'moment';
 import React from 'react';
 import './Message.css';
 
+moment.locale('vi');
 export default function Message(props) {
 	const { data, isTransfer, isMine, startsSequence, endsSequence, showTimestamp } = props;
 
@@ -20,11 +21,15 @@ export default function Message(props) {
 			].join(' ')}
 			style={{ wordWrap: 'break-word' }}
 		>
-			{showTimestamp && <div className="timestamp">{friendlyTimestamp}</div>}
+			{showTimestamp && (
+				<Divider className="timestamp-divider">
+					<div className="timestamp">{friendlyTimestamp}</div>
+				</Divider>
+			)}
 
 			<div className="bubble-container">
 				{isTransfer ? (
-					<Card style={{ borderRadius: '15px' }} actions={[ <span>Chạm để xem</span> ]}>
+					<Card style={{ borderRadius: '15px' }}>
 						<Meta
 							avatar={
 								<DollarCircleFilled

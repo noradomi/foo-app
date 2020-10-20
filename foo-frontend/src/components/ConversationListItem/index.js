@@ -16,12 +16,13 @@ function ConversationListItem(props) {
 	const { name, avatar, id } = props.data;
 
 	if (props.selectedUser.id === id) {
-		selectedItemStyle.backgroundColor = 'rgb(245, 245, 245)';
+		selectedItemStyle.backgroundColor = '#e6f0ff';
+		selectedItemStyle.borderRight = '2px solid #1990FE';
 	}
 
 	const userInfo = props.userMapHolder.userMap.get(id);
 	const status = userInfo.online;
-	const lastMessage = userInfo.lastMessage || 'No message';
+	const lastMessage = userInfo.lastMessage || 'Chưa có tin nhắn nào';
 	const unreadMessages = userInfo.unreadMessages;
 
 	let clickHandle = () => {

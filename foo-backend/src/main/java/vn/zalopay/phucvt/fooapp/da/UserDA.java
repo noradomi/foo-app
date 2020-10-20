@@ -27,7 +27,9 @@ public interface UserDA {
 
   Future<Void> increaseUnseenMessages(String userId, String friendId);
 
-  Future<Void> updateLastMessage(String message, String userId, String friendId, Connection connection);
+  Future<Void> updateLastMessage(
+      String message, String userId, String friendId, Connection connection);
 
-  Future<Void> updateLastMessageAndUnseenMessages(String message, String userId, String friendId, Connection connection);
+  Future<Void> updateLastMessageAndUnseenMessages(
+      String message, String userId, String friendId, Connection connection);
 }

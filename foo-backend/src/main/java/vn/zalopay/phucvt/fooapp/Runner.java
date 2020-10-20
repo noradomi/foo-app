@@ -1,13 +1,8 @@
 package vn.zalopay.phucvt.fooapp;
 
-import io.micrometer.core.instrument.Meter;
-import io.micrometer.core.instrument.config.MeterFilter;
-import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
-import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.VertxOptions;
-import io.vertx.micrometer.backends.BackendRegistries;
 import lombok.extern.log4j.Log4j2;
 import vn.zalopay.phucvt.fooapp.config.FileConfigLoader;
 import vn.zalopay.phucvt.fooapp.config.ServiceConfig;
@@ -42,21 +37,21 @@ public class Runner {
       WebSocketServer webSocketServer = component.getWebSocketServer();
       gRPCServer gRPCServer = component.getGRPCServer();
 
-      PrometheusMeterRegistry registry =
-          (PrometheusMeterRegistry) BackendRegistries.getDefaultNow();
-      registry
-          .config()
-          .meterFilter(
-              new MeterFilter() {
-                @Override
-                public DistributionStatisticConfig configure(
-                    Meter.Id id, DistributionStatisticConfig config) {
-                  return DistributionStatisticConfig.builder()
-                      .percentilesHistogram(true)
-                      .build()
-                      .merge(config);
-                }
-              });
+      //      PrometheusMeterRegistry registry =
+      //          (PrometheusMeterRegistry) BackendRegistries.getDefaultNow();
+      //      registry
+      //          .config()
+      //          .meterFilter(
+      //              new MeterFilter() {
+      //                @Override
+      //                public DistributionStatisticConfig configure(
+      //                    Meter.Id id, DistributionStatisticConfig config) {
+      //                  return DistributionStatisticConfig.builder()
+      //                      .percentilesHistogram(true)
+      //                      .build()
+      //                      .merge(config);
+      //                }
+      //              });
 
       component
           .getVertx()

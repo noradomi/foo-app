@@ -15,17 +15,21 @@ import vn.zalopay.phucvt.fooapp.model.UserFriendItem;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.util.Set;
 
 @Log4j2
 @Builder
 public class AddFriendHandler {
+  private static final String METRIC = "AddFriendHandler";
   private final UserDA userDA;
   private final UserCache userCache;
   private final WSHandler wsHandler;
 
   public void handle(AddFriendRequest request, StreamObserver<AddFriendResponse> responseObserver) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     String userId = AuthInterceptor.USER_ID.get();
     String friendId = request.getUserId();
     log.info("gRPC call addFriend {}--{}", userId, friendId);
@@ -44,7 +48,7 @@ public class AddFriendHandler {
                     ar -> {
                       AddFriendResponse response;
                       if (ar.succeeded()) {
-                        response = handleSuccessAddFriend(userId, friendId, cp);
+                        response = buildSuccessAddFriendResponse(userId, friendId, cp);
                       } else {
                         log.error(
                             "insert to friend table failed, cause={}",
@@ -54,12 +58,13 @@ public class AddFriendHandler {
                       }
                       responseObserver.onNext(response);
                       responseObserver.onCompleted();
+                      tracker.code("ok").build().record();
                     });
               }
             });
   }
 
-  private AddFriendResponse handleSuccessAddFriend(
+  private AddFriendResponse buildSuccessAddFriendResponse(
       String userId, String friendId, CompositeFuture cp) {
     AddFriendResponse response;
     UserInfo user = mapToUserInfo(cp.resultAt(0));

@@ -15,11 +15,12 @@ import UserWallet from '../UserWallet';
 import WalletTab from '../WalletTab';
 import WallTransferList from '../WallTransferList';
 import './Messenger.css';
+import { processUsernameForAvatar } from '../../utils/utils';
 
-const { Sider, Header, Content } = Layout;
+const { Sider, Content } = Layout;
 
 function Messenger(props) {
-	const activeTabKey = useSelector((state) => state.activeTabKey);
+  const activeTabKey = useSelector((state) => state.activeTabKey);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -47,7 +48,7 @@ function Messenger(props) {
 					id="main-side-menu"
 				>
           <div className="tab-avatar">
-          <CustomAvatar type="user-avatar"  avatar={props.user.name || ''} />
+          <CustomAvatar type="panel-avatar" avatar={processUsernameForAvatar(props.user.name)  || ''} />
           </div>
 					
 					<div className="menu-separation" />
@@ -83,16 +84,15 @@ function Messenger(props) {
 
 				{activeTabKey !== '1' ? (
 					<Layout>
-						{/* <Header className="site-layout-background" style={{ position: 'fixed', width: '100%' }} /> */}
 						<Content>
 							{' '}
 							<GridContent style={{ width: '100%' }}>
 								<Row gutter={24}>
-									<Col xl={7} lg={7} md={24} style={{ width: '100%' }}>
+									<Col xl={7} lg={7} md={24} style={{ width: '100%', paddingRight: 0 }}>
 										<UserWallet />
 										<WallTransferList />
 									</Col>
-									<Col xl={17} lg={17} md={24} style={{ width: '100%' }}>
+									<Col xl={17} lg={17} md={24} style={{ width: '100%', paddingLeft: 0 }}>
 										<TransactionHistory />
 									</Col>
 								</Row>

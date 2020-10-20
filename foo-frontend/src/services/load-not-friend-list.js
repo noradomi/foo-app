@@ -7,12 +7,12 @@ export function getNotFriendList() {
 		api
 			.authGet('/api/protected/users', null)
 			.then((response) => {
-				console.log('Get all user list');
 				let items = response.data.data.items;
 				const userMapHolder = store.getState().userMapHolder;
 				let result = [];
 				items.forEach((item) => {
 					if (userMapHolder.userMap.get(item.userId) === undefined) {
+						console.log(item.name);
 						var userItem = {
 							userId: item.userId,
 							name: item.name,

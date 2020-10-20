@@ -29,31 +29,30 @@ public class WebSocketServer {
 
   public void start() {
     log.info("Web Socket server start successfully !, port {}", port);
-    HttpServer listen =
+    listen =
         vertx
             .createHttpServer()
             .websocketHandler(
-                ws -> {
-                  authenticated(ws)
-                      .setHandler(
-                          userIdAsyncRes -> {
-                            if (userIdAsyncRes.succeeded()) {
-                              String userId = userIdAsyncRes.result();
-                              ws.accept();
-                              log.info("ws connected with user: {}", userId);
-                              wsHandler.addClient(ws, userId);
-                              wsHandler.notifyStatusUserChange(
-                                  WsMessage.builder().type("ONLINE").senderId(userId).build());
-                              ws.closeHandler(
-                                  event -> {
-                                    handleCloseConnection(ws, userId);
-                                  });
-                              ws.handler(buffer -> wsHandler.handle(buffer, userId));
-                            } else {
-                              ws.reject();
-                            }
-                          });
-                })
+                ws ->
+                    authenticated(ws)
+                        .setHandler(
+                            userIdAsyncRes -> {
+                              if (userIdAsyncRes.succeeded()) {
+                                String userId = userIdAsyncRes.result();
+                                ws.accept();
+                                log.info("ws connected with user: {}", userId);
+                                wsHandler.addClient(ws, userId);
+                                wsHandler.notifyStatusUserChange(
+                                    WsMessage.builder().type("ONLINE").senderId(userId).build());
+                                ws.closeHandler(
+                                    event -> {
+                                      handleCloseConnection(ws, userId);
+                                    });
+                                ws.handler(buffer -> wsHandler.handle(buffer, userId));
+                              } else {
+                                ws.reject();
+                              }
+                            }))
             .listen(port);
   }
 

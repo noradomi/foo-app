@@ -8,6 +8,7 @@ import ChatHeader from '../ChatHeader';
 import Compose from '../Compose';
 import Message from '../Message';
 import './MessageList.css';
+import { Empty } from 'antd';
 
 function MessageList(props) {
 	let senderId = getUserIdFromStorage();
@@ -18,7 +19,11 @@ function MessageList(props) {
 		props.chatMessagesHolder.chatMessages.size === 0 ||
 		props.selectedUser.id === null
 	) {
-		return <div />;
+		return (
+			<div style={{ width: '100%', marginTop: '200px' }}>
+				<Empty description="Kết bạn để trò chuyện với một ai đó" />
+			</div>
+		);
 	}
 
 	let receiverId = props.selectedUser.id;
@@ -148,7 +153,7 @@ function MessageList(props) {
 				<div ref={endOfMsgList} style={{ height: '0px' }} />
 			</div>
 
-			<Compose onSendMessage={handleOnSendMessage} />
+			<Compose onSendMessage={handleOnSendMessage} selectedUserName={receiver.name} />
 		</div>
 	);
 }

@@ -31,11 +31,13 @@ public class TransferMoneyHandler {
   private final ChatCache chatCache;
   private final WSHandler wsHandler;
   private final TransactionProvider transactionProvider;
+  long start, end;
 
   public void handle(
       TransferMoneyRequest request, StreamObserver<TransferMoneyResponse> responseObserver) {
     Tracker.TrackerBuilder tracker =
         Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
+    start = System.nanoTime();
     String userId = AuthInterceptor.USER_ID.get();
     log.info(
         "gRPC call: transferMoney (sender={}, receiver={}, amount={})",
@@ -103,10 +105,9 @@ public class TransferMoneyHandler {
       StreamObserver<TransferMoneyResponse> responseObserver,
       long startTime,
       TransferMoneyHolder holder) {
-    holder.getTransaction().commit();
     long endTime = System.nanoTime();
-    long duration = (endTime - startTime);
-    log.info("Time execute a transfer money transaction: " + duration / 1000000); // for debug
+    //    long duration = (endTime - startTime);
+    //    log.info("Time execute a transfer money transaction: " + duration / 1000000); // for debug
     log.info(
         "End transfer money transaction (sender={}, receiver={}, amount={})",
         holder.getSender().getUserId(),
@@ -125,14 +126,18 @@ public class TransferMoneyHandler {
                     holder.getSender().getUserId(),
                     holder.getRequest().getReceiverId(),
                     holder.getRequest().getAmount());
+                holder.getTransaction().commit();
                 holder.getTransaction().close();
                 TransferMoneyResponse response = buildSuccessTransferMoneyResponse(holder);
                 responseObserver.onNext(response);
-                responseObserver.onCompleted();
-                holder.getTracker().code("ok").build().record();
               } else {
                 log.error("remaining tasks after transaction failed, cause=", asyncResult.cause());
               }
+              responseObserver.onCompleted();
+              end = System.nanoTime();
+              long duration = (end - start);
+              log.info("Time execute a transfer money: " + duration / 1000000); // for debug
+              holder.getTracker().code("ok").build().record();
             });
   }
 
@@ -534,6 +539,7 @@ public class TransferMoneyHandler {
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
+                log.info("update last message sender succ");
                 future.complete(holder);
               } else {
                 log.error("update last message failed, cause=", asyncResult.cause());

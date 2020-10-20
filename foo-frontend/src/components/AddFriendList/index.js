@@ -7,12 +7,12 @@ import './AddFriendList.css';
 function AddFriendList(props) {
 	// Init user list
 	useEffect(() => {
+		console.log('Get not friend list');
 		getNotFriendList();
 	}, []);
 
 	const conversations = props.userList.map((res) => {
 		const { name, userId, avatar } = res;
-
 		return {
 			name: name,
 			id: userId,
@@ -20,11 +20,8 @@ function AddFriendList(props) {
 		};
 	});
 
-	console.log(conversations.length);
-
 	return (
 		<div className="addfriend-list">
-			{/* <ConversationSearch /> */}
 			<div className="addfriend-user-list-title">Danh sách kết bạn ({conversations.length})</div>
 			<div className="addfriend-list-scroll">
 				{conversations.length > 0 ? (

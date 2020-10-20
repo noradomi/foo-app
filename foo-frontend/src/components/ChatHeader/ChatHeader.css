@@ -3,8 +3,8 @@
   padding: 0;
   flex-shrink: 0;
   display: flex;
-  padding: 1.25rem !important;
-  border-bottom: 1px solid #f0eff5 !important;
+  padding: 13px !important;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .chat-header .panel-message {

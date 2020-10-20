@@ -6,7 +6,6 @@ import { hanleLogin } from '../../services/login';
 import './LoginForm.css';
 
 export default function LoginForm(props) {
-	const FormItem = Form.Item;
 	let [ form ] = Form.useForm();
 	let history = useHistory();
 
@@ -22,23 +21,23 @@ export default function LoginForm(props) {
 
 	return (
 		<Form onFinish={handleSubmit} className="login-form" form={form}>
-			<FormItem name="username" rules={[ { required: true, message: '(*) Vui lòng nhập tên đăng nhập !' } ]}>
+			<Form.Item name="username" rules={[ { required: true, message: '(*) Vui lòng nhập tên đăng nhập !' } ]}>
 				<Input prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Tên đăng nhập" />
-			</FormItem>
+			</Form.Item>
 
-			<FormItem name="password" rules={[ { required: true, message: '(*) Vui lòng nhập mật khẩu !' } ]}>
+			<Form.Item name="password" rules={[ { required: true, message: '(*) Vui lòng nhập mật khẩu !' } ]}>
 				<Input
 					prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
 					type="password"
 					placeholder="Mật khẩu"
 				/>
-			</FormItem>
+			</Form.Item>
 
-			<FormItem className="portal-button">
+			<Form.Item className="portal-button">
 				<Button type="primary" htmlType="submit" className="login-form-button" icon={<LoginOutlined />}>
 					Đăng nhập
 				</Button>
-			</FormItem>
+			</Form.Item>
 		</Form>
 	);
 }
