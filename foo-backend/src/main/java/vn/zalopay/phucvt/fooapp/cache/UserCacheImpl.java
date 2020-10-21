@@ -9,6 +9,7 @@ import vn.zalopay.phucvt.fooapp.model.User;
 import vn.zalopay.phucvt.fooapp.model.UserFriendItem;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,16 @@ import java.util.concurrent.TimeUnit;
 @Log4j2
 @Builder
 public class UserCacheImpl implements UserCache {
+  private static final String METRIC = "RedisCache";
+
   private final RedisCache redisCache;
   private final AsyncHandler asyncHandler;
   private final CacheConfig cacheConfig;
 
   @Override
   public Future<List<User>> setUserList(List<User> users) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     Future<List<User>> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -31,6 +36,7 @@ public class UserCacheImpl implements UserCache {
             userRSet.addAll(users);
             userRSet.expire(cacheConfig.getExpireUserList(), TimeUnit.MINUTES);
             future.complete(users);
+            tracker.step("set-user-list").build().record();
           } catch (Exception e) {
             future.fail(e);
             log.error("add list user to cache failed cause={}", ExceptionUtil.getDetail(e));
@@ -84,6 +90,8 @@ public class UserCacheImpl implements UserCache {
 
   @Override
   public void setFriendList(List<UserFriendItem> friendList, String userId) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     asyncHandler.run(
         () -> {
           try {
@@ -98,10 +106,13 @@ public class UserCacheImpl implements UserCache {
                 ExceptionUtil.getDetail(e));
           }
         });
+    tracker.step("set-friend-list").build().record();
   }
 
   @Override
   public void appendFriendList(UserFriendItem user, String userId) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     asyncHandler.run(
         () -> {
           try {
@@ -117,10 +128,13 @@ public class UserCacheImpl implements UserCache {
                 ExceptionUtil.getDetail(e));
           }
         });
+    tracker.step("append-friend").build().record();
   }
 
   @Override
   public Future<List<UserFriendItem>> getFriendList(String userId) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     Future<List<UserFriendItem>> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -140,6 +154,7 @@ public class UserCacheImpl implements UserCache {
             future.fail(e);
           }
         });
+    tracker.step("get-friend-list").build().record();
     return future;
   }
 }

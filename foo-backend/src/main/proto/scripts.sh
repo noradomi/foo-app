@@ -1,26 +1,28 @@
 #!/bin/bash
 # shellcheck disable=SC2016
 
-JWT="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJjZDM5MGI1NC0yZGFmLTRkZjItYWU2Ny01ZWI0ZDAxNWUzZmIiLCJpYXQiOjE2MDMxODYwNDEsImV4cCI6MTYwMzM2MDY0MX0.Xgq2Mx7gMc2rXrzWjtRI_WxkwzETklfmhWck9Yd3VoI"
+JWT="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNjAzMjcyODI1LCJleHAiOjE2MDM0NDc0MjV9.DpNAyuW1R0IqUuLeRcylOY1uaoBIRgCryQfS6DzWhwc"
 
 # Transfer money
-./ghz --insecure \
-  --proto fintech/fintech.proto \
-  --call fintech.FintechService.TransferMoney \
-  -d '{"confirm_password": "123", "receiver_id": "7249fa8a-95f4-441d-bca6-dc07c6c9f036","amount": 1000,"description": "Foo"}' \
-  -i . \
-  -n 500 \
-  -m '{"jwt":"'"$JWT"'"}' \
-  0.0.0.0:5001
-
-# Get balance
 #./ghz --insecure \
 #  --proto fintech/fintech.proto \
-#  --call fintech.FintechService.GetBalance \
+#  --call fintech.FintechService.TransferMoney \
+#  -d '{"confirm_password": "123", "receiver_id": "16dfe0d8-01ed-43c6-af53-85b2cf9040b1","amount": 1000,"description": "Foo"}' \
 #  -i . \
-#  -n 2000 \
+#  -c 20 \
+#  -n 500 \
 #  -m '{"jwt":"'"$JWT"'"}' \
 #  0.0.0.0:5001
+
+# Get balance
+./ghz --insecure \
+  --proto fintech/fintech.proto \
+  --call fintech.FintechService.GetBalance \
+  -i . \
+  -n 2000 \
+  -c 20 \
+  -m '{"jwt":"'"$JWT"'"}' \
+  0.0.0.0:5001
 
 # Get transaction history
 #./ghz --insecure \

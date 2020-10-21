@@ -15,67 +15,104 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 1,
   "links": [],
   "panels": [
     {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorPostfix": false,
+      "colorPrefix": false,
+      "colorValue": false,
+      "colors": [
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
       "gridPos": {
         "h": 8,
-        "w": 5,
+        "w": 6,
         "x": 0,
         "y": 0
       },
-      "id": 26,
-      "options": {
-        "fieldOptions": {
-          "calcs": [
-            "last"
-          ],
-          "defaults": {
-            "mappings": [],
-            "max": 100,
-            "min": 0,
-            "thresholds": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ],
-            "unit": "s"
-          },
-          "override": {},
-          "values": false
+      "id": 34,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "orientation": "auto",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
       "pluginVersion": "6.3.5",
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": true,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "",
       "targets": [
         {
-          "expr": "DB_seconds_count{step=\"query-ok\"}",
-          "intervalFactor": 2,
-          "legendFormat": "",
+          "expr": "sum(jvm_memory_used_bytes{area=\"heap\"})*100/sum(jvm_memory_max_bytes{area=\"heap\"})",
           "refId": "A"
         }
       ],
-      "timeFrom": "5m",
+      "thresholds": "",
+      "timeFrom": null,
       "timeShift": null,
-      "title": "Select latency",
-      "type": "gauge"
+      "title": "JVM Memory Usage",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "avg"
     },
     {
+      "cacheTimeout": null,
       "gridPos": {
         "h": 8,
         "w": 5,
-        "x": 5,
+        "x": 6,
         "y": 0
       },
-      "id": 24,
+      "id": 22,
+      "links": [],
       "options": {
         "fieldOptions": {
           "calcs": [
@@ -95,7 +132,7 @@
                 "value": 80
               }
             ],
-            "unit": "s"
+            "unit": "none"
           },
           "override": {},
           "values": false
@@ -107,20 +144,20 @@
       "pluginVersion": "6.3.5",
       "targets": [
         {
-          "expr": "DB_seconds_count{step=\"execute-ok\"}",
+          "expr": "vertx_http_server_wsConnections",
           "refId": "A"
         }
       ],
       "timeFrom": "5m",
       "timeShift": null,
-      "title": "Insert, Update latency",
+      "title": "Online users",
       "type": "gauge"
     },
     {
       "gridPos": {
         "h": 8,
         "w": 5,
-        "x": 10,
+        "x": 11,
         "y": 0
       },
       "id": 20,
@@ -169,15 +206,13 @@
       "type": "gauge"
     },
     {
-      "cacheTimeout": null,
       "gridPos": {
         "h": 8,
-        "w": 9,
-        "x": 15,
+        "w": 4,
+        "x": 16,
         "y": 0
       },
-      "id": 22,
-      "links": [],
+      "id": 24,
       "options": {
         "fieldOptions": {
           "calcs": [
@@ -197,7 +232,7 @@
                 "value": 80
               }
             ],
-            "unit": "none"
+            "unit": "s"
           },
           "override": {},
           "values": false
@@ -209,13 +244,63 @@
       "pluginVersion": "6.3.5",
       "targets": [
         {
-          "expr": "vertx_http_server_wsConnections",
+          "expr": "DB_seconds_count{step=\"execute-ok\"}",
           "refId": "A"
         }
       ],
       "timeFrom": "5m",
       "timeShift": null,
-      "title": "Online users",
+      "title": "Insert, Update latency",
+      "type": "gauge"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 26,
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "last"
+          ],
+          "defaults": {
+            "mappings": [],
+            "max": 100,
+            "min": 0,
+            "thresholds": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ],
+            "unit": "s"
+          },
+          "override": {},
+          "values": false
+        },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.3.5",
+      "targets": [
+        {
+          "expr": "DB_seconds_count{step=\"query-ok\"}",
+          "intervalFactor": 2,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "5m",
+      "timeShift": null,
+      "title": "Select latency",
       "type": "gauge"
     },
     {
@@ -226,8 +311,8 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 24,
+        "h": 7,
+        "w": 11,
         "x": 0,
         "y": 8
       },
@@ -260,33 +345,35 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.99, sum(rate(TransferMoneyHandler_seconds_bucket[5m])) by (le))",
+          "expr": "histogram_quantile(0.99, sum(rate(TransferMoneyHandler_seconds_bucket[10m])) by (le))",
           "hide": false,
           "instant": false,
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "transfer_money [99p]",
           "refId": "A"
         },
         {
-          "expr": "histogram_quantile(0.99, sum(rate(GetBalanceHandler_seconds_bucket[5m])) by (le))",
+          "expr": "histogram_quantile(0.99, sum(rate(GetBalanceHandler_seconds_bucket[10m])) by (le))",
           "instant": false,
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "get_balance [99p]",
           "refId": "B"
         },
         {
-          "expr": "histogram_quantile(0.99, sum(rate(GetHistoryHandler_seconds_bucket[5m])) by (le))",
-          "intervalFactor": 2,
+          "expr": "histogram_quantile(0.99, sum(rate(GetHistoryHandler_seconds_bucket[10m])) by (le))",
+          "intervalFactor": 1,
           "legendFormat": "get_history_handler [99p]",
           "refId": "C"
         },
         {
-          "expr": "histogram_quantile(0.99, sum(rate(AddFriendHandler_seconds_bucket[5m])) by (le))",
+          "expr": "histogram_quantile(0.99, sum(rate(AddFriendHandler_seconds_bucket[10m])) by (le))",
+          "intervalFactor": 1,
           "legendFormat": "add_friend_handler [99p]",
           "refId": "D"
         },
         {
-          "expr": "histogram_quantile(0.95, sum(rate(GetFriendListHandler_seconds_bucket[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(GetFriendListHandler_seconds_bucket[10m])) by (le))",
+          "intervalFactor": 1,
           "legendFormat": "get_friend_list [99p]",
           "refId": "F"
         }
@@ -341,9 +428,121 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
+        "w": 13,
+        "x": 11,
+        "y": 8
+      },
+      "id": 32,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99,rate(RedisCache_seconds_bucket{step=\"append-message\"}[5m]))",
+          "legendFormat": "append-message [99p]",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(RedisCache_seconds_bucket{step=\"get-message-list\"}[5m]))",
+          "legendFormat": "get-message-list [99p]",
+          "refId": "B"
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(RedisCache_seconds_bucket{step=\"set-message-list\"}[5m]))",
+          "legendFormat": "set-message-list [99p]",
+          "refId": "C"
+        },
+        {
+          "expr": "histogram_quantile(0.99,rate(RedisCache_seconds_bucket{step=\"get-transaction-history-list\"}[5m]))",
+          "legendFormat": "get-transaction-histories [99p]",
+          "refId": "D"
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(RedisCache_seconds_bucket{step=\"set-transaction-history-list\"}[5m]))",
+          "legendFormat": "set-transaction-histories [99p]",
+          "refId": "E"
+        },
+        {
+          "expr": "histogram_quantile(0.99, rate(RedisCache_seconds_bucket{step=\"append-transaction-history\"}[5m]))",
+          "legendFormat": "append-transaction-history [99p]",
+          "refId": "F"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Redis response time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 15
       },
       "id": 28,
       "legend": {
@@ -373,8 +572,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(DB_seconds_bucket[5m])) by (le,step))",
+          "expr": "histogram_quantile(0.99, sum(rate(DB_seconds_bucket{step=\"execute-ok\"}[5m])) by (le))",
+          "legendFormat": "insert, update ops",
           "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(DB_seconds_bucket{step=\"query-ok\"}[5m])) by (le))",
+          "legendFormat": "select ops",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -423,6 +628,93 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 30,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(jvm_gc_pause_seconds_sum{cause=\"Allocation Failure\"}[5m]) / rate(jvm_gc_pause_seconds_count{cause=\"Allocation Failure\"}[5m])",
+          "intervalFactor": 1,
+          "legendFormat": "gc_pause_time",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "5m",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Gabarge Collection Pause Time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "Foo-app",
       "fill": 1,
       "fillGradient": 0,
@@ -430,7 +722,7 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 23
+        "y": 29
       },
       "id": 3,
       "legend": {
@@ -519,7 +811,7 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 23
+        "y": 29
       },
       "id": 4,
       "legend": {
@@ -607,7 +899,7 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 23
+        "y": 29
       },
       "id": 5,
       "legend": {
@@ -695,7 +987,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 36
       },
       "id": 6,
       "legend": {
@@ -726,28 +1018,28 @@
         {
           "expr": "sum(irate(vertx_http_server_responseTime_seconds_sum[1m])) / sum(irate(vertx_http_server_responseTime_seconds_count[1m]))",
           "format": "time_series",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "[avg]",
           "refId": "B"
         },
         {
           "expr": "histogram_quantile(0.5, sum(rate(vertx_http_server_responseTime_seconds_bucket[1m])) by (le))",
           "format": "time_series",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "[med]",
           "refId": "D"
         },
         {
           "expr": "histogram_quantile(0.95, sum(rate(vertx_http_server_responseTime_seconds_bucket[1m])) by (le))",
           "format": "time_series",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "[95p]",
           "refId": "A"
         },
         {
           "expr": "histogram_quantile(0.99, sum(rate(vertx_http_server_responseTime_seconds_bucket[1m])) by (le))",
           "format": "time_series",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "[99p]",
           "refId": "C"
         }
@@ -805,7 +1097,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 36
       },
       "id": 7,
       "legend": {
@@ -908,7 +1200,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 37
+        "y": 43
       },
       "id": 1,
       "legend": {
@@ -1023,7 +1315,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 37
+        "y": 43
       },
       "id": 14,
       "legend": {
@@ -1166,5 +1458,5 @@
   "timezone": "",
   "title": "Foo-app",
   "uid": "CyzFSmpMk",
-  "version": 28
+  "version": 21
 }

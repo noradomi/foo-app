@@ -8,6 +8,7 @@ import vn.zalopay.phucvt.fooapp.config.CacheConfig;
 import vn.zalopay.phucvt.fooapp.model.HistoryItem;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -15,12 +16,16 @@ import java.util.concurrent.TimeUnit;
 @Builder
 @Log4j2
 public class FintechCacheImpl implements FintechCache {
+  private static final String METRIC = "RedisCache";
+
   private final RedisCache redisCache;
   private final AsyncHandler asyncHandler;
   private final CacheConfig cacheConfig;
 
   @Override
   public void setTransactionHistory(List<HistoryItem> items, String userId) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     asyncHandler.run(
         () -> {
           try {
@@ -38,10 +43,13 @@ public class FintechCacheImpl implements FintechCache {
                 ExceptionUtil.getDetail(e));
           }
         });
+    tracker.step("set-transaction-history-list").build().record();
   }
 
   @Override
   public Future<Void> appendToTransactionHistory(HistoryItem item, String userId) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -64,11 +72,14 @@ public class FintechCacheImpl implements FintechCache {
             future.fail(e);
           }
         });
+        tracker.step("append-transaction-history").build().record();
     return future;
   }
 
   @Override
   public Future<List<HistoryItem>> getTransactionHistory(String userId) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     Future<List<HistoryItem>> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -86,6 +97,7 @@ public class FintechCacheImpl implements FintechCache {
             future.fail(e);
           }
         });
+    tracker.step("get-transaction-history-list").build().record();
     return future;
   }
 }

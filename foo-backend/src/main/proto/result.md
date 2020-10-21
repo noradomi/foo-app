@@ -140,6 +140,78 @@ Latency distribution:
 Status code distribution:
   [OK]   500 responses 
 ```
+
+Ko check password + c la 20
+```$xslt
+Summary:
+  Count:        4000
+  Total:        17.94 s
+  Slowest:      190.05 ms
+  Fastest:      5.75 ms
+  Average:      89.05 ms
+  Requests/sec: 222.94
+
+Response time histogram:
+  5.753 [1]     |
+  24.183 [3]    |
+  42.612 [19]   |
+  61.042 [19]   |
+  79.471 [1092] |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  97.900 [1923] |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  116.330 [692] |∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  134.759 [183] |∎∎∎∎
+  153.188 [49]  |∎
+  171.618 [16]  |
+  190.047 [3]   |
+
+Latency distribution:
+  10 % in 72.39 ms 
+  25 % in 78.34 ms 
+  50 % in 86.37 ms 
+  75 % in 97.24 ms 
+  90 % in 110.12 ms 
+  95 % in 119.78 ms 
+  99 % in 143.52 ms 
+
+Status code distribution:
+  [OK]   4000 responses 
+```
+
+co password + poolSize 20
+```$xslt
+Summary:
+  Count:        500
+  Total:        1.89 s
+  Slowest:      195.68 ms
+  Fastest:      11.71 ms
+  Average:      71.93 ms
+  Requests/sec: 265.08
+
+Response time histogram:
+  11.712 [1]    |
+  30.108 [13]   |∎∎∎
+  48.505 [43]   |∎∎∎∎∎∎∎∎∎∎
+  66.901 [179]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  85.298 [151]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  103.694 [61]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  122.091 [36]  |∎∎∎∎∎∎∎∎
+  140.487 [11]  |∎∎
+  158.883 [2]   |
+  177.280 [1]   |
+  195.676 [2]   |
+
+Latency distribution:
+  10 % in 48.02 ms 
+  25 % in 56.09 ms 
+  50 % in 68.11 ms 
+  75 % in 82.91 ms 
+  90 % in 104.19 ms 
+  95 % in 116.81 ms 
+  99 % in 139.24 ms 
+
+Status code distribution:
+  [OK]   500 responses 
+```
 ### Get balance
 ```$xslt
 Summary:
@@ -174,6 +246,42 @@ Latency distribution:
 
 Status code distribution:
   [OK]   2000 responses 
+```
+
+p99 vs throughput
+```$xslt
+Summary:
+  Count:        2000
+  Total:        677.48 ms
+  Slowest:      18.78 ms
+  Fastest:      0.91 ms
+  Average:      6.53 ms
+  Requests/sec: 2952.11
+
+Response time histogram:
+  0.907 [1]     |
+  2.694 [34]    |∎∎
+  4.481 [274]   |∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  6.268 [778]   |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  8.055 [473]   |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  9.842 [271]   |∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  11.629 [88]   |∎∎∎∎∎
+  13.416 [53]   |∎∎∎
+  15.204 [17]   |∎
+  16.991 [6]    |
+  18.778 [5]    |
+
+Latency distribution:
+  10 % in 4.03 ms 
+  25 % in 5.01 ms 
+  50 % in 6.08 ms 
+  75 % in 7.68 ms 
+  90 % in 9.41 ms 
+  95 % in 11.29 ms 
+  99 % in 13.87 ms 
+
+Status code distribution:
+  [OK]   2000 responses
 ```
 
 ### Get History

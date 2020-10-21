@@ -19,4 +19,5 @@ public class TransferMoneyHolder {
   private long recordedTime;
   private Connection connection;
   private Tracker.TrackerBuilder tracker;
+  private String receiverIdForTest;
 }

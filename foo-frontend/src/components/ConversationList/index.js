@@ -34,8 +34,8 @@ function ConversationList(props) {
 			<div className="profile">FooApp - Chào {props.user.name} !</div>
 			<AddFriendModal />
 			<div className="conversation-list-scroll">
-				<Divider className="user-list-title" orientation="left" plain style={{ color: 'rgb(122, 134, 154)' }}>
-					Bạn ({conversations.length})
+				<Divider className="user-list-title" orientation="left" plain style={{ color: '#e5e5e5' }}>
+					<span style={{ color: '#000' }}>Bạn ({conversations.length})</span>
 				</Divider>
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => (

@@ -9,7 +9,7 @@ moment.locale('vi');
 export default function Message(props) {
 	const { data, isTransfer, isMine, startsSequence, endsSequence, showTimestamp } = props;
 
-	const friendlyTimestamp = moment(data.timestamp).format('LLLL');
+	const friendlyTimestamp = moment(data.timestamp).format('DD-MM-YYYY  hh:mm A');
 	return (
 		<div
 			className={[
@@ -22,7 +22,7 @@ export default function Message(props) {
 			style={{ wordWrap: 'break-word' }}
 		>
 			{showTimestamp && (
-				<Divider className="timestamp-divider">
+				<Divider className="timestamp-divider" style={{ color: '#e5e5e5' }}>
 					<div className="timestamp">{friendlyTimestamp}</div>
 				</Divider>
 			)}

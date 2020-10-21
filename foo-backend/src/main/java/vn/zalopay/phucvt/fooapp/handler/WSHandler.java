@@ -39,12 +39,9 @@ public class WSHandler {
 
   public void removeClient(ServerWebSocket webSocket, String userId) {
     if (clients.containsKey(userId)) {
-      Tracker.TrackerBuilder tracker =
-          Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
       Set<ServerWebSocket> removedClient = clients.get(userId);
       removedClient.remove(webSocket);
       if (removedClient.isEmpty()) clients.remove(userId);
-      Tracker.getMeterRegistry().gauge("web_socket_connections", clients.size());
     }
   }
 

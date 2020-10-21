@@ -7,9 +7,9 @@ import java.sql.Connection;
 import java.util.List;
 
 public interface ChatDA {
-  Future<Void> insert(WsMessage msg);
+    Future<Void> insert(WsMessage msg);
 
-  Future<Void> insertWithConnParam(WsMessage msg, Connection connection);
+    Future<Void> insertWithConnParam(WsMessage msg, Connection connection);
 
-  Future<List<WsMessage>> getMessageList(String firstUserId, String secondUserId, int offset);
+    Future<List<WsMessage>> getMessageList(String firstUserId, String secondUserId, int offset);
 }
