@@ -665,7 +665,7 @@ public class TransferMoneyHandler {
       StreamObserver<TransferMoneyResponse> responseObserver, TransferMoneyHolder validatedHolder) {
     Transaction transaction = transactionProvider.newTransaction();
     validatedHolder.setTransaction(transaction);
-    log.info(
+    log.debug(
         "start transfer money transaction (sender={}, receiver={}, amount={})",
         validatedHolder.getSender().getUserId(),
         validatedHolder.getReceiverIdForTest(),
@@ -702,7 +702,7 @@ public class TransferMoneyHandler {
     long endTime = System.nanoTime();
     //    long duration = (endTime - startTime);
     //    log.info("Time execute a transfer money transaction: " + duration / 1000000); // for debug
-    log.info(
+    log.debug(
         "End transfer money transaction (sender={}, receiver={}, amount={})",
         holder.getSender().getUserId(),
         holder.getReceiverIdForTest(),
@@ -715,7 +715,7 @@ public class TransferMoneyHandler {
             asyncResult -> {
               if (asyncResult.succeeded()) {
                 notifyTransferMoney(holder);
-                log.info(
+                log.debug(
                     "Transfer money successfully (sender={}, receiver={}, amount={})",
                     holder.getSender().getUserId(),
                     holder.getReceiverIdForTest(),
@@ -730,7 +730,7 @@ public class TransferMoneyHandler {
               responseObserver.onCompleted();
               end = System.nanoTime();
               long duration = (end - start);
-              log.info("Time execute a transfer money: " + duration / 1000000); // for debug
+              log.debug("Time execute a transfer money: " + duration / 1000000); // for debug
               holder.getTracker().code("ok").build().record();
             });
   }
@@ -1134,7 +1134,6 @@ public class TransferMoneyHandler {
         .setHandler(
             asyncResult -> {
               if (asyncResult.succeeded()) {
-                log.info("update last message sender succ");
                 future.complete(holder);
               } else {
                 log.error("update last message failed, cause=", asyncResult.cause());

@@ -13,6 +13,8 @@ import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.model.User;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
+import java.util.Random;
+
 @Builder
 @Log4j2
 public class GetBalanceHandler {
@@ -23,10 +25,9 @@ public class GetBalanceHandler {
       GetBalanceRequest request, StreamObserver<GetBalanceResponse> responseObserver) {
     Tracker.TrackerBuilder tracker =
         Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
-
-    long startTime = System.nanoTime();
-
-    String userId = AuthInterceptor.USER_ID.get();
+//    String userId = AuthInterceptor.USER_ID.get();
+    Random r = new Random();
+    String userId = String.valueOf(r.nextInt((1000 - 1) + 1) + 1);
     log.info("gRPC call getBalance from userId={}", userId);
     Future<User> userAuth = userDA.selectUserById(userId);
     userAuth.setHandler(
@@ -35,9 +36,6 @@ public class GetBalanceHandler {
             User user = userAsyncResult.result();
             GetBalanceResponse getBalanceResponse = buildResponse(user);
             responseObserver.onNext(getBalanceResponse);
-            long endTime = System.nanoTime();
-            long duration = (endTime - startTime);
-            log.info("Time execute a transfer money transaction: " + duration); // for debug
           } else {
             Status status = Status.newBuilder().setCode(Code.INTERNAL).build();
             GetBalanceResponse response = GetBalanceResponse.newBuilder().setStatus(status).build();

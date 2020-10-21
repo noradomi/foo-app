@@ -1,10 +1,10 @@
 #!/bin/bash
 # shellcheck disable=SC2016
 
-JWT="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNjAzMjcyODI1LCJleHAiOjE2MDM0NDc0MjV9.DpNAyuW1R0IqUuLeRcylOY1uaoBIRgCryQfS6DzWhwc"
+JWT="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNjAzMjk4OTg4LCJleHAiOjE2MDM0NzM1ODh9.ILlETmQYxhs2wWO-BdO_YQgVVpfUyqRD3lA_h7aqfzk"
 
 # Transfer money
-#./ghz --insecure \
+# ./ghz --insecure \
 #  --proto fintech/fintech.proto \
 #  --call fintech.FintechService.TransferMoney \
 #  -d '{"confirm_password": "123", "receiver_id": "16dfe0d8-01ed-43c6-af53-85b2cf9040b1","amount": 1000,"description": "Foo"}' \
@@ -25,7 +25,7 @@ JWT="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNjAzMjcyOD
   0.0.0.0:5001
 
 # Get transaction history
-#./ghz --insecure \
+# ./ghz --insecure \
 #  --proto fintech/fintech.proto \
 #  --call fintech.FintechService.GetHistory \
 #  -d '{"page_size": 20, "page_token": 0}' \

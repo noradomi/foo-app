@@ -11,6 +11,7 @@ import vn.zalopay.phucvt.fooapp.model.HistoryItem;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.util.List;
+import java.util.Random;
 
 @Builder
 @Log4j2
@@ -23,7 +24,9 @@ public class GetHistoryHandler {
       GetHistoryRequest request, StreamObserver<GetHistoryResponse> responseObserver) {
     Tracker.TrackerBuilder tracker =
         Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
-    String userId = AuthInterceptor.USER_ID.get();
+//    String userId = AuthInterceptor.USER_ID.get();
+      Random r = new Random();
+      String userId = String.valueOf(r.nextInt((1000 - 1) + 1) + 1);
     int pageSize = request.getPageSize();
     int pageToken = request.getPageToken();
     log.info("gRPC call: getHistory from userId={} with {}-{}", userId, pageSize, pageToken);
@@ -79,6 +82,7 @@ public class GetHistoryHandler {
             listAsyncResult -> {
               GetHistoryResponse response;
               if (listAsyncResult.succeeded()) {
+                  log.info("get history list of user={}, from db", userId);
                 List<HistoryItem> historyList = listAsyncResult.result();
                 if (initCache) fintechCache.setTransactionHistory(historyList, userId);
                 response =
