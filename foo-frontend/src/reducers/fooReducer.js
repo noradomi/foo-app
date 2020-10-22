@@ -163,9 +163,7 @@ function logOut(state) {
 	if (state.webSocket.webSocket !== null) {
 		state.webSocket.webSocket.close();
 	}
-	return Object.assign({}, state, {
-		...initialState
-	});
+	return Object.assign({}, state, initialState);
 }
 
 function setSelectedUser(state, user) {

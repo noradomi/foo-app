@@ -39,6 +39,7 @@ function RegisterForm(props) {
 						/>
 					}
 					placeholder="Tên đăng nhập"
+					maxLength="30"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -60,6 +61,7 @@ function RegisterForm(props) {
 						/>
 					}
 					placeholder="Tên của bạn"
+					maxLength="45"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -81,6 +83,7 @@ function RegisterForm(props) {
 						/>
 					}
 					placeholder="Mật khẩu"
+					maxLength="60"
 				/>
 			</Form.Item>
 			<Form.Item

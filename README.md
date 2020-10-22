@@ -5,28 +5,34 @@
 - [Foo App](#foo-app)
   - [1. Tổng quan](#1-tổng-quan)
   - [2. Hướng dẫn chạy](#2-hướng-dẫn-chạy)
-  - [3. Demo (developing ...)](#3-demo-developing-)
+  - [3. Demo](#3-demo)
+  - [4. Document](#4-document)
   - [4. References](#4-references)
 
 ## 1. Tổng quan
 
 **Foo App** là một training project  thuộc chương trình  ZaloPay Fresher 2020 sử dụng React JS, Vert.x để xây dụng một ứng dựng chat real-time đơn giản bao gồm các chức năng cơ bản:
 
-- Đăng nhâp / Đăng xuất (có sử dụng JWT)
-- Đăng kí tài khoản
-- Xem danh sách tất cả người dùng của hệ thống
-- Chat 1 - 1
-- **Chuyển tiền cho một người trong danh sách user**
-- **Xem số dư hiện tại**
-- **Xem lịch sử giao dịch**
-- **Nhắc nợ cá nhân**
+  - Đăng nhâp / Đăng xuất (có sử dụng JWT)
+  - Đăng kí tài khoản
+  - Xem danh sách tất cả bạn bè trong hệ thống
+  - Chat 1 - 1
+  - Kết bạn
+  
+  Ngoài ra ứng dụng còn có một số chức năng mô phỏng một ví điện tử như: 
+- Chuyển tiền cho một người trong danh sách user
+- Xem số dư hiện tại
+- Xem lịch sử giao dịch
+
 
 Các công nghệ sử dụng:
 
 - `React`, `Redux` cho phía client.
+- `Ant.design` cho thiết kế UI
 - `Java Vert.x` cho việc xây dựng API cho server.
 - `WebSocket` cho việc gửi/nhận tin nhắn real time.
-- `MySQL` làm database chính và `Redis` cho cache.
+- `MySQL` làm database chính và `Redis` cho caching data.
+- `gRPC` cho việc xây dựng các chức năng fintech.
 
 ## 2. Hướng dẫn chạy
 
@@ -38,22 +44,22 @@ docker-compose up --build
 
 - Quá trình chạy lần đầu có thể sẽ tốn nhiều thời gian cho việc build service backend.
 
-- Ứng dụng client sẽ chạy trên port `3000`. Test trên trình duyệt tại `localhost:3000`.
+- Ứng dụng client sẽ chạy trên port `3006`. Test trên trình duyệt tại `localhost:3006`.
 
-## 3. Demo (developing ...)
+## 3. Demo
 
-## 4. References
+![demo](media/demo.gif)
 
-- [Sequence diagrams & Database model](documents/sequence-diagrams.md)
+## 4. Document
 
-- [Database model](documents/database-model.md)
+https://github.com/NoRaDoMi/foo-app/wiki
 
-- [Database DDL script](documents/scripts.sql)
+## 5. Authors
 
-- [gRPC API](documents/grpc-api/fintech.proto)
+- PhucVT - Zaloapy Fresher
 
-- [Mockups](https://balsamiq.cloud/smos4qm/phtej9t)
+## 6.Acknowledgments
 
-- [Redis cache specifications](documents/cache-specifications.md)
-
-- [API & Web-socket Specifications](https://app.swaggerhub.com/apis/NoRaDoMi/Foo_Chat_Application/1.0.0)
+- AnhLD2 - Principal Software Engineer at VNG
+- ThieuVT
+- ToanDA

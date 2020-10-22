@@ -43,7 +43,10 @@ export function isEmptyString(prop) {
 }
 
 export function processUsernameForAvatar(username) {
-	var x1 = username.charAt(0);
-	var x2 = username.charAt(1);
-	return x1 + ' ' + x2;
+	if (username === undefined) return 'P T';
+	else {
+		var x1 = username.charAt(0);
+		var x2 = username.charAt(1);
+		return x1 + ' ' + x2;
+	}
 }

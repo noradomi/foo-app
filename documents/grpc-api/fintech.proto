@@ -5,21 +5,8 @@ package fintech;
 option java_package = "vn.zalopay.phucvt.fooapp.fintech";
 option java_multiple_files = true;
 
-// common
-enum Code {
-  OK = 0;
-  NOT_ENOUGH_MONEY = 1;
-  INVALID_PASSWORD = 2;
-  FAILED_PRECONDITION = 3; // missing jwt
-  INTERNAL = 4;
-  INVALID_INPUT_MONEY = 5;
-}
-
-message Status {
-  Code code = 1;
-  string message = 2;
-  map<string, string> extra = 3;
-}
+import "fintech/code.proto";
+import "fintech/status.proto";
 
 //  get balance
 message GetBalanceRequest {
@@ -39,7 +26,7 @@ message GetBalanceResponse {
 //  transfer money
 message TransferMoneyRequest {
   string confirm_password = 1;
-  string receiver = 2;
+  string receiver_id = 2;
   int64 amount = 3;
   string description = 4;
 }
@@ -47,6 +34,8 @@ message TransferMoneyRequest {
 message TransferMoneyResponse {
   message Data {
     int64 balance = 1;
+    int64 last_updated = 2;
+    TransactionHistory transaction = 3;
   }
 
   Data data = 1;
@@ -81,112 +70,10 @@ message GetHistoryResponse {
   Status status = 2;
 }
 
-// get notifications
-message GetNotificationsRequest {
-}
-
-message Notification {
-  string user_id = 1;
-  int64 amount = 2;
-  string message = 3;
-  string recorded_time = 4;
-  enum NotificationType {
-    REMINDED = 0;
-    RECEIVED = 1;
-  }
-  NotificationType notification_type = 5;
-}
-
-message GetNotificationsResponse {
-  message Data {
-    repeated Notification items = 1;
-    int32 next_page_token = 2;
-  }
-
-  Data data = 1;
-  Status status = 2;
-}
-
-message UserInfo {
-  string user_id = 1;
-  string name = 2;
-  int32 unread_messages = 3;
-  string last_message = 4;
-  bool is_online = 5;
-}
-
-message AddFriendRequest{
-  string user_id = 1;
-}
-
-message AddFriendResponse {
-  message Data {
-    UserInfo user = 1;
-  }
-
-  Data data = 1;
-  Status status = 2;
-}
-
-message GetStrangerListRequest {
-}
-
-message GetStrangerListResponse {
-  message Data {
-    repeated UserInfo items = 1;
-  }
-  Data data = 1;
-  Status status = 2;
-}
-
-message ResetUnseenRequest {
-  string user_id = 1;
-}
-
-message ResetUnseenResponse {
-  Status status = 1;
-}
-
-message GetUserInfoRequest {
-  string user_id = 1;
-}
-
-message GetUserInfoResponse {
-  message Data {
-    UserInfo user = 1;
-  }
-  Data data = 1;
-  Status status = 2;
-}
-
-message GetFriendListRequest {
-}
-
-message GetFriendListResponse {
-  message Data {
-    repeated UserInfo items = 1;
-  }
-  Data data = 1;
-  Status status = 2;
-}
-
-
 service FintechService {
   rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {};
 
   rpc TransferMoney(TransferMoneyRequest) returns (TransferMoneyResponse) {};
 
   rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse) {};
-
-  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {};
-
-  rpc GetStrangerList(GetStrangerListRequest) returns (GetStrangerListResponse) {};
-
-  rpc AddFriend(AddFriendRequest) returns (AddFriendResponse) {};
-
-  rpc ResetUnseen (ResetUnseenRequest) returns (ResetUnseenResponse) {};
-
-  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {};
-
-  rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse) {};
 }

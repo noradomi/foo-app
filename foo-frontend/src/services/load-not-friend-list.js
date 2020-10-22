@@ -12,7 +12,6 @@ export function getNotFriendList() {
 				let result = [];
 				items.forEach((item) => {
 					if (userMapHolder.userMap.get(item.userId) === undefined) {
-						console.log(item.name);
 						var userItem = {
 							userId: item.userId,
 							name: item.name,

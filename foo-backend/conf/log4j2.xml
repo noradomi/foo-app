@@ -8,17 +8,17 @@
 
         <!-- Generate rolling log for router with per hour interval policy -->
         <!--immediateFlush=true for debugging, set to false when go to production-->
-<!--        <RollingRandomAccessFile name="ProcessorRollingFile"-->
-<!--                                 fileName="logs/bootstrap.log"-->
-<!--                                 filePattern="logs/bootstrap-%d{MM-dd-yyyy}-%i.log.gz"-->
-<!--                                 immediateFlush="true">-->
-<!--            <PatternLayout>-->
-<!--                <pattern>%d %-5level %logger %msg%n</pattern>-->
-<!--            </PatternLayout>-->
-<!--            <Policies>-->
-<!--                <SizeBasedTriggeringPolicy size="250 MB"/>-->
-<!--            </Policies>-->
-<!--        </RollingRandomAccessFile>-->
+        <!--        <RollingRandomAccessFile name="ProcessorRollingFile"-->
+        <!--                                 fileName="logs/bootstrap.log"-->
+        <!--                                 filePattern="logs/bootstrap-%d{MM-dd-yyyy}-%i.log.gz"-->
+        <!--                                 immediateFlush="true">-->
+        <!--            <PatternLayout>-->
+        <!--                <pattern>%d %-5level %logger %msg%n</pattern>-->
+        <!--            </PatternLayout>-->
+        <!--            <Policies>-->
+        <!--                <SizeBasedTriggeringPolicy size="250 MB"/>-->
+        <!--            </Policies>-->
+        <!--        </RollingRandomAccessFile>-->
     </Appenders>
 
     <Loggers>

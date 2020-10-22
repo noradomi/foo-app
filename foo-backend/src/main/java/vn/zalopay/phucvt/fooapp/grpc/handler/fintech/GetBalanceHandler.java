@@ -13,8 +13,6 @@ import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.model.User;
 import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
-import java.util.Random;
-
 @Builder
 @Log4j2
 public class GetBalanceHandler {
@@ -25,9 +23,7 @@ public class GetBalanceHandler {
       GetBalanceRequest request, StreamObserver<GetBalanceResponse> responseObserver) {
     Tracker.TrackerBuilder tracker =
         Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
-//    String userId = AuthInterceptor.USER_ID.get();
-    Random r = new Random();
-    String userId = String.valueOf(r.nextInt((1000 - 1) + 1) + 1);
+    String userId = AuthInterceptor.USER_ID.get();
     log.info("gRPC call getBalance from userId={}", userId);
     Future<User> userAuth = userDA.selectUserById(userId);
     userAuth.setHandler(

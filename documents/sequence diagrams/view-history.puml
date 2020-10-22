@@ -1,8 +1,19 @@
 @startuml view-history
 hide footbox
 actor "User"
-"User" -> "Server": getHistory (userId, pageSize, pageToken)
-"Server" -> "MySQL": get userId's history  by page
-"MySQL" -> "Server": return history of user
-"Server" -> "User": return history and nextPageToken
+control "Server"
+database "MySQL"
+database "Redis"
+"User" -> "Server": API GetTransferHistory
+"Server" -> "Redis": get user's transfer history
+"Redis" --> "Server": ack
+alt cache hit 
+"Server" --> "User": return user's transfer history and nextPageToken
+else cache miss
+"Server" -> "MySQL": get user's transfer history by page
+"MySQL" --> "Server": return history of user
+"Server" -> "Redis": cache user's transfer history
+"Redis" --> "Server": ack
+"Server" --> "User": return user's transfer history and nextPageToken
+end
 @enduml

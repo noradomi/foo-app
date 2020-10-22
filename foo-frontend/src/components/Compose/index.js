@@ -1,4 +1,4 @@
-import { DollarOutlined, SendOutlined } from '@ant-design/icons';
+import { DollarCircleOutlined, SendOutlined } from '@ant-design/icons';
 import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -53,10 +53,10 @@ function Compose(props) {
 			/>
 			<Tooltip placement="topLeft" title={'Chuyển tiền'}>
 				<Button
-					className="compose-button"
+					className="compose-button-transfer"
 					type="primary"
 					shape="circle"
-					icon={<DollarOutlined />}
+					icon={<DollarCircleOutlined />}
 					size={'large'}
 					onClick={() => {
 						setVisible(true);
@@ -65,13 +65,14 @@ function Compose(props) {
 			</Tooltip>
 			<Tooltip placement="topLeft" title={'Gửi'}>
 				<Button
-					className="compose-button"
+					className="compose-button-send"
 					type="primary"
 					shape="circle"
-					icon={<SendOutlined />}
 					size={'large'}
 					onClick={handleClickSend}
-				/>
+				>
+					<SendOutlined />
+				</Button>
 			</Tooltip>
 			<TransferMoneyModal
 				userInfo={null}

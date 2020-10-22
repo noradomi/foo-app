@@ -72,7 +72,7 @@ public class FintechCacheImpl implements FintechCache {
             future.fail(e);
           }
         });
-        tracker.step("append-transaction-history").build().record();
+    tracker.step("append-transaction-history").build().record();
     return future;
   }
 

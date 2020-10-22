@@ -63,4 +63,4 @@
 
 ## 2. Database Model
 
-![database-fintech](../media/database-fintech.png)
+![database-fintech](../media/database-model.png)

@@ -2,7 +2,8 @@
 
 ## 1. Transfer money (Random ngẫu nhiên sender và receiver trong 1000 user)
 
-- 500 requests
+### a. Các giao dịch đều đủ số dư
+- 500 requests 
 
 ```
 Summary:
@@ -70,6 +71,157 @@ Latency distribution:
   90 % in 48.84 ms 
   95 % in 53.74 ms 
   99 % in 66.89 ms 
+
+Status code distribution:
+  [OK]   1000 responses
+```
+
+### b. 500 users ngẫu nhiên 0 đ / 1000 users
+
+- 500 request
+  
+```
+Summary:
+  Count:        500
+  Total:        850.14 ms
+  Slowest:      75.05 ms
+  Fastest:      5.94 ms
+  Average:      31.57 ms
+  Requests/sec: 588.14
+
+Response time histogram:
+  5.941 [1]     |
+  12.852 [14]   |∎∎∎∎∎
+  19.763 [71]   |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  26.673 [101]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  33.584 [101]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  40.495 [104]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  47.406 [56]   |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  54.317 [37]   |∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  61.227 [9]    |∎∎∎
+  68.138 [3]    |∎
+  75.049 [3]    |∎
+
+Latency distribution:
+  10 % in 17.46 ms 
+  25 % in 22.11 ms 
+  50 % in 30.98 ms 
+  75 % in 38.91 ms 
+  90 % in 47.51 ms 
+  95 % in 51.98 ms 
+  99 % in 61.87 ms 
+
+Status code distribution:
+  [OK]   500 responses
+```
+- 1000 request
+
+```
+Summary:
+  Count:        1000
+  Total:        1.63 s
+  Slowest:      89.28 ms
+  Fastest:      5.45 ms
+  Average:      31.32 ms
+  Requests/sec: 614.72
+
+Response time histogram:
+  5.447 [1]     |
+  13.830 [43]   |∎∎∎∎∎∎∎
+  22.214 [201]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  30.597 [262]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  38.981 [242]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  47.364 [163]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  55.748 [55]   |∎∎∎∎∎∎∎∎
+  64.131 [24]   |∎∎∎∎
+  72.514 [5]    |∎
+  80.898 [3]    |
+  89.281 [1]    |
+
+Latency distribution:
+  10 % in 16.78 ms 
+  25 % in 22.29 ms 
+  50 % in 30.29 ms 
+  75 % in 39.01 ms 
+  90 % in 46.25 ms 
+  95 % in 52.16 ms 
+  99 % in 62.76 ms 
+
+Status code distribution:
+  [OK]   1000 responses
+```
+
+### c. 1000 users đều có balance = 0
+
+- 500 request
+
+```
+Summary:
+  Count:        500
+  Total:        441.93 ms
+  Slowest:      44.89 ms
+  Fastest:      4.98 ms
+  Average:      16.61 ms
+  Requests/sec: 1131.41
+
+Response time histogram:
+  4.975 [1]     |
+  8.967 [28]    |∎∎∎∎∎∎∎
+  12.959 [120]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  16.951 [154]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  20.943 [99]   |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  24.935 [48]   |∎∎∎∎∎∎∎∎∎∎∎∎
+  28.927 [24]   |∎∎∎∎∎∎
+  32.918 [12]   |∎∎∎
+  36.910 [12]   |∎∎∎
+  40.902 [1]    |
+  44.894 [1]    |
+
+Latency distribution:
+  10 % in 9.93 ms 
+  25 % in 12.19 ms 
+  50 % in 15.30 ms 
+  75 % in 19.39 ms 
+  90 % in 24.63 ms 
+  95 % in 29.21 ms 
+  99 % in 36.30 ms 
+
+Status code distribution:
+  [OK]   500 responses
+```
+
+- 1000 request
+
+```
+Summary:
+  Count:        1000
+  Total:        894.91 ms
+  Slowest:      42.72 ms
+  Fastest:      4.22 ms
+  Average:      16.89 ms
+  Requests/sec: 1117.43
+
+Response time histogram:
+  4.220 [1]     |
+  8.070 [36]    |∎∎∎∎∎
+  11.919 [164]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  15.769 [298]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  19.618 [225]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  23.468 [124]  |∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎∎
+  27.318 [74]   |∎∎∎∎∎∎∎∎∎∎
+  31.167 [57]   |∎∎∎∎∎∎∎∎
+  35.017 [13]   |∎∎
+  38.866 [6]    |∎
+  42.716 [2]    |
+
+Latency distribution:
+  10 % in 9.98 ms 
+  25 % in 12.58 ms 
+  50 % in 15.79 ms 
+  75 % in 20.23 ms 
+  90 % in 25.50 ms 
+  95 % in 29.00 ms 
+  99 % in 33.56 ms 
 
 Status code distribution:
   [OK]   1000 responses
@@ -145,7 +297,7 @@ Latency distribution:
   75 % in 3.05 ms 
   90 % in 3.87 ms 
   95 % in 4.95 ms 
-  99 % in 7.82 ms 
+  99 % in 7.82 ms   
 
 Status code distribution:
   [OK]   2000 responses

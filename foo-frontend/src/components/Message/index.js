@@ -38,11 +38,12 @@ export default function Message(props) {
 							}
 							title={
 								<div className="transfer-message-amount">
-									{isMine ? 'Chuyển' : 'Nhận'}{' '}
+									{isMine ? 'Chuyển' : 'Đã chuyển'}{' '}
 									{`${data.message}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} VND
 								</div>
 							}
 						/>
+						<div>Chuyển tiền</div>
 					</Card>
 				) : (
 					<div className="bubble" title={friendlyTimestamp}>

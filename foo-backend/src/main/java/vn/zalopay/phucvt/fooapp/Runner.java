@@ -37,22 +37,6 @@ public class Runner {
       WebSocketServer webSocketServer = component.getWebSocketServer();
       gRPCServer gRPCServer = component.getGRPCServer();
 
-      //      PrometheusMeterRegistry registry =
-      //          (PrometheusMeterRegistry) BackendRegistries.getDefaultNow();
-      //      registry
-      //          .config()
-      //          .meterFilter(
-      //              new MeterFilter() {
-      //                @Override
-      //                public DistributionStatisticConfig configure(
-      //                    Meter.Id id, DistributionStatisticConfig config) {
-      //                  return DistributionStatisticConfig.builder()
-      //                      .percentilesHistogram(true)
-      //                      .build()
-      //                      .merge(config);
-      //                }
-      //              });
-
       component
           .getVertx()
           .deployVerticle(

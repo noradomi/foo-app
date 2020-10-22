@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { getNotFriendList } from '../../services/load-not-friend-list';
 import AddFriendListItem from '../AddFriendListItem';
 import './AddFriendList.css';
+import { Empty } from 'antd';
 
 function AddFriendList(props) {
 	// Init user list
 	useEffect(() => {
-		console.log('Get not friend list');
 		getNotFriendList();
 	}, []);
 
@@ -27,7 +27,7 @@ function AddFriendList(props) {
 				{conversations.length > 0 ? (
 					conversations.map((conversation) => <AddFriendListItem key={conversation.id} data={conversation} />)
 				) : (
-					''
+					<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Rỗng" />
 				)}
 			</div>
 		</div>
