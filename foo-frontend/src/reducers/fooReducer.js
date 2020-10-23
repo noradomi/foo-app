@@ -160,10 +160,50 @@ function loginSucceeded(state, data) {
 }
 
 function logOut(state) {
+	console.log('Log out');
 	if (state.webSocket.webSocket !== null) {
 		state.webSocket.webSocket.close();
 	}
-	return Object.assign({}, state, initialState);
+
+	return Object.assign({}, state, {
+		activeTabKey: '1',
+		unseenChat: new Set(),
+		unseenTransfer: (sessionStorage.getItem('unseenTransfer') || false) === 'true',
+		user: {
+			jwt: null,
+			userId: null,
+			name: null
+		},
+		wallet: {
+			balance: 0,
+			lastUpdated: 0
+		},
+		transactionHistory: [],
+		userList: [],
+		friendList: [],
+		selectedUser: {
+			id: null,
+			name: null,
+			avatar: null
+		},
+		userMapHolder: {
+			userMap: new Map()
+		},
+		webSocket: {
+			webSocket: null,
+			send: null
+		},
+		chatMessagesHolder: {
+			chatMessages: new Map()
+		},
+		scrollFlag: true,
+		currentStep: null,
+		stepFormData: {
+			amount: null,
+			description: null
+		},
+		transferCodeResponse: null
+	});
 }
 
 function setSelectedUser(state, user) {

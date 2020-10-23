@@ -90,16 +90,6 @@
   color: #ffffff;
 }
 
-/* .transfer-message {
-  background-color: rgb(0, 178, 85);
-  padding: 10px 15px;
-  display: flex;
-  border-radius: 18px;
-  color: #ffffff;
-  align-items: center;
-  justify-content: center;
-} */
-
 .transfer-message-icon {
   font-size: 30px;
   color: rgb(0, 178, 85);
@@ -125,7 +115,8 @@
 }
 
 .message.transfer .bubble-container .ant-card {
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
+  /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17); */
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
   max-width: 75%;
   margin-bottom: 7px;
 }

@@ -10,9 +10,9 @@ mySQLConfig:
   password: "1234"
 cacheConfig:
   maxMessagesSize: 20
-  expireMessages: 10
+  expireMessages: 30
   expireUserList: 10
-  expireTransactionHistory: 10
+  expireTransactionHistory: 30
 jwtConfig:
   expireToken: 174600
   publicKey: "dragon"

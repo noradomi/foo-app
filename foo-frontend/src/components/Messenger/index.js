@@ -1,7 +1,7 @@
 import { LogoutOutlined } from '@ant-design/icons';
 import { GridContent } from '@ant-design/pro-layout';
 import { Col, Layout, Menu, Row, Tooltip } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setActiveTabKeyAction, setHavingUnseenTransferAction } from '../../actions/fooAction';
@@ -21,19 +21,25 @@ const { Sider, Content } = Layout;
 
 function Messenger(props) {
   const activeTabKey = useSelector((state) => state.activeTabKey);
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch();
   const history = useHistory();
+  let avatar = processUsernameForAvatar(user.name);
+
+  useEffect(() => {
+    let isMounted = true; // note this flag denote mount status
+    if (isMounted) avatar = processUsernameForAvatar(user.name);
+    return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
+  });
 
 	const handleSideBarChange = (e) => {
     if(e.key === '3') {
       hanldeLogout().then(() => {
-        console.log("Dang xuat");
         history.push('/login')});
     } else{
       dispatch(setActiveTabKeyAction(e.key));
       if (e.key === '2') dispatch(setHavingUnseenTransferAction(false));
     }
-		
   };
 
 	return (
@@ -48,7 +54,7 @@ function Messenger(props) {
 					id="main-side-menu"
 				>
           <div className="tab-avatar">
-          <CustomAvatar type="panel-avatar" avatar={processUsernameForAvatar(props.user.name)  || ''} />
+           <CustomAvatar type="panel-avatar" avatar={ avatar || ''} />
           </div>
 					
 					<div className="menu-separation" />
@@ -120,10 +126,4 @@ function Messenger(props) {
 	);
 }
 
-let mapStateToProps = (state) => {
-	return {
-		user: state.user
-	};
-};
-
-export default connect(mapStateToProps, null)(Messenger);
+export default Messenger;

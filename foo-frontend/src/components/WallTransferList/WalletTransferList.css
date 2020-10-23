@@ -23,12 +23,14 @@
 }
 
 .wallet-list-title {
-  background: linear-gradient(60deg, #ffa726, #fb8c00);
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(255, 152, 0, .4);
+  background: linear-gradient(60deg, #26c6da, #00acc1);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(0, 172, 193, .4);
+
   padding: 15px;
   margin-top: -40px;
   border-radius: 3px;
   color: #eff2f7;
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  font-weight: 550;
 }

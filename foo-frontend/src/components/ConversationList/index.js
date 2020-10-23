@@ -31,7 +31,7 @@ function ConversationList(props) {
 
 	return (
 		<div className="conversation-list">
-			<div className="profile">FooApp - Chào {props.user.name} !</div>
+			<div className="profile">FooApp - {props.user.name} !</div>
 			<AddFriendModal />
 			<div className="conversation-list-scroll">
 				<Divider className="user-list-title" orientation="left" plain style={{ color: '#e5e5e5' }}>

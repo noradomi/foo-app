@@ -4,14 +4,15 @@
   flex-shrink: 0;
   display: flex;
   padding: 13px !important;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid #eeeef1;
 }
 
 .chat-header .panel-message {
-  font-size: 16px !important;
-  padding: 4px;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #222;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   margin-left: 10px;
-  color: #495057;
-  font-family: "Public Sans", sans-serif;
-  font-weight: 600;
+  font-weight: 550;
 }

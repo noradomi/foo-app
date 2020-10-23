@@ -5,7 +5,6 @@ export function resetUnseen(userId) {
 		grpcApi.resetUnseen(userId, (err, response) => {
 			if (err) reject(err);
 			else {
-				console.log('Reset unseen response: ' + response.getStatus().getCode());
 				resolve();
 			}
 		});
