@@ -46,11 +46,13 @@ public class WSHandler {
   }
 
   public void handle(Buffer buffer, String userId) {
+
     WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
     message.setSenderId(userId);
     message.setCreateTime(Instant.now().getEpochSecond());
     message.setId(GenerationUtils.generateId());
     message.setMessageType(0);
+    log.info("handle send message (userId={}, receiverId={})", userId, message.getReceiverId());
     chatDA
         .insert(message)
         .setHandler(
@@ -70,7 +72,6 @@ public class WSHandler {
             asyncResult -> {
               if (asyncResult.succeeded()) {
                 String receiverId = message.getReceiverId();
-                //                update last messages between 2 user
                 userDA.updateLastMessage("Bạn: " + message.getMessage(), userId, receiverId, null);
                 userDA.updateLastMessage(message.getMessage(), receiverId, userId, null);
                 userDA.increaseUnseenMessages(receiverId, userId);

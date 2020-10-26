@@ -1,17 +1,18 @@
+import { Empty } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { loadMessageListAction } from '../../actions/fooAction';
 import { getMessageList } from '../../services/chat-single';
-import { getUserIdFromStorage } from '../../utils/utils';
+import { processUsernameForAvatar } from '../../utils/utils';
 import ChatHeader from '../ChatHeader';
 import Compose from '../Compose';
 import Message from '../Message';
 import './MessageList.css';
-import { Empty } from 'antd';
 
 function MessageList(props) {
-	let senderId = getUserIdFromStorage();
+	let senderId = props.sender.userId;
+	let receiverId = props.selectedUser.id;
 
 	// Check if userMap is loaded
 	if (
@@ -26,11 +27,32 @@ function MessageList(props) {
 		);
 	}
 
-	let receiverId = props.selectedUser.id;
+	// Hook refs
+	let endOfMsgList = useRef(null);
+	let msgList = useRef(null);
+
+	// Init current message fetch from api.
+	useEffect(
+		() => {
+			if (messagesState.length === 0) {
+				getMessageList(receiverId, 0).then((data) => {
+					props.updateMsgListOnStore(data, receiverId);
+					endOfMsgList.current.scrollIntoView({ behavior: 'smooth' });
+				});
+			}
+		},
+		[ receiverId ]
+	);
+
+	useEffect(
+		() => {
+			endOfMsgList.current.scrollIntoView({ behavior: 'smooth' });
+		},
+		[ props.scrollFlag, receiverId ]
+	);
+
 	let receiver = props.userMapHolder.userMap.get(receiverId);
-
 	let messagesState = props.chatMessagesHolder.chatMessages.get(receiverId);
-
 	let messages = [];
 
 	messages = messagesState.map((item) => {
@@ -39,7 +61,8 @@ function MessageList(props) {
 			message: item.message,
 			author: item.senderId,
 			timestamp: item.createTime * 1000,
-			messageType: item.messageType
+			messageType: item.messageType,
+			avatar: item.senderId === senderId ? processUsernameForAvatar(props.sender.name) : receiver.avatar
 		};
 	});
 
@@ -103,34 +126,11 @@ function MessageList(props) {
 		return tempMessages;
 	};
 
-	let endOfMsgList = useRef(null);
-	let msgList = useRef(null);
-
-	// Init current message fetch from api.
-	useEffect(
-		() => {
-			if (messagesState.length === 0) {
-				getMessageList(receiverId, 0).then((data) => {
-					props.updateMsgListOnStore(data, receiverId);
-					endOfMsgList.current.scrollIntoView({ behavior: 'smooth' });
-				});
-			}
-		},
-		[ receiverId ]
-	);
-
-	useEffect(
-		() => {
-			endOfMsgList.current.scrollIntoView({ behavior: 'smooth' });
-		},
-		[ props.scrollFlag, props.selectedUser.id ]
-	);
-
 	// Load more message
-	let msgScrollHandle = (event) => {
+	const msgScrollHandle = (event) => {
 		let msgList = event.target;
 		let offset = msgList.scrollTop;
-		if (offset === 0) {
+		if (offset === 0 && messagesState.length > 0) {
 			getMessageList(receiverId, messagesState.length).then((data) => {
 				let oldHeight = msgList.scrollHeight;
 				props.updateMsgListOnStore(data, receiverId);
@@ -164,7 +164,8 @@ let mapStateToProps = (state) => {
 		chatMessagesHolder: state.chatMessagesHolder,
 		webSocket: state.webSocket,
 		scrollFlag: state.scrollFlag,
-		selectedUser: state.selectedUser
+		selectedUser: state.selectedUser,
+		sender: state.user
 	};
 };
 

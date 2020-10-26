@@ -80,8 +80,13 @@ export function initialWebSocket() {
 					const transacion = data.transaction_;
 					const newBalance = data.balance_;
 					const lastUpdated = data.lastUpdated_;
+					const userMap = store.getState().userMapHolder.userMap;
+					let userName = 'PT';
+					if (userMap.has(transacion.userId_)) {
+						userName = userMap.get(transacion.userId_).userName;
+					}
 					const item = {
-						userId: transacion.userId_,
+						userName: userName,
 						description: transacion.description_,
 						amount: transacion.amount_,
 						recordedTime: lastUpdated,
@@ -124,6 +129,5 @@ export function initialWebSocket() {
 		onclose: (e) => console.log('Closed!', e),
 		onerror: (e) => console.log('Error:', e)
 	});
-	//ws.close(); // graceful shutdown
 	return webSocket;
 }

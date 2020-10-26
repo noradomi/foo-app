@@ -21,6 +21,10 @@ public class HandlerFactory {
         .route("/api/protected/messages/:friendId/:offset")
         .method(HttpMethod.GET)
         .handler(messageListHandler::handle);
+    router
+        .route("/api/protected/users/:offset")
+        .method(HttpMethod.GET)
+        .handler(userListHanlder::handle);
 
     ImmutableMap<String, BaseHandler> getHandler =
         ImmutableMap.<String, BaseHandler>builder().put(APIPath.USER_LIST, userListHanlder).build();

@@ -2,20 +2,21 @@ import { LogoutOutlined } from '@ant-design/icons';
 import { GridContent } from '@ant-design/pro-layout';
 import { Col, Layout, Menu, Row, Tooltip } from 'antd';
 import React, { useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { setActiveTabKeyAction, setHavingUnseenTransferAction } from '../../actions/fooAction';
-import { hanldeLogout } from '../../services/logout';
+import { logOutAction, setActiveTabKeyAction, setHavingUnseenTransferAction } from '../../actions/fooAction';
+import { wsConnect } from '../../services/chat-single';
+import { closeWebSocket, hanldeLogout } from '../../services/logout';
+import { clearStorage, processUsernameForAvatar } from '../../utils/utils';
 import ChatTab from '../ChatTab';
 import ConversationList from '../ConversationList';
-import CustomAvatar from '../CustomAvatar';
 import MessageList from '../MessageList';
 import TransactionHistory from '../TransactionHistory';
 import UserWallet from '../UserWallet';
 import WalletTab from '../WalletTab';
 import WallTransferList from '../WallTransferList';
 import './Messenger.css';
-import { processUsernameForAvatar } from '../../utils/utils';
+import CustomAvatar from '../CustomAvatar';
 
 const { Sider, Content } = Layout;
 
@@ -27,14 +28,15 @@ function Messenger(props) {
   let avatar = processUsernameForAvatar(user.name);
 
   useEffect(() => {
-    let isMounted = true; // note this flag denote mount status
-    if (isMounted) avatar = processUsernameForAvatar(user.name);
-    return () => { isMounted = false }; // use effect cleanup to set flag false, if unmounted
-  });
+    wsConnect();
+  }, [])
 
 	const handleSideBarChange = (e) => {
     if(e.key === '3') {
       hanldeLogout().then(() => {
+        clearStorage();
+        closeWebSocket();
+        dispatch(logOutAction());
         history.push('/login')});
     } else{
       dispatch(setActiveTabKeyAction(e.key));
@@ -46,7 +48,7 @@ function Messenger(props) {
 		<div style={{ height: 100 + 'vh' }}>
 			<Layout style={{ height: 100 + 'vh' }}>
 				<Sider
-					breakpoint="lg"
+					breakpoint="md"
 					collapsedWidth="0"
 					onBreakpoint={(broken) => {}}
 					onCollapse={(collapsed, type) => {}}
@@ -108,7 +110,7 @@ function Messenger(props) {
 				) : (
           <>
 					<Sider
-						breakpoint="lg"
+						breakpoint="md"
 						collapsedWidth="0"
 						theme="light"
 						onBreakpoint={(broken) => {}}

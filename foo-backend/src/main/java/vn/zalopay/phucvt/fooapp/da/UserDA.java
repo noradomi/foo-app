@@ -17,7 +17,7 @@ public interface UserDA {
 
   Future<User> selectUserByFullName(String name);
 
-  Future<List<User>> selectListUser();
+  Future<List<User>> selectListUser(String userId, int offset);
 
   Future<Void> addFriend(Friend friend);
 

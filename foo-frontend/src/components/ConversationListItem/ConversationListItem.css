@@ -3,9 +3,7 @@
   align-items: center;
   padding: 10px;
   position: relative;
-  /* border-radius: 10px; */
-  margin: 3px 0;
-
+  margin: 3px 0px 0 0;
 }
 
 .conversation-list-item:hover {

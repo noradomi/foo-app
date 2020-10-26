@@ -1,12 +1,11 @@
 .conversation-list {
   display: flex;
   flex-direction: column;
-  /* background-color: rgb(245, 247, 251); */
   background-color: white;
 }
 
 .conversation-list-scroll {
-  height: calc(100vh - 140px);
+  height: calc(100vh - 200px);
   overflow-y: auto;
 }
 
@@ -20,7 +19,7 @@
 }
 
 .user-list-title {
-  font-size: 15px;
+
   font-weight: 500;
   padding-left: 10px;
   margin: 20px 0 10px 10px;

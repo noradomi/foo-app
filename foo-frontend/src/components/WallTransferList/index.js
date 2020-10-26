@@ -1,10 +1,11 @@
 import { ProfileFilled } from '@ant-design/icons';
-import { Card } from 'antd';
+import { Card, Empty } from 'antd';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getFriendList } from '../../services/load-friend-list';
 import WalletTransferListItem from '../WalletTransferListItem';
 import './WalletTransferList.css';
+import Scrollbars from 'react-custom-scrollbars';
 
 function WalletTransferList(props) {
 	useEffect(() => {
@@ -26,13 +27,15 @@ function WalletTransferList(props) {
 				<ProfileFilled /> Danh sách chuyển tiền
 			</div>
 			<div className="wallet-list-scroll">
-				{conversations.length > 0 ? (
-					conversations.map((conversation) => (
-						<WalletTransferListItem key={conversation.id} data={conversation} />
-					))
-				) : (
-					''
-				)}
+				<Scrollbars autoHide autoHideTimeout={500} autoHideDuration={200} className="custom-scrollbars">
+					{conversations.length > 0 ? (
+						conversations.map((conversation) => (
+							<WalletTransferListItem key={conversation.id} data={conversation} />
+						))
+					) : (
+						<Empty description="Rỗng" />
+					)}
+				</Scrollbars>
 			</div>
 		</Card>
 	);

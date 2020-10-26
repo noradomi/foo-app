@@ -28,3 +28,7 @@
   box-shadow: 0 8px 24px rgba(21, 48, 142, 0.14);
   border-radius: 2px;
 }
+
+.portal-content .ant-tabs-nav {
+  margin-bottom: 30px;
+}

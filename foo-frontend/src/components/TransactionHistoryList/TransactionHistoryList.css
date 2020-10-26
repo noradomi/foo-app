@@ -81,3 +81,12 @@
 .ant-collapse {
   background-color: #ffffff;
 }
+
+.custom-scrollbars .track {
+  opacity: 0;
+  transition: opacity 200ms ease
+}
+
+.custom-scrollbars:hover .track {
+  opacity: 1
+}

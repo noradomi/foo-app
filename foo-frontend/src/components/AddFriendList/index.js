@@ -1,14 +1,22 @@
-import React, { useEffect } from 'react';
+import { Empty } from 'antd';
+import React, { useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import { connect } from 'react-redux';
 import { getNotFriendList } from '../../services/load-not-friend-list';
 import AddFriendListItem from '../AddFriendListItem';
 import './AddFriendList.css';
-import { Empty } from 'antd';
+import Scrollbars from 'react-custom-scrollbars';
 
 function AddFriendList(props) {
+	const [ hasMore, setHasMore ] = useState(true);
+
 	// Init user list
 	useEffect(() => {
-		getNotFriendList();
+		getNotFriendList(0).then((dataSize) => {
+			if (dataSize === 0) {
+				setHasMore(false);
+			}
+		});
 	}, []);
 
 	const conversations = props.userList.map((res) => {
@@ -20,15 +28,37 @@ function AddFriendList(props) {
 		};
 	});
 
+	const handleInfiniteOnLoad = () => {
+		getNotFriendList(conversations.length).then((dataSize) => {
+			if (dataSize === 0) {
+				setHasMore(false);
+			}
+		});
+	};
+
 	return (
 		<div className="addfriend-list">
 			<div className="addfriend-user-list-title">Danh sách kết bạn ({conversations.length})</div>
 			<div className="addfriend-list-scroll">
-				{conversations.length > 0 ? (
-					conversations.map((conversation) => <AddFriendListItem key={conversation.id} data={conversation} />)
-				) : (
-					<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Rỗng" />
-				)}
+				<Scrollbars>
+					{conversations.length > 0 ? (
+						<InfiniteScroll
+							initialLoad={false}
+							pageStart={0}
+							loadMore={() => {
+								handleInfiniteOnLoad();
+							}}
+							hasMore={hasMore}
+							useWindow={false}
+						>
+							{conversations.map((conversation) => (
+								<AddFriendListItem key={conversation.id} data={conversation} />
+							))}
+						</InfiniteScroll>
+					) : (
+						<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Rỗng" />
+					)}
+				</Scrollbars>
 			</div>
 		</div>
 	);

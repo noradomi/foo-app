@@ -1,6 +1,4 @@
-import { logOutAction } from '../actions/fooAction';
 import store from '../store/fooStore';
-import { clearStorage } from '../utils/utils';
 import { api } from './api';
 
 export function hanldeLogout() {
@@ -8,12 +6,16 @@ export function hanldeLogout() {
 		api
 			.authPost('/api/protected/logout', null)
 			.then((response) => {
-				store.dispatch(logOutAction());
-				clearStorage();
 				resolve();
 			})
 			.catch((reason) => {
 				reject('Log out failed');
 			});
 	});
+}
+
+export function closeWebSocket() {
+	if (store.getState().webSocket.webSocket !== null) {
+		store.getState().webSocket.webSocket.close();
+	}
 }

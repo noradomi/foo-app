@@ -27,7 +27,12 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
 
   private static final String SELECT_USER_BY_FULLNAME = "SELECT * FROM users WHERE name = ?";
 
-  private static final String SELECT_USER_LIST = "SELECT * FROM users";
+  private static final String SELECT_USER_LIST = "SELECT * FROM users LIMIT ?, ?";
+
+  private static final String SELECT_NOT_FRIEND_LIST =
+      "SELECT u.* FROM users u WHERE NOT EXISTS \n"
+          + "(SELECT 1 FROM friends WHERE user_id = ? AND friend_id = u.id) \n"
+          + "AND u.id != ? LIMIT ?, ?";
 
   private static final String ADD_FRIEND =
       "insert into friends (`id`,`user_id`,`friend_id`, `unread_messages`,`last_message`) values (?,?,?,?,?)";
@@ -290,15 +295,15 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   }
 
   @Override
-  public Future<List<User>> selectListUser() {
+  public Future<List<User>> selectListUser(String userId, int offset) {
     Future<List<User>> future = Future.future();
     asyncHandler.run(
         () -> {
-          Object[] params = {};
+          Object[] params = {userId, userId, offset, 20};
           queryEntity(
               "queryListUser",
               future,
-              SELECT_USER_LIST,
+              SELECT_NOT_FRIEND_LIST,
               params,
               this::mapRs2EntityListUser,
               dataSource::getConnection,
