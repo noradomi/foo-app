@@ -37,7 +37,7 @@ Các công nghệ sử dụng:
 
 ## 2. Demo
 
-![demo](media/demo.gif)
+![demo](media/demo-fooapp.gif)
 
 ## 3.Yêu cầu
 
