@@ -9,6 +9,7 @@ import vn.zalopay.phucvt.fooapp.fintech.*;
 import vn.zalopay.phucvt.fooapp.grpc.AuthInterceptor;
 import vn.zalopay.phucvt.fooapp.handler.WSHandler;
 import vn.zalopay.phucvt.fooapp.model.UserFriendItem;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,19 +18,24 @@ import java.util.Set;
 @Builder
 @Log4j2
 public class GetFriendListHandler {
+  private static final String METRIC = "GetFriendListHandler";
   private final UserDA userDA;
   private final UserCache userCache;
   private final WSHandler wsHandler;
 
   public void handle(
       GetFriendListRequest request, StreamObserver<GetFriendListResponse> responseObserver) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     String userId = AuthInterceptor.USER_ID.get();
     log.info("gRPC call getFriendList from userId={}", userId);
-    getFriendListFromDB(userId, responseObserver);
+    getFriendListFromDB(userId, responseObserver, tracker);
   }
 
   private void getFriendListFromDB(
-      String userId, StreamObserver<GetFriendListResponse> responseObserver) {
+      String userId,
+      StreamObserver<GetFriendListResponse> responseObserver,
+      Tracker.TrackerBuilder tracker) {
     userDA
         .getFriendList(userId)
         .setHandler(
@@ -47,6 +53,7 @@ public class GetFriendListHandler {
               }
               responseObserver.onNext(response);
               responseObserver.onCompleted();
+              tracker.build().record();
             });
   }
 

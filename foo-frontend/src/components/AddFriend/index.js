@@ -34,7 +34,7 @@ function AddFriend(props) {
 				visible={visible}
 				footer={null}
 				destroyOnClose={true}
-				width={400}
+				width={430}
 				bodyStyle={{ backgroundColor: 'rgb(245, 245, 245)', padding: 0 }}
 			>
 				<AddFriendList />

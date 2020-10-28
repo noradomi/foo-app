@@ -2,15 +2,18 @@
   flex-direction: row;
   display: flex;
   align-items: center;
-  border-top: 1px solid #f0eff5 !important;
+  border-top: 1px solid #eeeef1;
   flex-shrink: 0;
   padding: 10px;
   background-color: white;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
 }
 
 @supports (backdrop-filter: blur(20px)) {
   .compose {
-    /* border: none; */
+    border: none;
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(20px);
   }
@@ -29,29 +32,48 @@
   padding: 20px;
   resize: none;
   border-radius: 0;
-  background: rgb(245, 245, 245);
-  border: 1px solid rgb(245, 245, 245);
+  /* background: rgb(245, 245, 245); */
+  background: #f1f1f4;
+  border: 1px solid #f1f1f4;
   color: rgb(76, 83, 90);
   margin-right: 5px;
+  font-size: 16px;
 }
 
 .compose textarea:focus,
 .compose textarea:active,
 .compose textarea:hover {
   box-shadow: none;
-  border: 1px solid rgb(245, 245, 245);
+  border: 1px solid #f1f1f4;
   -webkit-box-shadow: none;
 }
 
-
 .compose textarea::placeholder {
-  color: rgb(169, 184, 183);
+  color: #787a8d;
 }
 
-.compose button {
+.compose .compose-button-transfer {
   margin-right: 5px;
-  color: rgb(25, 142, 252);
-  /* background-color: rgb(139, 198, 255); */
+  background-color: #67ae3f;
+  border: none;
+}
+
+.compose .compose-button-transfer:hover {
+  background-color: #67ae3f;
+}
+
+.compose .compose-button-transfer .anticon-dollar-circle {
+  font-size: 30px;
+  color: white;
+}
+
+.compose .compose-button-send {
   background-color: white;
   border: none;
+  box-shadow: none;
+}
+
+.compose .compose-button-send .anticon-send {
+  color: #1990fe;
+  font-size: 30px;
 }

@@ -1,5 +1,5 @@
 #portal-container {
-  padding-top: 50px;
+  padding-top: 70px;
   height: 100vh;
 }
 
@@ -27,4 +27,8 @@
   padding: 30px 45px;
   box-shadow: 0 8px 24px rgba(21, 48, 142, 0.14);
   border-radius: 2px;
+}
+
+.portal-content .ant-tabs-nav {
+  margin-bottom: 30px;
 }

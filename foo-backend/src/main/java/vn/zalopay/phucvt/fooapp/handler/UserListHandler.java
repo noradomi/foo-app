@@ -28,21 +28,27 @@ public class UserListHandler extends BaseHandler {
   public Future<BaseResponse> handle(BaseRequest baseRequest) {
     Future<BaseResponse> future = Future.future();
     String userId = baseRequest.getPrincipal().getString("userId");
-    userCache
-        .getUserList()
-        .setHandler(
-            listAsyncResult -> {
-              if (listAsyncResult.succeeded()) {
-                List<User> userList = listAsyncResult.result();
-                if (userList.size() > 0) {
-                  getUserListFromCache(future, userList, userId);
+    int offset = Integer.parseInt(baseRequest.getParams().get("offset"));
+    log.info("handle get user list (userId = {}, offset = {})", userId, offset);
+    if (offset == 0) {
+      userCache
+          .getUserList()
+          .setHandler(
+              listAsyncResult -> {
+                if (listAsyncResult.succeeded()) {
+                  List<User> userList = listAsyncResult.result();
+                  if (userList.size() > 0) {
+                    getUserListFromCache(future, userList, userId);
+                  } else {
+                    getUserListFromDB(future, userId, offset, true);
+                  }
                 } else {
-                  getUserListFromDB(future, userId);
+                  getUserListFromDB(future, userId, offset, false);
                 }
-              } else {
-                getUserListFromDB(future, userId);
-              }
-            });
+              });
+    } else {
+      getUserListFromDB(future, userId, offset, true);
+    }
     return future;
   }
 
@@ -66,13 +72,14 @@ public class UserListHandler extends BaseHandler {
     }
   }
 
-  private void getUserListFromDB(Future<BaseResponse> future, String userId) {
+  private void getUserListFromDB(
+      Future<BaseResponse> future, String userId, int offset, boolean cacheFlag) {
     userDA
-        .selectListUser()
+        .selectListUser(userId, offset)
         .setHandler(
             listAsyncResult -> {
               if (listAsyncResult.succeeded()) {
-                userCache.setUserList(listAsyncResult.result());
+                if (cacheFlag) userCache.setUserList(listAsyncResult.result());
                 List<User> userList =
                     listAsyncResult.result().stream()
                         .filter(u -> !u.getUserId().equals(userId))

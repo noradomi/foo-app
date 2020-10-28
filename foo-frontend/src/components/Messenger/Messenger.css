@@ -40,12 +40,7 @@
 
 #main-side-menu {
   background-color: rgb(2, 21, 41);
-  /* background-image: linear-gradient(#0cb3ff, #0068ff); */
   border-right: 1px solid #f0f0f0;
-}
-
-#main-side-menu ul {
-  /* background-color: #0cb3ff; */
 }
 
 #main-side-menu ul li {
@@ -55,20 +50,15 @@
 
 }
 
-#sub-side-menu {
-  border-right: 1px solid #f0f0f0;
-
-}
-
 .menu-separation {
   margin-top: 40px;
 }
 
 .tab-avatar {
   margin: auto;
-  margin-top: 6px;
+  margin-top: 12px;
   display: block;
-  margin-left: 6px;
+  margin-left: 15px;
 }
 
 #side-menu {

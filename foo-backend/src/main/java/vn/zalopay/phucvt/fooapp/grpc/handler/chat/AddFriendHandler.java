@@ -15,36 +15,26 @@ import vn.zalopay.phucvt.fooapp.model.UserFriendItem;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.util.Set;
 
 @Log4j2
 @Builder
 public class AddFriendHandler {
+  private static final String METRIC = "AddFriendHandler";
   private final UserDA userDA;
   private final UserCache userCache;
   private final WSHandler wsHandler;
 
   public void handle(AddFriendRequest request, StreamObserver<AddFriendResponse> responseObserver) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     String userId = AuthInterceptor.USER_ID.get();
     String friendId = request.getUserId();
     log.info("gRPC call addFriend {}--{}", userId, friendId);
-    Friend friendModelRequest =
-        Friend.builder()
-            .id(GenerationUtils.generateId())
-            .userId(userId)
-            .friendId(friendId)
-            .unreadMessages(0)
-            .lastMessage("")
-            .build();
-    Friend friendModelApprove =
-        Friend.builder()
-            .id(GenerationUtils.generateId())
-            .userId(friendId)
-            .friendId(userId)
-            .unreadMessages(0)
-            .lastMessage("")
-            .build();
+    Friend friendModelRequest = buildFriendModel(friendId, userId);
+    Friend friendModelApprove = buildFriendModel(userId, friendId);
     userDA
         .addFriend(friendModelRequest)
         .compose(next -> userDA.addFriend(friendModelApprove))
@@ -58,17 +48,7 @@ public class AddFriendHandler {
                     ar -> {
                       AddFriendResponse response;
                       if (ar.succeeded()) {
-                        UserInfo user = mapToUserInfo(cp.resultAt(0));
-                        UserInfo newFriend = mapToUserInfo(cp.resultAt(1));
-                        userCache.appendFriendList(
-                            UserFriendItem.builder()
-                                .id(newFriend.getUserId())
-                                .name(newFriend.getName())
-                                .unreadMessages(newFriend.getUnreadMessages())
-                                .lastMessage(newFriend.getLastMessage())
-                                .build(),
-                            userId);
-                        response = buildSuccessResponse(userId, friendId, user, newFriend);
+                        response = buildSuccessAddFriendResponse(userId, friendId, cp);
                       } else {
                         log.error(
                             "insert to friend table failed, cause={}",
@@ -78,9 +58,37 @@ public class AddFriendHandler {
                       }
                       responseObserver.onNext(response);
                       responseObserver.onCompleted();
+                      tracker.code("ok").build().record();
                     });
               }
             });
+  }
+
+  private AddFriendResponse buildSuccessAddFriendResponse(
+      String userId, String friendId, CompositeFuture cp) {
+    AddFriendResponse response;
+    UserInfo user = mapToUserInfo(cp.resultAt(0));
+    UserInfo newFriend = mapToUserInfo(cp.resultAt(1));
+    userCache.appendFriendList(
+        UserFriendItem.builder()
+            .id(newFriend.getUserId())
+            .name(newFriend.getName())
+            .unreadMessages(newFriend.getUnreadMessages())
+            .lastMessage(newFriend.getLastMessage())
+            .build(),
+        userId);
+    response = buildSuccessResponse(userId, friendId, user, newFriend);
+    return response;
+  }
+
+  private Friend buildFriendModel(String userId, String friendId) {
+    return Friend.builder()
+        .id(GenerationUtils.generateId())
+        .userId(friendId)
+        .friendId(userId)
+        .unreadMessages(0)
+        .lastMessage("")
+        .build();
   }
 
   private AddFriendResponse buildSuccessResponse(

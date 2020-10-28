@@ -23,7 +23,7 @@ function AddFriendListItem(props) {
 	};
 	return (
 		<div className="addfriend-list-item">
-			<div style={{ width: 40 }}>
+			<div style={{ width: 45 }}>
 				<CustomAvatar type="panel-avatar" avatar={avatar} />
 			</div>
 			<div className="addfriend-info" style={{ overflow: 'hidden', paddingTop: 5 }}>

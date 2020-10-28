@@ -5,188 +5,142 @@ package fintech;
 option java_package = "vn.zalopay.phucvt.fooapp.fintech";
 option java_multiple_files = true;
 
-// common
-enum Code {
-  OK = 0;
-  NOT_ENOUGH_MONEY = 1;
-  INVALID_PASSWORD = 2;
-  FAILED_PRECONDITION = 3; // missing jwt
-  INTERNAL = 4;
-  INVALID_INPUT_MONEY = 5;
-}
+import "fintech/code.proto";
+import "fintech/status.proto";
 
-message Status {
-  Code code = 1;
-  string message = 2;
-  map<string, string> extra = 3;
-}
-
-//  get balance
+// This message defines a request
+// for get user's balance.
+// It's is a EMPTY message
 message GetBalanceRequest {
 }
 
-
+// This message defines a response
+// constains information about user's balance
 message GetBalanceResponse {
+  // This message defines data of this message repsonse
   message Data {
+    // The balance of user
     int64 balance = 1;
+
+    // The last update of balance
     int64 last_updated = 2;
   }
 
+  // The data of reponse
   Data data = 1;
+
+  // The status of response
   Status status = 2;
 }
 
-//  transfer money
+//  This message defines a transfer money request
+//  containing informations: receiver, amount, description and 
+//  confirm password
 message TransferMoneyRequest {
+  //  The confirm password of sender
   string confirm_password = 1;
-  string receiver = 2;
+
+  // The ID of receiver
+  string receiver_id = 2;
+
+  // The money amount of transfer
   int64 amount = 3;
+
+  // The description of transfer
   string description = 4;
 }
 
+
+// This message defines a transfer money response
+// containing new state of sender's balance
+// and information of transfer history
 message TransferMoneyResponse {
+
+  // This message defines data of this response message
   message Data {
+    // The new balance of sender
     int64 balance = 1;
+
+    // The last updated of balance
+    int64 last_updated = 2;
+
+    // A transfer history 
+    TransactionHistory transaction = 3;
   }
 
+  // The data of response
   Data data = 1;
+  
+  // The status of repsonse
   Status status = 2;
 }
 
-// get transactions history
+// This message define a request for
+// get transactions history 
 message GetHistoryRequest {
+  // The length of transfer history list will get
   int32 page_size = 2;
+
+  // The position for startting get transfer history.
   int32 page_token = 3;
 }
 
+// This message represent a transaction history 
+// in response include information about a transaction  
 message TransactionHistory{
-  string user_id = 1;
-  int64 amount = 2;
-  string description = 3;
-  int64 recorded_time = 4;
+  // The ID of sender or receiver
+  string user_id = 1; 
+
+  // The money amount of transfer
+  int64 amount = 2; 
+
+  // The discription of transfer from sender
+  string description = 3; 
+
+  // The recorded time of transfer
+  int64 recorded_time = 4; 
+
   enum TransferType {
     SEND = 0;
     RECEIVE = 1;
   }
-  TransferType transfer_type = 5;
+
+  // The tye of transfer history
+  TransferType transfer_type = 5; 
 }
 
+//  This message defines a response message
+//  constaining a list of transfer history of user
+//  nexe page token for paging
 message GetHistoryResponse {
+  // This message defines data of this messaage response
   message Data {
+    // A list of transfer history of user
     repeated TransactionHistory items = 1;
+
+    // The next page token for next request
     int32 next_page_token = 2;
   }
 
+  // The data of reponse
   Data data = 1;
+
+  // The status of reponse
   Status status = 2;
 }
 
-// get notifications
-message GetNotificationsRequest {
-}
-
-message Notification {
-  string user_id = 1;
-  int64 amount = 2;
-  string message = 3;
-  string recorded_time = 4;
-  enum NotificationType {
-    REMINDED = 0;
-    RECEIVED = 1;
-  }
-  NotificationType notification_type = 5;
-}
-
-message GetNotificationsResponse {
-  message Data {
-    repeated Notification items = 1;
-    int32 next_page_token = 2;
-  }
-
-  Data data = 1;
-  Status status = 2;
-}
-
-message UserInfo {
-  string user_id = 1;
-  string name = 2;
-  int32 unread_messages = 3;
-  string last_message = 4;
-  bool is_online = 5;
-}
-
-message AddFriendRequest{
-  string user_id = 1;
-}
-
-message AddFriendResponse {
-  message Data {
-    UserInfo user = 1;
-  }
-
-  Data data = 1;
-  Status status = 2;
-}
-
-message GetStrangerListRequest {
-}
-
-message GetStrangerListResponse {
-  message Data {
-    repeated UserInfo items = 1;
-  }
-  Data data = 1;
-  Status status = 2;
-}
-
-message ResetUnseenRequest {
-  string user_id = 1;
-}
-
-message ResetUnseenResponse {
-  Status status = 1;
-}
-
-message GetUserInfoRequest {
-  string user_id = 1;
-}
-
-message GetUserInfoResponse {
-  message Data {
-    UserInfo user = 1;
-  }
-  Data data = 1;
-  Status status = 2;
-}
-
-message GetFriendListRequest {
-}
-
-message GetFriendListResponse {
-  message Data {
-    repeated UserInfo items = 1;
-  }
-  Data data = 1;
-  Status status = 2;
-}
-
-
+// The fintech service definition
 service FintechService {
+  // Recieve a request and return balance of user
+  // Authentication by JWT in header
   rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {};
-
+  
+  // Recieve a request and make a transfer money between two users
+  // Return new balance to sender
+  // Authentication by JWT in header
   rpc TransferMoney(TransferMoneyRequest) returns (TransferMoneyResponse) {};
 
+  // Receive a request and return a list of transfer history of user
+  // Authentication by JWT in header
   rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse) {};
-
-  rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse) {};
-
-  rpc GetStrangerList(GetStrangerListRequest) returns (GetStrangerListResponse) {};
-
-  rpc AddFriend(AddFriendRequest) returns (AddFriendResponse) {};
-
-  rpc ResetUnseen (ResetUnseenRequest) returns (ResetUnseenResponse) {};
-
-  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse) {};
-
-  rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse) {};
 }

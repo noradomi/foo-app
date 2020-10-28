@@ -8,6 +8,7 @@ import vn.zalopay.phucvt.fooapp.config.CacheConfig;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -15,12 +16,16 @@ import java.util.concurrent.TimeUnit;
 @Builder
 @Log4j2
 public class ChatCacheImpl implements ChatCache {
+  private static final String METRIC = "RedisCache";
+
   private final RedisCache redisCache;
   private final AsyncHandler asyncHandler;
   private final CacheConfig cacheConfig;
 
   @Override
   public Future<WsMessage> addToList(WsMessage message) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     Future<WsMessage> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -41,13 +46,15 @@ public class ChatCacheImpl implements ChatCache {
             future.fail(e);
           }
         });
-
+    tracker.step("append-message").build().record();
     return future;
   }
 
   @Override
   public Future<List<WsMessage>> addMessageList(
       List<WsMessage> messageList, String firstUserId, String secondUserId) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     Future<List<WsMessage>> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -64,12 +71,14 @@ public class ChatCacheImpl implements ChatCache {
             future.fail(e);
           }
         });
-
+    tracker.step("set-message-list").build().record();
     return future;
   }
 
   @Override
   public Future<List<WsMessage>> getMessageList(String firstUserId, String secondUserId) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
     Future<List<WsMessage>> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -88,6 +97,7 @@ public class ChatCacheImpl implements ChatCache {
             future.fail(e);
           }
         });
+    tracker.step("get-message-list").build().record();
     return future;
   }
 }

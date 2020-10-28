@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react';
-import { connect, useSelector } from 'react-redux';
-import { wsConnect } from '../../services/chat-single';
+import { Divider, Spin } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { connect } from 'react-redux';
 import { getFriendList } from '../../services/load-friend-list';
 import AddFriendModal from '../AddFriend';
 import ConversationListItem from '../ConversationListItem';
-import ConversationSearch from '../ConversationSearch';
 import './ConversationList.css';
-import { Divider } from 'antd';
 
 function ConversationList(props) {
-	const webSocket = useSelector((state) => state.webSocket);
-
-	if (webSocket.webSocket === null) {
-		wsConnect();
-	}
-
+	const [ loading, setloading ] = useState(true);
 	useEffect(() => {
-		getFriendList();
+		getFriendList().then(() => {
+			setloading(false);
+		});
 	}, []);
 
 	const conversations = props.friendList.map((res) => {
@@ -32,20 +28,26 @@ function ConversationList(props) {
 
 	return (
 		<div className="conversation-list">
-			<div className="profile">FooApp - {props.user.name}</div>
-			<ConversationSearch />
+			<div className="profile">FooApp - {props.user.name} !</div>
 			<AddFriendModal />
+			<Divider className="user-list-title" orientation="left" plain style={{ color: '#e5e5e5' }}>
+				<span style={{ color: '#000', fontSize: '16px' }}>Bạn ({conversations.length})</span>
+			</Divider>
+			{loading && (
+				<div className="loading-conversation-list">
+					<Spin />
+				</div>
+			)}
 			<div className="conversation-list-scroll">
-				<Divider className="user-list-title" orientation="left" plain style={{ color: 'rgb(122, 134, 154)' }}>
-					Bạn ({conversations.length})
-				</Divider>
-				{conversations.length > 0 ? (
-					conversations.map((conversation) => (
-						<ConversationListItem key={conversation.id} data={conversation} />
-					))
-				) : (
-					''
-				)}
+				<Scrollbars autoHide autoHideTimeout={500} autoHideDuration={200} className="custom-scrollbars">
+					{conversations.length > 0 ? (
+						conversations.map((conversation) => (
+							<ConversationListItem key={conversation.id} data={conversation} />
+						))
+					) : (
+						''
+					)}
+				</Scrollbars>
 			</div>
 		</div>
 	);
@@ -54,9 +56,7 @@ function ConversationList(props) {
 function mapStateToProps(state) {
 	return {
 		friendList: state.friendList,
-		user: state.user,
-		websocket: state.webSocket,
-		userMapHolder: state.userMapHolder
+		user: state.user
 	};
 }
 

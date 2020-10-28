@@ -22,6 +22,9 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
   private static final String SELECT_USER_FOR_UPDATE_STATEMENT =
       "SELECT * FROM users WHERE id = ? FOR UPDATE";
 
+  private static final String SELECT_USERS_FOR_UPDATE_STATEMENT =
+      "SELECT * FROM users WHERE id = ? OR id = ? FOR UPDATE";
+
   private static final String UPDATE_USER_BALANCE_STATEMENT =
       "UPDATE users SET balance = ?, last_updated = ? WHERE id = ?";
 
@@ -53,9 +56,28 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
               params,
               this::mapRs2EntityUser,
               dataSource::getConnection,
-              false);
+              true);
         });
     return future;
+  }
+
+  @Override
+  public Executable<List<User>> selectUsersForUpdate(String senderId, String receiverId) {
+    return connection -> {
+      Future<List<User>> future = Future.future();
+      asyncHandler.run(
+          () -> {
+            Object[] params = {senderId, receiverId};
+            queryEntity(
+                future,
+                SELECT_USERS_FOR_UPDATE_STATEMENT,
+                params,
+                this::mapRs2EntityListUser,
+                connection.unwrap(),
+                true);
+          });
+      return future;
+    };
   }
 
   @Override
@@ -71,7 +93,8 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
                   connection.unwrap(),
                   UPDATE_USER_BALANCE_STATEMENT,
                   params,
-                  "updateBalance");
+                  "updateBalance",
+                  true);
             } catch (SQLException e) {
               future.fail(e);
             }
@@ -101,7 +124,8 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
                   connection.unwrap(),
                   INSERT_TO_TRANSFER_STATEMENT,
                   params,
-                  "insertTransfer");
+                  "insertTransfer",
+                  true);
             } catch (SQLException e) {
               future.fail(e);
             }
@@ -131,7 +155,8 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
                   connection.unwrap(),
                   INSERT_TO_ACCOUNT_LOG_STATEMENT,
                   params,
-                  "insertAccountLog");
+                  "insertAccountLog",
+                  true);
             } catch (SQLException e) {
               future.fail(e);
             }
@@ -176,5 +201,16 @@ public class FintechDAImpl extends BaseTransactionDA implements FintechDA {
       EntityMapper.getInstance().loadResultSetIntoObject(resultSet, user);
     }
     return user;
+  }
+
+  private List<User> mapRs2EntityListUser(ResultSet resultSet) throws Exception {
+    User user = null;
+    List<User> listUser = new ArrayList<>();
+    while (resultSet.next()) {
+      user = new User();
+      EntityMapper.getInstance().loadResultSetIntoObject(resultSet, user);
+      listUser.add(user);
+    }
+    return listUser;
   }
 }

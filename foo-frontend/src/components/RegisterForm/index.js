@@ -4,8 +4,7 @@ import React from 'react';
 import { handleRegister } from '../../services/register';
 import './RegisterForm.css';
 
-export default function RegisterForm(props) {
-	const FormItem = Form.Item;
+function RegisterForm(props) {
 	let [ form ] = Form.useForm();
 
 	let handleSubmit = (data) => {
@@ -40,6 +39,7 @@ export default function RegisterForm(props) {
 						/>
 					}
 					placeholder="Tên đăng nhập"
+					maxLength="30"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -61,6 +61,7 @@ export default function RegisterForm(props) {
 						/>
 					}
 					placeholder="Tên của bạn"
+					maxLength="45"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -82,6 +83,7 @@ export default function RegisterForm(props) {
 						/>
 					}
 					placeholder="Mật khẩu"
+					maxLength="60"
 				/>
 			</Form.Item>
 			<Form.Item
@@ -115,12 +117,13 @@ export default function RegisterForm(props) {
 					placeholder="Mật khẩu xác nhận"
 				/>
 			</Form.Item>
-			<FormItem>
+			<Form.Item>
 				<Button type="primary" htmlType="submit" className="login-form-button" icon={<UserAddOutlined />}>
 					Đăng kí
 				</Button>
-			</FormItem>
-			{alert}
+			</Form.Item>
 		</Form>
 	);
 }
+
+export default RegisterForm;

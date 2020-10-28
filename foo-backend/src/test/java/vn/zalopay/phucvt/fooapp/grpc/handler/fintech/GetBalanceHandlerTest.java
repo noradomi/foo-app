@@ -1,28 +1,54 @@
 package vn.zalopay.phucvt.fooapp.grpc.handler.fintech;
 
+import io.vertx.core.Future;
+import io.vertx.ext.unit.Async;
+import io.vertx.ext.unit.TestContext;
+import io.vertx.ext.unit.junit.VertxUnitRunner;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.model.User;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import java.sql.SQLException;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+@RunWith(VertxUnitRunner.class)
 public class GetBalanceHandlerTest {
-
+  @Rule public MockitoRule mockitoRule = MockitoJUnit.rule();
   @Mock private UserDA userDA;
-
-  @InjectMocks
-  private GetBalanceHandler getBalanceHandler = GetBalanceHandler.builder().userDA(userDA).build();
+  @InjectMocks private GetBalanceHandler getBalanceHandler;
 
   @Test
-  public void handle() {
+  public void testGetBalance_whenSuccess(TestContext context) {
+    final Async async = context.async();
     User user = User.builder().userId("123").name("Noradomi").balance(300000).build();
-    long responseBalance = getBalanceHandler.buildResponse(user).getData().getBalance();
-    assertThat(responseBalance, is(300000L));
+
+    when(userDA.selectUserById(any())).thenReturn(Future.succeededFuture(user));
+
+    Future<User> future = userDA.selectUserById("123");
+    future.setHandler(
+        userAsyncResult -> {
+          context.assertEquals("123", userAsyncResult.result().getUserId());
+          async.complete();
+        });
+  }
+
+  @Test
+  public void testGetBalance_whenFailed(TestContext context) {
+    final Async async = context.async();
+    when(userDA.selectUserById(any())).thenReturn(Future.failedFuture(new SQLException()));
+    Future<User> future = userDA.selectUserById("123");
+    future.setHandler(
+        userAsyncResult -> {
+          context.assertEquals(true, userAsyncResult.failed());
+          async.complete();
+        });
   }
 }

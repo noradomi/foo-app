@@ -63,6 +63,7 @@ export function initialWebSocket() {
 
 				case 'ADD_FRIEND': {
 					const newFriend = jsonMessage.userInfo;
+					console.log('new friend: ', newFriend);
 					let userItem = {
 						userId: newFriend.userId_,
 						name: newFriend.name_,
@@ -71,6 +72,7 @@ export function initialWebSocket() {
 						lastMessage: newFriend.lastMessage_,
 						online: newFriend.isOnline_
 					};
+					console.log('user item: ', userItem);
 					store.dispatch(addNewFriendAction(userItem));
 					break;
 				}
@@ -80,8 +82,10 @@ export function initialWebSocket() {
 					const transacion = data.transaction_;
 					const newBalance = data.balance_;
 					const lastUpdated = data.lastUpdated_;
+					const userMap = store.getState().userMapHolder.userMap;
+
 					const item = {
-						userId: transacion.userId_,
+						userName: userMap.get(transacion.userId_).name,
 						description: transacion.description_,
 						amount: transacion.amount_,
 						recordedTime: lastUpdated,
@@ -124,6 +128,5 @@ export function initialWebSocket() {
 		onclose: (e) => console.log('Closed!', e),
 		onerror: (e) => console.log('Error:', e)
 	});
-	//ws.close(); // graceful shutdown
 	return webSocket;
 }

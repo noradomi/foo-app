@@ -4,15 +4,15 @@ grpcPort: 5001
 vertxConfig:
   prometheusPort: 8054
 mySQLConfig:
-  url: "jdbc:mysql://localhost:3306/fooapp?allowPublicKeyRetrieval=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC"
+  url: "jdbc:mysql://localhost:3306/fooapp?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC"
   driver: "com.mysql.cj.jdbc.Driver"
   username: "root"
   password: "1234"
 cacheConfig:
   maxMessagesSize: 20
-  expireMessages: 10
+  expireMessages: 30
   expireUserList: 10
-  expireTransactionHistory: 10
+  expireTransactionHistory: 30
 jwtConfig:
   expireToken: 174600
   publicKey: "dragon"

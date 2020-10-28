@@ -1,4 +1,4 @@
-import { getJwtFromStorage, getUserIdFromStorage, getUserFullNameToStorage } from '../utils/utils';
+import { getJwtFromStorage, getUserFullNameToStorage, getUserIdFromStorage } from '../utils/utils';
 
 let initialState = {
 	activeTabKey: '1',
@@ -10,8 +10,8 @@ let initialState = {
 		name: getUserFullNameToStorage()
 	},
 	wallet: {
-		balance: null,
-		lastUpdated: null
+		balance: 0,
+		lastUpdated: 0
 	},
 	transactionHistory: [],
 	userList: [],
@@ -100,9 +100,9 @@ export default function appReducer(state = initialState, action) {
 		case 'USER_LOGIN_SUCCEEDED':
 			state = loginSucceeded(state, data);
 			break;
-		case 'USER_LOGOUT':
-			state = logOut(state);
-			break;
+		// case 'USER_LOGOUT':
+		// 	state = logOut(state);
+		// 	break;
 		case 'USERLIST_FETCHED':
 			state = userListFetched(state, data);
 			break;
@@ -159,35 +159,6 @@ function loginSucceeded(state, data) {
 	});
 }
 
-function logOut(state) {
-	if (state.webSocket.webSocket !== null) {
-		state.webSocket.webSocket.close();
-	}
-	return Object.assign({}, state, {
-		// user: {
-		// 	jwt: null,
-		// 	userId: null
-		// },
-		// userList: [],
-		// userMapHolder: {
-		// 	userMap: new Map()
-		// },
-		// selectedUser: {
-		// 	id: null,
-		// 	name: null,
-		// 	avatar: null
-		// },
-		// webSocket: {
-		// 	webSocket: null,
-		// 	send: null
-		// },
-		// chatMessagesHolder: {
-		// 	chatMessages: new Map()
-		// }
-		...initialState
-	});
-}
-
 function setSelectedUser(state, user) {
 	return Object.assign({}, state, {
 		selectedUser: {
@@ -210,9 +181,10 @@ function friendListFetched(state, friendList) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	for (let user of friendList) {
 		userMap.set(user.userId, user);
-		if (!chatMessages.has(user.userId)) {
-			chatMessages.set(user.userId, []);
-		}
+		// if (!chatMessages.has(user.userId)) {
+
+		// }
+		chatMessages.set(user.userId, []);
 		if (user.unreadMessages > 0) {
 			unseenChat.add(user.userId);
 		}
@@ -233,10 +205,18 @@ function friendListFetched(state, friendList) {
 function receiveMessage(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	let listMessage = chatMessages.get(data.senderId);
+	let friendList = [ ...state.friendList ];
+	friendList.forEach(function(item, i) {
+		if (item.userId === data.senderId) {
+			friendList.splice(i, 1);
+			friendList.unshift(item);
+		}
+	});
 	listMessage.push(data);
 	return Object.assign({}, state, {
 		chatMessagesHolder: { chatMessages },
-		scrollFlag: !state.scrollFlag
+		scrollFlag: !state.scrollFlag,
+		friendList: friendList
 	});
 }
 
@@ -326,15 +306,14 @@ function setUnseenMessages(state, data) {
 function addNewFriend(state, data) {
 	const newFriend = data.newFriend;
 	let friendList = state.friendList;
-	friendList.push(newFriend);
 	let userMap = state.userMapHolder.userMap;
 	let chatMessages = state.chatMessagesHolder.chatMessages;
+	let userList = state.userList;
 	userMap.set(newFriend.userId, newFriend);
-	if (!chatMessages.has(newFriend.userId)) {
-		chatMessages.set(newFriend.userId, []);
-	}
+	chatMessages.set(newFriend.userId, []);
 	return Object.assign({}, state, {
-		friendList: friendList,
+		userList: userList.filter((item) => item.userId !== newFriend.userId),
+		friendList: friendList.concat(newFriend),
 		userMapHolder: {
 			userMap
 		},

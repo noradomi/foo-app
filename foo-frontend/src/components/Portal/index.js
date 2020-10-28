@@ -15,7 +15,7 @@ export default function Portal(props) {
 	return (
 		<div id="portal-container" style={{ backgroundImage: 'url(wallpaper.svg)', backgroundSize: 'cover' }}>
 			<div className="logo">
-				<img src="logo.gif" alt="logo" />
+				<img src="logoChat.png" alt="logo" />
 			</div>
 			<div id="authen-panel">
 				<Tabs className="portal-content" size={'default'} tabBarStyle={{}}>

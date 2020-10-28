@@ -13,6 +13,7 @@ import vn.zalopay.phucvt.fooapp.grpc.gRPCServer;
 import vn.zalopay.phucvt.fooapp.server.RestfulAPI;
 import vn.zalopay.phucvt.fooapp.server.WebSocketServer;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.io.IOException;
 
@@ -23,6 +24,8 @@ public class Runner {
     try {
       ServiceConfig serviceConfig =
           FileConfigLoader.loadFromEnv("service.conf", ServiceConfig.class);
+
+      Tracker.initialize("Foo-app");
 
       ServiceModule module = ServiceModule.builder().serviceConfig(serviceConfig).build();
       ServiceComponent component = DaggerServiceComponent.builder().serviceModule(module).build();

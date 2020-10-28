@@ -11,6 +11,8 @@ import java.util.List;
 public interface FintechDA {
   Future<User> selectUserForUpdate(String userId);
 
+  Executable<List<User>> selectUsersForUpdate(String senderId, String receiverId);
+
   Executable<Void> updateBalance(String userId, long newBalance, long lastUpdated);
 
   Executable<Void> insertTransferLog(Transfer transfer);

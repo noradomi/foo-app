@@ -1,26 +1,24 @@
 import { loadUserListAction } from '../actions/fooAction';
 import store from '../store/fooStore';
 import { api } from './api';
+import { processUsernameForAvatar } from '../utils/utils';
 
-export function getNotFriendList() {
+export function getNotFriendList(offset) {
 	return new Promise((resolve, reject) => {
 		api
-			.authGet('/api/protected/users', null)
+			.authGet(`/api/protected/users/${offset}`, null)
 			.then((response) => {
-				console.log('Get all user list');
 				let items = response.data.data.items;
-				const userMapHolder = store.getState().userMapHolder;
+				// const userMapHolder = store.getState().userMapHolder;
 				let result = [];
 				items.forEach((item) => {
-					if (userMapHolder.userMap.get(item.userId) === undefined) {
-						var userItem = {
-							userId: item.userId,
-							name: item.name,
-							avatar: processUsernameForAvatar(item.name),
-							online: item.online
-						};
-						result.push(userItem);
-					}
+					var userItem = {
+						userId: item.userId,
+						name: item.name,
+						avatar: processUsernameForAvatar(item.name),
+						online: item.online
+					};
+					result.push(userItem);
 				});
 
 				if (result.length > 0) {
@@ -34,17 +32,10 @@ export function getNotFriendList() {
 					store.dispatch(loadUserListAction(result));
 				}
 
-				resolve(result);
+				resolve(result.length);
 			})
 			.catch((reason) => {
-				console.log(reason);
 				reject('Fetch user list failed');
 			});
 	});
-}
-
-function processUsernameForAvatar(username) {
-	var x1 = username.charAt(0);
-	var x2 = username.charAt(1);
-	return x1 + ' ' + x2;
 }

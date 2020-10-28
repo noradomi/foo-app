@@ -5,6 +5,7 @@ import vn.zalopay.phucvt.fooapp.model.Friend;
 import vn.zalopay.phucvt.fooapp.model.User;
 import vn.zalopay.phucvt.fooapp.model.UserFriendItem;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface UserDA {
@@ -16,17 +17,19 @@ public interface UserDA {
 
   Future<User> selectUserByFullName(String name);
 
-  Future<List<User>> selectListUser();
+  Future<List<User>> selectListUser(String userId, int offset);
 
   Future<Void> addFriend(Friend friend);
 
   Future<List<UserFriendItem>> getFriendList(String userId);
 
-  Future<List<User>> getStrangerList(String userId);
-
   Future<Void> resetUnseen(String userId, String friendId);
 
-  void increaseUnseenMessages(String userId, String friendId);
+  Future<Void> increaseUnseenMessages(String userId, String friendId);
 
-  void updateLastMessage(String message, String userId, String friendId);
+  Future<Void> updateLastMessage(
+      String message, String userId, String friendId, Connection connection);
+
+  Future<Void> updateLastMessageAndUnseenMessages(
+      String message, String userId, String friendId, Connection connection);
 }

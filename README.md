@@ -4,31 +4,41 @@
 
 - [Foo App](#foo-app)
   - [1. Tổng quan](#1-tổng-quan)
-  - [2. Hướng dẫn chạy](#2-hướng-dẫn-chạy)
-  - [3. Demo (developing ...)](#3-demo-developing-)
-  - [4. References](#4-references)
+  - [2. Demo](#2-demo)
+  - [4. Hướng dẫn chạy](#4-hướng-dẫn-chạy)
+  - [5. Document](#5-document)
+  - [6. Tác giả](#6-tác-giả)
+  - [7.Acknowledgments](#7acknowledgments)
 
 ## 1. Tổng quan
 
-**Foo App** là một training project  thuộc chương trình  ZaloPay Fresher 2020 sử dụng React JS, Vert.x để xây dụng một ứng dựng chat real-time đơn giản bao gồm các chức năng cơ bản:
+**Foo App** là một training project  thuộc chương trình  ZaloPay Fresher 2020 sử dụng React JS, Vert.x để xây dụng một ứng dựng chat real-time đơn giản kết hợp với các chức năng mô phỏng một ví điện tử bao gồm:
 
 - Đăng nhâp / Đăng xuất (có sử dụng JWT)
 - Đăng kí tài khoản
-- Xem danh sách tất cả người dùng của hệ thống
+- Xem danh sách tất cả bạn bè trong hệ thống
 - Chat 1 - 1
-- **Chuyển tiền cho một người trong danh sách user**
-- **Xem số dư hiện tại**
-- **Xem lịch sử giao dịch**
-- **Nhắc nợ cá nhân**
+- Kết bạn
+- User status: online/offline
+- Thông báo tin nhắn mới, giao dịch mới
+- Responsive trên các nhiều thiết bị: laptop, mobile phone.
 
 Các công nghệ sử dụng:
 
-- `React`, `Redux` cho phía client.
-- `Java Vert.x` cho việc xây dựng API cho server.
-- `WebSocket` cho việc gửi/nhận tin nhắn real time.
-- `MySQL` làm database chính và `Redis` cho cache.
+- `React`, `Redux` cho xây dựng client.
+- `Ant.design` cho thiết kế UI.
+- `Java Vert.x` cho việc xây dựng API, Websocket server.
+- `WebSocket` cho việc gửi/nhận tin nhắn, thông báo real time.
+- `MySQL` làm database chính
+- `Redis` cho caching data.
+- `gRPC` cho việc xây dựng các chức năng fintech.
+- `Prometheus`, `Grafana` cho monitoring.
 
-## 2. Hướng dẫn chạy
+## 2. Demo
+
+![demo](media/demo-fooapp.gif)
+
+## 4. Hướng dẫn chạy
 
 - Mọi quá trình để build và thực thi project đã được viết trong file docker-compose.yml. Tại thư mục gốc của repo, chạy lệnh :
 
@@ -38,22 +48,19 @@ docker-compose up --build
 
 - Quá trình chạy lần đầu có thể sẽ tốn nhiều thời gian cho việc build service backend.
 
-- Ứng dụng client sẽ chạy trên port `3000`. Test trên trình duyệt tại `localhost:3000`.
+- Ứng dụng client sẽ chạy trên port `3006`. Truy cập trình duyệt tại `localhost:3006`.
 
-## 3. Demo (developing ...)
+## 5. Document
 
-## 4. References
+https://github.com/NoRaDoMi/foo-app/wiki
 
-- [Sequence diagrams & Database model](documents/sequence-diagrams.md)
+## 6. Tác giả
 
-- [Database model](documents/database-model.md)
+- PhucVT - ZaloPay Fresher
 
-- [Database DDL script](documents/scripts.sql)
+## 7.Acknowledgments
 
-- [gRPC API](documents/grpc-api/fintech.proto)
-
-- [Mockups](https://balsamiq.cloud/smos4qm/phtej9t)
-
-- [Redis cache specifications](documents/cache-specifications.md)
-
-- [API & Web-socket Specifications](https://app.swaggerhub.com/apis/NoRaDoMi/Foo_Chat_Application/1.0.0)
+- Mr Anh Duc Anh - Principal Software Engineer at ZaloPay
+- Mr Anh Thieu - Senior Software EngineerZaloPay Core Backend
+- Mr Anh Tai - Software EngineerZaloPay Core Backend
+- Mr Anh Toan - Software EngineerZaloPay Core Backend

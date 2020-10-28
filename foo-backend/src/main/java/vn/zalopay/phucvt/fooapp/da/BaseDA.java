@@ -13,7 +13,7 @@ public class BaseDA {
   protected final int statementTimeoutSec;
 
   public BaseDA() {
-    statementTimeoutSec = 30;
+    statementTimeoutSec = 60;
   }
 
   public BaseDA(int statementTimeoutSec) {

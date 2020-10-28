@@ -2,3 +2,11 @@
   max-width: 750px;
 
 }
+
+.transfer-form-steps-card {
+  width: 100%;
+}
+
+.transfer-form-steps-card .ant-card-body {
+  height: 500px;
+}

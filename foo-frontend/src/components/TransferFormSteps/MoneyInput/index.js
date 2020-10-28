@@ -16,14 +16,13 @@ const MoneyInput = ({ value = {}, onChange }) => {
 	};
 
 	const onNumberChange = (e) => {
-		const newNumber = parseInt(e.target.value.replace(/\$\s?|(,*)/g, '') || 0, 10);
-
-		if (Number.isNaN(number)) {
+		if (Number.isNaN(parseInt(e.target.value))) {
 			return;
 		}
+		const newNumber = parseInt(e.target.value.replace(/\$\s?|(,*)/g, '') || 0, 10);
 
 		if (!('number' in value)) {
-			setNumber(newNumber);
+			setNumber(0);
 		}
 
 		triggerChange({

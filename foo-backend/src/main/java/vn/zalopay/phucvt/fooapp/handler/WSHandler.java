@@ -11,6 +11,7 @@ import vn.zalopay.phucvt.fooapp.da.UserDA;
 import vn.zalopay.phucvt.fooapp.model.WsMessage;
 import vn.zalopay.phucvt.fooapp.utils.GenerationUtils;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 import java.time.Instant;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Builder
 @Log4j2
 public class WSHandler {
+  private static final String METRIC = "WebSocket";
   private final UserDA userDA;
   private final ChatDA chatDA;
   private final ChatCache chatCache;
@@ -31,6 +33,7 @@ public class WSHandler {
       Set<ServerWebSocket> client = new ConcurrentHashSet<>();
       client.add(webSocket);
       clients.put(userId, client);
+      Tracker.getMeterRegistry().gauge("web_socket_connections", clients.size());
     }
   }
 
@@ -43,11 +46,13 @@ public class WSHandler {
   }
 
   public void handle(Buffer buffer, String userId) {
+
     WsMessage message = JsonProtoUtils.parseGson(buffer.toString(), WsMessage.class);
     message.setSenderId(userId);
     message.setCreateTime(Instant.now().getEpochSecond());
     message.setId(GenerationUtils.generateId());
     message.setMessageType(0);
+    log.info("handle send message (userId={}, receiverId={})", userId, message.getReceiverId());
     chatDA
         .insert(message)
         .setHandler(
@@ -67,9 +72,8 @@ public class WSHandler {
             asyncResult -> {
               if (asyncResult.succeeded()) {
                 String receiverId = message.getReceiverId();
-                //                update last messages between 2 user
-                userDA.updateLastMessage("Bạn: " + message.getMessage(), userId, receiverId);
-                userDA.updateLastMessage(message.getMessage(), receiverId, userId);
+                userDA.updateLastMessage("Bạn: " + message.getMessage(), userId, receiverId, null);
+                userDA.updateLastMessage(message.getMessage(), receiverId, userId, null);
                 userDA.increaseUnseenMessages(receiverId, userId);
                 handleSendMessage(message.toBuilder().type("FETCH").build(), userId);
                 handleSendMessage(message, message.getReceiverId());

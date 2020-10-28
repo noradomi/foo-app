@@ -15,7 +15,7 @@ public class MySQLConfig implements Serializable {
   private transient String password = "";
 
   private String url = "";
-  private int poolSize = 64;
+  private int poolSize = 20;
   private int maxLifetimeMillis = 600000;
   private boolean cachePrepStmts = true;
   private boolean useServerPrepStmts = true;

@@ -32,6 +32,7 @@ public class SignUpHandler extends BaseHandler {
     final User user = JsonProtoUtils.parseGson(baseRequest.getPostData(), User.class);
     user.setBalance(userConfig.getInitialBalance()); // init balance
     user.setLastUpdated(Instant.now().getEpochSecond());
+    log.info("User request name: " + user.getUsername());
     Future<BaseResponse> validateFuture = validatePostData(future, user);
     if (validateFuture != null) return validateFuture;
     Future<User> userAuthFuture = userDA.selectUserByUserName(user.getUsername());

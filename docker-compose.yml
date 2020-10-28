@@ -1,5 +1,9 @@
 version: "3"
 
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
 services:
   database:
     image: "mysql:8.0.21"
@@ -21,6 +25,26 @@ services:
       - 9901:9901
     volumes:
       - ./foo-frontend/envoy.yaml:/etc/envoy/envoy.yaml:ro
+    network_mode: host
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./foo-run/foo-monitoring/:/etc/prometheus/
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    network_mode: host
+
+  grafana:
+    image: grafana/grafana:6.3.5
+    ports:
+      - 3000:3000
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: secrect
+    volumes:
+      - grafana_data:/var/lib/grafana
     network_mode: host
   # backend:
   #   depends_on:

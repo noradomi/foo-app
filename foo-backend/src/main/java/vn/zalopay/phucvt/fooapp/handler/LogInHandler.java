@@ -14,16 +14,21 @@ import vn.zalopay.phucvt.fooapp.model.User;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 import vn.zalopay.phucvt.fooapp.utils.JsonProtoUtils;
 import vn.zalopay.phucvt.fooapp.utils.JwtUtils;
+import vn.zalopay.phucvt.fooapp.utils.Tracker;
 
 @Builder
 @Log4j2
 public class LogInHandler extends BaseHandler {
+  private static final String METRIC = "LogInHandler";
   private final JwtUtils jwtUtils;
   private final UserCache userCache;
   private final UserDA userDA;
 
   @Override
   public Future<BaseResponse> handle(BaseRequest baseRequest) {
+    Tracker.TrackerBuilder tracker =
+        Tracker.builder().metricName(METRIC).startTime(System.currentTimeMillis());
+
     final User user = JsonProtoUtils.parseGson(baseRequest.getPostData(), User.class);
     Future<User> userAuthFuture = userDA.selectUserByUserName(user.getUsername());
     Future<BaseResponse> future = Future.future();
@@ -31,6 +36,7 @@ public class LogInHandler extends BaseHandler {
         userAuth -> {
           if (userAuth != null) {
             handleLogin(user, future, userAuth);
+            tracker.step("handle").code("SUCCESS").build().record();
           } else {
             BaseResponse baseResponse =
                 BaseResponse.builder()

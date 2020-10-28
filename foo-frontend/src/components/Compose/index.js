@@ -1,4 +1,4 @@
-import { DollarOutlined, NotificationOutlined, SendOutlined } from '@ant-design/icons';
+import { DollarCircleOutlined, SendOutlined } from '@ant-design/icons';
 import { Button, Input, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -27,6 +27,14 @@ function Compose(props) {
 		}
 	};
 
+	const handleClickSend = () => {
+		const message = text;
+		if (message.trim().length !== 0) {
+			props.onSendMessage(message);
+		}
+		setText('');
+	};
+
 	const [ visible, setVisible ] = useState(false);
 
 	const onCreate = (values) => {
@@ -37,41 +45,34 @@ function Compose(props) {
 		<div className="compose">
 			<TextArea
 				value={text}
-				placeholder="Nhập @, tin nhắn ..."
+				placeholder={`Nhập tin nhắn tới ${props.selectedUserName}`}
 				onKeyPress={handleKeyPress}
 				onChange={handleOnChange}
-				autoSize={{ minRows: 1, maxRows: 4 }}
-				style={{ borderRadius: '10px' }}
+				autoSize={{ minRows: 1, maxRows: 3 }}
+				style={{ borderRadius: '10px', marginRight: '10px' }}
 			/>
-			<Tooltip placement="topLeft" title={'Remind transfer'}>
-				<Button
-					className="compose-button"
-					type="primary"
-					shape="circle"
-					icon={<NotificationOutlined />}
-					size={'large'}
-				/>
-			</Tooltip>
 			<Tooltip placement="topLeft" title={'Chuyển tiền'}>
 				<Button
-					className="compose-button"
+					className="compose-button-transfer"
 					type="primary"
 					shape="circle"
-					icon={<DollarOutlined />}
+					icon={<DollarCircleOutlined />}
 					size={'large'}
 					onClick={() => {
 						setVisible(true);
 					}}
 				/>
 			</Tooltip>
-			<Tooltip placement="topLeft" title={'Send'}>
+			<Tooltip placement="topLeft" title={'Gửi'}>
 				<Button
-					className="compose-button"
+					className="compose-button-send"
 					type="primary"
 					shape="circle"
-					icon={<SendOutlined />}
 					size={'large'}
-				/>
+					onClick={handleClickSend}
+				>
+					<SendOutlined />
+				</Button>
 			</Tooltip>
 			<TransferMoneyModal
 				userInfo={null}
@@ -82,8 +83,6 @@ function Compose(props) {
 					setVisible(false);
 				}}
 			/>
-
-			{/* {props.rightItems} */}
 		</div>
 	);
 }

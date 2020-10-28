@@ -6,6 +6,7 @@ import Ravatar from 'react-avatar';
 import { useSelector } from 'react-redux';
 import { getBalace } from '../../services/get-balace';
 import './Wallet.css';
+import { processUsernameForAvatar } from '../../utils/utils';
 
 function UserWallet(props) {
 	const wallet = useSelector((state) => state.wallet);
@@ -18,7 +19,7 @@ function UserWallet(props) {
 	return (
 		<Card bordered={false} className="wallet-info">
 			<div className="wallet-user">
-				<Ravatar name={user.name} className="custom-avatar" size="90" />
+				<Ravatar name={processUsernameForAvatar(user.name)} className="custom-avatar" size="90" />
 				<h5 className="wallet-username">{user.name}</h5>
 			</div>
 			<div className="wallet-balance-card">

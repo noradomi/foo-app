@@ -8,6 +8,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.handler.JWTAuthHandler;
+import io.vertx.micrometer.PrometheusScrapingHandler;
 import vn.zalopay.phucvt.fooapp.handler.HandlerFactory;
 
 import java.util.HashSet;
@@ -22,6 +23,7 @@ public class RouterFactory {
     setHeaderAllowances(router);
 
     router.route().handler(BodyHandler.create());
+    router.route("/metrics").handler(PrometheusScrapingHandler.create());
     router.route("/api/protected/*").handler(JWTAuthHandler.create(authProvider));
 
     handlerFactory.initialize(router);

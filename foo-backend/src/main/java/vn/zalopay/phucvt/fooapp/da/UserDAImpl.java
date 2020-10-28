@@ -10,6 +10,7 @@ import vn.zalopay.phucvt.fooapp.utils.AsyncHandler;
 import vn.zalopay.phucvt.fooapp.utils.ExceptionUtil;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +27,12 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
 
   private static final String SELECT_USER_BY_FULLNAME = "SELECT * FROM users WHERE name = ?";
 
-  private static final String SELECT_USER_LIST = "SELECT * FROM users";
+  private static final String SELECT_USER_LIST = "SELECT * FROM users LIMIT ?, ?";
+
+  private static final String SELECT_NOT_FRIEND_LIST =
+      "SELECT u.* FROM users u WHERE NOT EXISTS \n"
+          + "(SELECT 1 FROM friends WHERE user_id = ? AND friend_id = u.id) \n"
+          + "AND u.id != ? LIMIT ?, ?";
 
   private static final String ADD_FRIEND =
       "insert into friends (`id`,`user_id`,`friend_id`, `unread_messages`,`last_message`) values (?,?,?,?,?)";
@@ -34,7 +40,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   private static final String RESET_UNSEEN =
       "update friends set unread_messages = 0 where user_id = ? and friend_id = ?";
 
-  private static final String INSCREASE_UNSEEN_MESSAGES =
+  private static final String INCREASE_UNSEEN_MESSAGES =
       "update friends set unread_messages = unread_messages + 1 where user_id = ? and friend_id = ?";
 
   private static final String SELECT_FRIEND_LIST =
@@ -43,7 +49,10 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
 
   private static final String UPDATE_LAST_MESSAGE =
       "update friends set last_message = ? where user_id = ? and friend_id = ?";
-  private static final String GET_STRANGER_LIST = "";
+
+  private static final String UPDATE_LAST_MESSAGE_AND_UNSEEN_MESSAGES =
+      "update friends set last_message = ?, unread_messages = unread_messages + 1 where user_id = ? and friend_id = ?";
+
   private final DataSource dataSource;
   private final AsyncHandler asyncHandler;
 
@@ -68,7 +77,12 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
           };
           try {
             executeWithParams(
-                future, dataSource.getConnection(), INSERT_USER_STATEMENT, params, "insertUser");
+                future,
+                dataSource.getConnection(),
+                INSERT_USER_STATEMENT,
+                params,
+                "insertUser",
+                false);
           } catch (SQLException e) {
             log.error(
                 "insert user={} to db fail caused={}",
@@ -93,7 +107,8 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             friend.getLastMessage()
           };
           try {
-            executeWithParams(future, dataSource.getConnection(), ADD_FRIEND, params, "addFriend");
+            executeWithParams(
+                future, dataSource.getConnection(), ADD_FRIEND, params, "addFriend", false);
           } catch (SQLException e) {
             log.error(
                 "add friend failed {}--{}, caused={}",
@@ -104,11 +119,6 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
           }
         });
     return future;
-  }
-
-  @Override
-  public Future<List<User>> getStrangerList(String userId) {
-    return null;
   }
 
   @Override
@@ -137,7 +147,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
           Object[] params = {userId, friendId};
           try {
             executeWithParams(
-                future, dataSource.getConnection(), RESET_UNSEEN, params, "resetUnseen");
+                future, dataSource.getConnection(), RESET_UNSEEN, params, "resetUnseen", false);
           } catch (SQLException e) {
             log.error(
                 "reset unseen failed {}--{}, caused={}",
@@ -151,7 +161,7 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   }
 
   @Override
-  public void increaseUnseenMessages(String userId, String friendId) {
+  public Future<Void> increaseUnseenMessages(String userId, String friendId) {
     Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -160,9 +170,10 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             executeWithParams(
                 future,
                 dataSource.getConnection(),
-                INSCREASE_UNSEEN_MESSAGES,
+                INCREASE_UNSEEN_MESSAGES,
                 params,
-                "increaseUnseenMessages");
+                "increaseUnseenMessages",
+                false);
           } catch (SQLException e) {
             log.error(
                 "increase unseen messages failed {}--{}, caused={}",
@@ -172,10 +183,12 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             future.fail(e);
           }
         });
+    return future;
   }
 
   @Override
-  public void updateLastMessage(String message, String userId, String friendId) {
+  public Future<Void> updateLastMessage(
+      String message, String userId, String friendId, Connection connection) {
     Future<Void> future = Future.future();
     asyncHandler.run(
         () -> {
@@ -183,10 +196,11 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
           try {
             executeWithParams(
                 future,
-                dataSource.getConnection(),
+                connection != null ? connection : dataSource.getConnection(),
                 UPDATE_LAST_MESSAGE,
                 params,
-                "updateLastMessage");
+                "updateLastMessage",
+                connection != null);
           } catch (SQLException e) {
             log.error(
                 "update last messages failed {}--{}, caused={}",
@@ -196,6 +210,34 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
             future.fail(e);
           }
         });
+    return future;
+  }
+
+  @Override
+  public Future<Void> updateLastMessageAndUnseenMessages(
+      String message, String userId, String friendId, Connection connection) {
+    Future<Void> future = Future.future();
+    asyncHandler.run(
+        () -> {
+          Object[] params = {message, userId, friendId};
+          try {
+            executeWithParams(
+                future,
+                connection != null ? connection : dataSource.getConnection(),
+                UPDATE_LAST_MESSAGE_AND_UNSEEN_MESSAGES,
+                params,
+                "updateLastMessageAndUnseensMessages",
+                connection != null);
+          } catch (SQLException e) {
+            log.error(
+                "updateLastMessageAndUnseenMessages failed {}--{}, caused={}",
+                userId,
+                friendId,
+                ExceptionUtil.getDetail(e));
+            future.fail(e);
+          }
+        });
+    return future;
   }
 
   @Override
@@ -253,15 +295,15 @@ public class UserDAImpl extends BaseTransactionDA implements UserDA {
   }
 
   @Override
-  public Future<List<User>> selectListUser() {
+  public Future<List<User>> selectListUser(String userId, int offset) {
     Future<List<User>> future = Future.future();
     asyncHandler.run(
         () -> {
-          Object[] params = {};
+          Object[] params = {userId, userId, offset, 20};
           queryEntity(
               "queryListUser",
               future,
-              SELECT_USER_LIST,
+              SELECT_NOT_FRIEND_LIST,
               params,
               this::mapRs2EntityListUser,
               dataSource::getConnection,

@@ -1,33 +1,55 @@
 @startuml transfer-money
 hide footbox
-actor "User A"
-actor "User B"
-"User A" -> "Server": transfer(B, amount, password)
-"Server" -> "MySQL": get password of userId 
-"MySQL" -> "Server": return password
+actor "Sender"
+actor "Receiver"
+control "Server"
+database "MySQL"
+database "Redis"
+"Sender" -> "Server": API TransferMoney
+"Server" -> "MySQL": selectUserById(senderId)
+"MySQL" --> "Server": return user
+
+group validate request
 "Server" -> "Server": validate password
-alt (password invalid)
-"Server" -> "User A": INVALID_PASSWORD
-else (password correct)
-== Start transaction ==
-"Server" -> "MySQL": start transaction
-activate MySQL
-"Server" -> "MySQL": get A's balance
-"MySQL" -> "Server": return A's balance
-"Server" -> "Server" : check amount <= balance
-alt  (amount > balance)
-"Server" -> "User A": NOT_ENOUGH_MONEY
-else (amount <= balance)
-"Server" -> "MySQL" : decrease A's balance by amount
-"Server" -> "MySQL" : increase B's balance by amount
-"Server" -> "MySQL" : insert to transfer log
-"Server" -> "MySQL" : insert to A's account log
-"Server" -> "MySQL" : insert to B's account log
-"Server" -> "MySQL" : commit
-== End transaction ==
-deactivate MySQL
-"Server" -> "User A": return new balance
-"Server" -> "User B" : notify
+  alt password is invalid
+  "Server" --> "Sender": INVALID_PASSWORD
+  end
+  "Server" -> "Server": validate amount
+  alt amount is invalid
+  "Server" --> "Sender": INVALID_INPUT_MONEY
+  end
+  "Server" -> "MySQL": selectUserId(receiverId)
+  "MySQL" --> "Server": return user
+  "Server" -> "Server": validate receiverId
+  alt receiverId is not found
+  "Server" --> "Sender": USER_ID_NOT_FOUND
+  end
 end
+
+group handle transfer money
+  group transfer money transaction
+    "Server" -> "MySQL": start transaction
+    "Server" -> "MySQL": selectUsersForUpdate(senderId,receiverId)
+    "MySQL" --> "Server": return sender & receiver
+    "Server" -> "Server" : check amount <= sender's balance
+    alt  amount > balance
+    "Server" --> "Sender": NOT_ENOUGH_MONEY
+    end
+    "Server" -> "MySQL" : decrease A's balance by amount
+    "MySQL" --> "Server": ack
+    "Server" -> "MySQL" : increase B's balance by amount
+    "MySQL" --> "Server": ack
+    "Server" -> "MySQL" : insert to transfer log
+    "MySQL" --> "Server": ack
+    "Server" -> "MySQL" : insert to A's account log
+    "MySQL" --> "Server": ack
+    "Server" -> "MySQL" : insert to B's account log
+    "MySQL" --> "Server": ack
+    "Server" -> "Redis": cache transaction history
+    "Redis" --> "Server": ack
+    "Server" -> "MySQL" : commit
+    end
+    "Server" --> "Sender": return new balance
+    "Server" -> "Receiver" : notify new trasfer
 end
 @enduml
