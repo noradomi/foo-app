@@ -1,0 +1,24 @@
+@startuml register
+    hide footbox
+    actor "User"
+    "User" -> "Server": register {username,password,name}
+    "Server" -> "Server": validate input data
+    alt (invalid)
+    "Server" --> "User": input data is invalid
+    else (valid)
+    "Server" -> "MySQL": check username exist
+    "MySQL" --> "Server": result check
+    alt (username exist)
+    "Server" --> "User": register failed
+    else (username not exist)
+    "Server" -> "Server": generate userId
+    "Server" -> "MySQL": insert to db with info user
+    "MySQL" --> "Server": insert done
+    "Server" -> "Redis": update cache
+    "Redis" --> "Server": update done
+    "Server"--> "User": register succeeded
+    end
+   end
+    
+
+@enduml

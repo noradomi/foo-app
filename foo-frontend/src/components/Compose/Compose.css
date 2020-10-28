@@ -1,0 +1,79 @@
+.compose {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #eeeef1;
+  flex-shrink: 0;
+  padding: 10px;
+  background-color: white;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+}
+
+@supports (backdrop-filter: blur(20px)) {
+  .compose {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+  }
+}
+
+.compose .toolbar-button {
+  color: #bbbbbf;
+  margin-left: 15px;
+}
+
+.compose .toolbar-button:hover {
+  color: #99999c;
+}
+
+.compose textarea {
+  padding: 20px;
+  resize: none;
+  border-radius: 0;
+  /* background: rgb(245, 245, 245); */
+  background: #f1f1f4;
+  border: 1px solid #f1f1f4;
+  color: rgb(76, 83, 90);
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.compose textarea:focus,
+.compose textarea:active,
+.compose textarea:hover {
+  box-shadow: none;
+  border: 1px solid #f1f1f4;
+  -webkit-box-shadow: none;
+}
+
+.compose textarea::placeholder {
+  color: #787a8d;
+}
+
+.compose .compose-button-transfer {
+  margin-right: 5px;
+  background-color: #67ae3f;
+  border: none;
+}
+
+.compose .compose-button-transfer:hover {
+  background-color: #67ae3f;
+}
+
+.compose .compose-button-transfer .anticon-dollar-circle {
+  font-size: 30px;
+  color: white;
+}
+
+.compose .compose-button-send {
+  background-color: white;
+  border: none;
+  box-shadow: none;
+}
+
+.compose .compose-button-send .anticon-send {
+  color: #1990fe;
+  font-size: 30px;
+}

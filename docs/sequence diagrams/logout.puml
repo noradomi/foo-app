@@ -1,8 +1,0 @@
-@startuml logout
-    hide footbox
-    actor "User"
-    "User" -> "Server": logout
-    "Server" -> "Redis": add token to black list
-    "Redis" --> "Server": ok
-    "Server" --> "User": logout succeeded
-@enduml

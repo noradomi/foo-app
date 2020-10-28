@@ -1,0 +1,19 @@
+.conversation-search {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+.conversation-search-input input {
+  /* background: rgb(245, 245, 245); */
+}
+
+.conversation-search-input::placeholder {
+  text-align: center;
+
+}
+
+.conversation-search-input:focus::placeholder {
+  text-align: left;
+}

@@ -1,0 +1,60 @@
+.new-action-menu {
+  padding: 12px 16px 12px 26px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.new-action-menu a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+}
+
+.new-action-menu:hover {
+  background: #e6f0ff;
+  /* box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17); */
+}
+
+.new-action-menu:active {
+  box-shadow: none;
+}
+
+/* .new-action-menu:hover .new-text {
+    color: #FFFFFF;
+  } */
+
+.new-text {
+  font-size: 18px;
+  margin-left: 10px;
+  display: inline-block;
+  font-weight: 300;
+  color: #000;
+}
+
+.model-label {
+  margin-bottom: 8px;
+}
+
+.add-user-name {
+  max-width: 200px;
+  margin-right: 10px;
+}
+
+.addfriend-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.ant-modal-content {
+  border-radius: 10px;
+}
+
+.ant-modal-content .ant-modal-header {
+  padding: 10px;
+}
+
+.addfriend-header {
+  padding-left: 80px;
+}

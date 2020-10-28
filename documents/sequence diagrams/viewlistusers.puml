@@ -1,0 +1,19 @@
+@startuml viewlistusers
+    hide footbox
+
+    actor "User"
+
+    "User" -> "Server": get user list
+    "Server" -> "Redis": get user list from cache
+    "Redis" --> "Server": result
+    alt case hit
+    "Server" -> "User": return user list
+    else cache miss
+    "Server" -> "MySQL": get user list from database
+    "MySQL" --> "Server": user list
+    "Server" -> "Redis": add user list to cache
+    "Redis" --> "Server": cache done
+    end
+    "Server" -> "User": return user list
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml login
+hide footbox
+actor User
+"User" -> "Server": login {username,password}
+"Server" -> "MySQL": check user is exist
+alt (do not exist)
+"MySQL" --> "Server": do not find user with username
+"Server" --> "User": user do not exist
+else (username exist)
+"MySQL" --> "Server": get user with username
+"Server" -> "Server": validate password of user
+alt (validate failed)
+"Server" --> "User": password is invalid
+else (correct password)
+"Server" -> "Server": create jwt token
+"Server" -> "User": login succeeded with token and info user
+end
+end
+@enduml

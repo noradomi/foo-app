@@ -1,0 +1,20 @@
+.message-list-container {
+  padding: 10px;
+  padding-bottom: 10px;
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+  background-color: #f8f8fb;
+}
+
+.message-list {
+  width: 100%;
+  min-width: 350px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #ddd;
+}
+
+.message-heading {
+  display: flex;
+}
