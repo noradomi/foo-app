@@ -1,6 +1,7 @@
 import { addNewFriendAction } from '../actions/fooAction';
 import store from '../store/fooStore';
 import grpcApi from './grpcApi';
+import { processUsernameForAvatar } from '../utils/utils';
 
 export function doAddFriend(userId) {
 	return new Promise((resolve, reject) => {
@@ -23,10 +24,4 @@ export function doAddFriend(userId) {
 			}
 		});
 	});
-}
-
-function processUsernameForAvatar(username) {
-	var x1 = username.charAt(0);
-	var x2 = username.charAt(1);
-	return x1 + ' ' + x2;
 }

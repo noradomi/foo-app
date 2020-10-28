@@ -1,6 +1,7 @@
 import { loadUserListAction } from '../actions/fooAction';
 import store from '../store/fooStore';
 import { api } from './api';
+import { processUsernameForAvatar } from '../utils/utils';
 
 export function getNotFriendList(offset) {
 	return new Promise((resolve, reject) => {
@@ -11,15 +12,6 @@ export function getNotFriendList(offset) {
 				// const userMapHolder = store.getState().userMapHolder;
 				let result = [];
 				items.forEach((item) => {
-					// if (userMapHolder.userMap.get(item.userId) === undefined) {
-					// 	var userItem = {
-					// 		userId: item.userId,
-					// 		name: item.name,
-					// 		avatar: processUsernameForAvatar(item.name),
-					// 		online: item.online
-					// 	};
-					// 	result.push(userItem);
-					// }
 					var userItem = {
 						userId: item.userId,
 						name: item.name,
@@ -46,10 +38,4 @@ export function getNotFriendList(offset) {
 				reject('Fetch user list failed');
 			});
 	});
-}
-
-function processUsernameForAvatar(username) {
-	var x1 = username.charAt(0);
-	var x2 = username.charAt(1);
-	return x1 + ' ' + x2;
 }

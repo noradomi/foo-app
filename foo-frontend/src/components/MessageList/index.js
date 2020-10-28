@@ -1,4 +1,3 @@
-import { Empty } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
@@ -22,7 +21,7 @@ function MessageList(props) {
 	) {
 		return (
 			<div style={{ width: '100%', marginTop: '200px' }}>
-				<Empty description="Kết bạn để trò chuyện với một ai đó" />
+				{/* <Empty description="Kết bạn để trò chuyện với một ai đó" /> */}
 			</div>
 		);
 	}
@@ -147,7 +146,6 @@ function MessageList(props) {
 	return (
 		<div className="message-list">
 			<ChatHeader key="chat-header" user={receiver} />
-
 			<div className="message-list-container" ref={msgList} onScroll={msgScrollHandle}>
 				{renderMessages()}
 				<div ref={endOfMsgList} style={{ height: '0px' }} />

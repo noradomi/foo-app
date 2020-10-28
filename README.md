@@ -5,7 +5,6 @@
 - [Foo App](#foo-app)
   - [1. Tổng quan](#1-tổng-quan)
   - [2. Demo](#2-demo)
-  - [3.Yêu cầu](#3yêu-cầu)
   - [4. Hướng dẫn chạy](#4-hướng-dẫn-chạy)
   - [5. Document](#5-document)
   - [6. Tác giả](#6-tác-giả)
@@ -38,10 +37,6 @@ Các công nghệ sử dụng:
 ## 2. Demo
 
 ![demo](media/demo-fooapp.gif)
-
-## 3.Yêu cầu
-
-- Docker
 
 ## 4. Hướng dẫn chạy
 

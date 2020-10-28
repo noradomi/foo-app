@@ -50,14 +50,14 @@ function ValidateStep(props) {
 		};
 		transferMoney(request).then((response) => {
 			const code = response.getStatus().getCode();
-			console.log('Transfer code: ' + code);
 			dispatch({
 				type: 'SAVE_TRANSFER_CODE_RESPONSE',
 				data: { payload: code }
 			});
+			const payload = code === 0 ? 'result-success' : 'result-failed';
 			dispatch({
 				type: 'SAVE_CURRENT_STEP',
-				data: { payload: 'result' }
+				data: { payload: payload }
 			});
 		});
 	};
@@ -68,18 +68,12 @@ function ValidateStep(props) {
 			setTimeout(() => {
 				setConfirmLoading(false);
 				submitTransferMoney(values.confirmPassword);
-			}, 2000);
+			}, 1000);
 		});
 	};
 
 	return (
-		<Form
-			{...formItemLayout}
-			form={form}
-			layout="horizontal"
-			className="step-form"
-			initialValues={{ confirmPassword: '123456' }}
-		>
+		<Form {...formItemLayout} form={form} layout="horizontal" className="step-form">
 			<Alert
 				type="info"
 				closable

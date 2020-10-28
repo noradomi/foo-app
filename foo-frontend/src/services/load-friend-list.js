@@ -1,6 +1,7 @@
 import grpcApi from './grpcApi';
 import { loadFriendListAction, setSelectedUserAction } from '../actions/fooAction';
 import store from '../store/fooStore';
+import { processUsernameForAvatar } from '../utils/utils';
 
 export function getFriendList() {
 	return new Promise((resolve, reject) => {
@@ -22,8 +23,8 @@ export function getFriendList() {
 			if (result.length > 0) {
 				// Sap xep danh sach friends theo tu tu dien theo ten.
 				result.sort(function(a, b) {
-					if (a.name < b.name) return -1;
-					if (a.name > b.name) return 1;
+					if (a.unreadMessages < b.unreadMessages) return 1;
+					if (a.unreadMessages > b.unreadMessages) return -1;
 					return 0;
 				});
 
@@ -38,10 +39,4 @@ export function getFriendList() {
 			resolve(result);
 		});
 	});
-}
-
-function processUsernameForAvatar(username) {
-	var x1 = username.charAt(0);
-	var x2 = username.charAt(1);
-	return x1 + ' ' + x2;
 }

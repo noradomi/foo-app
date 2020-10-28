@@ -90,3 +90,10 @@
 .custom-scrollbars:hover .track {
   opacity: 1
 }
+
+.demo-loading-container {
+  position: absolute;
+  top: 200px;
+  width: 100%;
+  text-align: center;
+}

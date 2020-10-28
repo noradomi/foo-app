@@ -45,8 +45,9 @@ export function isEmptyString(prop) {
 export function processUsernameForAvatar(username) {
 	if (username === undefined || username === null) return 'P T';
 	else {
-		var x1 = username.charAt(0);
-		var x2 = username.charAt(1);
-		return x1 + ' ' + x2;
+		let words = username.split(' ');
+		const length = words.length;
+		if (length >= 2) return words[length - 2][0] + ' ' + words[length - 1][0];
+		return words[1][0];
 	}
 }

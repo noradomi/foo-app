@@ -1,5 +1,5 @@
 import { CalendarOutlined, CaretRightOutlined, FieldTimeOutlined } from '@ant-design/icons';
-import { Badge, Collapse, List, message } from 'antd';
+import { Badge, Collapse, List, message, Spin } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -51,15 +51,14 @@ function TransactionHistoryList(props) {
 	});
 
 	const handleInfiniteOnLoad = () => {
+		setLoading(true);
 		loadTransactionHistory(20, nextPageToken.current).then((x) => {
 			nextPageToken.current = x;
 			if (x === 0) {
 				message.warning('Đã tải hết lịch sử giao dịch');
-				setLoading(false);
 				setHasMore(false);
-			} else {
-				setLoading(false);
 			}
+			setLoading(false);
 		});
 	};
 
@@ -154,7 +153,14 @@ function TransactionHistoryList(props) {
 											</List.Item>
 										</Badge.Ribbon>
 									)}
-								/>
+								>
+									{loading &&
+									hasMore && (
+										<div className="demo-loading-container">
+											<Spin />
+										</div>
+									)}
+								</List>
 							</Panel>
 						))}
 					</Collapse>

@@ -45,7 +45,7 @@ function Compose(props) {
 		<div className="compose">
 			<TextArea
 				value={text}
-				placeholder={`Nhập @, tin nhắn tới ${props.selectedUserName}`}
+				placeholder={`Nhập tin nhắn tới ${props.selectedUserName}`}
 				onKeyPress={handleKeyPress}
 				onChange={handleOnChange}
 				autoSize={{ minRows: 1, maxRows: 3 }}
@@ -83,8 +83,6 @@ function Compose(props) {
 					setVisible(false);
 				}}
 			/>
-
-			{/* {props.rightItems} */}
 		</div>
 	);
 }

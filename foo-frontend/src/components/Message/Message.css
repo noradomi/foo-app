@@ -60,6 +60,10 @@
   margin-top: 20px;
 }
 
+.message.start .bubble-container .ant-card {
+  margin-top: 20px;
+}
+
 .message.mine .bubble-container .bubble {
   padding: 12px;
   border-radius: 8px;
@@ -72,6 +76,10 @@
 }
 
 .message.mine.start .bubble-container .bubble {
+  margin-top: 20px;
+}
+
+.message.mine.start .bubble-container .ant-card {
   margin-top: 20px;
 }
 
@@ -118,7 +126,7 @@
 .message.transfer .bubble-container .ant-card {
   box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03);
   max-width: 75%;
-  margin-bottom: 7px;
+  margin-top: 3px;
 }
 
 .message.transfer .bubble-container .ant-card .ant-card-body {

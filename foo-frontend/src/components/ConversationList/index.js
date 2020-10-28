@@ -1,5 +1,5 @@
-import { Divider, Empty } from 'antd';
-import React, { useEffect } from 'react';
+import { Divider, Spin } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { connect } from 'react-redux';
 import { getFriendList } from '../../services/load-friend-list';
@@ -8,8 +8,11 @@ import ConversationListItem from '../ConversationListItem';
 import './ConversationList.css';
 
 function ConversationList(props) {
+	const [ loading, setloading ] = useState(true);
 	useEffect(() => {
-		getFriendList();
+		getFriendList().then(() => {
+			setloading(false);
+		});
 	}, []);
 
 	const conversations = props.friendList.map((res) => {
@@ -30,6 +33,11 @@ function ConversationList(props) {
 			<Divider className="user-list-title" orientation="left" plain style={{ color: '#e5e5e5' }}>
 				<span style={{ color: '#000', fontSize: '16px' }}>Bạn ({conversations.length})</span>
 			</Divider>
+			{loading && (
+				<div className="loading-conversation-list">
+					<Spin />
+				</div>
+			)}
 			<div className="conversation-list-scroll">
 				<Scrollbars autoHide autoHideTimeout={500} autoHideDuration={200} className="custom-scrollbars">
 					{conversations.length > 0 ? (
@@ -37,10 +45,7 @@ function ConversationList(props) {
 							<ConversationListItem key={conversation.id} data={conversation} />
 						))
 					) : (
-						<Empty
-							image={Empty.PRESENTED_IMAGE_SIMPLE}
-							description={<span>Bạn chưa kết bạn với ai cả</span>}
-						/>
+						''
 					)}
 				</Scrollbars>
 			</div>

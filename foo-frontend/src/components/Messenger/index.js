@@ -6,17 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logOutAction, setActiveTabKeyAction, setHavingUnseenTransferAction } from '../../actions/fooAction';
 import { wsConnect } from '../../services/chat-single';
+import { getBalace } from '../../services/get-balace';
 import { closeWebSocket, hanldeLogout } from '../../services/logout';
 import { clearStorage, processUsernameForAvatar } from '../../utils/utils';
 import ChatTab from '../ChatTab';
 import ConversationList from '../ConversationList';
+import CustomAvatar from '../CustomAvatar';
 import MessageList from '../MessageList';
 import TransactionHistory from '../TransactionHistory';
 import UserWallet from '../UserWallet';
 import WalletTab from '../WalletTab';
 import WallTransferList from '../WallTransferList';
 import './Messenger.css';
-import CustomAvatar from '../CustomAvatar';
 
 const { Sider, Content } = Layout;
 
@@ -29,6 +30,7 @@ function Messenger(props) {
 
   useEffect(() => {
     wsConnect();
+    getBalace();
   }, [])
 
 	const handleSideBarChange = (e) => {

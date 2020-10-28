@@ -31,7 +31,6 @@ services:
     image: prom/prometheus:latest
     volumes:
       - ./foo-run/foo-monitoring/:/etc/prometheus/
-      # - prometheus_data:/etc/prometheus
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     ports:
@@ -42,8 +41,6 @@ services:
     image: grafana/grafana:6.3.5
     ports:
       - 3000:3000
-    # command:
-    # - -e "GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-piechart-panel"
     environment:
       GF_SECURITY_ADMIN_PASSWORD: secrect
     volumes:

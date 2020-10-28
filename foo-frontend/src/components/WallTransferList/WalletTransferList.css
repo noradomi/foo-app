@@ -6,7 +6,7 @@
   border: 0 solid #f6f6f6;
   background-clip: border-box;
   border-color: transparent;
-  box-shadow: 0 1px 2px -2px rgba(0, 0, 0, .16), 0 3px 6px 0 rgba(0, 0, 0, .12), 0 5px 12px 4px rgba(0, 0, 0, .09);
+  box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 5px 12px 4px rgba(0, 0, 0, 0.09);
   margin-top: 20px;
   border-radius: 10px;
 }
@@ -19,12 +19,12 @@
 
 .wallet-list-card {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.17);
-  border-radius: 15px
+  border-radius: 15px;
 }
 
 .wallet-list-title {
   background: linear-gradient(60deg, #26c6da, #00acc1);
-  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(0, 172, 193, .4);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 172, 193, 0.4);
 
   padding: 15px;
   margin-top: -40px;

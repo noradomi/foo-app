@@ -93,7 +93,7 @@ function ResultStep(props) {
 	);
 	const extra = (
 		<Button type="primary" onClick={onFinish} icon={<ReloadOutlined />}>
-			Giao dịch khác
+			Tiếp tục
 		</Button>
 	);
 

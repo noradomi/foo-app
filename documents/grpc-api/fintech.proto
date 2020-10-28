@@ -8,72 +8,139 @@ option java_multiple_files = true;
 import "fintech/code.proto";
 import "fintech/status.proto";
 
-//  get balance
+// This message defines a request
+// for get user's balance.
+// It's is a EMPTY message
 message GetBalanceRequest {
 }
 
-
+// This message defines a response
+// constains information about user's balance
 message GetBalanceResponse {
+  // This message defines data of this message repsonse
   message Data {
+    // The balance of user
     int64 balance = 1;
+
+    // The last update of balance
     int64 last_updated = 2;
   }
 
+  // The data of reponse
   Data data = 1;
+
+  // The status of response
   Status status = 2;
 }
 
-//  transfer money
+//  This message defines a transfer money request
+//  containing informations: receiver, amount, description and 
+//  confirm password
 message TransferMoneyRequest {
+  //  The confirm password of sender
   string confirm_password = 1;
+
+  // The ID of receiver
   string receiver_id = 2;
+
+  // The money amount of transfer
   int64 amount = 3;
+
+  // The description of transfer
   string description = 4;
 }
 
+
+// This message defines a transfer money response
+// containing new state of sender's balance
+// and information of transfer history
 message TransferMoneyResponse {
+
+  // This message defines data of this response message
   message Data {
+    // The new balance of sender
     int64 balance = 1;
+
+    // The last updated of balance
     int64 last_updated = 2;
+
+    // A transfer history 
     TransactionHistory transaction = 3;
   }
 
+  // The data of response
   Data data = 1;
+  
+  // The status of repsonse
   Status status = 2;
 }
 
-// get transactions history
+// This message define a request for
+// get transactions history 
 message GetHistoryRequest {
+  // The length of transfer history list will get
   int32 page_size = 2;
+
+  // The position for startting get transfer history.
   int32 page_token = 3;
 }
 
+// This message represent a transaction history 
+// in response include information about a transaction  
 message TransactionHistory{
-  string user_id = 1;
-  int64 amount = 2;
-  string description = 3;
-  int64 recorded_time = 4;
+  // The ID of sender or receiver
+  string user_id = 1; 
+
+  // The money amount of transfer
+  int64 amount = 2; 
+
+  // The discription of transfer from sender
+  string description = 3; 
+
+  // The recorded time of transfer
+  int64 recorded_time = 4; 
+
   enum TransferType {
     SEND = 0;
     RECEIVE = 1;
   }
-  TransferType transfer_type = 5;
+
+  // The tye of transfer history
+  TransferType transfer_type = 5; 
 }
 
+//  This message defines a response message
+//  constaining a list of transfer history of user
+//  nexe page token for paging
 message GetHistoryResponse {
+  // This message defines data of this messaage response
   message Data {
+    // A list of transfer history of user
     repeated TransactionHistory items = 1;
+
+    // The next page token for next request
     int32 next_page_token = 2;
   }
 
+  // The data of reponse
   Data data = 1;
+
+  // The status of reponse
   Status status = 2;
 }
 
+// The fintech service definition
 service FintechService {
+  // Recieve a request and return balance of user
+  // Authentication by JWT in header
   rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse) {};
-
+  
+  // Recieve a request and make a transfer money between two users
+  // Return new balance to sender
+  // Authentication by JWT in header
   rpc TransferMoney(TransferMoneyRequest) returns (TransferMoneyResponse) {};
 
+  // Receive a request and return a list of transfer history of user
+  // Authentication by JWT in header
   rpc GetHistory(GetHistoryRequest) returns (GetHistoryResponse) {};
 }

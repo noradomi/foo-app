@@ -24,7 +24,7 @@ function WalletTransferList(props) {
 	return (
 		<Card bordered={false} style={{ margin: '30px' }}>
 			<div className="wallet-list-title">
-				<ProfileFilled /> Danh sách chuyển tiền
+				<ProfileFilled /> Chuyển tiền ngay
 			</div>
 			<div className="wallet-list-scroll">
 				<Scrollbars autoHide autoHideTimeout={500} autoHideDuration={200} className="custom-scrollbars">

@@ -14,31 +14,30 @@ group validate request
   alt password is invalid
   "Server" --> "Sender": INVALID_PASSWORD
   end
+  "Server" -> "Server": validate amount
+  alt amount is invalid
+  "Server" --> "Sender": INVALID_INPUT_MONEY
+  end
   "Server" -> "MySQL": selectUserId(receiverId)
   "MySQL" --> "Server": return user
   "Server" -> "Server": validate receiverId
   alt receiverId is not found
   "Server" --> "Sender": USER_ID_NOT_FOUND
   end
-  "Server" -> "Server": validate amount
-  alt amount is invalid
-  "Server" --> "Sender": INVALID_INPUT_MONEY
-  end
 end
 
 group handle transfer money
   group transfer money transaction
     "Server" -> "MySQL": start transaction
-    activate MySQL
     "Server" -> "MySQL": selectUsersForUpdate(senderId,receiverId)
-    "MySQL" -> "Server": return sender & receiver
+    "MySQL" --> "Server": return sender & receiver
     "Server" -> "Server" : check amount <= sender's balance
     alt  amount > balance
     "Server" --> "Sender": NOT_ENOUGH_MONEY
     end
-    "Server" -> "MySQL" : debit A's balance by amount
+    "Server" -> "MySQL" : decrease A's balance by amount
     "MySQL" --> "Server": ack
-    "Server" -> "MySQL" : credit B's balance by amount
+    "Server" -> "MySQL" : increase B's balance by amount
     "MySQL" --> "Server": ack
     "Server" -> "MySQL" : insert to transfer log
     "MySQL" --> "Server": ack
@@ -46,13 +45,11 @@ group handle transfer money
     "MySQL" --> "Server": ack
     "Server" -> "MySQL" : insert to B's account log
     "MySQL" --> "Server": ack
-    "MySQL" --> "Server": ack
-    "Server" -> "MySQL" : commit
-    deactivate MySQL
-    end
     "Server" -> "Redis": cache transaction history
     "Redis" --> "Server": ack
+    "Server" -> "MySQL" : commit
+    end
     "Server" --> "Sender": return new balance
-    "Server" -> "Receiver" : notify
+    "Server" -> "Receiver" : notify new trasfer
 end
 @enduml

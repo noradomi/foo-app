@@ -19,9 +19,15 @@
 }
 
 .user-list-title {
-
   font-weight: 500;
   padding-left: 10px;
   margin: 20px 0 10px 10px;
   color: #e5e5e5;
+}
+
+.loading-conversation-list {
+  position: absolute;
+  top: 200px;
+  width: 100%;
+  text-align: center;
 }

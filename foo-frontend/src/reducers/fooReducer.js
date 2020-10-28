@@ -205,10 +205,18 @@ function friendListFetched(state, friendList) {
 function receiveMessage(state, data) {
 	let chatMessages = state.chatMessagesHolder.chatMessages;
 	let listMessage = chatMessages.get(data.senderId);
+	let friendList = [ ...state.friendList ];
+	friendList.forEach(function(item, i) {
+		if (item.userId === data.senderId) {
+			friendList.splice(i, 1);
+			friendList.unshift(item);
+		}
+	});
 	listMessage.push(data);
 	return Object.assign({}, state, {
 		chatMessagesHolder: { chatMessages },
-		scrollFlag: !state.scrollFlag
+		scrollFlag: !state.scrollFlag,
+		friendList: friendList
 	});
 }
 
