@@ -5,10 +5,10 @@
 - [Foo App](#foo-app)
   - [1. Tổng quan](#1-tổng-quan)
   - [2. Demo](#2-demo)
-  - [4. Hướng dẫn chạy](#4-hướng-dẫn-chạy)
-  - [5. Document](#5-document)
-  - [6. Tác giả](#6-tác-giả)
-  - [7.Acknowledgments](#7acknowledgments)
+  - [3. Hướng dẫn chạy](#3-hướng-dẫn-chạy)
+  - [4. Document](#4-document)
+  - [5. Tác giả](#5-tác-giả)
+  - [6.Acknowledgments](#6acknowledgments)
 
 ## 1. Tổng quan
 
@@ -38,7 +38,7 @@ Các công nghệ sử dụng:
 
 ![demo](media/demo-fooapp.gif)
 
-## 4. Hướng dẫn chạy
+## 3. Hướng dẫn chạy
 
 - Mọi quá trình để build và thực thi project đã được viết trong file docker-compose.yml. Tại thư mục gốc của repo, chạy lệnh :
 
@@ -50,15 +50,15 @@ docker-compose up --build
 
 - Ứng dụng client sẽ chạy trên port `3006`. Truy cập trình duyệt tại `localhost:3006`.
 
-## 5. Document
+## 4. Document
 
 https://github.com/NoRaDoMi/foo-app/wiki
 
-## 6. Tác giả
+## 5. Tác giả
 
 - PhucVT - ZaloPay Fresher
 
-## 7.Acknowledgments
+## 6.Acknowledgments
 
 - Mr Anh Duc Anh - Principal Software Engineer at ZaloPay
 - Mr Anh Thieu - Senior Software EngineerZaloPay Core Backend
