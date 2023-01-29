@@ -61,6 +61,6 @@ https://github.com/NoRaDoMi/foo-app/wiki
 ## 6.Acknowledgments
 
 - Mr Anh Duc Anh - Principal Software Engineer at ZaloPay
-- Mr Anh Thieu - Senior Software EngineerZaloPay Core Backend
-- Mr Anh Tai - Software EngineerZaloPay Core Backend
-- Mr Anh Toan - Software EngineerZaloPay Core Backend
+- Mr Anh Thieu - Senior Software Engineer at ZaloPay
+- Mr Anh Tai - Software Engineer at ZaloPay
+- Mr Anh Toan - Software Engineer at ZaloPay
